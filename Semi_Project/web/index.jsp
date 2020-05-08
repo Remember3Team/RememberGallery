@@ -7,12 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-123213
-151351351
-513515
-1번 시도 완료
-김경섭 완료 !
 
-하이 난 다슬이야
+<!-- Notice 게시판 Test용 Btn (계연) -->
+	<button onclick="location.href='<%=request.getContextPath() %>'/views/board/notice/noticeListView.jsp">Notice 게시판으로 가자</button>
+	경섭이 발도장 찍고감.
+	깨연이 발도장 찍곡감
+	김다슬 ㅎㅎ.ㄴgg
+
 </body>
 </html>
