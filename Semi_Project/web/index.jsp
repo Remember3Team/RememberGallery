@@ -10,6 +10,6 @@
 <<<<<<< HEAD
 <!-- Notice 게시판 Test용 Btn (계연) -->
 	<button onclick="location.href='<%=request.getContextPath() %>'/views/board/notice/noticeListView.jsp">Notice 게시판으로 가자</button>
-	경섭이 발도장 찍고감
+	경섭이 발도장 찍고감.
 </body>
 </html>
