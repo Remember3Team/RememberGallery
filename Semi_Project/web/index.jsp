@@ -7,10 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-123213
-151351351
-513515
-1번 시도 완료
-계연이 성공하고 갑니다 발도장 쾅
+
+<!-- Notice 게시판 Test용 Btn (계연) -->
+	<button onclick="location.href='<%=request.getContextPath() %>'/views/board/notice/noticeListView.jsp">Notice 게시판으로 가자</button>
 </body>
 </html>
