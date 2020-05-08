@@ -7,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-
 <!-- Notice 게시판 Test용 Btn (계연) -->
 	<button onclick="location.href='<%=request.getContextPath() %>'/views/board/notice/noticeListView.jsp">Notice 게시판으로 가자</button>
 </body>
