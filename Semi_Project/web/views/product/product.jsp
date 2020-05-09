@@ -7,6 +7,7 @@
 <title>Insert title here</title>
   <link rel="stylesheet" href="../css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+     <link rel="img" href="../img/product.jsp">
 </head>
 <body>
 <%@include file="../common/menubar.jsp" %>
