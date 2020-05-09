@@ -7,9 +7,18 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="../../css/bootstrap.css">
 <script src="../../js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="../../js/bootstrap.js"></script>     
+<script type="text/javascript" src="../../js/bootstrap.js"></script>    
+<link rel="stylesheet" href="../../css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
 </head>
 <body>
+<%@include file="../../common/menubar.jsp" %>
+<br clear="both">
+<br>
+<br>
+<br>
+	<div class="container">
+	   
        <form action="<%=request.getContextPath()%>/insert.bo" method="post">
            <div class="form-group">
             	<label for="noti_title">Title</label>
@@ -28,7 +37,6 @@
         	</div>
        </form>
     	<button onclick="goList();">버튼</button>
-    </body>
-   
+   </div>
 </body>
 </html>

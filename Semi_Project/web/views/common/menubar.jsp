@@ -17,7 +17,7 @@
       </div>
                  <ul class = "navi">
                     <li><a href="#">ABOUT</a></li>
-                    <li><a href="views/product/product.jsp">STORE</a></li>
+                    <li><a href="<%= request.getContextPath() %>/views/product/product.jsp">STORE</a></li>
                     <li><a href="#">COMMUNITY</a>
                         <ul>
                             <li><a href="#">아마추어 게시판</a></li>
