@@ -11,8 +11,8 @@
 <body>
 <header id="menu">
        <div id="logo">
-        <a href="index.jsp" class="logo">
-            <img src="views/img/logo-02.png">
+        <a href="<%= request.getContextPath() %>/index.jsp" class="logo">
+            <img src="<%= request.getContextPath() %>/views/img/logo-02.png">
         </a>
       </div>
                  <ul class = "navi">
@@ -33,8 +33,8 @@
                 </ul>
         <!--icon :: 색상변경 또는 없애버리고 메뉴바 만들기-->
         <div id="loginWrap">
-            <a href ="#" class="icon" ><img src="views/img/login2.png"></a>
-            <a href ="#" class="icon"><img src="views/img/search2.png"></a>
+            <a href ="#" class="icon" ><img src="<%= request.getContextPath() %>/views/img/login2.png"></a>
+            <a href ="#" class="icon"><img src="<%= request.getContextPath() %>/views/img/search2.png"></a>
         </div>
       
     </header> 
