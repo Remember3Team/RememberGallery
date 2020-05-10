@@ -9,6 +9,7 @@
  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
+
 <header id="menu">
        <div id="logo">
         <a href="<%= request.getContextPath() %>/index.jsp" class="logo">
@@ -36,8 +37,7 @@
             <a href ="#" class="icon" ><img src="<%= request.getContextPath() %>/views/img/login2.png"></a>
             <a href ="#" class="icon"><img src="<%= request.getContextPath() %>/views/img/search2.png"></a>
         </div>
-      
     </header> 
-
+    <br clear="both">
 </body>
 </html>

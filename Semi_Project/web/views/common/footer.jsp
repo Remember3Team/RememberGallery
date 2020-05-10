@@ -7,8 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+
   <footer>
     "Copyright © 1998-2019 KH Information Educational Institute All Right Reserved"
    </footer>
+
 </body>
 </html>
