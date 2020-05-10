@@ -96,9 +96,9 @@
 					</div>
 					<div>
 						<button id="detail" onclick="location.href=''">상세보기</button>
-						<!-- view구현 할 사람 여기 사용 -->
+						<!-- 상세정보보기로 이동 -->
 						<button id="book" onclick="location.href='moviePay.mo'">구매하기</button>
-						<!-- 영화 리스트에서 view연결 할 사람 여기로 -->
+						<!-- 구매페이지로이동-->
 					</div></li>
 				<li class="rank"><img class="rimage"
 					src="${contextPath }/resources/images/slide2.jpg"
