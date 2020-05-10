@@ -20,11 +20,14 @@
 </head>
 <body>
 <!-- Navigation에서 Notice>공지사항 눌렀을 때 나오는 페이지 (계연) -->
+<%@include file="../../common/menubar.jsp" %>
+
 	<%@include file="../../common/menubar.jsp" %>
 	<br clear="both">
 	<br>
 	<br>
 	<div id="noticeCorner" class="containter">
+	<div id="noticeList" class="row">
 		<ul id="subnav" class="nav flex-column">
 		  <li class="nav-item">
 		    <a class="nav-link active" href="noticeBoard.jsp">공지사항</a>
@@ -33,7 +36,6 @@
 		    <a class="nav-link" href="../inquiry/inquiryBoard.jsp">1:1문의</a>
 		  </li>
 		</ul>
-	<div id="noticeList" class="row">
 			<div class="col-sm-6">
 			
 				<table class="table table-hover">
