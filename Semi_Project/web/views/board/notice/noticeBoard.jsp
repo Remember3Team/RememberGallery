@@ -13,8 +13,9 @@
 
  <style>
  	#insertNotice{ float:right; margin-right:100px; }
- 	#noticeList div{ margin:0 auto; }
+ 	#noticeList div{margin: 0 auto;}
  	#noticeCorner {margin-top:40px;} 
+	#subnav{ float: left; margin-left:20px;}
  </style>
 </head>
 <body>
@@ -24,52 +25,92 @@
 	<br>
 	<br>
 	<div id="noticeCorner" class="containter">
-			<div class="page-header">
-	   			<h1> 공지사항 </h1>
-	   			<h3> 공지사항 게시판입니다.</h2>
-	   		</div>
+		<ul id="subnav" class="nav flex-column">
+		  <li class="nav-item">
+		    <a class="nav-link active" href="noticeBoard.jsp">공지사항</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" href="../inquiry/inquiryBoard.jsp">1:1문의</a>
+		  </li>
+		</ul>
 	<div id="noticeList" class="row">
-		<div class="col-sm-6">
-		
-			<table class="table table-hover">
-		  		<thead>
-		    		<tr>
-		      			<th>게시글 번호</th>
-		      			<th>내용</th>
-		      			<th>작성자</th>
-		      			<th>작성일</th>
-		    		</tr>
-		  		</thead>
-		  		<tbody>
-		    		<tr>
-		      			<td>1</td>
-		      			<td>사이트 이용 문의 안내입니다.</td>
-		      			<td>관리자</td>
-		      			<td>2020-03-24</td>
-		    		</tr>
-		    		<tr>
-		      			<td>2</td>
-		      			<td>4월의 작품 선정 결과(메인페이지 참고)</td>
-		      			<td>관리자</td>
-		      			<td>2020-05-01</td>
-		    		</tr>
-		    		<tr>
-		      			<td>3</td>
-		      			<td>3월의 작품 선정 결과(메인페이지 참고)</td>
-		      			<td>관리자</td>
-		      			<td>2020-04-01</td>
-		    		</tr>
-		    		<tr>
-		    			<td>4</td>
-		      			<td>2월의 작품 선정 결과(메인페이지 참고)</td>
-		      			<td>관리자</td>
-		      			<td>2020-03-01</td>
-		    		</tr>
-		  		</tbody>
-			</table>
+			<div class="col-sm-6">
+			
+				<table class="table table-hover">
+			  		<thead>
+			    		<tr>
+			      			<th>게시글 번호</th>
+			      			<th>내용</th>
+			      			<th>작성자</th>
+			      			<th>작성일</th>
+			    		</tr>
+			  		</thead>
+			  		<tbody>
+			    		<tr>
+			      			<td>1</td>
+			      			<td  onclick="location.href='noticeDetail.jsp'">사이트 이용 문의 안내입니다.</td>
+			      			<td>관리자</td>
+			      			<td>2020-03-24</td>
+			    		</tr>
+			    		<tr>
+			      			<td>2</td>
+			      			<td>4월의 작품 선정 결과(메인페이지 참고)</td>
+			      			<td>관리자</td>
+			      			<td>2020-05-01</td>
+			    		</tr>
+			    		<tr>
+			      			<td>3</td>
+			      			<td>3월의 작품 선정 결과(메인페이지 참고)</td>
+			      			<td>관리자</td>
+			      			<td>2020-04-01</td>
+			    		</tr>
+			    		<tr>
+			    			<td>4</td>
+			      			<td>2월의 작품 선정 결과(메인페이지 참고)</td>
+			      			<td>관리자</td>
+			      			<td>2020-03-01</td>
+			    		</tr>
+			    		<tr>
+			    			<td>5</td>
+			      			<td>2월의 작품 선정 결과(메인페이지 참고)</td>
+			      			<td>관리자</td>
+			      			<td>2020-03-01</td>
+			    		</tr>
+			    		<tr>
+			    			<td>6</td>
+			      			<td>2월의 작품 선정 결과(메인페이지 참고)</td>
+			      			<td>관리자</td>
+			      			<td>2020-03-01</td>
+			    		</tr>
+			    		<tr>
+			    			<td>7</td>
+			      			<td>2월의 작품 선정 결과(메인페이지 참고)</td>
+			      			<td>관리자</td>
+			      			<td>2020-03-01</td>
+			    		</tr>
+			    		<tr>
+			    			<td>8</td>
+			      			<td>2월의 작품 선정 결과(메인페이지 참고)</td>
+			      			<td>관리자</td>
+			      			<td>2020-03-01</td>
+			    		</tr>
+			    		<tr>
+			    			<td>9</td>
+			      			<td>2월의 작품 선정 결과(메인페이지 참고)</td>
+			      			<td>관리자</td>
+			      			<td>2020-03-01</td>
+			    		</tr>
+			    		<tr>
+			    			<td>10</td>
+			      			<td>2월의 작품 선정 결과(메인페이지 참고)</td>
+			      			<td>관리자</td>
+			      			<td>2020-03-01</td>
+			    		</tr>
+			  		</tbody>
+				</table>
+			</div>
 		</div>
-	
-	</div>
+		
 		<div style="text-align:center;">
 			<div class="col-mid-12">
 				 <ul class="pagination justify-content-center" style="margin:20px 0">
