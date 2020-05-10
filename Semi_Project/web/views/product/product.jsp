@@ -95,9 +95,9 @@
 						<p>그림1</p>
 					</div>
 					<div>
-						<button id="detail" onclick="location.href=''">상세보기</button>
+						<button id="detail" onclick="location.href='<%=request.getContextPath()%>/views/product/productdetail.jsp'">상세보기</button>
 						<!-- 상세정보보기로 이동 -->
-						<button id="book" onclick="location.href='moviePay.mo'">구매하기</button>
+						<button id="book" onclick="location.href='<%=request.getContextPath()%>/views/product/productpay.jsp'">구매하기</button>
 						<!-- 구매페이지로이동-->
 					</div></li>
 				<li class="rank"><img class="rimage"
