@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <!-- link rel="stylesheet" href="../css/style.css" -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/bootstrap.css">
   
@@ -41,7 +41,6 @@
 <body>
 
 <%@include file="../common/menubar.jsp" %>
-<br clear="both"><br>
 
        <h1 align="center">미술품 판매(가제)</h1>
 

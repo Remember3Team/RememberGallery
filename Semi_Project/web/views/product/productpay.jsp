@@ -36,7 +36,6 @@
 </style>
 <body>
 <%@include file="../common/menubar.jsp" %>
-<br clear="both"><br>
 <table class="table">
   <thead>
     <tr>

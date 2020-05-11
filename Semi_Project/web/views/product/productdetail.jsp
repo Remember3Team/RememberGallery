@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../css/style.css">
+<!-- link rel="stylesheet" href="../css/style.css"-->
 <link
 	href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
 	rel="stylesheet">
@@ -36,6 +36,7 @@
 }
 
 #simulationMain {
+	position : relative;<!--안에 이미지에 대한 기준-->
 	border: solid 1px;
 	display: inline-block;
 	width: 369px;
@@ -99,8 +100,6 @@ border: solid 1px;
 </head>
 <body>
 	<%@include file="../common/menubar.jsp"%>
-	<br clear="both">
-	<br>
 	<div id="sumnailimage">
 		<img src="${ contextPath }/resources/uploadFiles/${row.edit_name}"
 			style="width: 528px; height: 507px;">

@@ -18,8 +18,8 @@ a{
     list-style-type: none;
 }
 
-header{
-    position: fixed;
+header#menu{
+    position: sticky;
     width : 100%;
     top : 0;
     left : 0;
@@ -74,10 +74,9 @@ header{
 
 .navi > li > ul {
     position: absolute;
-    width : 200px;
+    width : 100%;
     top : 61px;
     left: 50%;
-    height: 0;
     opacity: 1;
     transform: translateX(-50%);
     /* background-color: rgba(0, 0, 0, 0.637); */
@@ -94,15 +93,13 @@ header{
 
 .navi > li > ul > li {
     padding : 15px;
-    width : 170px;
-    height : 0;
+    width : 100%;
     opacity: 0;
     background-color: rgba(0, 0, 0, 0.788);
 }
 
 .navi > li:hover > ul > li {
     opacity: 1;
-    height:21px;
 }
 
 .navi > li:hover > ul > li > a {

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>메뉴바</title>
- <link rel="stylesheet" href="views/css/style.css">
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/style.css">
  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
