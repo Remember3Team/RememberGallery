@@ -34,7 +34,7 @@
                 </ul>
         <!--icon :: 색상변경 또는 없애버리고 메뉴바 만들기-->
         <div id="loginWrap">
-            <a href ="#" class="icon" ><img src="<%= request.getContextPath() %>/views/img/login2.png"></a>
+            <a href ="#" class="icon"><img src="<%= request.getContextPath() %>/views/img/login2.png"></a>
             <a href ="#" class="icon"><img src="<%= request.getContextPath() %>/views/img/search2.png"></a>
         </div>
     </header> 
