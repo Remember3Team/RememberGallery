@@ -27,7 +27,7 @@
                     </li>
                     <li><a href="#">NOTICE</a>
                         <ul>
-                            <li><a href="<%=request.getContextPath()%>/views/board/notice/noticeBoard.jsp">공지사항</a></li>
+                            <li><a href="<%=request.getContextPath()%>/list.no">공지사항</a></li>
                             <li><a href="<%= request.getContextPath() %>/views/inquiry/inquiryBoard.jsp">1:1문의</a></li>
                         </ul>    
                     </li>

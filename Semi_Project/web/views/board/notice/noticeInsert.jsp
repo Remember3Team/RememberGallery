@@ -23,7 +23,7 @@
 </div>
 	<div class="container">
 	   
-       <form action="<%=request.getContextPath()%>/views/board/notice/noticeBoard.jsp" method="post">
+       <form action="<%=request.getContextPath()%>/insert.no" method="post">
            <div class="form-group">
             	<label for="noti_title">Title</label>
             	<input type="text" class="form-control" name="noti_title" id="noti_title" placeholder="Enter Title">
@@ -33,18 +33,12 @@
             	<textarea class="form-control" rows="10" name="notice" id="notice"></textarea>
         	</div>
         	<div class="form-group">
-            	<label for="File">File Input</label>
-            	<input type="file" id="File">
-        	</div>
-        	<div class="form-group">
-            	<input type="submit" id="submit" class="btn btn-secondary" value="등록하기" onclick="goNotice();">&nbsp;
+            	<input type="submit" onclick="goList();" id="submit" class="btn btn-secondary" value="등록하기" onclick="goNotice();">&nbsp;
             	<input type="reset" class="btn btn-secondary" value="다시쓰기">
         	</div>
        </form>
        <script>
-       		function goNotice(){
-       			document.getElementById('submit').style.display='block';
-       		}
+       		
        </script>
 
    </div>
