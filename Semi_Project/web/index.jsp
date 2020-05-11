@@ -10,7 +10,5 @@
 	<%@include file="views/common/menubar.jsp" %>
 	<%@include file="views/main/main.jsp" %>
 	<%@include file="views/common/footer.jsp" %>
-	
-안녕하세요!
 </body>
 </html>

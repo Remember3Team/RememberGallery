@@ -77,11 +77,12 @@
                 <tr>
                     <td></td>
                     <td></td>
-                    <td><button type="submit" id="submit">검색</button></td>
+                    <td><button type="submit" id="submit" class="btn btn-dark">검색</button></td>
                     <td></td>
                 </tr>
             </table>
         </form>
+        
         </div>
         <p class="h3">전체</p>
         <br clear="both">
