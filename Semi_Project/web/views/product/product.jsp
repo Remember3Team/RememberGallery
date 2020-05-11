@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <!-- link rel="stylesheet" href="../css/style.css" -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/bootstrap.css">
   
@@ -41,7 +41,6 @@
 <body>
 
 <%@include file="../common/menubar.jsp" %>
-<br clear="both"><br>
 
        <h1 align="center">미술품 판매(가제)</h1>
 
@@ -77,11 +76,12 @@
                 <tr>
                     <td></td>
                     <td></td>
-                    <td><button type="submit" id="submit">검색</button></td>
+                    <td><button type="submit" id="submit" class="btn btn-dark">검색</button></td>
                     <td></td>
                 </tr>
             </table>
         </form>
+        
         </div>
         <p class="h3">전체</p>
         <br clear="both">
@@ -95,9 +95,9 @@
 						<p>그림1</p>
 					</div>
 					<div>
-						<button id="detail" onclick="location.href=''">상세보기</button>
+						<button id="detail" onclick="location.href='<%=request.getContextPath()%>/views/product/productdetail.jsp'">상세보기</button>
 						<!-- 상세정보보기로 이동 -->
-						<button id="book" onclick="location.href='moviePay.mo'">구매하기</button>
+						<button id="book" onclick="location.href='<%=request.getContextPath()%>/views/product/productpay.jsp'">구매하기</button>
 						<!-- 구매페이지로이동-->
 					</div></li>
 				<li class="rank"><img class="rimage"
