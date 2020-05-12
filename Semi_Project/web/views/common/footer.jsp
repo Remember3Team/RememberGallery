@@ -6,10 +6,17 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	body {
+	margin : 0;}
+
 	.footer{
+	
+	padding : 20px 0;
+    text-align: center;
 	background-color: black;
 	color : white;
 	}
+	
 </style>
 </head>
 <body>
