@@ -112,4 +112,32 @@ public class NoticeDao {
 		return list;
 	}
 
+	public Notice selectNotice(Connection conn, int noti_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Notice n = null;
+		
+		String query = "SELECT * FROM BOARD WHERE NOTI_NO=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, noti_no);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				n = new Notice(rset.getInt("noti_no"),
+							   rset.getString("noti_title"),
+							   rset.getString("noti_cate"),
+							   rset.getDate("noti_date"),
+							   rset.getString("notice"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return n;
+	}
+
 }
