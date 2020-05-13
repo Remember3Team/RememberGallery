@@ -5,17 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <link rel="stylesheet" href="../css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/bootstrap.css">
-  
-<script src="../js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="../js/bootstrap.js"></script> 
+   <link rel="stylesheet" href="views/css/style.css">
+   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
 
    <section>
-       <div id ="contents" >
+       <div id ="contents">
         <div class="part1">
             <div class="slide">
                 <h1 align="center">REMEMBER ART</h1>

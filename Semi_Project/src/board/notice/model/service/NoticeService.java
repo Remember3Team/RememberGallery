@@ -38,15 +38,4 @@ public class NoticeService {
 		return list;
 	}
 
-	public Notice selectNotice(int noti_no) {
-		Connection conn = getConnection();
-		NoticeDao nDao = new NoticeDao();
-		
-		//Notice에는 조회수를 따로 Count하지 않는다.(다른 게시판은 별도)
-		
-		Notice n = nDao.selectNotice(conn,noti_no);
-
-		return n;
-	}
-
 }

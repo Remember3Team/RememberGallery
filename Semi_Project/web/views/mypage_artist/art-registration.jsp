@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>art-registration</title>
 </head>
-<link rel="stylesheet" href="../css/Style-ar.css">
+ <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/Style-ar.css">
 
 <body>
 <%@include file="../common/menubar.jsp" %>
@@ -18,6 +18,7 @@
         <h3>상품 등록</h3>
         <hr>
     </div>
+    
 
     <div class="container">
         <form action="<%=request.getContextPath()%>/insert.th" method="post" encType="multipart/form-data">
@@ -37,7 +38,7 @@
 
                     <div class="info-box3">
                         <label class="labelfirst">테마</label>
-                        <select name="select-thema">
+                        <select class="select-thema" name="select-thema">
                             <option value="풍경">풍경</option>
                             <option value="인물">인물</option>
                             <option value="정물">정물</option>
@@ -57,7 +58,19 @@
                     </div>
 
                     <div class="info-box6">
-                        <label class="labelfirst">태그</label><input class="tag" type="text" name="tag">
+                        <label class="labelfirst">태그</label>
+                        <!-- <input class="tag" type="text" name="tag"> -->
+                        <select class = "tag-select">
+                        	<option value = "우아한">우아한</option>
+                        	<option value = "생동감있는">생동감 있는</option>
+                        	<option value = "컬러풀한">컬러풀한</option>
+                        	<option value = "서정적인">서정적인</option>
+                        	<option value = "동적인">동적인</option>
+                        	<option value = "무드있는">무드있는</option>
+                        	<option value = "정교한">정교한</option>
+                        	<option value = "따뜻한">따뜻한</option>
+                        	<option value = "신선한">신선한</option>
+                        </select>
                         <button class="tag-button">취소</button>
                          <button class="tag-button" type="button" style="margin-right: 5px;">태그추가</button>
                         <div id="tag-area" style="margin-left:87px; margin-top:10px; width=473px; height=30px"></div>
