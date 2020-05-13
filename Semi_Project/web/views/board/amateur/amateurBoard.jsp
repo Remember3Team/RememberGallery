@@ -158,7 +158,7 @@
 	</div>
       <!-- /.col-lg-9 -->
       
-     <button id="insertAma" type="button active" class="btn btn-secondary" onclick="location.href='<%=request.getContextPath()%>/views/board/amateur/amateurDetail.jsp'">게시글 작성</button>
+     <button id="insertAma" type="button active" class="btn btn-secondary" onclick="location.href='<%=request.getContextPath()%>/views/board/amateur/amateurInsert.jsp'">게시글 작성</button>
       
 
 <%@include file="../../common/footer.jsp" %>

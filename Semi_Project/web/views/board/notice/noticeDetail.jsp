@@ -21,8 +21,6 @@
 </head>
 <body>
 <%@include file="../../common/menubar.jsp" %>
-<br clear="both">
-<br><br><br><br>
 		<ul id="subnav" class="nav flex-column">
 		  <li class="nav-item">
 		    <a class="nav-link active" href="noticeBoard.jsp">공지사항</a>
@@ -31,11 +29,10 @@
 		    <a class="nav-link" href="../inquiry/inquiryBoard.jsp">1:1문의</a>
 		  </li>
 		</ul>
-	<div class="noticeDetail" class="row">
+	<div id="noticeDetail" class="row">
 		<div class="cols-sm-6">
 			
-			
-			<table align="center" class="table" id="listArea">
+			<table align="center" class="table">
 				<tr>
 					<td>제목</td>
 					<td colspan="4"><span><%=n.getNoti_title() %></span></td>

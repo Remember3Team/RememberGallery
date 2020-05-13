@@ -5,24 +5,24 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/style.css">
  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
- <link rel="stylesheet" href="../../css/bootstrap.css">
-<script src="../../js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="../../js/bootstrap.js"></script>    
-
+ <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/bootstrap.css">
+<script src="<%=request.getContextPath() %>/views/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/views/js/bootstrap.js"></script>    
+<style>
+	#detailArea div{ margin:0 auto; margin-top:100px; width:80%;}
+</style>
 </head>
 <body>
+<!-- header -->
 <%@include file="../../common/menubar.jsp" %>
-<br clear="both">
-<br><br><br>
 
 <body>
- <div class="container">
-         <div class="row">
-
+ 	 <div class="container"> 
+         <div class="row" id="detailArea">
             <div class="cols-sm-6">
-               <table class="table table-hover" id="listArea">
+               <table align="center" class="table">
                   <tr>
                      <td>제목</td>
                      <td colspan="4"><span>안녕하세요</span></td>
@@ -45,16 +45,14 @@
                      </td>
                   </tr>
                </table>
-               
-            </div>
-         </div>
-         
-      </div>
-
-           <script type="text/javascript" src="js/bootstrap.js"></script>
+            </div><!-- cols-sm-6 div end -->
+         </div><!-- row div end -->
+       </div>
+ 
+		<button id="goAmateurBoard" type="button active" class="btn btn-secondary" onclick="location.href='<%=request.getContextPath()%>/views/board/amateur/amateurBoard.jsp'">목록으로 가기</button>
    </body>
-<button id="goAmateurBoard" type="button active" class="btn btn-secondary" onclick="location.href='<%=request.getContextPath()%>/views/board/amateur/amateurBoard.jsp'">목록으로 가기</button>
-	
+
+<!-- footer -->	
 <%@include file="../../common/footer.jsp" %>
 
 </body>

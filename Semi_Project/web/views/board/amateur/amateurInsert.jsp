@@ -10,16 +10,21 @@
 <script type="text/javascript" src="../../js/bootstrap.js"></script>    
 <link rel="stylesheet" href="../../css/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+<style>
+#InsertArea{  margin-bottom:200px;}
+#amateurHeader{ background:white; }
+</style>
 </head>
 <body>
-<%@include file="../../common/menubar.jsp" %>
+	<!-- header -->
+	<%@include file="../../common/menubar.jsp" %>
 
-<div id="submit" onload="add();" class="alert alert-success alert-dismissible" style="display:none;">
-	<button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Success!</strong> 성공적으로 등록되었습니다.
-</div>
-	<div class="container">
-	   
+	
+	<div class="container" id="InsertArea">	
+	   <div id="amateurHeader" class="jumbotron text-center">
+	   		<h1>아마추어 게시판 글 등록 페이지</h1>
+	   		<p>당신도 아티스트가 될 수 있습니다.</p>
+	   </div>   
        <form action="<%=request.getContextPath()%>/insert.no" method="post">
            <div class="form-group">
             	<label for="noti_title">Title</label>
@@ -30,15 +35,37 @@
             	<textarea class="form-control" rows="10" name="notice" id="notice"></textarea>
         	</div>
         	<div class="form-group">
-            	<input type="submit" onclick="goList();" id="submit" class="btn btn-secondary" value="등록하기" onclick="goNotice();">&nbsp;
+            	<input type="submit" class="btn btn-secondary" value="등록하기" onclick="goNotice();">&nbsp;
             	<input type="reset" class="btn btn-secondary" value="다시쓰기">
         	</div>
+        	<div class="form-group">
+        		<div id="amateurFile">
+        			<img id="amateurFile" width="100" height="100">
+        		</div>
+        	</div>
+        	<div id="fileArea">
+        		<intput type="file" id="file1" name="file1" onchange="LoadImg(this);">
+        	</div>
        </form>
-       <script>
-       		
-       </script>
-
    </div>
-   
+   <script>
+   	$(function(){
+   		$("#fileArea").hide();
+   		$("#amateurFile").click(function(){
+   			$("file1").click();
+   		})
+   	})
+   	function LoadImg(value,num){
+   		if(value.files && value.files[0]){
+   			var reader = new FileReader();
+   			reader.onload = function(e){
+   				$("file1").attr("src",e.target.result);
+   			}
+   		}
+   		reader.readAsDataURL(value.files[0]);
+   	}
+   </script>
+    <!-- footer -->
+	<%@include file="../../common/footer.jsp" %>
 </body>
 </html>
