@@ -19,7 +19,7 @@
 </style>
 </head>
 <body>
-<%@include file="../../common/menubar.jsp" %>
+	<%@include file="../../common/menubar.jsp" %>
 <br clear="both">
 <br><br><br>
 	<div class="container">
@@ -34,7 +34,7 @@
 
         <div class="row">
 
-          <div id="goDetail" class="col-lg-4 col-md-6 mb-4" onclick="location.href='<%=request.getContextPath()%>/views/board/amateur/amateurDetail.jsp'">
+          <div id="goDetail" class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
               <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
               <div class="card-body">
@@ -157,9 +157,10 @@
 	
 	</div>
       <!-- /.col-lg-9 -->
+
       
-     <button id="insertAma" type="button active" class="btn btn-secondary" onclick="location.href='<%=request.getContextPath()%>/views/board/amateur/amateurDetail.jsp'">게시글 작성</button>
-      
+     <button id="insertAma" type="button active" class="btn btn-secondary" onclick="location.href='<%=request.getContextPath()%>/views/board/amateur/amateurInsert.jsp'">게시글 작성</button>
+
 
 <%@include file="../../common/footer.jsp" %>
 

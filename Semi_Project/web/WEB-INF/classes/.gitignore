@@ -1,10 +1,15 @@
 <<<<<<< HEAD
+=======
 /common/
 /member/
-=======
+>>>>>>> refs/remotes/origin/master
 /board/
 /common/
+/member/
 /product/
 /sql/
+<<<<<<< HEAD
+=======
+/artistapply/
 >>>>>>> refs/remotes/origin/master
 /artistapply/

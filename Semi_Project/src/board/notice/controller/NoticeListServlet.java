@@ -97,7 +97,6 @@ public class NoticeListServlet extends HttpServlet {
 			request.setAttribute("pi", pi);
 		}else {
 			System.out.println("게시글 조회 실패");
-			view = request.getRequestDispatcher("views/board/notice/noticeBoard.jsp");
 		}
 		view.forward(request,response);
 	}

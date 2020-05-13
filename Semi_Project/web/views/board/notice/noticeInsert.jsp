@@ -10,19 +10,19 @@
 <script type="text/javascript" src="../../js/bootstrap.js"></script>    
 <link rel="stylesheet" href="../../css/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+<style>
+	#insertArea{ margin-bottom:200px}
+	#noticeHeader{ background:white; }
+</style>
 </head>
 <body>
+<!-- header -->
 <%@include file="../../common/menubar.jsp" %>
-<br clear="both">
-<br>
-<br>
-<br>
-<div id="submit" onload="add();" class="alert alert-success alert-dismissible" style="display:none;">
-	<button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Success!</strong> 성공적으로 등록되었습니다.
-</div>
-	<div class="container">
-	   
+
+	<div id="insertArea" class="container">
+	   <div id="noticeHeader" class="jumbotron text-center">
+	   		<h1>공지사항 글 등록 페이지(관리자)</h1>
+	   </div> 
        <form action="<%=request.getContextPath()%>/insert.no" method="post">
            <div class="form-group">
             	<label for="noti_title">Title</label>
@@ -42,6 +42,8 @@
        </script>
 
    </div>
+   <!-- footer -->
+   <%@include file="../../common/footer.jsp" %>
    
 </body>
 </html>

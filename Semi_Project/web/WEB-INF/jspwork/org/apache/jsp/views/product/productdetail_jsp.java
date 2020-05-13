@@ -3,6 +3,7 @@
  * Version: Apache Tomcat/8.5.54
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
  * Generated at: 2020-05-11 04:50:37 UTC
 =======
  * Generated at: 2020-05-11 04:04:38 UTC
@@ -11,8 +12,13 @@
 <<<<<<< HEAD
  * Generated at: 2020-05-13 02:44:43 UTC
 =======
- * Generated at: 2020-05-12 04:30:33 UTC
+=======
 >>>>>>> refs/remotes/origin/master
+ * Generated at: 2020-05-12 04:30:33 UTC
+<<<<<<< HEAD
+>>>>>>> refs/remotes/origin/master
+>>>>>>> refs/remotes/origin/master
+=======
 >>>>>>> refs/remotes/origin/master
  * Note: The last modified time of this file was set to
  *       the last modified time of the source file after
@@ -36,6 +42,7 @@ public final class productdetail_jsp extends org.apache.jasper.runtime.HttpJspBa
   static {
     _jspx_dependants = new java.util.HashMap<java.lang.String,java.lang.Long>(2);
 <<<<<<< HEAD
+<<<<<<< HEAD
     _jspx_dependants.put("/views/product/../common/menubar.jsp", Long.valueOf(1589172010980L));
     _jspx_dependants.put("/views/product/../common/footer.jsp", Long.valueOf(1589172011286L));
 =======
@@ -43,9 +50,14 @@ public final class productdetail_jsp extends org.apache.jasper.runtime.HttpJspBa
     _jspx_dependants.put("/views/product/../common/menubar.jsp", Long.valueOf(1589175280784L));
     _jspx_dependants.put("/views/product/../common/footer.jsp", Long.valueOf(1589104100954L));
 =======
+=======
+>>>>>>> refs/remotes/origin/master
     _jspx_dependants.put("/views/product/../common/menubar.jsp", Long.valueOf(1589175904969L));
     _jspx_dependants.put("/views/product/../common/footer.jsp", Long.valueOf(1589256769211L));
+<<<<<<< HEAD
 >>>>>>> refs/remotes/origin/master
+>>>>>>> refs/remotes/origin/master
+=======
 >>>>>>> refs/remotes/origin/master
   }
 

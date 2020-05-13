@@ -17,7 +17,7 @@
 <br clear="both">
 <br><br><br>
 
-<h1>1대1문의 게시판입니다.</h1>
+
 <%@include file="../../common/footer.jsp" %>
 
 </body>
