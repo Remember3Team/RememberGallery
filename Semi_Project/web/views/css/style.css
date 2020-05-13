@@ -6,6 +6,16 @@
     z-index:0;
 }
 
+body {
+	margin : 0;
+}
+
+#contents{
+	postion:relative;
+	
+}
+
+
 
 
 ul,li,a{
@@ -28,6 +38,7 @@ header#menu{
     left : 0;
     background-color: #000;
     z-index:99;
+
 }
 
 #logo{
