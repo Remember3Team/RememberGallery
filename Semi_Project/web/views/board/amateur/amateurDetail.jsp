@@ -17,9 +17,42 @@
 <br clear="both">
 <br><br><br>
 
-<h1>아마추어 게시판 상세글 보기 게시판입니다.</h1>
+<body>
+ <div class="container">
+         <div class="row">
 
+            <div class="cols-sm-6">
+               <table class="table table-hover" id="listArea">
+                  <tr>
+                     <td>제목</td>
+                     <td colspan="4"><span>안녕하세요</span></td>
+                  </tr>
+                  <tr>
+                     <td>작성자</td>
+                     <td><span>김계연</span></td>
+                     
+                     <td>작성일</td>
+                     <td><span>2020-02-04</span></td>
+                  </tr>
+                  <tr>
+                     <td colspan="4"><span>내용</span></td>
+                  </tr>
+                  <tr>
+                     <td colspan="4">
+                        <p>
+                           내용입니다.
+                        </p>
+                     </td>
+                  </tr>
+               </table>
+               
+            </div>
+         </div>
+         
+      </div>
 
+           <script type="text/javascript" src="js/bootstrap.js"></script>
+   </body>
 <button id="goAmateurBoard" type="button active" class="btn btn-secondary" onclick="location.href='<%=request.getContextPath()%>/views/board/amateur/amateurBoard.jsp'">목록으로 가기</button>
 	
 <%@include file="../../common/footer.jsp" %>

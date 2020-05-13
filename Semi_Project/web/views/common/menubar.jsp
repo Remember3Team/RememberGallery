@@ -11,6 +11,7 @@
 <body>
 
 <header id="menu">
+
        <div id="logo">
         <a href="<%= request.getContextPath() %>/index.jsp" class="logo">
             <img src="<%= request.getContextPath() %>/views/img/logo-02.png">
@@ -18,7 +19,8 @@
       </div>
                  <ul class = "navi">
                     <li><a href="#">ABOUT</a></li>
-                    <li><a href="<%= request.getContextPath() %>/views/product/product.jsp">STORE</a></li>
+                    <!-- <li><a href="<%= request.getContextPath() %>/views/product/product.jsp">STORE</a></li> -->
+                    <li><a href="<%= request.getContextPath() %>/list.po">STORE</a></li>
                     <li><a href="#">COMMUNITY</a>
                         <ul>
                             <li><a href="<%= request.getContextPath() %>/views/board/amateur/amateurBoard.jsp">아마추어 게시판</a></li>
@@ -34,9 +36,12 @@
                 </ul>
         <!--icon :: 색상변경 또는 없애버리고 메뉴바 만들기-->
         <div id="loginWrap">
-            <a href ="#" class="icon" ><img src="<%= request.getContextPath() %>/views/img/login2.png"></a>
+            <a href ="<%= request.getContextPath() %>/views/mypage_artist/product_management.jsp" class="icon"><img src="<%= request.getContextPath() %>/views/img/login2.png"></a>
+          <!--마이페이지로 넘어가는부분 잠시 수정 -->
             <a href ="#" class="icon"><img src="<%= request.getContextPath() %>/views/img/search2.png"></a>
         </div>
+        
+
     </header> 
     <br clear="both">
 </body>

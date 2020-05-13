@@ -15,15 +15,15 @@ import board.notice.model.vo.Notice;
 public class NoticeDao {
 
 	//공통 특성인 Properties 사용부분 생성자로 명시
-	Properties prop = new Properties();
-	public NoticeDao() {
-		String fileName = NoticeDao.class.getResource("/sql/driver.properties").getPath();
-		try {
-			prop.load(new FileReader(fileName));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+//	Properties prop = new Properties();
+//	public NoticeDao() {
+//		String fileName = NoticeDao.class.getResource("/sql/driver.properties").getPath();
+//		try {
+//			prop.load(new FileReader(fileName));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
 	
 	public int insertNotice(Connection conn, Notice noticeBoard) {
 		PreparedStatement pstmt = null;

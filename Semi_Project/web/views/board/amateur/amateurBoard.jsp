@@ -13,7 +13,9 @@
 <style>
 	#subnav{ float: left; margin-left:20px;}
 	#goDetail{z-index:4;}
-	.container{margin-top:10px;}
+	.container{
+	position : relative;
+	margin-top:10px;}
 </style>
 </head>
 <body>
@@ -156,7 +158,7 @@
 	</div>
       <!-- /.col-lg-9 -->
       
-     <button id="insertAma" type="button active" class="btn btn-secondary" onclick="location.href='<%=request.getContextPath()%>/views/board/amateur/amateurInsert.jsp'">게시글 작성</button>
+     <button id="insertAma" type="button active" class="btn btn-secondary" onclick="location.href='<%=request.getContextPath()%>/views/board/amateur/amateurDetail.jsp'">게시글 작성</button>
       
 
 <%@include file="../../common/footer.jsp" %>
