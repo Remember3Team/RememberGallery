@@ -91,15 +91,15 @@
                     <div class="img-box">
                         <label class="labelsecond">대표 이미지</label>
                         <div class="img-upload1">
-                            <label for="file">파일 첨부하기</label>
-                            <input type="file" id="thumbnailImg" multiple="multiple" name="thumnailImg">
+                            <label for="thumbnailImg">파일 첨부하기</label>
+                            <input type="file" id="thumbnailImg" multiple="multiple" name="thumbnailImg">
                         </div>
                     </div>
                     <hr style="margin-bottom:30px;">
                     <div class="img-box2">
                         <label class="labelsecond">추가 이미지<br>0/5</label>
                         <div class="img-upload2">
-                            <label for="file" >파일 첨부하기</label>
+                            <label for="a-img" >파일 첨부하기</label>
                             <input type="file" id="a-img" multiple="multiple" name="a-img">
                         </div>
                     </div>
@@ -111,11 +111,9 @@
 
             </div>
 
-    </div>
-    </div>
-    
     </form>
     </div>
+    
 <%@include file="../common/footer.jsp" %>
 </body>
 </html>
