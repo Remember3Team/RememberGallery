@@ -1,14 +1,2 @@
-<<<<<<< HEAD
-=======
-/common/
-/member/
->>>>>>> refs/remotes/origin/master
-/board/
-/common/
-/member/
-/product/
-/sql/
-<<<<<<< HEAD
-=======
-/artistapply/
->>>>>>> refs/remotes/origin/master
+/artist_mypage/
+/mypage_artist/
