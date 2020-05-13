@@ -1,3 +1,7 @@
+* {
+  margin: 0;
+  padding: 0;
+}
 
 
 /*art registration*/
@@ -14,7 +18,6 @@
 }
 
 /*section1*/
-
 
 .section1 {
   margin: 0 auto;
@@ -35,9 +38,10 @@
 .nomal-text
 {
   height: 25px;
-  width: 470px; 
+  width: 470px;
   float: right;
 }
+
 
 
 .labelfirst {
@@ -83,7 +87,7 @@ button {
   border: 1px solid #ebebeb;
 }
 
-.tag-select {
+.tag {
   margin-left: 62px;
   height: 25px;
   width: 205px;
@@ -97,16 +101,19 @@ button {
   margin: 0px;
 }
 
-.tag-button {
+.check-area {
+  margin-left : 57px;
+  vertical-align: top;
   display: inline-block;
-  float:right;
-  margin-top: -3px;
-  width:125px;
-  padding : 8px 8px;
+  font-size : 13px;
+}
+
+input[type="checkbox"]{
+  margin: 5px 5px;
 }
 
 .info-box7 {
-  margin-top: 20px;
+  margin-top : -4px;
 }
 
 textarea {
@@ -116,7 +123,6 @@ textarea {
   height: 150px;
   resize: none;
 }
-
 
 /*section2*/
 
