@@ -67,8 +67,13 @@
             <div class="table-headline">
                 <div><span>상품관리</span></div>
                 <div class="button"><button class="btn btn-outline-dark" style = "width:100px">선택삭제</button></div>
-                <div class="button"><button class="btn btn-outline-dark" style = "width:100px">상품등록</button></div>
+                <div class="button"><button class="btn btn-outline-dark" style = "width:100px" onclick="registration();">상품등록</button></div>
                 </div>
+                <script>
+               function registration(){
+            	   location.href="<%=request.getContextPath() %>/views/mypage_artist/art-registration.jsp";
+               }
+                </script>
             <table style="width:100%" name="refund-list">
                 <tr>
                     <th><input type="checkbox"></th>

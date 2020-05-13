@@ -27,10 +27,10 @@
     
     <div class="second-menu">
         <ul>
-            <li><a href="#">상품 관리</a></li><a>|</a>
-            <li><a href="#">주문 관리</a></li><a>|</a>
-            <li><a href="#">배송 관리</a></li><a>|</a>
-            <li><a href="#">반품 / 환불 관리</a></li><a>|</a>
+            <li><a href="<%= request.getContextPath() %>/views/mypage_artist/product_management.jsp">상품 관리</a></li><a>|</a>
+            <li><a href="<%= request.getContextPath() %>/views/mypage_artist/order_management.jsp">주문 관리</a></li><a>|</a>
+            <li><a href="<%= request.getContextPath() %>/views/mypage_artist/shipping_management.jsp">배송 관리</a></li><a>|</a>
+            <li><a href="<%= request.getContextPath() %>/views/mypage_artist/art-refund.jsp">반품 / 환불 관리</a></li><a>|</a>
             <li><a href="#">문의 내역</a></li>
         </ul>
     </div>
