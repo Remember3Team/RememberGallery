@@ -36,14 +36,12 @@
                 </ul>
         <!--icon :: 색상변경 또는 없애버리고 메뉴바 만들기-->
         <div id="loginWrap">
-<<<<<<< HEAD
-            <a href ="#" class="iconRm" style="important!"><img src="<%= request.getContextPath() %>/views/img/login2.png"></a>
-            <a href ="#" class="iconRm" style="important!"><img src="<%= request.getContextPath() %>/views/img/search2.png"></a>
-=======
+
+           <!-- <a href ="#" class="iconRm" style="important!"><img src="<%= request.getContextPath() %>/views/img/login2.png"></a> --> 
+           <!--  <a href ="#" class="iconRm" style="important!"><img src="<%= request.getContextPath() %>/views/img/search2.png"></a> -->
             <a href ="<%= request.getContextPath() %>/views/mypage_artist/product_management.jsp" class="icon"><img src="<%= request.getContextPath() %>/views/img/login2.png"></a>
           <!--마이페이지로 넘어가는부분 잠시 수정 -->
             <a href ="#" class="icon"><img src="<%= request.getContextPath() %>/views/img/search2.png"></a>
->>>>>>> refs/remotes/origin/master
         </div>
         
 
