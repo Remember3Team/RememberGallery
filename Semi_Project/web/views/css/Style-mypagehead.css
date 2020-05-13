@@ -94,13 +94,13 @@
   
   .second-menu > ul > li {
     padding : 0 4%;
-    font-size: 13px;
+    font-size: 15px;
     display: inline-block;
-    
+    font-weight : bold;
   }
   
   .second-menu li:hover a {
-    color : red;
+    color : #d9280f;
     font-weight: bold;
   }
   
@@ -108,5 +108,6 @@
     color : rgb(0, 0, 0); 
     display: block;
     text-decoration: none;
+    transition : 0.5s;
   }
   

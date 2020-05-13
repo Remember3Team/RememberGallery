@@ -197,8 +197,8 @@
       }
 
       td > img {
-          width: 50px;
-          height: 50px;
+          width: 100px;
+          height: 100px;
       }
 
       .order-info-bt,
@@ -311,5 +311,10 @@
         color: #d1d5da;
         background-color: #fafbfc;
       }
+	input[type=radio]{
+                display: none;
+                margin: 10px;
+                background: gray;
+            }
 
  

@@ -16,27 +16,25 @@ public class JDBCTemplate {
 		Properties prop = new Properties();
 		
 		// Properties의 파일의 경로를 URL객체로 반환해서 getPath()를 쓰면 String형의 경로가 됨
-		String fileName = JDBCTemplate.class.getResource("/sql/driver.properties").getPath();
+//		String fileName = JDBCTemplate.class.getResource("/sql/driver.properties").getPath();
 		
 		try {
-			prop.load(new FileReader(fileName));
-			String driver = prop.getProperty("driver");
-			String url = prop.getProperty("url");
-			String user = prop.getProperty("user");
-			String password = prop.getProperty("password");
+//			prop.load(new FileReader(fileName));
+//			String driver = prop.getProperty("driver");
+//			String url = prop.getProperty("url");
+//			String user = prop.getProperty("user");
+//			String password = prop.getProperty("password");
 			
 			//1. Driver 등록
-			Class.forName(driver);
+			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
 			//2. DBMS와 연결
-			conn = DriverManager.getConnection(url, user, password);
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:XE", "SEMI", "SEMI");
 			
 			conn.setAutoCommit(false); // 트랜잭션 처리 자동 여부
 			// 기본값은 true, 원칙은 application에서 제어해야 하므로
 			// 우리가 나중에 if문으로 처리하자.
 		
-		}catch(IOException e) {
-			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
