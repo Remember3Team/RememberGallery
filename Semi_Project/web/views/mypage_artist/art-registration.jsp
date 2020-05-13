@@ -59,7 +59,7 @@
 
                     <div class="info-box6">
                         <label class="labelfirst">태그</label>
-                        <div class = "tag-box">
+                        <div class = "check-area">
                        <input type="checkbox" name = "tagname" value="우아한">우아한
                        <input type="checkbox" name = "tagname" value="생동감있는">생동감 있는
                        <input type="checkbox" name = "tagname" value="컬러풀한">컬러풀한

@@ -93,7 +93,15 @@ button {
   width: 205px;
 }
 
-.tag-box {
+.select-thema
+{
+  height: 30px;
+  width: 475px;
+  float: right;
+  margin: 0px;
+}
+
+.check-area {
   margin-left : 57px;
   vertical-align: top;
   display: inline-block;
