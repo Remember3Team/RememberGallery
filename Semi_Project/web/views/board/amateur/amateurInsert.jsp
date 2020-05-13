@@ -17,7 +17,11 @@
 <br clear="both">
 <br><br><br>
 
+<h1>게시글 등록 페이지 입니다.-아마추어게시판</h1>
 
+
+<button id="goAmateurBoard" type="button active" class="btn btn-secondary" onclick="location.href='<%=request.getContextPath()%>/views/board/amateur/amateurBoard.jsp'">목록으로 가기</button>
+	
 <%@include file="../../common/footer.jsp" %>
 
 </body>

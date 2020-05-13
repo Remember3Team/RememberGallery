@@ -75,7 +75,9 @@
 				    		</tr>
 				    		<%} %>
 				    	<%} else{%>
-				    		
+				    		<tr>
+				    			<td>등록된 게시글이 없습니다.</td>
+				    		</tr>
 				    	<%} %>
 				  		</tbody>
 					</table>
@@ -88,8 +90,7 @@
 				 <ul class="pagination justify-content-center" style="margin:20px 0">
 	    	    	     <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/list.no?currentPage=1">Previous</a></li>
 	  					<%for(int p = startPage; p<=endPage; p++){ %>
-	  					 	<li class="page-item active"><a class="page-link" href="<%=request.getContextPath() %>/list.bo?currentPage=<%=currentPage-1 %>'">1</a></li>
-	  					 	<li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/list.bo?currentPage=<%=p %>"><%=p %></a></li>
+	  					 	<li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/list.no?currentPage=<%=p %>"><%=p %></a></li>
 	  					 <%} %>
 	  					
 	                     <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/list.bo?currentPage=<%=maxPage%>">Next</a></li>

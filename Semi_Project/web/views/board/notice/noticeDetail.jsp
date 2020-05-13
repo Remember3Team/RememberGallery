@@ -50,11 +50,13 @@
 				<tr>
 					<td colspan="4">내용</td>
 				</tr>
+				<tr>
 					<td colspan="4">
 						<p>
 							<%=n.getNotice() %>
 						</p>
 					</td>
+				</tr>
 			</table>
 		</div>
 	</div>
