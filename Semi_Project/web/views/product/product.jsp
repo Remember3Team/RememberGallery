@@ -6,11 +6,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
   <!-- link rel="stylesheet" href="../css/style.css" -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/bootstrap.css">
-  
-<script src="../js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="../js/bootstrap.js"></script> 
+ <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/style.css">
+ <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/bootstrap.css">
+<script src="<%=request.getContextPath() %>/views/js/jquery-3.4.1.min.js"></script>
+
   <style>
  #search{
     background-color: rgb(224, 224, 224);
@@ -43,10 +43,9 @@
 <%@include file="../common/menubar.jsp" %>
 
        <h1 align="center">미술품 판매(가제)</h1>
-
         <div id="search">
             <form>
-            <table class="table table-borderless">
+            <table class="table table-borderless" >
             <tr>
             <td></td>
             </tr>

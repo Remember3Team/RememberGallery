@@ -23,7 +23,7 @@
     <div class="container">
         <form action="<%=request.getContextPath()%>/insert.th" method="post" encType="multipart/form-data">
             <!--section1-->
-            <div class="section1" style="padding-bottom: 100px;">
+            <div class="section1" style="padding-bottom: 90px;">
                 <span>상품 정보<a style="color:red;">*</a></span>
                 <div class="artregi-infobox">
                     <div class="info-box1">
@@ -59,22 +59,19 @@
 
                     <div class="info-box6">
                         <label class="labelfirst">태그</label>
-                        <!-- <input class="tag" type="text" name="tag"> -->
-                        <select class = "tag-select">
-                        	<option value = "우아한">우아한</option>
-                        	<option value = "생동감있는">생동감 있는</option>
-                        	<option value = "컬러풀한">컬러풀한</option>
-                        	<option value = "서정적인">서정적인</option>
-                        	<option value = "동적인">동적인</option>
-                        	<option value = "무드있는">무드있는</option>
-                        	<option value = "정교한">정교한</option>
-                        	<option value = "따뜻한">따뜻한</option>
-                        	<option value = "신선한">신선한</option>
-                        </select>
-                        <button class="tag-button">취소</button>
-                         <button class="tag-button" type="button" style="margin-right: 5px;">태그추가</button>
-                        <div id="tag-area" style="margin-left:87px; margin-top:10px; width=473px; height=30px"></div>
+                        <div class = "tag-box">
+                       <input type="checkbox" name = "tagname" value="우아한">우아한
+                       <input type="checkbox" name = "tagname" value="생동감있는">생동감 있는
+                       <input type="checkbox" name = "tagname" value="컬러풀한">컬러풀한
+                       <input type="checkbox" name = "tagname" value="서정적인">서정적인 <br>
+                       <input type="checkbox" name = "tagname" value="동적인">동적인
+                       <input type="checkbox" name = "tagname" value="무드있는">무드있는
+                       <input type="checkbox" name = "tagname" value="정교한">정교한
+                       <input type="checkbox" name = "tagname" value="따뜻한">따뜻한
+                       <input type="checkbox" name = "tagname" value="신선한">신선한
+                        </div>
                     </div>
+                    
                     <script>
                     </script>
 
