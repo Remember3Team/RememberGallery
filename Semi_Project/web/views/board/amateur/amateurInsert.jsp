@@ -10,28 +10,21 @@
  <link rel="stylesheet" href="../../css/bootstrap.css">
 <script src="../../js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../../js/bootstrap.js"></script>    
-<<<<<<< HEAD
-<link rel="stylesheet" href="../../css/style.css">
-<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+
 <style>
 #InsertArea{  margin-bottom:200px;}
 #amateurHeader{ background:white; }
 </style>
-=======
 
->>>>>>> refs/remotes/origin/master
 </head>
 <body>
-<<<<<<< HEAD
+
 	<!-- header -->
-	<%@include file="../../common/menubar.jsp" %>
-=======
+
 <%@include file="../../common/menubar.jsp" %>
 <br clear="both">
 <br><br><br>
->>>>>>> refs/remotes/origin/master
 
-<<<<<<< HEAD
 	
 	<div class="container" id="InsertArea">	
 	   <div id="amateurHeader" class="jumbotron text-center">
@@ -80,10 +73,7 @@
    </script>
     <!-- footer -->
 	<%@include file="../../common/footer.jsp" %>
-=======
 
-<%@include file="../../common/footer.jsp" %>
 
->>>>>>> refs/remotes/origin/master
 </body>
 </html>

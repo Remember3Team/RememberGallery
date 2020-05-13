@@ -32,8 +32,6 @@
 </head>
 <body>
 <!-- Navigation에서 Notice>공지사항 눌렀을 때 나오는 페이지 (계연) -->
-<%@include file="../../common/menubar.jsp" %>
-
 	<%@include file="../../common/menubar.jsp" %>
 	<br clear="both">
 	<br>

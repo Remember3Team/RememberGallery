@@ -18,7 +18,7 @@
 <!-- header -->
 <%@include file="../../common/menubar.jsp" %>
 
-<<<<<<< HEAD
+
 <body>
  	 <div class="container"> 
          <div class="row" id="detailArea">
@@ -54,9 +54,7 @@
    </body>
 
 <!-- footer -->	
-=======
 
->>>>>>> refs/remotes/origin/master
 <%@include file="../../common/footer.jsp" %>
 
 </body>

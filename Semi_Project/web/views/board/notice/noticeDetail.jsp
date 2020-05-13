@@ -28,14 +28,9 @@
 		</ul>
 	<div id="noticeDetail" class="row">
 		<div class="cols-sm-6">
-<<<<<<< HEAD
-			
-			<table align="center" class="table">
-=======
-		
+
 			<br>
 			<table class="table">
->>>>>>> refs/remotes/origin/master
 				<tr>
 					<td>제목</td>
 					<td  colspan="6">사이트 이용문의 안내입니다.</td>

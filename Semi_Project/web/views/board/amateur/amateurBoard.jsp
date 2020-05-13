@@ -19,7 +19,7 @@
 </style>
 </head>
 <body>
-<%@include file="../../common/menubar.jsp" %>
+	<%@include file="../../common/menubar.jsp" %>
 <br clear="both">
 <br><br><br>
 	<div class="container">
@@ -157,12 +157,10 @@
 	
 	</div>
       <!-- /.col-lg-9 -->
-<<<<<<< HEAD
+
       
      <button id="insertAma" type="button active" class="btn btn-secondary" onclick="location.href='<%=request.getContextPath()%>/views/board/amateur/amateurInsert.jsp'">게시글 작성</button>
-      
-=======
->>>>>>> refs/remotes/origin/master
+
 
 <%@include file="../../common/footer.jsp" %>
 
