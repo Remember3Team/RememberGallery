@@ -31,7 +31,7 @@
             <li><a href="<%= request.getContextPath() %>/views/mypage_artist/order_management.jsp">주문 관리</a></li><a>|</a>
             <li><a href="<%= request.getContextPath() %>/views/mypage_artist/shipping_management.jsp">배송 관리</a></li><a>|</a>
             <li><a href="<%= request.getContextPath() %>/views/mypage_artist/art-refund.jsp">반품 / 환불 관리</a></li><a>|</a>
-            <li><a href="#">문의 내역</a></li>
+            <li><a href="<%= request.getContextPath() %>/views/mypage_artist/art-qna.jsp"">문의 내역</a></li>
         </ul>
     </div>
 </body>

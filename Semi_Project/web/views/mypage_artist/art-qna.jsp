@@ -37,13 +37,23 @@
                         <option value="오브제"></option>
                     </datalist>
                 </div>
-                <div class="bar2">
-                    <button>오늘</button>
-                    <button>1주일</button>
-                    <button>1개월</button>
-                    <button>3개월</button>
-                    <button>6개월</button>
-                </div>
+                 <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="today">오늘
+                                </label>
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="week">1주일
+                                </label>
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="month" >1개월
+                                </label>
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="three_months" >3개월
+                                </label>
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="six_months" >6개월
+                                </label>
+                            </div> 
                 <div class="bar3">
                     <input type="date" name="refund-date1"> ~
                     <input type="date" name="refund-date1">
@@ -54,9 +64,8 @@
         </form>
         <div class = "artq-table">
             <div class="table-headline">
-                <div><span>문의 내역</span></div>
-                <div class="button"><button class="delete-bt" style = "width:120px">선택 삭제</button>
-                    <button class="arta-bt" style = "width:120px">답변 완료</button></div>
+                <div class="button"><button class="btn btn-outline-dark" style = "width:100px">선택삭제</button></div>
+                <div class="button"><button class="btn btn-outline-dark" style = "width:100px" onclick="registration();">상품등록</button></div>
             </div>
             <table style="width:100%" name="question-list">
                 <tr>
