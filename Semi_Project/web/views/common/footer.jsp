@@ -5,11 +5,26 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	body {
+	margin : 0;}
+
+	.footer{
+	
+	padding : 20px 0;
+    text-align: center;
+	background-color: black;
+	color : white;
+	}
+	
+</style>
 </head>
 <body>
 
   <footer>
+  <div class="footer">
     "Copyright © 1998-2019 KH Information Educational Institute All Right Reserved"
+    </div>
    </footer>
 
 </body>

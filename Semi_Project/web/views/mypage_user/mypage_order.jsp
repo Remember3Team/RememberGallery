@@ -7,24 +7,21 @@
 <title>Insert title here</title>
  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/bootstrap.css">
+  <link rel="stylesheet" href="../css/Style-mypagehead.css">
+  <link rel="stylesheet" href="../css/Style-ar.css">
   
 <script src="../js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.js"></script>
 </head>
 <body>
 	<%@include file="../common/menubar.jsp" %>
-	<div class="jumbotron" align="center">
-        <h1 class="display-4"><b>Order</b></h1>
-        <br>
-       
-        <nav class="nav nav-pills nav-fill">
-            <a class="nav-item nav-link" href="#">회원정보</a>
-            <a class="nav-item nav-link active" href="#">주문내역</a>
-            <a class="nav-item nav-link" href="#">장바구니</a>
-            <a class="nav-item nav-link" href="#">문의내역</a>
-        </nav>
-
+	<%@include file="../common/mypagehead2.jsp" %>
+    
+    <div class="title">
+        <h3><b>주문 내역</b></h3>
+        <hr>
     </div>
+    	
     <div class="container">
       <ul class="nav nav-tabs">
         <li class="nav-item">
@@ -34,10 +31,8 @@
           <a class="nav-link" href="#">취소/환불내역</a>
         </li>
       </ul>
-
       <br>
-      <br>
-
+      
       <div class="form-row" align="center">
         <div class="col-md-2 mb-1">
           <select class="custom-select" id="validationDefault04" required>
@@ -67,7 +62,6 @@
             <input type="radio" name="options" id="option3" >6개월
           </label>
         </div>
-
         <div class="col-md-2 mb-3">
           <input type="date" class="form-control" id="validationDefault05" required>
         </div>

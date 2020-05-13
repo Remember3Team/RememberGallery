@@ -21,21 +21,21 @@
                     <li><a href="<%= request.getContextPath() %>/views/product/product.jsp">STORE</a></li>
                     <li><a href="#">COMMUNITY</a>
                         <ul>
-                            <li><a href="#">아마추어 게시판</a></li>
+                            <li><a href="<%= request.getContextPath() %>/views/board/amateur/amateurBoard.jsp">아마추어 게시판</a></li>
                             <li><a href="#">자유게시판</a></li>
                         </ul>
                     </li>
                     <li><a href="#">NOTICE</a>
                         <ul>
-                            <li><a href="<%=request.getContextPath()%>/views/board/notice/noticeBoard.jsp">공지사항</a></li>
-                            <li><a href="#">1:1문의</a></li>
+                            <li><a href="<%=request.getContextPath()%>/list.no">공지사항</a></li>
+                            <li><a href="<%= request.getContextPath() %>/views/inquiry/inquiryBoard.jsp">1:1문의</a></li>
                         </ul>    
                     </li>
                 </ul>
         <!--icon :: 색상변경 또는 없애버리고 메뉴바 만들기-->
         <div id="loginWrap">
-            <a href ="#" class="icon" ><img src="<%= request.getContextPath() %>/views/img/login2.png"></a>
-            <a href ="#" class="icon"><img src="<%= request.getContextPath() %>/views/img/search2.png"></a>
+            <a href ="#" class="iconRm" style="important!"><img src="<%= request.getContextPath() %>/views/img/login2.png"></a>
+            <a href ="#" class="iconRm" style="important!"><img src="<%= request.getContextPath() %>/views/img/search2.png"></a>
         </div>
     </header> 
     <br clear="both">
