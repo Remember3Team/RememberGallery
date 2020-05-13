@@ -5,8 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>art refund</title>
+ <!-- link rel="stylesheet" href="../css/style.css" -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/bootstrap.css">
+  <link rel="stylesheet" href="../css/Style-refund.css">
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap.js"></script> 
+
 </head>
-<link rel="stylesheet" href="../css/Style-refund.css">
+
 <body>
 <%@include file="../common/menubar.jsp" %>
 <%@include file="../common/mypagehead.jsp" %>
@@ -25,25 +32,36 @@
                         <option value="환불완료"></option>
                     </datalist>
                 </div>
-                <div class="bar2">
-                    <button>오늘</button>
-                    <button>1주일</button>
-                    <button>1개월</button>
-                    <button>3개월</button>
-                    <button>6개월</button>
-                </div>
+                <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="today">오늘
+                                </label>
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="week">1주일
+                                </label>
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="month" >1개월
+                                </label>
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="three_months" >3개월
+                                </label>
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="six_months" >6개월
+                                </label>
+                            </div> 
+                &nbsp;&nbsp;&nbsp;
                 <div class="bar3">
                     <input type="date" name="refund-date1"> ~
                     <input type="date" name="refund-date1">
                 </div>
-                <button type="submit">조회</button>
+                <button type="submit" class="btn btn-dark" style="width:70px">조회</button>
             </div>
 
         </form>
         <div class = "refund-table">
             <div class="table-headline">
                 <div><span>반품 / 환불 목록</span></div>
-                <div class="button"><button class="refund-bt" style = "width:120px">환불 완료</button></div>
+                <div class="button"><button class="btn btn-outline-dark" style = "width:120px">환불 완료</button></div>
             </div>
             <table style="width:100%" name="refund-list">
                 <tr>
@@ -62,7 +80,7 @@
                     <td>작품명 : Remember Me</td>
                     <td>10,000</td>
                     <td>환불 요청</td>
-                    <td><button class="order-info-bt">주문 상세보기</button></td>
+                    <td><button class="btn btn-outline-dark" id="detail_order" style = "width:150px">주문 상세보기</button></td>
                 </tr>
 
             </table>
@@ -95,6 +113,9 @@
             <a href="#" aria-label="Go to next page">Next</a>
           </div>
         </div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <%@include file="../common/footer.jsp" %>
 </body>
 </html>
