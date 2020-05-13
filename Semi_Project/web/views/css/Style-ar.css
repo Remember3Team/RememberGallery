@@ -162,13 +162,7 @@
   float: right;
 }
 
-select
-{
-  height: 30px;
-  width: 475px;
-  float: right;
-  margin: 0px;
-}
+
 
 .labelfirst {
   font-size: 12px;
@@ -217,6 +211,14 @@ button {
   margin-left: 62px;
   height: 25px;
   width: 205px;
+}
+
+.select-thema
+{
+  height: 30px;
+  width: 475px;
+  float: right;
+  margin: 0px;
 }
 
 .tag-button {
