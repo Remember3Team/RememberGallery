@@ -17,9 +17,13 @@
 <br>
 <br>
 <br>
+<div id="submit" onload="add();" class="alert alert-success alert-dismissible" style="display:none;">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Success!</strong> 성공적으로 등록되었습니다.
+</div>
 	<div class="container">
 	   
-       <form action="<%=request.getContextPath()%>/insert.bo" method="post">
+       <form action="<%=request.getContextPath()%>/insert.no" method="post">
            <div class="form-group">
             	<label for="noti_title">Title</label>
             	<input type="text" class="form-control" name="noti_title" id="noti_title" placeholder="Enter Title">
@@ -29,14 +33,15 @@
             	<textarea class="form-control" rows="10" name="notice" id="notice"></textarea>
         	</div>
         	<div class="form-group">
-            	<label for="File">File Input</label>
-            	<input type="file" id="File">
-        	</div>
-        	<div class="form-group">
-            	<input type="submit" value="저장하기" >&nbsp;<input type="reset" value="다시쓰기">
+            	<input type="submit" onclick="goList();" id="submit" class="btn btn-secondary" value="등록하기" onclick="goNotice();">&nbsp;
+            	<input type="reset" class="btn btn-secondary" value="다시쓰기">
         	</div>
        </form>
-    	<button onclick="goList();">버튼</button>
+       <script>
+       		
+       </script>
+
    </div>
+   
 </body>
 </html>

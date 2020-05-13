@@ -9,13 +9,12 @@
 <head>
 <meta charset="UTF-8">
 <title>메뉴바</title>
-<link rel="stylesheet" href="views/css/style.css">
-<link
-	href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-	rel="stylesheet">
+
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/style.css">
+ <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+</head>
 
 
 <style>
@@ -99,28 +98,29 @@ h1 {
 
 <body>
 	<header id="menu">
-		<div id="header">
-			<div id="logo">
-				<a href="<%=request.getContextPath()%>/index.jsp" class="logo">
-					<img src="<%=request.getContextPath()%>/views/img/logo-02.png">
-				</a>
-			</div>
-			<ul class="navi">
-				<li><a href="#">ABOUT</a></li>
-				<li><a
-					href="<%=request.getContextPath()%>/views/product/product.jsp">STORE</a></li>
-				<li><a href="#">COMMUNITY</a>
-					<ul>
-						<li><a href="#">아마추어 게시판</a></li>
-						<li><a href="#">자유게시판</a></li>
-					</ul></li>
-				<li><a href="#">NOTICE</a>
-					<ul>
-						<li><a
-							href="<%=request.getContextPath()%>/views/board/notice/noticeBoard.jsp">공지사항</a></li>
-						<li><a href="#">1:1문의</a></li>
-					</ul></li>
-			</ul>
+       <div id="logo">
+        <a href="<%= request.getContextPath() %>/index.jsp" class="logo">
+            <img src="<%= request.getContextPath() %>/views/img/logo-02.png">
+        </a>
+      </div>
+                 <ul class = "navi">
+                    <li><a href="#">ABOUT</a></li>
+                    <!-- <li><a href="<%= request.getContextPath() %>/views/product/product.jsp">STORE</a></li> -->
+                    <li><a href="<%= request.getContextPath() %>/list.po">STORE</a></li>
+                    <li><a href="#">COMMUNITY</a>
+                        <ul>
+                            <li><a href="<%= request.getContextPath() %>/views/board/amateur/amateurBoard.jsp">아마추어 게시판</a></li>
+                            <li><a href="#">자유게시판</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">NOTICE</a>
+                        <ul>
+                            <li><a href="<%=request.getContextPath()%>/list.no">공지사항</a></li>
+                            <li><a href="<%= request.getContextPath() %>/views/inquiry/inquiryBoard.jsp">1:1문의</a></li>
+                        </ul>    
+                    </li>
+                </ul>
+        <!--icon :: 색상변경 또는 없애버리고 메뉴바 만들기-->
 			<div id="loginWrap">
 				<a href="#" class="icon" onclick="login_btn();"><img
 					src="<%=request.getContextPath()%>/views/img/login2.png"></a> <a

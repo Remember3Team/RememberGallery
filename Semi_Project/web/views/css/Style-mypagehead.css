@@ -1,0 +1,113 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* headline*/
+
+  
+  .headline {
+    margin-top : 60px;
+    margin-bottom: 50px;
+    display: inline-block;
+    vertical-align: middle;
+    /* justify-content: center; */
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    background-color: white;
+  }
+  
+  .headline hr {
+    display: inline-block;
+    background-color:red;
+    width:25px;
+    border:2px solid red;
+    margin-bottom: 10px;
+  }
+  
+  
+  .artist-img img {
+    width: 81px;
+    height : 81px;
+    padding-right: 8px;
+  }
+  
+  .headline-text,
+  .artist-img,
+  .artist-button {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+  .headline-subbox {
+    display: block;
+    float: right;
+    margin-right: 90px;
+  }
+  
+  .artist-button {
+    height: 85px;
+    width : 120px;
+    float: right;
+  }
+  
+  .headline-text {
+    margin-left: 90px;
+    float: left;
+    /* width: 70%; */
+    top : 50%;
+    vertical-align: middle;
+  }
+  
+  .artist-button button {
+    display: block;
+    font-size: 11px;
+    width: 100%;
+    padding: 11px 20px;
+    color: #999;
+    vertical-align: middle;
+    text-align: center;
+    background-color: #fdfdfd;
+    cursor: pointer;
+    border: 1px solid #ebebeb;
+  }
+  
+  
+  
+  
+  /*second-menu*/
+  
+  .second-menu {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .second-menu > ul {
+    padding : 20px 20px;
+    background-color: rgb(211, 211, 211);
+  }
+  
+  .second-menu > ul > a {
+    color : gray;
+  }
+  
+  .second-menu > ul > li {
+    padding : 0 4%;
+    font-size: 15px;
+    display: inline-block;
+    font-weight : bold;
+  }
+  
+  .second-menu li:hover a {
+    color : #d9280f;
+    font-weight: bold;
+  }
+  
+  .second-menu > ul > li > a {
+    color : rgb(0, 0, 0); 
+    display: block;
+    text-decoration: none;
+    transition : 0.5s;
+  }
+  

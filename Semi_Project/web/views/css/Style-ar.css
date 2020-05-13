@@ -1,0 +1,327 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* headline*/
+
+.form button {
+  display: block;
+  float:right;
+  font-size: 13px;
+  width: 30%;
+  padding: 10px 20px;
+  color: #999;
+  vertical-align: middle;
+  text-align: center;
+  background-color: #fdfdfd;
+  cursor: pointer;
+  border: 1px solid #ebebeb;
+}
+
+.headline {
+  margin-top : 50px;
+  margin-bottom: 50px;
+  display: inline-block;
+  vertical-align: middle;
+  /* justify-content: center; */
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  background-color: white;
+}
+
+.headline hr {
+  display: inline-block;
+  background-color:red;
+  width:25px;
+  border:2px solid red;
+  margin-bottom: 10px;
+}
+
+
+.artist-img img {
+  width: 81px;
+  height : 81px;
+  padding-right: 8px;
+}
+
+.headline-text,
+.artist-img,
+.artist-button {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.headline-subbox {
+  display: block;
+  float: right;
+  margin-right: 90px;
+}
+
+.artist-button {
+  height: 85px;
+  width : 120px;
+  float: right;
+}
+
+.headline-text {
+  margin-left: 90px;
+  float: left;
+  /* width: 70%; */
+  top : 50%;
+  vertical-align: middle;
+}
+
+.artist-button button {
+  display: block;
+  font-size: 11px;
+  width: 100%;
+  padding: 11px 20px;
+  color: #999;
+  vertical-align: middle;
+  text-align: center;
+  background-color: #fdfdfd;
+  cursor: pointer;
+  border: 1px solid #ebebeb;
+}
+
+
+
+
+/*second-menu*/
+
+.second-menu {
+  width: 100%;
+  text-align: center;
+}
+
+.second-menu > ul {
+  padding : 20px 20px;
+  background-color: rgb(211, 211, 211);
+}
+
+.second-menu > ul > a {
+  color : gray;
+}
+
+.second-menu > ul > li {
+  padding : 0 4%;
+  font-size: 13px;
+  display: inline-block;
+  
+}
+
+.second-menu li:hover a {
+  color : red;
+  font-weight: bold;
+}
+
+.second-menu > ul > li > a {
+  color : rgb(0, 0, 0); 
+  display: block;
+  text-decoration: none;
+}
+
+
+/*art registration*/
+
+.title {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title > h3 {
+  font-size: 20px;
+  padding : 50px;
+}
+
+/*section1*/
+
+.section1 {
+  margin: 0 auto;
+  height: 425px;
+  width: 600px;
+  padding: 30px;
+  box-shadow: 2px 2px 20px rgba(212, 212, 212, 0.308);
+}
+
+.section1 > h3 {
+  font-size: 15px;
+}
+
+.container {
+  margin: 100px;
+}
+
+.nomal-text
+{
+  height: 25px;
+  width: 470px;
+  float: right;
+}
+
+select
+{
+  height: 30px;
+  width: 475px;
+  float: right;
+  margin: 0px;
+}
+
+.labelfirst {
+  font-size: 12px;
+}
+
+span {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: bold;
+  color : gray;
+  margin-bottom: 5px;
+
+}
+
+
+.artregi-infobox {
+  padding : 20px;
+}
+
+.info-box1,
+.info-box2,
+.info-box3,
+.info-box4,
+.info-box5,
+.info-box6,
+.info-box7 {
+  padding : 10px 0;
+}
+
+
+button {
+  display: block;
+  float:right;
+  font-size: 13px;
+  padding: 10px 20px;
+  width: 30%;
+  color: #999;
+  vertical-align: middle;
+  text-align: center;
+  background-color: #fdfdfd;
+  cursor: pointer;
+  border: 1px solid #ebebeb;
+}
+
+.tag {
+  margin-left: 62px;
+  height: 25px;
+  width: 205px;
+}
+
+.tag-button {
+  display: inline-block;
+  float:right;
+  margin-top: -3px;
+  width:125px;
+  padding : 8px 8px;
+}
+
+.info-box7 {
+  margin-top: 20px;
+}
+
+textarea {
+  width: 470px;
+  float: right;
+  margin-bottom: 20px;
+  height: 150px;
+  resize: none;
+}
+
+/*section2*/
+
+.section2 {
+  margin: 50px auto;
+  height: 140px;
+  width: 600px;
+  padding: 30px;
+  box-shadow: 2px 2px 20px rgba(212, 212, 212, 0.308);
+}
+
+.artregi-imgbox {
+  padding : 20px;
+}
+
+.img-upload1 {
+  display: inline-block;
+}
+
+.img-upload2 {
+  display : inline-block;
+}
+
+.img-upload1 label,
+.img-upload2 label {
+  font-size: 13px;
+  padding: 10px 20px;
+  color: #999;
+  vertical-align: middle;
+  text-align: center;
+  background-color: #fdfdfd;
+  cursor: pointer;
+  border: 1px solid #ebebeb;
+  margin-left: 22px;
+  
+}
+
+.img-upload1 input[type="file"],
+.img-upload2 input[type="file"]  {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  
+}
+
+.img-box,
+.img-box2 {
+  display: flex;
+  align-items: top;
+  padding-bottom : 50px;
+}
+
+.labelsecond{
+  font-size: 12px;
+  margin : 0;
+  padding-bottom: 20px;
+}
+
+
+.section3 {
+  padding : 0;
+  width: 600px;
+  margin : 0 auto;
+}
+
+.submit-bt {
+
+  display: inline-block;
+  font-size: 13px;
+  padding: 10px 20px;
+  width: 100px;
+  color: #999;
+  vertical-align: middle;
+  text-align: center;
+  background-color: #fdfdfd;
+  cursor: pointer;
+  border: 1px solid #ebebeb;
+  margin-top:-18px;
+  margin-left: 30px;
+}
+
+.submit-box{
+  margin-right: -30px;
+}
