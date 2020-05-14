@@ -26,14 +26,19 @@ public class LogoutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		//session 무효화
 	      request.getSession().invalidate(); //세션객체를 무효화하자
 	      
 	      //다시 메인페이지로 이동
 	      response.sendRedirect("index.jsp");
-	}	
+	 	
 	
 	
+		request.getSession().invalidate();
+		response.sendRedirect("index.jsp");
+	 }
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
