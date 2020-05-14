@@ -15,10 +15,13 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 <<<<<<< HEAD
+<<<<<<< HEAD
 --><!-- The contents of this file will be loaded for each web application -->
 
 
+
 <Context workDir="/Users/samee/Desktop/kh_sammy/semi/workspace/RemeberGallery/Semi_Project/web/WEB-INF/jspwork">
+
 
     <!-- Default set of monitored resources. If one of these changes, the    -->
     <!-- web application will be reloaded.                                   -->
