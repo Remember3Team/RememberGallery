@@ -17,7 +17,7 @@
         <hr>
         <h3 style="font-size: 20px;"> 작가 제휴 신청 </h3>
     </div>
-
+	<form action="<%= request.getContextPath() %>/insert.ap" method="post" encType="multipart/form-data">
     <div class="container">
         <form action="#" style="padding-bottom: 100px;">
             <h3>프로필</h3>
