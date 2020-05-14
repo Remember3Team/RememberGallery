@@ -1,0 +1,162 @@
+package member.model.vo;
+
+import java.io.Serializable;
+import java.sql.Date;
+
+public class Member implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4952932019676617041L;
+	
+	private String userId; 		//아이디
+	private String grade;		//회원등급
+	private String userName;	//회원이름
+	private String userPwd;		//회원 비밀번호
+	private String email;		//이메일
+	private String phone;		//핸드폰번호
+	private String address;		//주소	
+	private String nickname;	//닉네임
+	private String accountGrade;//계정등급	
+	private int point;			//포인트
+	private Date enrollDate;	//가입일
+	private String DeleteYe;	//탈퇴여부
+	private String DeleteDate;	//탈퇴일
+	private int cash;			//캐쉬
+	
+	
+	
+	public Member(String userId, String userPwd) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+	}
+	public Member(String userId, String grade, String userName, String userPwd, String email, String phone,
+			String address, String nickname, String accountGrade, int point, Date enrollDate, String deleteYe,
+			String deleteDate, int cash) {
+		super();
+		this.userId = userId;
+		this.grade = grade;
+		this.userName = userName;
+		this.userPwd = userPwd;
+		this.email = email;
+		this.phone = phone;
+		this.address = address;
+		this.nickname = nickname;
+		this.accountGrade = accountGrade;
+		this.point = point;
+		this.enrollDate = enrollDate;
+		DeleteYe = deleteYe;
+		DeleteDate = deleteDate;
+		this.cash = cash;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getGrade() {
+		return grade;
+	}
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getUserPwd() {
+		return userPwd;
+	}
+	public void setUserPwd(String userPwd) {
+		this.userPwd = userPwd;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getAccountGrade() {
+		return accountGrade;
+	}
+	public void setAccountGrade(String accountGrade) {
+		this.accountGrade = accountGrade;
+	}
+	public int getPoint() {
+		return point;
+	}
+	public void setPoint(int point) {
+		this.point = point;
+	}
+	public Date getEnrollDate() {
+		return enrollDate;
+	}
+	public void setEnrollDate(Date enrollDate) {
+		this.enrollDate = enrollDate;
+	}
+	public String getDeleteYe() {
+		return DeleteYe;
+	}
+	public void setDeleteYe(String deleteYe) {
+		DeleteYe = deleteYe;
+	}
+	public String getDeleteDate() {
+		return DeleteDate;
+	}
+	public void setDeleteDate(String deleteDate) {
+		DeleteDate = deleteDate;
+	}
+	public int getCash() {
+		return cash;
+	}
+	public void setCash(int cash) {
+		this.cash = cash;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	@Override
+	public String toString() {
+		return "Member [userId=" + userId + ", grade=" + grade + ", userName=" + userName + ", userPwd=" + userPwd
+				+ ", email=" + email + ", phone=" + phone + ", address=" + address + ", nickname=" + nickname
+				+ ", accountGrade=" + accountGrade + ", point=" + point + ", enrollDate=" + enrollDate + ", DeleteYe="
+				+ DeleteYe + ", DeleteDate=" + DeleteDate + ", cash=" + cash + "]";
+	}
+	
+	
+	
+	
+	
+}
+
+
+
+
+
+
+
+
+
