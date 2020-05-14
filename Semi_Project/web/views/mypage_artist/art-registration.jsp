@@ -60,10 +60,10 @@
                     <div class="info-box6">
                         <label class="labelfirst">태그</label>
                         <div class = "check-area">
-                       <input type="checkbox" name = "tagname" value="우아한">우아한
-                       <input type="checkbox" name = "tagname" value="생동감있는">생동감 있는
-                       <input type="checkbox" name = "tagname" value="컬러풀한">컬러풀한
-                       <input type="checkbox" name = "tagname" value="서정적인">서정적인 <br>
+                       <input type="checkbox" name = "tagname" value="우아한" checked>우아한
+                       <input type="checkbox" name = "tagname" value="생동감있는" checked>생동감 있는
+                       <input type="checkbox" name = "tagname" value="컬러풀한" checked>컬러풀한
+                       <input type="checkbox" name = "tagname" value="서정적인" checked>서정적인 <br>
                        <input type="checkbox" name = "tagname" value="동적인">동적인
                        <input type="checkbox" name = "tagname" value="무드있는">무드있는
                        <input type="checkbox" name = "tagname" value="정교한">정교한
@@ -77,7 +77,7 @@
 
                     <div class="info-box7">
                         <label class="labelfirst">상세 설명</label>
-                        <textarea>
+                        <textarea name="paint_int">
                     </textarea>
                     </div>
                 </div>
@@ -100,9 +100,16 @@
                         <label class="labelsecond">추가 이미지<br>0/5</label>
                         <div class="img-upload2">
                             <label for="a-img" >파일 첨부하기</label>
-                            <input type="file" id="a-img" multiple="multiple" name="a-img">
+                            <input type="file" id="a-img" multiple="multiple" name="a-img"><br><br>
+                             <label for="a-img2" >파일 첨부하기</label>
+                            <input type="file" id="a-img2" multiple="multiple" name="a-img2"><br><br>
+                             <label for="a-img3" >파일 첨부하기</label>
+                            <input type="file" id="a-img3" multiple="multiple" name="a-img3"><br><br>     
                         </div>
                     </div>
+                    <script>
+					
+					</script>
                     
                 </div>
                 <div class="submit-box">
