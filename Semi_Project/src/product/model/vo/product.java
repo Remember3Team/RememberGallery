@@ -18,18 +18,21 @@ public class product {
 	private String afile;		//첨부파일
 	
 	private String tag_name; 	//테그명
+	private String pId;			//판매자 아이디
 	
 	public product() {
 	}
 
 	
-	public product(String paint_name, String artist_name, String category, String paint_mdate, int patint_price,String paint_int) {
+	public product(String paint_name, String artist_name, String category, String paint_mdate, int patint_price,String paint_int,
+					String bWriter) {
 		this.paint_name = paint_name;
 		this.patint_price = patint_price;
 		this.category = category;
 		this.artist_name = artist_name;
 		this.paint_mdate = paint_mdate;
 		this.paint_int = paint_int;
+		this.pId = bWriter;
 	}
 
 
@@ -77,6 +80,16 @@ public class product {
 	}
 
 	
+	public String getpId() {
+		return pId;
+	}
+
+
+	public void setpId(String pId) {
+		this.pId = pId;
+	}
+
+
 	public String getTag_name() {
 		return tag_name;
 	}

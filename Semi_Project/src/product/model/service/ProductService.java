@@ -45,7 +45,7 @@ public class ProductService {
 	         rollback(conn);
 	      }
 	      close(conn);
-	      return result1;
+	      return result2;
 	}
 
 }

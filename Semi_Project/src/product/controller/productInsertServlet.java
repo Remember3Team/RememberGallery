@@ -1,5 +1,6 @@
 package product.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import member.model.vo.Member;
 import product.model.service.ProductService;
 import product.model.vo.Attachment;
 import product.model.vo.product;
@@ -23,43 +25,43 @@ import product.model.vo.product;
 @WebServlet("/insert.th")
 public class productInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public productInsertServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public productInsertServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		
-		int maxSize = 1024 * 1024 *10; //10Mbyte
-		
-		//경로 추출
+
+		int maxSize = 1024 * 1024 * 10; // 10Mbyte
+
+		// 경로 추출
 		String root = request.getSession().getServletContext().getRealPath("/");
-		System.out.println(root); 
-		
-		//파일 저장경로
+		System.out.println(root);
+
+		// 파일 저장경로
 		String savePath = root + "thumbnail_uploadFiles/";
 		System.out.println(savePath);
-		
-		//파일명 변경 아직하지않음
-		MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "utf-8", new DefaultFileRenamePolicy());
-		
-		//저장파일 이름
+
+		// 파일명 변경 아직하지않음
+		MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "utf-8",
+				new DefaultFileRenamePolicy());
+
+		// 저장파일 이름
 		ArrayList<String> saveFiles = new ArrayList<>();
-		
-		//원본 파일의 이름
-		ArrayList<String> originFiles = new ArrayList<>();
-		
+
 		// getFileNames() = 폼에서 전송된 파일 리스트들의 name들을 반환한다.
 		Enumeration<String> files = multiRequest.getFileNames();
-	
+
 		while (files.hasMoreElements()) {
 
 			String name = files.nextElement();
@@ -67,40 +69,41 @@ public class productInsertServlet extends HttpServlet {
 			if (multiRequest.getFilesystemName(name) != null) {
 				// getFilesystemName() - rename 메소드에 의해 rename 된 파일명
 				saveFiles.add(multiRequest.getFilesystemName(name));
-				// getOrigianalFileName() - 실제 사용자가 업로드 할 떄의 원본 파일명
-				originFiles.add(multiRequest.getOriginalFileName(name));
 			}
 		}
-		
-		//파일외에 것들 변수 저장     작품명 작가명 테마 제작년도 가격 태그 대표이미지
+
+		// 파일외에 것들 변수 저장 작품명 작가명 테마 제작년도 가격 태그 대표이미지
 		String pname = multiRequest.getParameter("pname");
 		String aname = multiRequest.getParameter("aname");
 		String thema = multiRequest.getParameter("select-thema");
 		String year = multiRequest.getParameter("year");
 		int price = Integer.valueOf(multiRequest.getParameter("price"));
 		String paintInt = multiRequest.getParameter("paint_int");
-		//사이즈 번호 빠져있음..
-		//태그는 여러개를 받아야함.
+		// 사이즈 번호 빠져있음..
+//		String bWriter = String.valueOf(((Member) request.getSession().getAttribute("loginUser")).getUserNo());
+		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getUserId());
+		System.out.println(bWriter);
+		// 태그는 여러개를 받아야함.
 		String[] irr = multiRequest.getParameterValues("tagname");
-		
+
 		String tagname = "";
-		
-		if(irr != null) {
+
+		if (irr != null) {
 			tagname = String.join(",", irr);
-		}// 태그는 한번 갔다온후 작품번호로 다시한번 보내서 저장
+		} // 태그는 한번 갔다온후 작품번호로 다시한번 보내서 저장
 		System.out.println(tagname);
-		product p = new product(pname,aname,thema,year,price,paintInt);
-		
+
+		product p = new product(pname, aname, thema, year, price, paintInt, bWriter);
+
 		ArrayList<Attachment> fileList = new ArrayList<>();
-		
-		for (int i = originFiles.size() - 1; i >= 0; i--) { // Enumberation결과가 뒤집어져 있으므로 다시 뒤집어서 fileList에 쌓자
+
+		for (int i = saveFiles.size() - 1; i >= 0; i--) { // Enumberation결과가 뒤집어져 있으므로 다시 뒤집어서 fileList에 쌓자
 			Attachment at = new Attachment();
 			at.setFilePath(savePath);
-			at.setOriginName(originFiles.get(i));
-			at.setChangeName(saveFiles.get(i));
+			at.setSavefileName(saveFiles.get(i));
 
 			// 대표 이미지가 originFiles에서의 마지막 인덱스로 하기 위해서 조건 처리를 하자
-			if (i == originFiles.size() - 1) {
+			if (i == saveFiles.size() - 1) {
 				at.setFileLevel(0);
 			} else {
 				at.setFileLevel(1);
@@ -108,13 +111,25 @@ public class productInsertServlet extends HttpServlet {
 
 			fileList.add(at);
 		}
-		int result = new ProductService().insertProduct(p,fileList);
+		int result = new ProductService().insertProduct(p, fileList);
+
+		if (result > 0) {
+			System.out.println("파일 등록 완료");
+		} else {
+			for (int i = 0; i < saveFiles.size(); i++) {
+				// 서버에 저장된 이름 (rename된 이름) 파일 객체 생성함
+				File failedFile = new File(savePath + saveFiles.get(i));
+				failedFile.delete();
+			}
+		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
