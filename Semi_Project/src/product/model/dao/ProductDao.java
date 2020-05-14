@@ -113,7 +113,7 @@ public class ProductDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = "INSERT INTO PAINT_PHOTO VALUES(AFILE_NO,,?)";
+		String query = "INSERT INTO PAINT_PHOTO VALUES(AFILE_NO,,?)";  
 		try {
 			for (int i = 0; i < fileList.size(); i++) {
 				Attachment at = fileList.get(i);
