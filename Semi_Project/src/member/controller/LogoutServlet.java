@@ -32,11 +32,6 @@ public class LogoutServlet extends HttpServlet {
 	      
 	      //다시 메인페이지로 이동
 	      response.sendRedirect("index.jsp");
-	 	
-	
-	
-		request.getSession().invalidate();
-		response.sendRedirect("index.jsp");
 	 }
 
 
