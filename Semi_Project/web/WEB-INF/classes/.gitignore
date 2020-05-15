@@ -1,3 +1,4 @@
-/artistapply/
-/product/
-
+.classpath
+context.xml
+/classes/
+.settings/
