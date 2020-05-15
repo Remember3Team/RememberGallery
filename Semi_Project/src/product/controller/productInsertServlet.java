@@ -67,8 +67,7 @@ public class productInsertServlet extends HttpServlet {
 			String name = files.nextElement();
 
 			if (multiRequest.getFilesystemName(name) != null) {
-				// getFilesystemName() - rename 메소드에 의해 rename 된 파일명
-				saveFiles.add(multiRequest.getFilesystemName(name));
+				saveFiles.add(multiRequest.getOriginalFileName(name));
 			}
 		}
 

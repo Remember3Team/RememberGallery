@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import board.notice.model.vo.Notice;
+import product.model.service.photo;
 import product.model.vo.Attachment;
 import product.model.vo.product;
 
@@ -166,5 +167,42 @@ public class ProductDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public ArrayList<Attachment> selectphoto(Connection conn, int currentPage) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		ArrayList<Attachment> list = new ArrayList<>();
+
+		String query = "SELECT * FROM PAINT_PHOTO WHERE FILELEVEL=1 PAINT_NO BETWEEN ? AND ?";
+
+		// 쿼리문 실행시 조건절에 넣을 변수를 (ROWNUM에 대한 조건 시 필요) 연산 처리
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				product p = new product(rset.getInt("PAINT_NO"), rset.getString("PAINT_NAME"),
+						rset.getInt("PAINT_PRICE"), rset.getInt("SIZE_NO"));
+
+				list.add(p);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		System.out.println("ProductDao:게시글 출력 확인_" + list);
+
+		return list;
 	}
 }
