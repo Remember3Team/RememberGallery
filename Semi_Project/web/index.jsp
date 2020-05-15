@@ -7,8 +7,6 @@
 <title>Insert title here</title>
 
 </head>
-
-
 <body>
 	<%@include file="views/common/menubar.jsp" %>
 	<%@include file="views/main/main.jsp" %>
@@ -16,6 +14,6 @@
 			style="background-color: rgb(224, 224, 224); margin-top: 10px;"
 			onclick="location.href='<%=request.getContextPath()%>/views/mypage_artist/art-registration.jsp'">
 	<%@include file="views/common/footer.jsp" %>
-	
+	수정완료
 </body>
 </html>
