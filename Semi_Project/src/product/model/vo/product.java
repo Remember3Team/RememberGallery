@@ -6,7 +6,7 @@ public class product {
 	private String paint_name;	//작품이름
 	private int patint_price;	//작품가격
 	private String category;	//작품카테고리
-	private String artist_name;	//작품이름
+	private String artist_name;	//작가이름
 	private String paint_int;	//작품소개
 	private String paint_mdate;	//작품제작년도
 	private int size_no;		//사이즈번호
@@ -17,8 +17,24 @@ public class product {
 	private int afile_no;		//첨부사진번호
 	private String afile;		//첨부파일
 	
+	private String tag_name; 	//테그명
+	private String pId;			//판매자 아이디
+	
 	public product() {
 	}
+
+	
+	public product(String paint_name, String artist_name, String category, String paint_mdate, int patint_price,String paint_int,
+					String bWriter) {
+		this.paint_name = paint_name;
+		this.patint_price = patint_price;
+		this.category = category;
+		this.artist_name = artist_name;
+		this.paint_mdate = paint_mdate;
+		this.paint_int = paint_int;
+		this.pId = bWriter;
+	}
+
 
 	public product(int paint_no, String paint_name, int patint_price, int size_no) {
 		this.paint_no = paint_no;
@@ -62,6 +78,27 @@ public class product {
 		this.paint_mdate = paint_mdate;
 		this.auc_yn = auc_yn;
 	}
+
+	
+	public String getpId() {
+		return pId;
+	}
+
+
+	public void setpId(String pId) {
+		this.pId = pId;
+	}
+
+
+	public String getTag_name() {
+		return tag_name;
+	}
+
+
+	public void setTag_name(String tag_name) {
+		this.tag_name = tag_name;
+	}
+
 
 	public int getPaint_no() {
 		return paint_no;
@@ -167,13 +204,16 @@ public class product {
 		this.afile = afile;
 	}
 
+
 	@Override
 	public String toString() {
 		return "product [paint_no=" + paint_no + ", paint_name=" + paint_name + ", patint_price=" + patint_price
 				+ ", category=" + category + ", artist_name=" + artist_name + ", paint_int=" + paint_int
 				+ ", paint_mdate=" + paint_mdate + ", size_no=" + size_no + ", width=" + width + ", height=" + height
-				+ ", auc_yn=" + auc_yn + ", afile_no=" + afile_no + ", afile=" + afile + "]";
+				+ ", auc_yn=" + auc_yn + ", afile_no=" + afile_no + ", afile=" + afile + ", tag_name=" + tag_name + "]";
 	}
+
+
 	
 	
 	
