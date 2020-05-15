@@ -17,9 +17,9 @@
         <hr>
         <h3 style="font-size: 20px;"> 작가 제휴 신청 </h3>
     </div>
-	<form action="<%= request.getContextPath() %>/insert.ap" method="post" encType="multipart/form-data">
+	
     <div class="container">
-        <form action="#" style="padding-bottom: 100px;">
+        <form action="<%= request.getContextPath() %>/insert.ap" method="post" encType="multipart/form-data">
             <h3>프로필</h3>
             <hr>
             <div>
@@ -29,8 +29,8 @@
                         <textarea class="textarea-introduce" name="introduce"></textarea>
                     </div><div class="image-box">
                         <a style="font-size: 80%; margin-bottom: 10px; display: inline-block;">사진 업로드</a>
-                        <label for="file"> 사진 업로드</label>
-                        <input type="file" id="file">
+                        <label for="file1"> 사진 업로드</label>
+                        <input type="file" multiple="multiple" name="file1" id="file1">
                         <!-- <input class="upload-name" value="파일선택"> -->
                     </div>
                 </div>
@@ -39,8 +39,8 @@
                 <hr>
                 <div class="career-box">
                     <div class="career-1">
-                        <label class="label-first" for="career-p1">기간</label>
-                        <input type="text" name="career-p1" id="carrea-p1">
+                        <label class="label-first" for="career-t1">기간</label>
+                        <input type="text" name="career-t1" id="carrea-t1">
                     </div>
                     <div class="career-2">
                         <label class="label-first" for="career1">경력 내용</label>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="career-box2">
                     <div class="career-1">
-                        <input type="text" name="career-p2" id="carrea-p2">
+                        <input type="text" name="career-t2" id="carrea-t2">
                     </div>
                     <div class="career-2">
                         <input type="text" name="career2" id="carrea2">
@@ -57,7 +57,7 @@
                 </div>
                 <div class="career-box3">
                     <div class="career-1">
-                        <input type="text" name="career-p3" id="carrea-p3">
+                        <input type="text" name="career-t3" id="carrea-t3">
                     </div>
                     <div class="career-2">
                         <input type="text" name="career3" id="carrea3">
@@ -69,8 +69,8 @@
                         <textarea class="textarea-etc" name="etc"></textarea>
                     </div>
                     <div class="file-box">
-                        <label for="file">파일 첨부하기</label>
-                        <input type="file" id="file">
+                        <label for="file2">파일 첨부하기</label>
+                        <input type="file" multiple="multiple" name = "file2" id="file2">
                     </div>
                 </div>
                 <button type=submit>제출하기</button>
