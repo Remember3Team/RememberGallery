@@ -22,6 +22,7 @@ import product.model.vo.product;
 /**
  * Servlet implementation class productInsertServlet
  */
+
 @WebServlet("/insert.th")
 public class productInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
