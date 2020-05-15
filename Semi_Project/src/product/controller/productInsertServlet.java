@@ -22,7 +22,6 @@ import product.model.vo.product;
 /**
  * Servlet implementation class productInsertServlet
  */
-
 @WebServlet("/insert.th")
 public class productInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -111,7 +110,7 @@ public class productInsertServlet extends HttpServlet {
 
 			fileList.add(at);
 		}
-		int result = new ProductService().insertProduct(p, fileList);
+		int result = new ProductService().insertProduct(p, fileList,irr);
 
 		if (result > 0) {
 			System.out.println("파일 등록 완료");
