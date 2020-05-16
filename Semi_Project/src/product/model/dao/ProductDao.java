@@ -167,4 +167,43 @@ public class ProductDao {
 		}
 		return result;
 	}
+
+	public ArrayList<Attachment> selectphoto(Connection conn, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		ArrayList<Attachment> list = new ArrayList<>();
+
+		String query = "SELECT * FROM PAINT_PHOTO WHERE FILELEVEL=0 AND PAINT_NO BETWEEN ? AND ?";
+
+		// 쿼리문 실행시 조건절에 넣을 변수를 (ROWNUM에 대한 조건 시 필요) 연산 처리
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				Attachment p = new Attachment(rset.getInt("PAINT_NO"),
+										rset.getString("AFILE"),
+										rset.getString("FILEPATH"),	
+										rset.getInt("FILELEVLE"));
+
+				list.add(p);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		System.out.println("ProductDao attachment:" + list);
+
+		return list;
+	}
 }
