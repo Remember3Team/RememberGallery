@@ -19,6 +19,14 @@ public class Attachment {
 	}
 
 
+	public Attachment(int paint_no, String savefileName, String filePath, int fileLevel) {
+		this.paint_no = paint_no;
+		this.savefileName = savefileName;
+		this.filePath = filePath;
+		this.fileLevel = fileLevel;
+	}
+
+
 	public Attachment() {
 	}
 	

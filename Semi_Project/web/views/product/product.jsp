@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "product.model.vo.*, java.util.ArrayList, board.notice.model.vo.*"%>
+    <% ArrayList<product> list = (ArrayList<product>)request.getAttribute("list");
+       PageInfo pi = (PageInfo)request.getAttribute("pi");
+        int listCount = pi.getListCount();
+   		int currentPage = pi.getCurrentPage();
+   		int maxPage = pi.getMaxPage();
+   		int startPage = pi.getStartPage();
+   		int endPage = pi.getEndPage();
+    %>
 <!DOCTYPE html>
 <html>
 <head>
