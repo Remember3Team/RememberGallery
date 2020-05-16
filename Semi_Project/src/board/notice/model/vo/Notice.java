@@ -5,6 +5,11 @@ import java.sql.Date;
 
 public class Notice implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3917860409744056936L;
+	
 	private int noti_no; 			//게시판 번호
 	private String noti_title;		//게시판 제목
 	private String noti_cate; 		//게시판 구분
