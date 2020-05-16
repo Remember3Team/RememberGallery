@@ -50,7 +50,6 @@ public class LoginServlet extends HttpServlet {
 			System.out.println("확인용");
 			
 			HttpSession session = request.getSession(); 
-			session.setMaxInactiveInterval(10); 
 			session.setAttribute("loginUser", loginMember);
 			response.sendRedirect("index.jsp");
 //			RequestDispatcher view = request.getRequestDispatcher("index.jsp");

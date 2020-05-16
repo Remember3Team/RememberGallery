@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import board.notice.model.vo.Notice;
+import product.model.vo.Attachment;
 import product.model.vo.product;
 
 public class ProductDao {
@@ -79,5 +80,49 @@ public class ProductDao {
 		System.out.println("ProductDao:게시글 출력 확인_"+list);
 		
 		return list;
+	}
+
+	public int insertProduct(Connection conn, product p) {
+		PreparedStatement pstmt = null;
+
+		int result = 0;
+		
+		String query = "INSERT INTO PAINT VALUES(PAINT_NO.NEXTVAL, ?, ?, ?, ?, ?, ?, 1, N)";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+
+			pstmt.setString(1, p.getPaint_name());
+			pstmt.setInt(2, p.getPatint_price());
+			pstmt.setString(3, p.getCategory());
+			pstmt.setString(4, p.getArtist_name());
+			pstmt.setString(5, p.getPaint_int());
+			pstmt.setString(6, p.getPaint_mdate());
+			
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertAttachment(Connection conn, ArrayList<Attachment> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "INSERT INTO PAINT_PHOTO VALUES(AFILE_NO,,?)";  
+		try {
+			for (int i = 0; i < fileList.size(); i++) {
+				Attachment at = fileList.get(i);
+				pstmt = conn.prepareStatement(query);
+
+				pstmt.setString(1, at.getOriginName());
+				
+				result += pstmt.executeUpdate();
+			}
+		return 0;
 	}
 }

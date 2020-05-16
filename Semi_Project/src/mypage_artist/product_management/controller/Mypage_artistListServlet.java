@@ -1,4 +1,4 @@
-package mypage_artist.controller;
+package mypage_artist.product_management.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,20 +11,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.notice.model.vo.PageInfo;
-import mypage_artist.model.service.Mypage_ArtistService;
-import mypage_artist.model.vo.Mypage_artist;
+import mypage_artist.product_management.model.service.Mypage_ArtistService;
+import mypage_artist.product_management.model.vo.Mypage_artist;
+
+import member.model.vo.Member;
 
 /**
  * Servlet implementation class Mypage_artistServlet
  */
 @WebServlet("/Mypage.artist")
-public class Mypage_artistServlet extends HttpServlet {
+public class Mypage_artistListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Mypage_artistServlet() {
+    public Mypage_artistListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,9 +38,12 @@ public class Mypage_artistServlet extends HttpServlet {
 		
 		Mypage_ArtistService aService = new Mypage_ArtistService();
 		
-		// 1_1. 게시판 리스트 갯수 구하기
-				int listCount = aService.getListCount();
+		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getUserId());
 		
+		
+		// 1_1. 게시판 리스트 갯수 구하기
+				int listCount = aService.getListCount(bWriter);
+				System.out.println(listCount);
 		// 페이지 수 처리용 변수 선언
 				int currentPage;		// 현재 페이지를 저장할 변수
 				int limit;					// 한 페이지에 보여질 게시글 수
@@ -87,7 +92,7 @@ public class Mypage_artistServlet extends HttpServlet {
 						                   startPage, endPage);
 				
 				// 1_2. 게시판 리스트 조회해오기
-				ArrayList<Mypage_artist> list = aService.selectList(currentPage, limit);
+				ArrayList<Mypage_artist> list = aService.selectList_PM(currentPage, limit, bWriter);
 //				for(int i = 0 ; i < list.size(); i++) {
 //					System.out.println(list.get(i));
 //				}
@@ -95,12 +100,13 @@ public class Mypage_artistServlet extends HttpServlet {
 				
 				RequestDispatcher view = null;
 				if(!list.isEmpty()) {
-					view = request.getRequestDispatcher("views/board/boardListView.jsp");
+					view = request.getRequestDispatcher("views/mypage_artist/product_management.jsp");
 					request.setAttribute("list", list);
 					request.setAttribute("pi", pi);
 				}else {
-					view = request.getRequestDispatcher("views/common/errorPage.jsp");
-					request.setAttribute("msg","게시판 리스트 조회 실패!");
+//					view = request.getRequestDispatcher("views/common/errorPage.jsp");
+//					request.setAttribute("msg","게시판 리스트 조회 실패!");
+					System.out.println("게시판 조회 실패");
 				}
 				
 				view.forward(request, response);

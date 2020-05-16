@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "mypage_artist.product_management.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList"%>
+    <%
+    	ArrayList<Mypage_artist> list = (ArrayList<Mypage_artist>)request.getAttribute("list");
+    	PageInfo pi = (PageInfo)request.getAttribute("pi");
+    	
+    	int listCount = pi.getListCount();
+    	int currentPage = pi.getCurrentPage();
+    	int maxPage = pi.getMaxPage();
+    	int startPage = pi.getStartPage();
+    	int endPage = pi.getEndPage();
+    %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,7 +67,7 @@
                             </div> 
                 &nbsp;&nbsp;&nbsp;
                 <div class="bar3">
-                    <input type="date" name="refund-date1"> ~
+                    <input type="date" name="refund-date1"> 
                     <input type="date" name="refund-date1">
                 </div>
                 <button type="submit" class="btn btn-dark" style="width:70px">조회</button>
@@ -74,6 +85,7 @@
             	   location.href="<%=request.getContextPath() %>/views/mypage_artist/art-registration.jsp";
                }
                 </script>
+                
             <table style="width:100%" name="refund-list">
                 <tr>
                     <th><input type="checkbox"></th>
@@ -83,17 +95,18 @@
                     <th>금액</th>
                     <th>수정 및 삭제</th>
                 </tr>
+                <% for(Mypage_artist ma : list){ %>
                 <tr>
                     <td><input type="checkbox"></td>
-                    <td>p0001</td>
-                    <td><img src="../img/artist.JPG" alt="pimage"></td>
-                    <td>작품명 : Remember Me</td>
-                    <td>10,000</td>
+                    <td><%=ma.getPaint_no() %></td>
+                    <td><%=ma.getAfile() %></td>
+                    <td><%=ma.getPaint_int() %></td>
+                    <td><%=ma.getPaint_price() %></td>
                     <td><button class="btn btn-outline-dark" id="detail_order" style = "width:100px">내용수정</button>
                     	&nbsp;<button class="btn btn-outline-dark" id="detail_order" style = "width:100px">삭제</button>
                     </td>
                 </tr>
-
+				<%} %>
             </table>
         </div>
         
