@@ -97,7 +97,7 @@ public class InsertApplyServlet extends HttpServlet {
 		// 입력값과 파일 이름이 담긴 apply 객체와 경력사항이 담긴 객체 배 carlist를 service로 보내기
 		// result는 조건처리를 위하여 int로 받음
 		int result = new ApplyService().insertApply(apply, carlist);
-
+ 
 	    if(result>0) {
 	    	System.out.println("성공~");
 	    }else {
