@@ -30,4 +30,32 @@ public class AmateurService {
 		return result1;
 	}
 
+	public int getListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new AmateurDao().getListCount(conn);
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<Amateur> selectList(int currentPage, int limit) {
+		Connection conn = getConnection();
+		
+		ArrayList<Amateur> list = new AmateurDao().selectList(conn,currentPage, limit);
+		System.out.println("[service]게시글 리스트 출력:"+list);
+		close(conn);
+		return list;
+	}
+
+//	public ArrayList<FileManagement> selectList(Amateur amateur) {
+//		Connection conn = getConnection();
+//		
+//		ArrayList<FileManagement> fileList = new AmateurDao().selectList(conn, amateur);
+//		System.out.println("[service]게시글 파일리스트 출력:"+fileList);
+//		close(conn);
+//		return fileList;
+//	}
+	
+
 }

@@ -4,7 +4,9 @@ import static common.JDBCTemplate.close;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import board.amateur.model.vo.Amateur;
@@ -62,6 +64,64 @@ public class AmateurDao {
 		
 		
 		return result;
+	}
+
+	public int getListCount(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		String query = "SELECT COUNT(*) FROM EVENT";
+		int listCount = 0;
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);	
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		return listCount;
+	}
+
+	public ArrayList<Amateur> selectList(Connection conn, int currentPage, int limit) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Amateur> list = new ArrayList<>();
+		
+		String query = "SELECT * FROM EVENT WHERE EVENT_NO BETWEEN ? AND ?";
+		
+		int startRow = (currentPage -1)*limit+1;
+		int endRow = startRow+limit-1;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1,startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Amateur a = new Amateur(rset.getInt("event_no"),
+										rset.getString("event_title"),
+										rset.getString("user_id"),
+										rset.getDate("event_date"),
+										rset.getString("event"),
+										rset.getInt("hit"),
+										rset.getString("event_like"));
+				list.add(a);		
+			}
+			System.out.println("[dao] 게시글 불러오기:"+list);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 
 }

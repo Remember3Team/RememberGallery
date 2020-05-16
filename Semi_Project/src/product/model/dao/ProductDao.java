@@ -128,4 +128,43 @@ public class ProductDao {
 		return result;
 
 	}
+
+	public int insertmasterpiece(Connection conn, product p) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "INSERT INTO MASTERPIECE VALUES(SEQ_PID.CURRVAL, ?,0)";
+		try {
+			pstmt = conn.prepareStatement(query);
+
+			pstmt.setString(1, p.getpId());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertTag(Connection conn, String[] irr) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "INSERT INTO TAG VALUES(?,SEQ_PID.CURRVAL)";
+		try {
+			for (int i = 0; i < irr.length; i++) {
+				pstmt = conn.prepareStatement(query);
+
+				pstmt.setString(1, irr[i]);
+				result += pstmt.executeUpdate();
+		}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
