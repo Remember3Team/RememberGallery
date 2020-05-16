@@ -130,11 +130,10 @@ public class AmateurDao {
 		
 		ArrayList<FileManagement> list = new ArrayList<>();
 		
-		String query = "SELECT * FROM EVENT_FILE WHERE EVENT_NO=?";
+		String query = "SELECT * FROM EVENT_FILE";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, getEventNo.getEvent_no());
 			
 			rset = pstmt.executeQuery();
 			
