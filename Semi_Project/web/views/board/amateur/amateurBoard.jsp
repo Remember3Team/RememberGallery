@@ -57,7 +57,7 @@
 		              <%for(int j=0; j<fileList.size();j++){ 
 		              		FileManagement fm = fileList.get(j);%>
 		              		<%if(a.getEvent_no()==fm.getEvent_no()){ %>
-		             			 <a href="#"><img class="card-img-top" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/amateur/<%=fm.getEvent_file() %> alt=""></a>
+		             			 <a href="#"><img class="card-img-top" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/amateur/<%=fm.getEvent_file() %>" alt=""></a>
 		              		<%} %>
 		              	<%} %>
 		              	<input type="hidden" value="<%=a.getEvent_no() %>">
