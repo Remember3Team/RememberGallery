@@ -110,7 +110,7 @@ h1 {
 			<li><a href="#">COMMUNITY</a>
 				<ul>
 					<li><a
-						href="<%= request.getContextPath() %>/views/board/amateur/amateurBoard.jsp">아마추어
+						href="<%= request.getContextPath() %>/list.am">아마추어
 							게시판</a></li>
 					<li><a href="#">자유게시판</a></li>
 				</ul></li>
@@ -123,7 +123,7 @@ h1 {
 			<%if(loginUser != null){ %>
 			<li><a href="#">TEST</a> 
 				<ul>
-					<li><a href="#">마이페이지 소비자</a></li>
+					<li><a href="<%= request.getContextPath() %>/Mo.li">마이페이지 소비자</a></li>
 					<li><a href="#">마이페이지 관리자</a></li>
 					<li><a href="#">마이페이지 판매자</a></li>
 						<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 11111111111-->

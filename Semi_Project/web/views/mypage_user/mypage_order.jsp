@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../css/bootstrap.css">
   <link rel="stylesheet" href="../css/Style-mypagehead.css">
   <link rel="stylesheet" href="../css/Style-ar.css">
+  <link rel="stylesheet" href="../css/Style-refund.css">
   
 <script src="../js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.js"></script>
@@ -22,57 +23,49 @@
         <hr>
     </div>
     	
-    <div class="container">
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">주문내역조회</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">취소/환불내역</a>
-        </li>
-      </ul>
-      <br>
+    
       
-      <div class="form-row" align="center">
-        <div class="col-md-2 mb-1">
-          <select class="custom-select" id="validationDefault04" required>
-            <option selected disabled value="">전체주문처리상태</option>
-            <option>입금전</option>
-            <option>배송준비중</option>
-            <option>배송중</option>
-            <option>배송완료</option>
-            <option>환불신청</option>
-            <option>환불완료</option>
-          </select>
-        </div>
-        <div class="btn-group-md btn-group-toggle" data-toggle="buttons">
-          <label class="btn btn-secondary ">
-            <input type="radio" name="options" id="option1" >오늘 
-          </label>
-          <label class="btn btn-secondary ">
-            <input type="radio" name="options" id="option2" >일주일
-          </label>
-          <label class="btn btn-secondary">
-            <input type="radio" name="options" id="option3" >1개월
-          </label>
-          <label class="btn btn-secondary">
-            <input type="radio" name="options" id="option3" >3개월
-          </label>
-          <label class="btn btn-secondary">
-            <input type="radio" name="options" id="option3" >6개월
-          </label>
-        </div>
-        <div class="col-md-2 mb-3">
-          <input type="date" class="form-control" id="validationDefault05" required>
-        </div>
-        ~
-        <div class="col-md-2 mb-3">
-            <input type="date" class="form-control" id="validationDefault06" required>
-        </div>
-        <div class="col-md-1 mb-2">
-            <button class="btn btn-primary" type="submit">조회</button>
-        </div>
-    </div>
+      <div class="container">
+      <form action="">
+            <div class="search-bar">
+                <div class="bar1">
+                    <input type="text" name="order-status" list="status-list" placeholder=" 주문 처리 상태">
+                    <datalist id="status-list">
+                        <option>입금전</option>
+                        <option>배송준비중</option>
+                        <option>배송중</option>
+                        <option>배송완료</option>
+                        <option>환불신청</option>
+                        <option>환불완료</option>
+                    </datalist>
+                </div>
+                <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="today">오늘
+                                </label>
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="week">1주일
+                                </label>
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="month" >1개월
+                                </label>
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="three_months" >3개월
+                                </label>
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="six_months" >6개월
+                                </label>
+                            </div> 
+                &nbsp;&nbsp;&nbsp;
+                <div class="bar3">
+                    <input type="date" name="refund-date1"> ~
+                    <input type="date" name="refund-date1">
+                </div>
+                <button type="submit" class="btn btn-dark" style="width:70px">조회</button>
+            </div>
+
+        </form>
+     
     
    
     <br>
@@ -85,26 +78,36 @@
     <br>
     <br>
 
-      <table class="table table-sm">
-        <h6><b>주문 상품정보</b></h6>
-        <thead class="thead-light">
-          <tr>
-            <th scope="col">주문번호</th>
-            <th scope="col">이미지</th>
-            <th scope="col">상품정보</th>
-            <th scope="col">수량</th>
-            <th scope="col">상품구매금액</th>
-            <th scope="col">주문처리상태</th>
-            <th scope="col">취소/환불</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+      <div class = "order-table">
+            <div class="table-headline">
+                <div><span><b>주문 상품정보</b></span></div>
+            </div>
+            <table style="width:100%" name="order-list">
+                <tr>
+                    <th>주문 번호</th>
+                    <th>이미지</th>
+                    <th>상품명</th>
+                    <th>금액</th>
+                    <th>주문일자</th>
+                    <th>주문 처리상태</th>
+                </tr>
+                <tr>
+                    <td>p0001</td>
+                    <td>이미지</td>
+                    <td>작품명 : Remember Me</td>
+                    <td>10,000</td>
+                    <td>2020-05-13</td>
+                    <td>환불 요청</td>
+                </tr>
+
+            </table>
+        </div>
    
       <br>
       <br>
     </div> 
+    </div>
+    
 	
 	<%@include file="../common/footer.jsp" %>
 </body>
