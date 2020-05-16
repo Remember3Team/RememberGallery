@@ -29,7 +29,7 @@ public class NoticeDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = "INSERT INTO BOARD VALUES(BOARD_SEQ.NEXTVAL,?,'1',SYSDATE,?)";
+		String query = "INSERT INTO BOARD VALUES(NOTICE_SEQ.NEXTVAL,?,'1',SYSDATE,?)";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -79,13 +79,12 @@ public class NoticeDao {
 		
 		ArrayList<Notice> list = new ArrayList<>();
 		
-		String query ="SELECT * FROM NOTICE_BOARD WHERE NOTI_NO BETWEEN ? AND ?"; 
+		String query ="SELECT * FROM BOARD WHERE NOTI_NO BETWEEN ? AND ?"; 
 		
 		
 		//쿼리문 실행시 조건절에 넣을 변수를 (ROWNUM에 대한 조건 시 필요) 연산 처리
 		int startRow = (currentPage -1)*limit +1;
 		int endRow = startRow + limit -1;
-		System.out.println("startRow="+startRow+"/endRow="+endRow);
 		
 		try {
 			pstmt = conn.prepareStatement(query);

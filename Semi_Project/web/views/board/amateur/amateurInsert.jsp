@@ -31,41 +31,38 @@
 	   		<h1>아마추어 게시판 글 등록 페이지</h1>
 	   		<p>당신도 아티스트가 될 수 있습니다.</p>
 	   </div>   
-       <form action="<%=request.getContextPath()%>/insert.no" method="post">
+       <form action="<%=request.getContextPath()%>/insert.am" method="post" encType="multipart/form-data">
            <div class="form-group">
             	<label for="noti_title">Title</label>
-            	<input type="text" class="form-control" name="noti_title" id="noti_title" placeholder="Enter Title">
+            	<input type="text" class="form-control" name="event_title" id="event_title" placeholder="Enter Title">
        	 	</div>
         	<div class="form-group">
-            	<label for="notice">Comment</label>
-            	<textarea class="form-control" rows="10" name="notice" id="notice"></textarea>
+            	<label for="event">Comment</label>
+            	<textarea class="form-control" rows="10" name="event" id="event"></textarea>
+        	</div>
+        	<div id="fileArea" class="form-group" style="display:block;">
+        		<label for="event_file" style="font-size:17px;">작품 제출하기</label>
+        		<input type="file" id="event_file" name="event_file" onchange="LoadImg(this)">
+        	</div>
+        	<div id="ImgArea" class="form-group" style="display:block;">
+        		<img id="imgArea" width="150" height="150">
         	</div>
         	<div class="form-group">
-            	<input type="submit" class="btn btn-secondary" value="등록하기" onclick="goNotice();">&nbsp;
+            	<input type="submit" class="btn btn-secondary" value="등록하기">&nbsp;
             	<input type="reset" class="btn btn-secondary" value="다시쓰기">
         	</div>
-        	<div class="form-group">
-        		<div id="amateurFile">
-        			<img id="amateurFile" width="100" height="100">
-        		</div>
-        	</div>
-        	<div id="fileArea">
-        		<intput type="file" id="file1" name="file1" onchange="LoadImg(this);">
-        	</div>
-       </form>
+		</form>
    </div>
+   
+
    <script>
-   	$(function(){
-   		$("#fileArea").hide();
-   		$("#amateurFile").click(function(){
-   			$("file1").click();
-   		})
-   	})
-   	function LoadImg(value,num){
+   
+   	function LoadImg(value){
    		if(value.files && value.files[0]){
    			var reader = new FileReader();
+   
    			reader.onload = function(e){
-   				$("file1").attr("src",e.target.result);
+   				$("#imgArea").attr("src",e.target.result);
    			}
    		}
    		reader.readAsDataURL(value.files[0]);
