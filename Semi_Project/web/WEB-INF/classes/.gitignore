@@ -1,6 +1,4 @@
-/artistapply/
-/board/
-/common/
-/member/
-/mypage_artist/
-/product/
+.classpath
+context.xml
+/classes/
+.settings/
