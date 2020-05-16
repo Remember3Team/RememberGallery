@@ -1,6 +1,7 @@
 package member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -51,7 +52,21 @@ public class LoginServlet extends HttpServlet {
 			
 			HttpSession session = request.getSession(); 
 			session.setAttribute("loginUser", loginMember);
-			response.sendRedirect("index.jsp");
+			
+			/*로그인 후 이전 페이지로*/
+			PrintWriter writer  = response.getWriter();
+			writer.println("<script type = 'text/javascript'>");
+			writer.println("history.go(-2);");
+			// 회원가입 페이지를 따로 안만들시
+//			writer.println(" ");
+			writer.println("</script>");
+			writer.flush();
+			
+			  
+			 
+			
+			
+			/* response.sendRedirect("index.jsp"); */
 //			RequestDispatcher view = request.getRequestDispatcher("index.jsp");
 //			view.forward(request, response);
 		} else { // 로그인 실패일 경우
