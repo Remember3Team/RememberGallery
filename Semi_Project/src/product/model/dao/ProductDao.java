@@ -10,7 +10,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import board.notice.model.vo.Notice;
-import product.model.service.photo;
 import product.model.vo.Attachment;
 import product.model.vo.product;
 
@@ -189,10 +188,10 @@ public class ProductDao {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				product p = new product(rset.getInt("PAINT_NO"),
-										rset.getString("PAINT_NAME"),
-										rset.getInt("PAINT_PRICE"),	
-										rset.getInt("SIZE_NO"));
+				Attachment p = new Attachment(rset.getInt("PAINT_NO"),
+										rset.getString("AFILE"),
+										rset.getString("FILEPATH"),	
+										rset.getInt("FILELEVLE"));
 
 				list.add(p);
 			}
@@ -203,7 +202,7 @@ public class ProductDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println("ProductDao:게시글 출력 확인_" + list);
+		System.out.println("ProductDao attachment:" + list);
 
 		return list;
 	}
