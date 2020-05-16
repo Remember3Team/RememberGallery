@@ -62,9 +62,11 @@ public class ProductDao {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				product p = new product(rset.getInt("PAINT_NO"), rset.getString("PAINT_NAME"),
-						rset.getInt("PAINT_PRICE"), rset.getInt("SIZE_NO"));
-
+				product p = new product(rset.getInt("PAINT_NO"), 
+						rset.getString("PAINT_NAME"),
+				rset.getInt("PAINT_PRICE"),
+				rset.getInt("SIZE_NO"),
+				rset.getString("ARTIST_NAME"));
 				list.add(p);
 			}
 
@@ -191,7 +193,7 @@ public class ProductDao {
 				Attachment p = new Attachment(rset.getInt("PAINT_NO"),
 										rset.getString("AFILE"),
 										rset.getString("FILEPATH"),	
-										rset.getInt("FILELEVLE"));
+										rset.getInt("FILELEVEL"));
 
 				list.add(p);
 			}

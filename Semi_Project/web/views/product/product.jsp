@@ -107,11 +107,11 @@
 				<img class="rimage" src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" style="width: 100%; height: 70%;">		      
 					<div class="mname">
 						<!-- 이름 -->
-						<p>p.getPaint_name</p>
+						<p><%=p.getPaint_name() %></p>
 					</div>
 					<div class="mname">
 						<!-- 작가명-->
-						<p>p.getArtist_name;</p>
+						<p><%=p.getArtist_name() %></p>
 					</div>
 					<div>
 						<button id="detail" onclick="location.href='<%=request.getContextPath()%>/views/product/productdetail.jsp'">상세보기</button>

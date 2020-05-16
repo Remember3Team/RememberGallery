@@ -70,6 +70,7 @@ public class productservlet extends HttpServlet {
 		for(int i = 0;i<list.size();i++) {
 			System.out.println(list.get(i));
 		}
+		
 		ArrayList<Attachment> alist = pService.selectAList(currentPage, limit);
 		
 		for(int i = 0;i<alist.size();i++) {
