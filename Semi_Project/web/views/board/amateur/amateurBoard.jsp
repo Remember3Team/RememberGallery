@@ -4,6 +4,7 @@
 <%
 	ArrayList<Amateur> list = ((ArrayList<Amateur>)request.getAttribute("list"));
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	ArrayList<FileManagement> fileList = ((ArrayList<FileManagement>)request.getAttribute("fileList"));
 	
 	System.out.println("[jsp]게시글 리스트 출력확인:"+list);
 	int listCount = pi.getListCount();
