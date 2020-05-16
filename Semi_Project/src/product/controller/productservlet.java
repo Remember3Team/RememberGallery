@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import product.model.vo.Attachment;
 import board.notice.model.vo.PageInfo;
 import product.model.service.ProductService;
 import product.model.vo.product;
@@ -69,11 +70,17 @@ public class productservlet extends HttpServlet {
 		for(int i = 0;i<list.size();i++) {
 			System.out.println(list.get(i));
 		}
+		ArrayList<Attachment> alist = pService.selectAList(currentPage, limit);
+		
+		for(int i = 0;i<alist.size();i++) {
+			System.out.println(alist.get(i));
+		}
 		
 		RequestDispatcher view = null;
 		if(!list.isEmpty()) {
 			view = request.getRequestDispatcher("views/product/product.jsp");
 			
+			request.setAttribute("alist", alist);
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		}else {
