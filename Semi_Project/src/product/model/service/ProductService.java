@@ -31,21 +31,23 @@ public class ProductService {
 		return list;
 	}
 
-	public int insertProduct(product p, ArrayList<Attachment> fileList) {
+	public int insertProduct(product p, ArrayList<Attachment> fileList, String[] irr) {
 
 		Connection conn = getConnection();
 		ProductDao pDao = new ProductDao();
 		
 		int result1 = pDao.insertProduct(conn,p);
 		int result2 = pDao.insertAttachment(conn,fileList);
+		int result3 = pDao.insertmasterpiece(conn,p);
+		int result4 = pDao.insertTag(conn,irr);
 		
-		if(result1>0 && result2>0) {
+		if(result1>0 && result2> 0 && result3 >0) {
 	         commit(conn);
 	      }else {
 	         rollback(conn);
 	      }
 	      close(conn);
-	      return result1;
+	      return result2;
 	}
 
 }

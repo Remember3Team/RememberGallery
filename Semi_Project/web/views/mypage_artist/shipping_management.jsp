@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "mypage_artist.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList"%>
-     <%
-    	ArrayList<Mypage_artist> list = (ArrayList<Mypage_artist>)request.getAttribute("SM_list");
+    pageEncoding="UTF-8" import = "mypage_artist.management.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList"%>
+    <%
+    	ArrayList<Mypage_artist> SM_list = (ArrayList<Mypage_artist>)request.getAttribute("SM_list");
     	PageInfo pi = (PageInfo)request.getAttribute("pi");
     	
     	int listCount = pi.getListCount();
@@ -85,7 +85,7 @@
                     <th>배송상태</th>
                     <th>수정 및 삭제</th>
                 </tr>
-                <% for(Mypage_artist ma : list){ %>
+                <% for(Mypage_artist ma : SM_list){ %>
                 <tr>
                     <td><input type="checkbox"></td>
                     <td><%=ma.getOrder_no() %></td>

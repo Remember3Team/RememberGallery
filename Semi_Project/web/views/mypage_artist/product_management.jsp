@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "mypage_artist.product_management.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import = "mypage_artist.management.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList"%>
     <%
-    	ArrayList<Mypage_artist> list = (ArrayList<Mypage_artist>)request.getAttribute("list");
+    	ArrayList<Mypage_artist> PM_list = (ArrayList<Mypage_artist>)request.getAttribute("PM_list");
     	PageInfo pi = (PageInfo)request.getAttribute("pi");
     	
     	int listCount = pi.getListCount();
@@ -95,7 +95,7 @@
                     <th>금액</th>
                     <th>수정 및 삭제</th>
                 </tr>
-                <% for(Mypage_artist ma : list){ %>
+                <% for(Mypage_artist ma : PM_list){ %>
                 <tr>
                     <td><input type="checkbox"></td>
                     <td><%=ma.getPaint_no() %></td>

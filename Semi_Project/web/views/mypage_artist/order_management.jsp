@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "mypage_artist.management.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList"%>
+    <%
+    	ArrayList<Mypage_artist> OM_list = (ArrayList<Mypage_artist>)request.getAttribute("OM_list");
+    	PageInfo pi = (PageInfo)request.getAttribute("pi");
+    	
+    	int listCount = pi.getListCount();
+    	int currentPage = pi.getCurrentPage();
+    	int maxPage = pi.getMaxPage();
+    	int startPage = pi.getStartPage();
+    	int endPage = pi.getEndPage();
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,16 +87,18 @@
                     <th>처리 상태</th>
                     <th>주문 정보 확인</th>
                 </tr>
+                <% for(Mypage_artist ma : OM_list){ %>
                 <tr>
                     <td><input type="checkbox"></td>
-                    <td>p0001</td>
-                    <td><img src="../img/artist.JPG" alt="pimage"></td>
-                    <td>작품명 : Remember Me</td>
-                    <td>10,000</td>
-                    <td>환불 요청</td>
+                    <td><%=ma.getOrder_no() %></td>
+                    <td><%=ma.getAfile() %></td>
+                    <td>작품명 : <%=ma.getPaint_name() %><br>
+                    	  작가명 : <%=ma.getArtist_name() %></td>
+                    <td><%=ma.getPaint_price() %></td>
+                    <td><%=ma.getOrder_status() %></td>
                     <td><button class="btn btn-outline-dark" id="detail_order" style = "width:150px">주문 상세보기</button></td>
                 </tr>
-
+				<%} %>
             </table>
         </div>
         
