@@ -48,14 +48,15 @@ public class AmateurService {
 		return list;
 	}
 
-//	public ArrayList<FileManagement> selectList(Amateur amateur) {
-//		Connection conn = getConnection();
-//		
-//		ArrayList<FileManagement> fileList = new AmateurDao().selectList(conn, amateur);
-//		System.out.println("[service]게시글 파일리스트 출력:"+fileList);
-//		close(conn);
-//		return fileList;
-//	}
-	
+	public ArrayList<FileManagement> selectList(Amateur getEventNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<FileManagement> list = new AmateurDao().selectList(conn, getEventNo);
+		System.out.println("[service]파일 리스트 출력:"+list);
+		close(conn);
+		
+		return list;
+	}
+
 
 }

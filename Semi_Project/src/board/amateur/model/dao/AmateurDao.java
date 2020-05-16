@@ -124,4 +124,33 @@ public class AmateurDao {
 		return list;
 	}
 
+	public ArrayList<FileManagement> selectList(Connection conn, Amateur getEventNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<FileManagement> list = new ArrayList<>();
+		
+		String query = "SELECT * FROM EVENT_FILE WHERE EVENT_NO=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, getEventNo.getEvent_no());
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				FileManagement fm = new FileManagement(rset.getInt("event_no"),
+										rset.getString("event_file"),
+										rset.getString("event_path"));
+				
+				list.add(fm);
+			}
+			System.out.println("[dao] 파일리스트 출력결과:"+list);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
 }
