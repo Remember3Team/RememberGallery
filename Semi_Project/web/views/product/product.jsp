@@ -122,6 +122,40 @@
 				<% } %>
                   <% } %>
 		</div>
+		
+		<!--  페이징 처리 시작! -->
+      <div class="pageingArea" align="center">
+      <!-- 맨 처음으로 (<<) -->
+      <button onclick="location.href='<%=request.getContextPath() %>/list.bo?currentPage=1'"> << </button>
+      
+      <!-- 이전 페이지로(<) -->
+      <%if(currentPage <= 1) {%>
+      <button disabled> < </button>
+      <%}else{ %>
+      <button onclick="location.href='<%=request.getContextPath() %>/list.bo?currentPage=<%=currentPage-1 %>'"> < </button>
+       <%} %>
+      <!-- 10개의 페이지 목록 -->
+      <%for(int p = startPage ; p<=endPage;p++){ %>
+     	 <%if(currentPage == p){ %>
+     	 	<button disabled><%=p %></button>
+     	 <%}else{ %>
+     	 	<button onclick="location.href='<%=request.getContextPath() %>/list.bo?currentPage=<%=p %>'"><%=p %></button>
+     	 <%} %>
+      <%} %>
+
+      
+      <!-- 다음 페이지로(>) -->
+        <%if(currentPage == maxPage) {%>
+      <button disabled> > </button>
+      <%}else{ %>
+      <button onclick="location.href='<%=request.getContextPath() %>/list.bo?currentPage=<%=currentPage+1 %>'"> > </button>
+      <%} %>
+      
+      <!-- 맨 끝으로(>>) -->
+      <button onclick="location.href='<%=request.getContextPath() %>/list.bo?currentPage=<%= maxPage%>'"> >> </button>
+      
+      </div>
+
 
    <br><br><br><br><br><br><br><br><br>
 
