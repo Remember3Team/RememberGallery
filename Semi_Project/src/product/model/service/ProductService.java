@@ -34,6 +34,7 @@ public class ProductService {
 
 	public int insertProduct(product p, ArrayList<Attachment> fileList, String[] irr) {
 
+		
 		Connection conn = getConnection();
 		ProductDao pDao = new ProductDao();
 		

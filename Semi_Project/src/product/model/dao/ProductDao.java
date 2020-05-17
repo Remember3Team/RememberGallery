@@ -27,6 +27,7 @@ public class ProductDao {
 			rset = stmt.executeQuery(query);
 
 			if (rset.next()) {
+				
 				listCount = rset.getInt(1);
 
 			}

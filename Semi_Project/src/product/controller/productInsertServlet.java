@@ -121,6 +121,7 @@ public class productInsertServlet extends HttpServlet {
 				failedFile.delete();
 			}
 		}
+		
 	}
 
 	/**
