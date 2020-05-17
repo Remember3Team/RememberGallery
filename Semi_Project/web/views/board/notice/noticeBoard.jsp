@@ -48,7 +48,7 @@
 			<hr>
 			<br clear="both">
 				 <div class="col-sm-6" style="display:block;">
-					<table class="table table-hover">
+					<table class="table table-hover" id="listArea">
 				  		<thead>
 				    		<tr>
 				      			<th>게시글 번호</th>
@@ -98,4 +98,14 @@
 <br><br><br>
 	<%@include file="../../common/footer.jsp" %>
 </body>
+<script>
+	$(function(){
+		$("#listArea td").click(function(){
+			var noti_no = $(this).parent().children("input").val();
+			location.href="<%=request.getContextPath()%>/detail.no?noti_no="+noti_no;
+			
+		})
+	})
+
+</script>
 </html>

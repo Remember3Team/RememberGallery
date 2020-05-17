@@ -152,4 +152,82 @@ public class AmateurDao {
 		return list;
 	}
 
+	public int updateCount(Connection conn, int aid) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "UPDATE EVENT SET HIT = HIT+1 WHERE EVENT_NO=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, aid);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	public Amateur selectBoard(Connection conn, int aid) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset= null;
+		
+		String query = "SELECT * FROM EVENT WHERE EVENT_NO=?";
+		Amateur a = null;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, aid);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				a = new Amateur(rset.getInt("EVENT_NO"),
+								rset.getString("EVENT_TITLE"),
+								rset.getString("USER_ID"),
+								rset.getDate("EVENT_DATE"),
+								rset.getString("EVENT"),
+								rset.getInt("HIT"),
+								rset.getString("EVENT_LIKE"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+			return a;
+	
+	}
+
+	public FileManagement selectFile(Connection conn, int aid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset= null;
+		
+		String query = "SELECT * FROM EVENT_FILE WHERE EVENT_NO=?";
+		FileManagement fm = null;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, aid);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				fm = new FileManagement(rset.getInt("EVENT_NO"),
+								rset.getString("EVENT_FILE"),
+								rset.getString("EVENT_PATH"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+			return fm;
+	}
+
 }

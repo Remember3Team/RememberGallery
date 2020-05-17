@@ -102,7 +102,7 @@ public class productInsertServlet extends HttpServlet {
 			at.setSavefileName(saveFiles.get(i));
 
 			// 대표 이미지가 originFiles에서의 마지막 인덱스로 하기 위해서 조건 처리를 하자
-			if (i == saveFiles.size() - 1) {
+			if (i == saveFiles.size() -3) {
 				at.setFileLevel(0);
 			} else {
 				at.setFileLevel(1);

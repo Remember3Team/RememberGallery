@@ -1,26 +1,28 @@
-package board.notice.controller;
+package board.amateur.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import board.notice.model.service.NoticeService;
-import board.notice.model.vo.Notice;
+import board.amateur.model.service.AmateurService;
+import board.amateur.model.vo.Amateur;
+import board.amateur.model.vo.FileManagement;
 
 /**
- * Servlet implementation class NoticeDetailServlet
+ * Servlet implementation class AmateurDetailServlet
  */
-@WebServlet("/detail.no")
-public class NoticeDetailServlet extends HttpServlet {
+@WebServlet("/detail.am")
+public class AmateurDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeDetailServlet() {
+    public AmateurDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,18 +31,18 @@ public class NoticeDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		int noti_no = Integer.valueOf(request.getParameter("noti_no"));
-		
-		Notice notice = new NoticeService().selectNotice(noti_no);
-		
-		if(notice !=null) {
-			request.setAttribute("notice", notice);
-			request.getRequestDispatcher("views/board/notice/noticeDetail.jsp").forward(request, response);
-		}else {
-			
+		request.setCharacterEncoding("UTF-8");
+
+		int event_no = Integer.valueOf(request.getParameter("event_no"));
+		Amateur amateur = new AmateurService().selectBoard(event_no);
+		FileManagement file = new AmateurService().selectFile(event_no);
+		if(amateur!=null) {
+			request.setAttribute("amateur", amateur);
+			request.setAttribute("fileList", file);
+			request.getRequestDispatcher("views/board/amateur/amateurDetail.jsp").forward(request, response);
 		}
+	
+		
 	}
 
 	/**
