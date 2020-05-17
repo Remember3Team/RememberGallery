@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<% Member user = (Member) session.getAttribute("loginUser"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,9 +29,9 @@
     <div class="second-menu">
         <ul>
             <li>총 적립포인트</li>
-            <li><a href="#" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">0 point</a></li><a>|</a>
+            <li><a href="#" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true"><%=user.getPoint()%> point</a></li><a>|</a>
             <li>회원등급</a></li>
-            <li><a href="#" class="btn btn-outline-secondary btn-sm active" role="button" aria-pressed="true">Gold</a>
+            <li><a href="#" class="btn btn-outline-secondary btn-sm active" role="button" aria-pressed="true"><%=user.getGrade() %></a>
         </ul>
     </div>
 

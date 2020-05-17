@@ -9,7 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import member.model.vo.Member;
 import mypage_user.qna.model.service.QnaService;
 import mypage_user.qna.model.vo.Qna;
 
@@ -35,9 +37,16 @@ public class QnaServlet extends HttpServlet {
 		QnaService qService = new QnaService();
 		System.out.println("qna서블릿 이동 확인");
 		
+		//로그인세션
+		HttpSession session = request.getSession();
+		Member loginMember = (Member) session.getAttribute("loginUser");
+		System.out.println(loginMember);
+		
+		
 		//상품문의
-		ArrayList<Qna> list = qService.selectList();
-		ArrayList<Qna> list2 = qService.selectList2();
+		ArrayList<Qna> list = qService.selectList(loginMember.getUserId());
+		//1:1문의
+		ArrayList<Qna> list2 = qService.selectList2(loginMember.getUserId());
 		
 		
 		for(int i = 0; i<list.size(); i++) {

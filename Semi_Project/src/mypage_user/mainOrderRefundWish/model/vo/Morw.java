@@ -16,6 +16,7 @@ public class Morw implements Serializable {
 	private Date orderDate;
 	private String orderStatus;
 	private String userId;
+	private String artistName;
 	
 	
 	
@@ -24,13 +25,8 @@ public class Morw implements Serializable {
 	}
 	
 	
-	
-	
-	
 
-
-
-
+	//메인,오더
 	public Morw(String orderNo, String aFile, String paintName, int paintPrice, Date orderDate, String orderStatus) {
 		super();
 		this.orderNo = orderNo;
@@ -42,28 +38,32 @@ public class Morw implements Serializable {
 	}
 
 
-
-
-
-
-
-
-
-	public Morw(String orderNo, String aFile, String paintName, int paintPrice, Date orderDate, String orderStatus,
-			String userId) {
+	
+	//리펀
+	public Morw(String orderNo, String aFile, String paintName, int paintPrice, String orderStatus) {
 		super();
 		this.orderNo = orderNo;
 		this.aFile = aFile;
 		this.paintName = paintName;
 		this.paintPrice = paintPrice;
-		this.orderDate = orderDate;
 		this.orderStatus = orderStatus;
-		this.userId = userId;
+	}
+	
+	
+	
+	
+
+	//장바구니
+	public Morw(String paintName, String artistNameint,int paintPrice) {
+		super();
+		this.paintName = paintName;
+		this.artistName = artistName;
+		this.paintPrice = paintPrice;
 	}
 
 
 
-	
+
 
 
 	public String getOrderNo() {
@@ -150,6 +150,18 @@ public class Morw implements Serializable {
 
 
 
+	public String getArtistName() {
+		return artistName;
+	}
+
+
+
+	public void setArtistName(String artistName) {
+		this.artistName = artistName;
+	}
+
+
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -159,17 +171,10 @@ public class Morw implements Serializable {
 	@Override
 	public String toString() {
 		return "Morw [orderNo=" + orderNo + ", aFile=" + aFile + ", paintName=" + paintName + ", paintPrice="
-				+ paintPrice + ", orderDate=" + orderDate + ", orderStatus=" + orderStatus + ", userId=" + userId + "]";
+				+ paintPrice + ", orderDate=" + orderDate + ", orderStatus=" + orderStatus + ", userId=" + userId
+				+ ", artistName=" + artistName + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
 
 }

@@ -30,13 +30,20 @@ public class MorwService {
 		return list;
 	}
 
-	public ArrayList<Morw> refundList() {
+
+	public ArrayList<Morw> refundList(String user_id) {
 		Connection conn = getConnection();
 		
-		ArrayList<Morw> list = new MorwDao().refundList(conn);
-		//BoardDao를 가서 selectList메소드 구현하기
-		System.out.println("service단 refundlist 출력"+list);
+		ArrayList<Morw> list = new MorwDao().refundList(conn,user_id);
+		System.out.println("service : "+list.size());
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<Morw> wishlistList(String user_id) {
+		Connection conn =getConnection();
 		
+		ArrayList<Morw> list = new MorwDao().wishlistList(conn,user_id);
 		close(conn);
 		return list;
 	}

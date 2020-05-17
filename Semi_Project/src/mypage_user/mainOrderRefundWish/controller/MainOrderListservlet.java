@@ -35,6 +35,8 @@ public class MainOrderListservlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String menu = request.getParameter("menu");
+		
 		//로그인세션
 		HttpSession session = request.getSession();
 		Member loginMember = (Member) session.getAttribute("loginUser");
@@ -49,10 +51,18 @@ public class MainOrderListservlet extends HttpServlet {
 			System.out.println(list.get(i));
 		}
 		
-		System.out.println("testsssss");
+		//System.out.println("testsssss");
 		RequestDispatcher view = null;
+		
+		String page = "views/mypage_user/mypage_main.jsp";
+		
+		if("order".equals(menu)) {
+			page = "views/mypage_user/mypage_order.jsp";
+		}
+		
+		
 		if(!list.isEmpty()) {
-			view = request.getRequestDispatcher("views/mypage_user/mypage_main.jsp");
+			view = request.getRequestDispatcher(page);
 			request.setAttribute("list",list);
 		}else {
 			view = request.getRequestDispatcher("views/mypage_user/mypage_main.jsp");

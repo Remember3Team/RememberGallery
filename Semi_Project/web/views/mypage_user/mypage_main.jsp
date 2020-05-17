@@ -3,9 +3,8 @@
     
 <%
 	ArrayList<Morw> list = ((ArrayList<Morw>)request.getAttribute("list"));
+	Member user = (Member) session.getAttribute("loginUser");
 
-
-	 
 %>
 <!DOCTYPE html>
 <html>
@@ -26,9 +25,9 @@
     <div class="container">
     <ul class="nav nav-pills nav-fill" align="left">
             <li class="nav-item">
-            김다슬님은 _____등급입니다
+            <%=user.getUserName() %>님은 <%=user.getGrade() %>등급입니다
             <a href="#" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">등급 혜택보기</a>&nbsp;
-            <a href="<%=request.getContextPath()%>/views/mypage_user/mypage_point.jsp"  class="btn btn-outline-secondary btn-sm active" role="button" aria-pressed="true">마일리지:0 point</a>
+            <a href="<%=request.getContextPath()%>/views/mypage_user/mypage_point.jsp"  class="btn btn-outline-secondary btn-sm active" role="button" aria-pressed="true">마일리지: <%=user.getPoint() %> point</a>
             </li>
     </ul>
     <br>

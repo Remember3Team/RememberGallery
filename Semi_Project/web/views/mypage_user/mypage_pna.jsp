@@ -41,7 +41,7 @@
         <option value="q2" >상품문의</option>
         </select>
     </div>
-      <div class = "qna-table1" style="display:block;">
+      <div class = "qna-table1" style="display:none;">
             <table style="width:100%" name="qna-list">
                 <thead>
                 <tr>
@@ -69,7 +69,7 @@
 				</tbody>
             </table>
         </div>
-         <div class = "qna-table2" style="display:none;" >
+         <div class = "qna-table2" style="display:block;" >
             <table style="width:100%" name="qna-list">
                 <thead>
                 <tr>

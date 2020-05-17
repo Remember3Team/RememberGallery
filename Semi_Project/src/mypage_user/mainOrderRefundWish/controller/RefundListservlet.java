@@ -9,7 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import member.model.vo.Member;
 import mypage_user.mainOrderRefundWish.model.service.MorwService;
 import mypage_user.mainOrderRefundWish.model.vo.Morw;
 
@@ -33,24 +35,25 @@ public class RefundListservlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//로그인세션
+		HttpSession session = request.getSession();
+		Member loginUser = (Member) session.getAttribute("loginUser");
+		System.out.println("loginUser 확인" + loginUser);
+		
+		
 		MorwService mService = new MorwService();
-
 		
-		ArrayList<Morw> list = mService.refundList();
-		for(int i = 0; i<list.size(); i++) {
-			System.out.println(list.get(i));
-		}
+		System.out.println("서블릿 이동 확인쓰");
 		
+		ArrayList<Morw> list = mService.refundList(loginUser.getUserId());
+		System.out.println(list.size());
 		RequestDispatcher view = null;
 		
 		if(!list.isEmpty()) {
+			request.setAttribute("list", list);
 			view = request.getRequestDispatcher("views/mypage_user/mypage_refund.jsp");
-			request.setAttribute("list",list);
-		}else {
-			view = request.getRequestDispatcher("views/mypage_user/mypage_refund.jsp");
-			request.setAttribute("msg", "환불내역 조회 실패");
 		}
-		view.forward(request, response);
+		view.forward(request,response);
 	}
 
 	/**

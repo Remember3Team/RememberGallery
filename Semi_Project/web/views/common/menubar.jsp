@@ -18,7 +18,7 @@
 
 <style>
 /* 로그인 팝업 css */
-#LoginBtn input, #memberJoinBtn, #logoutBtn, #myPage {
+/* #LoginBtn input, #memberJoinBtn, #logoutBtn, #myPage {
 	display: inline-block;
 	vertical-align: middle;
 	text-align: center;
@@ -29,7 +29,7 @@
 }
 
 #memberJoinBtn {
-	background: gray;
+	background: gray;a
 }
 
 #loginBtn:hover
@@ -46,7 +46,9 @@
 	position: absolute;
 	margin-top: 70px;
 	-webkit-transition: all 0.5s;
-	/* text-align:center; */
+	
+	
+	text-align:center; 
 }
 
 #logout, #myPage {
@@ -65,10 +67,11 @@
 	position: fixed;
 	height: 400px;
 	width: 350px;
-	/* display:inline-block; */
 	margin-left: 35%;
 	border-radius: 10px;
 	text-algin: "center";
+	
+ display:inline-block; 
 }
 
 .loginArea>form, #userInfo {
@@ -83,7 +86,7 @@
 	padding-top: 50px;
 	padding-right: 50px;
 }
-
+ */
 h1 {
 	color: white;
 	padding-top: 80px;
@@ -92,6 +95,11 @@ h1 {
 .inputinfo {
 	margin: 0 auto;
 }
+
+ul li ul li:hover{
+	background-color:red;
+}
+
 </style>
 </head>
 <body>
@@ -110,7 +118,7 @@ h1 {
 			<li><a href="#">COMMUNITY</a>
 				<ul>
 					<li><a
-						href="<%= request.getContextPath() %>/list.am">아마추어
+						href="<%= request.getContextPath() %>/views/board/amateur/amateurBoard.jsp">아마추어
 							게시판</a></li>
 					<li><a href="#">자유게시판</a></li>
 				</ul></li>
@@ -123,40 +131,50 @@ h1 {
 			<%if(loginUser != null){ %>
 			<li><a href="#">TEST</a> 
 				<ul>
+
 					<li><a href="<%= request.getContextPath() %>/Mo.li">마이페이지 소비자</a></li>
+
+					<li><a href="#">마이페이지 소비자</a></li>
+					<li><a href="#">My Page(?)</a></li>
+					<li><a href="#">장바구니</a></li>
+					<li><a href="#">Chat</a></li>
+					<li><a href="#">1:1문의</a></li>
+
 					<li><a href="#">마이페이지 관리자</a></li>
 					<li><a href="#">마이페이지 판매자</a></li>
-						<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 11111111111-->
+					
 					<li><a href="<%=request.getContextPath()%>/logout.me">로그아웃</a></li>
-						<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 111111111111-->
+						
 				</ul></li>
 					<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 222222222222-->
-			<input type="hidden" id = "checkLogin"> 
+		 <!-- <input type="hidden" id = "checkLogin">  -->
 				<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 22222222222222222-->
 			<%} %>
 		</ul>
 		<!--icon :: 색상변경 또는 없애버리고 메뉴바 만들기-->
 		<div id="loginWrap">
-			<a href="#" class="icon" onclick="login_btn();"><img
+			<a href="<%= request.getContextPath() %>/views/member/signIn.jsp" class="icon" onclick="login_btn();"><img
 				src="<%=request.getContextPath()%>/views/img/login2.png"></a>
 
 			<!--마이페이지로 넘어가는부분 잠시 수정 -->
 			<a href="#" class="icon"><img
 				src="<%= request.getContextPath() %>/views/img/search2.png"></a>
-		</div>
+		</div> <!-- loginWrap 끝 -->
 
 
 	</header>	
-	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 3333333333333-->
-			<script>
+	
+	
+<!--  로그인 팝업창 보류 --><!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 3333333333333-->
+<!-- 			<script>
 				$(function (){
 					if($("#checkLogin").length>0){
 						$("#LoginArea").css("display","none");
 					}
 				});
-			</script>
+			</script> -->
 	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 3333333333333333-->
-	<br clear="both">
+	<%--<br clear="both">
 	<div id="Login_pop">
 		<% 
 			if (loginUser == null) {
@@ -245,6 +263,6 @@ h1 {
 
 	</header>
 	<br clear="both">
-
+ --%>
 </body>
 </html>

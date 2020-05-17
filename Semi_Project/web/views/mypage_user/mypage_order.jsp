@@ -1,18 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="mypage_user.mainOrderRefundWish.model.vo.*, java.util.ArrayList"%>
+    
+<%
+	ArrayList<Morw> list = ((ArrayList<Morw>)request.getAttribute("list"));
+
+	 
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/bootstrap.css">
-  <link rel="stylesheet" href="../css/Style-mypagehead.css">
-  <link rel="stylesheet" href="../css/Style-ar.css">
-  <link rel="stylesheet" href="../css/Style-refund.css">
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/bootstrap.css">
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/Style-mypagehead.css">
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/Style-ar.css">
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/Style-refund.css">
   
-<script src="../js/jquery-3.4.1.min.js"></script>
+<script src="<%=request.getContextPath() %>/views/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.js"></script>
+<script type="text/javascript">
+
+var searchStatus='all';
+var term = 'all';
+$("document").ready(function(){
+	$("#searchStatus").change(function(){
+		searchStatus = this.value;
+	});
+	
+	$("input[name=term]:radio").click(function(){
+		console.log(this.value)
+	});
+});
+
+function setStatus(obj){
+	term = obj.value;
+}
+</script>
 </head>
 <body>
 	<%@include file="../common/menubar.jsp" %>
@@ -29,15 +53,16 @@
       <form action="">
             <div class="search-bar">
                 <div class="bar1">
-                    <input type="text" name="order-status" list="status-list" placeholder=" 주문 처리 상태">
-                    <datalist id="status-list">
-                        <option>입금전</option>
-                        <option>배송준비중</option>
-                        <option>배송중</option>
-                        <option>배송완료</option>
-                        <option>환불신청</option>
-                        <option>환불완료</option>
-                    </datalist>
+                    
+                    <select id="searchStatus">
+                    	<option value="all">전체보기</option>
+                        <option value="입금전">입금전</option>
+                        <option value="배송준비중">배송준비중</option>
+                        <option value="배송중">배송중</option>
+                        <option value="배송완료">배송완료</option>
+                        <option value="환불신청">환불신청</option>
+                        <option value="환불완료">환불완료</option>
+                    </select>
                 </div>
                 <div class="btn-group" data-toggle="buttons">
                                 <label class="btn btn-outline-dark">
@@ -83,6 +108,7 @@
                 <div><span><b>주문 상품정보</b></span></div>
             </div>
             <table style="width:100%" name="order-list">
+                <thead>
                 <tr>
                     <th>주문 번호</th>
                     <th>이미지</th>
@@ -91,15 +117,22 @@
                     <th>주문일자</th>
                     <th>주문 처리상태</th>
                 </tr>
-                <tr>
-                    <td>p0001</td>
-                    <td>이미지</td>
-                    <td>작품명 : Remember Me</td>
-                    <td>10,000</td>
-                    <td>2020-05-13</td>
-                    <td>환불 요청</td>
-                </tr>
-
+                </thead>
+                <tbody>
+                <%if(!list.isEmpty()){ %>
+			  			<%for(Morw m:list){ %>
+			    		<tr>
+			    			<td><%=m.getOrderNo() %></td>
+							<td><%=m.getaFile() %></td>
+			      			<td><%=m.getPaintName()%></td>
+			      			<td><%=m.getPaintPrice()%></td>
+			      			<td><%=m.getOrderDate()%></td>
+			      			<td><%=m.getOrderStatus()%></td>
+			    		</tr>
+			    		<%} %>
+			    	<%} else{%>
+			    	<%} %>
+                </tbody>
             </table>
         </div>
    

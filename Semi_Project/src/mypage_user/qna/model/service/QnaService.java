@@ -13,10 +13,10 @@ import static common.JDBCTemplate.*;
 
 public class QnaService {
 
-	public ArrayList<Qna> selectList() {
+	public ArrayList<Qna> selectList(String user_id) {
 		Connection conn = getConnection();
 		
-		ArrayList<Qna> list = new QnaDao().selectList(conn);
+		ArrayList<Qna> list = new QnaDao().selectList(conn,user_id);
 		
 		System.out.println("qna service단 list 출력"+list);
 		
@@ -25,10 +25,10 @@ public class QnaService {
 		return list;
 	}
 	
-	public ArrayList<Qna> selectList2() {
+	public ArrayList<Qna> selectList2(String user_id) {
 		Connection conn = getConnection();
 		
-		ArrayList<Qna> list2 = new QnaDao().selectList2(conn);
+		ArrayList<Qna> list2 = new QnaDao().selectList2(conn,user_id);
 		
 		System.out.println("qna service단 list 출력"+list2);
 		
@@ -36,6 +36,8 @@ public class QnaService {
 		
 		return list2;
 	}
+
+	
 
 	
 }

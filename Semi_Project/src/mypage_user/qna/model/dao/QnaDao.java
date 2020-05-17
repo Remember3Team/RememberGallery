@@ -10,17 +10,22 @@ import mypage_user.qna.model.vo.Qna;
 
 public class QnaDao {
 
-	public ArrayList<Qna> selectList(Connection conn) {
+	public ArrayList<Qna> selectList(Connection conn,String user_id) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		ArrayList<Qna> list = new ArrayList<>();
 		
-		String query = "SELECT ORDER_NO,PAINT_NAME,PQUESTION,PQ_DATE,PQ_YN FROM MYPAGE_USER";
-		//String query2 = "SELECT Q_CATE,QEUSTION,Q_DATE,Q_YN FROM QUESTION";
+		String query = "SELECT O.ORDER_NO,PA.PAINT_NAME,P.PQUESTION,P.PQ_DATE,P.PQ_YN " + 
+				"FROM PAINT_Q P " + 
+				"JOIN ORDER_TABLE O ON (P.PAINT_NO= O.PAINT_NO) " + 
+				"JOIN PAINT PA ON (P.PAINT_NO=PA.PAINT_NO) where O.user_id=?";
+		
 		
 		try {
 			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, user_id);
+			
 			rset=pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -41,16 +46,17 @@ public class QnaDao {
 		return list;
 	}
 
-	public ArrayList<Qna> selectList2(Connection conn) {
+	public ArrayList<Qna> selectList2(Connection conn,String user_id) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		ArrayList<Qna> list2 = new ArrayList<>();
 		
-		String query = "SELECT Q_CATE,QEUSTION,Q_DATE,Q_YN FROM QUESTION";
+		String query = "SELECT Q_CATE,QEUSTION,Q_DATE,Q_YN FROM QUESTION WHERE USER_ID=?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, user_id);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
