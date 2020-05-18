@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="mypage_user.mainOrderRefundWish.model.vo.*, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import="mypage_user.mainOrderRefundWish.model.vo.*,product.model.vo.*, java.util.ArrayList"%>
     
 <%
 	ArrayList<Morw> list = ((ArrayList<Morw>)request.getAttribute("list"));
-
+	ArrayList<Attachment> plist = (ArrayList<Attachment>) request.getAttribute("plist");
 	 
 %>
 <!DOCTYPE html>
@@ -112,7 +112,7 @@ function setStatus(obj){
                 <tr>
                     <th>주문 번호</th>
                     <th>이미지</th>
-                    <th>상품명</th>
+                    <th>상품정보</th>
                     <th>금액</th>
                     <th>주문일자</th>
                     <th>주문 처리상태</th>
@@ -123,8 +123,14 @@ function setStatus(obj){
 			  			<%for(Morw m:list){ %>
 			    		<tr>
 			    			<td><%=m.getOrderNo() %></td>
-							<td><%=m.getaFile() %></td>
-			      			<td><%=m.getPaintName()%></td>
+							<td><% for(int j=0; j<plist.size(); j++){ 
+							Attachment a = plist.get(j); %>
+						<% if(m.getPaintNo() == a.getPaint_no()) { %>
+					 <img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" width="150px" height="150px">
+					 <%} %>
+					<%} %></td>
+			      			<td>작가 : <%=m.getArtistName()%><br>
+			      			작품명 : <%=m.getPaintName()%></td>
 			      			<td><%=m.getPaintPrice()%></td>
 			      			<td><%=m.getOrderDate()%></td>
 			      			<td><%=m.getOrderStatus()%></td>

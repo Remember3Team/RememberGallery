@@ -17,7 +17,8 @@ public class Morw implements Serializable {
 	private String orderStatus;
 	private String userId;
 	private String artistName;
-	
+	private int basketNo;
+	private int paintNo;
 	
 	
 	public Morw() {
@@ -27,11 +28,13 @@ public class Morw implements Serializable {
 	
 
 	//메인,오더
-	public Morw(String orderNo, String aFile, String paintName, int paintPrice, Date orderDate, String orderStatus) {
+	public Morw(String orderNo, int paintNo, String aFile, String paintName, String artistName, int paintPrice, Date orderDate, String orderStatus) {
 		super();
 		this.orderNo = orderNo;
+		this.paintNo = paintNo;
 		this.aFile = aFile;
 		this.paintName = paintName;
+		this.artistName = artistName;
 		this.paintPrice = paintPrice;
 		this.orderDate = orderDate;
 		this.orderStatus = orderStatus;
@@ -40,29 +43,54 @@ public class Morw implements Serializable {
 
 	
 	//리펀
-	public Morw(String orderNo, String aFile, String paintName, int paintPrice, String orderStatus) {
+	public Morw(String orderNo, int paintNo, String aFile, String paintName, String artistName, int paintPrice, String orderStatus) {
 		super();
 		this.orderNo = orderNo;
+		this.paintNo = paintNo;
 		this.aFile = aFile;
 		this.paintName = paintName;
+		this.artistName = artistName;
 		this.paintPrice = paintPrice;
 		this.orderStatus = orderStatus;
 	}
 	
 	
 	
-	
 
-	//장바구니
-	public Morw(String paintName, String artistNameint,int paintPrice) {
+	//위시리스트
+	public Morw(int basketNo, int paintNo, String paintName, String artistName,int paintPrice) {
 		super();
+		this.basketNo = basketNo;
+		this.paintNo = paintNo;
 		this.paintName = paintName;
 		this.artistName = artistName;
 		this.paintPrice = paintPrice;
 	}
+	
+	
+	
+
+	public int getPaintNo() {
+		return paintNo;
+	}
 
 
 
+	public void setPaintNo(int paintNo) {
+		this.paintNo = paintNo;
+	}
+
+
+
+	public int getBasketNo() {
+		return basketNo;
+	}
+
+
+
+	public void setBasketNo(int basketNo) {
+		this.basketNo = basketNo;
+	}
 
 
 
@@ -172,8 +200,18 @@ public class Morw implements Serializable {
 	public String toString() {
 		return "Morw [orderNo=" + orderNo + ", aFile=" + aFile + ", paintName=" + paintName + ", paintPrice="
 				+ paintPrice + ", orderDate=" + orderDate + ", orderStatus=" + orderStatus + ", userId=" + userId
-				+ ", artistName=" + artistName + "]";
+				+ ", artistName=" + artistName + ", basketNo=" + basketNo + ", paintNo=" + paintNo + "]";
 	}
+
+
+
+	
+
+	
+
+
+
+
 
 
 

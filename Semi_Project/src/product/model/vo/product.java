@@ -37,11 +37,12 @@ public class product {
 	}
 
 
-	public product(int paint_no, String paint_name, int patint_price, int size_no) {
+	public product(int paint_no, String paint_name, int patint_price, int size_no,String artist_name) {
 		this.paint_no = paint_no;
 		this.paint_name = paint_name;
 		this.patint_price = patint_price;
 		this.size_no = size_no;
+		this.artist_name = artist_name;
 	}
 
 	public product(int paint_no, String paint_name, int patint_price, String category, String artist_name,

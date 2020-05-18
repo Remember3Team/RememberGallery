@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import member.model.vo.Member;
 import mypage_user.mainOrderRefundWish.model.service.MorwService;
 import mypage_user.mainOrderRefundWish.model.vo.Morw;
+import product.model.vo.Attachment;
 
 /**
  * Servlet implementation class RefundListservlet
@@ -47,10 +48,19 @@ public class RefundListservlet extends HttpServlet {
 		
 		ArrayList<Morw> list = mService.refundList(loginUser.getUserId());
 		System.out.println(list.size());
+		
+		
+		ArrayList<Attachment> plist = mService.selectPList(loginUser.getUserId());
+		
+		for(int i = 0; i<plist.size(); i++) {
+			System.out.println("서블렛 단의 plist" + plist.get(i));
+		}
+		
 		RequestDispatcher view = null;
 		
 		if(!list.isEmpty()) {
 			request.setAttribute("list", list);
+			request.setAttribute("plist", plist);
 			view = request.getRequestDispatcher("views/mypage_user/mypage_refund.jsp");
 		}
 		view.forward(request,response);

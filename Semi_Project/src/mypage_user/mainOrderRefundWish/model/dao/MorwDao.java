@@ -1,8 +1,7 @@
 package mypage_user.mainOrderRefundWish.model.dao;
-import static common.JDBCTemplate.*;
-import java.sql.Connection;
+import static common.JDBCTemplate.close;
 
-import java.sql.Date;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import mypage_user.mainOrderRefundWish.model.vo.Morw;
+import product.model.vo.Attachment;
 
 
 public class MorwDao {
@@ -47,7 +47,7 @@ public class MorwDao {
 		
 		ArrayList<Morw> list = new ArrayList<>();
 		
-		String query ="SELECT O.ORDER_NO,PP.AFILE,PAINT_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS " + 
+		String query ="SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS " + 
 				"FROM ORDER_TABLE O " + 
 				"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO) " + 
 				"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO) " + 
@@ -58,21 +58,23 @@ public class MorwDao {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, user_id);
-//			pstmt.getResultSet(1);
+
 			
 			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				Morw m = new Morw(rset.getString("order_no"),
+									rset.getInt("paint_no"),
 									rset.getString("afile"),
 									rset.getString("paint_name"),
+									rset.getString("ARTIST_NAME"),
 									rset.getInt("paint_price"),
 									rset.getDate("order_date"),
 									rset.getString("order_status"));
 				list.add(m);
-				System.out.println("dao단 list"+list);
 			}
+			System.out.println("dao단 list"+list);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -84,41 +86,7 @@ public class MorwDao {
 		return list;
 	}
 
-	//환불리스트
-//	public ArrayList<Morw> refundList(Connection conn) {
-//		
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		
-//		ArrayList<Morw> list = new ArrayList<>();
-//		
-//		String query ="SELECT ORDER_NO,AFILE,PAINT_NAME,PAINT_PRICE,ORDER_DATE,ORDER_STATUS FROM MYPAGE_USER";
-//		
-//	
-//		try {
-//			pstmt = conn.prepareStatement(query);
-//			rset = pstmt.executeQuery();
-//			
-//			while(rset.next()) {
-//				Morw m = new Morw(rset.getString("order_no"),
-//									rset.getString("afile"),
-//									rset.getString("paint_name"),
-//									rset.getInt("paint_price"),
-//									rset.getDate("order_date"),
-//									rset.getString("order_status"));
-//				list.add(m);
-//				System.out.println("dao단 list"+list);
-//			}
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			close(rset);
-//			close(pstmt);
-//		}
-//		
-//		return list;
-//	}
+
 
 	//환불
 	public ArrayList<Morw> refundList(Connection conn, String user_id) {
@@ -127,7 +95,7 @@ public class MorwDao {
 		
 		ArrayList<Morw> list = new ArrayList<>();
 		
-		String query = "SELECT B.ORDER_NO,PP.AFILE,PAINT_NAME,PAINT_PRICE,B.ORDER_STATUS " + 
+		String query = "SELECT B.ORDER_NO,P.PAINT_NO, PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_STATUS " + 
 				"FROM BUY_LIST B " + 
 				"JOIN PAINT_PHOTO PP ON (B.PAINT_NO=PP.PAINT_NO) " + 
 				"JOIN PAINT P ON(B.PAINT_NO=P.PAINT_NO) " + 
@@ -140,8 +108,10 @@ public class MorwDao {
 			
 			while(rset.next()) {
 				Morw m = new Morw(rset.getString("ORDER_NO"),
+								  rset.getInt("PAINT_NO"),
 								  rset.getString("AFILE"),
 								  rset.getString("PAINT_NAME"),
+								  rset.getString("ARTIST_NAME"),
 								  rset.getInt("PAINT_PRICE"),
 								  rset.getString("ORDER_STATUS"));
 				list.add(m);
@@ -166,9 +136,9 @@ public class MorwDao {
 		
 		ArrayList<Morw> list = new ArrayList<>();
 		
-		String query = "SELECT P.PAINT_NAME,P.ARTIST_NAME,P.PAINT_PRICE " + 
+		String query = "SELECT B.BASKET_NO,P.PAINT_NO,P.PAINT_NAME,P.ARTIST_NAME,P.PAINT_PRICE " + 
 				"FROM PAINT P " + 
-				"JOIN BUY_LIST B ON (P.PAINT_NO=B.PAINT_NO) " + 
+				"JOIN BASKET B ON (P.PAINT_NO=B.PAINT_NO) " + 
 				"WHERE USER_ID=?";
 		
 		try {
@@ -177,9 +147,14 @@ public class MorwDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				Morw m = new Morw(rset.getString("PAINT_NAME"),
+				Morw m = new Morw(rset.getInt("BASKET_NO"),
+								  rset.getInt("PAINT_NO"),
+								  rset.getString("PAINT_NAME"),
 								  rset.getString("ARTIST_NAME"),
 								  rset.getInt("PAINT_PRICE"));
+				
+				System.out.println("아티스트네임"+rset.getString("ARTIST_NAME"));
+				
 				list.add(m);
 				System.out.println("wishlist dao단 출력"+list);
 				
@@ -195,6 +170,61 @@ public class MorwDao {
 		
 		
 		return list;
+	}
+	
+	public void wishlistDelete(Connection conn, String whereSQL) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "DELETE FROM BASKET "+whereSQL;
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+	}
+
+	public ArrayList<Attachment> selectPlist(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Attachment> plist = new ArrayList<>();
+		
+		String query = "SELECT * FROM PAINT_PHOTO P JOIN BUY_LIST B ON (P.PAINT_NO = B.PAINT_NO) WHERE FILELEVEL=0 AND B.USER_ID = ?";
+		
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Attachment p = new Attachment(rset.getInt("PAINT_NO"),
+											  rset.getString("AFILE"),
+											  rset.getString("FILEPATH"),
+											  rset.getInt("FILELEVEL"));
+				plist.add(p);
+			}
+			System.out.println("dao plist : " +plist);
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return plist;
 	}
 
 

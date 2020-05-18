@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import board.notice.model.vo.PageInfo;
 import member.model.vo.Member;
 import mypage_user.mainOrderRefundWish.model.service.MorwService;
 import mypage_user.mainOrderRefundWish.model.vo.Morw;
+import product.model.vo.Attachment;
 
 /**
  * Servlet implementation class MainOrderListservlet
@@ -47,27 +47,33 @@ public class MainOrderListservlet extends HttpServlet {
 		System.out.println("서블릿 이동 확인");
 		
 		ArrayList<Morw> list = mService.selectList(loginMember.getUserId());
+		
 		for(int i = 0; i<list.size(); i++) {
-			System.out.println(list.get(i));
+			System.out.println("서블렛단의 list" +list.get(i));
 		}
 		
+		ArrayList<Attachment> plist = mService.selectPList(loginMember.getUserId());
+		
+		for(int i = 0; i<plist.size(); i++) {
+			System.out.println("서블렛 단의 plist" + plist.get(i));
+		}
 		//System.out.println("testsssss");
 		RequestDispatcher view = null;
 		
+		//메인으로갈때
 		String page = "views/mypage_user/mypage_main.jsp";
 		
+		
+		//ORDER로 갈때
 		if("order".equals(menu)) {
 			page = "views/mypage_user/mypage_order.jsp";
 		}
 		
 		
-		if(!list.isEmpty()) {
-			view = request.getRequestDispatcher(page);
-			request.setAttribute("list",list);
-		}else {
-			view = request.getRequestDispatcher("views/mypage_user/mypage_main.jsp");
-			request.setAttribute("msg", "게시판 리스트 조회 실패");
-		}
+		view = request.getRequestDispatcher(page);
+		request.setAttribute("list",list);
+		request.setAttribute("plist", plist);
+		
 		view.forward(request, response);
 		
 		//boardListView.jsp 만들러 가자!

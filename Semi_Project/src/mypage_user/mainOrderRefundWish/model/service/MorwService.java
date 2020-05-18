@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import mypage_user.mainOrderRefundWish.model.dao.MorwDao;
 import mypage_user.mainOrderRefundWish.model.vo.Morw;
+import product.model.vo.Attachment;
 
 public class MorwService {
 
@@ -46,5 +47,23 @@ public class MorwService {
 		ArrayList<Morw> list = new MorwDao().wishlistList(conn,user_id);
 		close(conn);
 		return list;
+	}
+	
+	public void wishlistDelete(String whereSQL) {
+		Connection conn =getConnection();
+		
+		new MorwDao().wishlistDelete(conn,whereSQL);
+		
+		close(conn);
+		
+	}
+
+	public ArrayList<Attachment> selectPList(String userId) {
+		Connection conn = getConnection();
+		ArrayList<Attachment> plist = new MorwDao().selectPlist(conn,userId);
+		
+		System.out.println(plist);
+		close(conn);
+		return plist;
 	}
 }
