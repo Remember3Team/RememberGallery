@@ -2,12 +2,13 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>o
+<head>
 <meta charset="UTF-8"> 
 <title>Insert title here</title>
 
 </head>
 <body>
+
 	<%@include file="views/common/menubar.jsp" %>
 	<%@include file="views/main/main.jsp" %>
 	<input type="button" value="바로 구매하기"
