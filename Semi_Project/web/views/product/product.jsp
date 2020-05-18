@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "product.model.vo.*, java.util.ArrayList, board.notice.model.vo.*"%>
     <%
-    	ArrayList<product> plist = (ArrayList<product>) request.getAttribute("list");
-    	ArrayList<Attachment> alist = (ArrayList<Attachment>) request.getAttribute("alist");
+    	ArrayList<product> plist = (ArrayList<product>)request.getAttribute("list");
+    	ArrayList<Attachment> alist = (ArrayList<Attachment>)request.getAttribute("alist");
 
    		 PageInfo pi = (PageInfo) request.getAttribute("pi");
    		 int listCount = pi.getListCount();
@@ -55,14 +55,14 @@
        <h1 align="center">미술품 판매(가제)</h1>
         <div id="search">
             
-            <form action="<%=request.getContextPath()%>/worksearch.po" method="post" encType="multipart/form-data">
+            <form action="<%=request.getContextPath()%>/worksearch.po" method="post">
             <table class="table table-borderless" >
             <tr>
             <td></td>
             </tr>
                 <tr>
                 	<td></td>
-                    <td><b>작가 명</b><br><input type="search" id="artist" name="aname"></td>
+                    <td><b>작가 명</b><br><input type="text" id="aname" name="aname"></td>
                     <td><b>테마</b><br><select name="category" id="category">
                                 <option value="인물">인물</option>
                                 <option value="풍경">풍경</option> 
@@ -77,21 +77,6 @@
                     <td><b>가격</b><br>
                     <input type="range" id="price" min="0" max="100000000" step="10000" value="0" name="price">
                     <br><div></div></td><!-- 가격이변하는걸 표현해줘야함. -->
-                </tr>
-                <tr>
-                	<td></td>
-                    <td><b>태그</b><div class = "check-area">
-                       <input type="checkbox" name = "tagname" value="우아한" checked>우아한
-                       <input type="checkbox" name = "tagname" value="생동감있는" checked>생동감 있는
-                       <input type="checkbox" name = "tagname" value="컬러풀한" checked>컬러풀한
-                       <input type="checkbox" name = "tagname" value="서정적인" checked>서정적인 <br>
-                       <input type="checkbox" name = "tagname" value="동적인">동적인
-                       <input type="checkbox" name = "tagname" value="무드있는">무드있는
-                       <input type="checkbox" name = "tagname" value="정교한">정교한
-                       <input type="checkbox" name = "tagname" value="따뜻한">따뜻한
-                       <input type="checkbox" name = "tagname" value="신선한">신선한
-                        </div>
-                    </td>
                 </tr>
                 <tr>
                     <td></td>
@@ -116,6 +101,7 @@
              Attachment a = alist.get(i);%>
              
 				<% if(p.getPaint_no() == a.getPaint_no()) { %>
+				<input id="paint_no" type="hidden" value="<%=p.getPaint_no()%>">
 				<li class="gellary">
 				<img class="rimage" src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" style="width: 100%; height: 70%;">		      
 					<div class="mname">
@@ -126,8 +112,18 @@
 						<!-- 작가명-->
 						<p><%=p.getArtist_name() %></p>
 					</div>
+					<script>
+				 	$(function(){
+				 		$("#detail").click(function(){
+				 			var paint_no = $("#paint_no").val();
+				 			
+				 			location.href="<%=request.getContextPath()%>/detail.po?paint_no="+paint_no;
+				 		});
+				 		
+				 	});
+					</script>
 					<div>
-						<button id="detail" onclick="location.href='<%=request.getContextPath()%>/views/product/productdetail.jsp'">상세보기</button>
+						<button id="detail">상세보기</button>
 						<!-- 상세정보보기로 이동 -->
 						<button id="book" onclick="location.href='<%=request.getContextPath()%>/views/product/productpay.jsp'">구매하기</button>
 						<!-- 구매페이지로이동-->

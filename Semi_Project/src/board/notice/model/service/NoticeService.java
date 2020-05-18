@@ -25,15 +25,19 @@ public class NoticeService {
 	public int getListCount() {
 		Connection conn = getConnection();
 		int listCount = new NoticeDao().getListCount(conn);
+		System.out.println("[NoticeService]게시글 갯수 출력:"+listCount);
 		close(conn);
 		return listCount;
 	}
 
+	//selectList_ 선택한 리스트를 화면에 띄우는 메소드
+	//추후 매개변수로  몇개의 페이지를 띄울지 정하는 변수 두개를 매개변수로 넘겨줄 것 (미완)
 	public ArrayList<Notice> selectList(int currentPage, int limit) {
 		Connection conn = getConnection();
 		
 		ArrayList<Notice> list = new NoticeDao().selectList(conn,currentPage, limit);
-		System.out.println("NoticeService:List출력-"+list);
+		System.out.println("[NoticeService]selectList출력-"+list);
+		
 		close(conn);
 		return list;
 	}

@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import board.notice.model.vo.Notice;
 import product.model.vo.Attachment;
 import product.model.vo.product;
 
@@ -208,5 +207,462 @@ public class ProductDao {
 		System.out.println("ProductDao attachment:" + list);
 
 		return list;
+	}
+
+	public ArrayList<product> selectsearch(Connection conn, int currentPage, int limit, product po) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		ArrayList<product> list = new ArrayList<>();
+
+		String query = "SELECT * FROM PAINT WHERE PAINT_NO BETWEEN ? AND ?";
+
+		// 쿼리문 실행시 조건절에 넣을 변수를 (ROWNUM에 대한 조건 시 필요) 연산 처리
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = startRow + limit - 1;
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				product p = new product(rset.getInt("PAINT_NO"), 
+						rset.getString("PAINT_NAME"),
+				rset.getInt("PAINT_PRICE"),
+				rset.getInt("SIZE_NO"),
+				rset.getString("ARTIST_NAME"));
+				list.add(p);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		System.out.println("ProductDao:게시글 출력 확인_" + list);
+
+		return list;
+	}
+
+	public ArrayList<product> selectsearch(Connection conn, product po) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		ArrayList<product> list = new ArrayList<>();
+		
+		if(po.getArtist_name() == null) {//작가이름 null일경우
+			String query ="SELECT * FROM PAINT WHERE CATEGORY=? AND PAINT_PRICE BETWEEN 0 AND ?";// AND PAINT_NO BETWEEN ? AND ?
+			// 쿼리문 실행시 조건절에 넣을 변수를 (ROWNUM에 대한 조건 시 필요) 연산 처리
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, po.getCategory());
+				pstmt.setInt(2, po.getPatint_price());
+				
+				rset = pstmt.executeQuery();
+				
+				while (rset.next()) {
+					product p = new product(rset.getInt("PAINT_NO"), 
+											rset.getString("PAINT_NAME"),
+											rset.getInt("PAINT_PRICE"),
+											rset.getInt("SIZE_NO"),
+											rset.getString("ARTIST_NAME"));
+											
+					list.add(p);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			System.out.println("ProductDao:게시글 출력 확인_" + list);
+		}
+		else if(po.getCategory() == null) { 		//카테고리가없을경우
+			
+			String query ="SELECT * FROM PAINT WHERE PAINT_NAME =? AND PAINT_PRICE BETWEEN 0 AND ? ";
+		
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, po.getPaint_name());
+				pstmt.setInt(2, po.getPatint_price());
+				
+				rset = pstmt.executeQuery();
+				
+				while (rset.next()) {
+					product p = new product(rset.getInt("PAINT_NO"), 
+							rset.getString("PAINT_NAME"),
+							rset.getInt("PAINT_PRICE"),
+							rset.getInt("SIZE_NO"),
+							rset.getString("ARTIST_NAME"));
+							list.add(p);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			System.out.println("ProductDao:게시글 출력 확인_" + list);
+		}
+		
+		
+		else if(po.getArtist_name() == null && po.getCategory() == null) { //작가이름과 카테고리가 null일경우
+			
+			String query ="SELECT * FROM PAINT WHERE PAINT_PRICE BETWEEN 0 AND ? ";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setInt(1, po.getPatint_price());
+				
+				
+				rset = pstmt.executeQuery();
+				
+				while (rset.next()) {
+					product p = new product(rset.getInt("PAINT_NO"), 
+							rset.getString("PAINT_NAME"),
+							rset.getInt("PAINT_PRICE"),
+							rset.getInt("SIZE_NO"),
+							rset.getString("ARTIST_NAME"));
+							list.add(p);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			System.out.println("ProductDao:게시글 출력 확인_" + list);
+		}
+		
+		else { //전부다 있을경우( 가격은 0으로 처리되기떄문에 따로 예외처리를 안해줘도된다.)
+			String query ="SELECT * FROM PAINT WHERE PAINT_NAME=? AND CATEGORY=? AND PAINT_PRICE BETWEEN 0 AND ? ";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				
+				pstmt.setString(1, po.getPaint_name());
+				pstmt.setString(2, po.getCategory());
+				pstmt.setInt(3, po.getPatint_price());
+				
+				
+				
+				rset = pstmt.executeQuery();
+				
+				while (rset.next()) {
+					product p = new product(rset.getInt("PAINT_NO"), 
+							rset.getString("PAINT_NAME"),
+							rset.getInt("PAINT_PRICE"),
+							rset.getInt("SIZE_NO"),
+							rset.getString("ARTIST_NAME"));
+							list.add(p);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			System.out.println("ProductDao:게시글 출력 확인_" + list);
+		}
+	
+		
+		return list;
+	}
+
+	public ArrayList<product> selectrealsearch(Connection conn,String[] tagname) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "SELECT * FROM TAG WHERE TAG_NAME=?";
+		ArrayList<product> taglist = new ArrayList<>();
+		try {
+			for (int i = 0; i < tagname.length; i++) {
+				pstmt = conn.prepareStatement(query);
+
+				pstmt.setString(1, tagname[i]);
+				
+				rset = pstmt.executeQuery();
+				
+				while (rset.next()) {
+					product p = new product(rset.getInt("PAINT_NO"), 
+											rset.getString("TAG_NAME"));
+							taglist.add(p);
+				}
+		}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		System.out.println(taglist);
+		return taglist;
+		
+	}
+
+	public ArrayList<product> selectsearch2(Connection conn, product po, ArrayList<product> tagList) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		ArrayList<product> list = new ArrayList<>();
+		
+	
+		if(po.getArtist_name() == null) {//작가이름 null일경우
+			String query ="SELECT * FROM PAINT WHERE CATEGORY=? AND PAINT_PRICE BETWEEN 0 AND ?";// AND PAINT_NO BETWEEN ? AND ?
+			// 쿼리문 실행시 조건절에 넣을 변수를 (ROWNUM에 대한 조건 시 필요) 연산 처리
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, po.getCategory());
+				pstmt.setInt(2, po.getPatint_price());
+				
+				rset = pstmt.executeQuery();
+				
+				while (rset.next()) {
+					product p = new product(rset.getInt("PAINT_NO"), 
+											rset.getString("PAINT_NAME"),
+											rset.getInt("PAINT_PRICE"),
+											rset.getInt("SIZE_NO"),
+											rset.getString("ARTIST_NAME"));
+											
+					list.add(p);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			System.out.println("ProductDao:게시글 출력 확인_" + list);
+		}
+		else if(po.getCategory() == null) { 		//카테고리가없을경우
+			
+			String query ="SELECT * FROM PAINT WHERE PAINT_NAME =? AND PAINT_PRICE BETWEEN 0 AND ? ";
+		
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, po.getPaint_name());
+				pstmt.setInt(2, po.getPatint_price());
+				
+				rset = pstmt.executeQuery();
+				
+				while (rset.next()) {
+					product p = new product(rset.getInt("PAINT_NO"), 
+							rset.getString("PAINT_NAME"),
+							rset.getInt("PAINT_PRICE"),
+							rset.getInt("SIZE_NO"),
+							rset.getString("ARTIST_NAME"));
+							list.add(p);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			System.out.println("ProductDao:게시글 출력 확인_" + list);
+		}
+		
+		
+		else if(po.getArtist_name() == null && po.getCategory() == null) { //작가이름과 카테고리가 null일경우
+			
+			String query ="SELECT * FROM PAINT WHERE PAINT_PRICE BETWEEN 0 AND ? ";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setInt(1, po.getPatint_price());
+				
+				
+				rset = pstmt.executeQuery();
+				
+				while (rset.next()) {
+					product p = new product(rset.getInt("PAINT_NO"), 
+							rset.getString("PAINT_NAME"),
+							rset.getInt("PAINT_PRICE"),
+							rset.getInt("SIZE_NO"),
+							rset.getString("ARTIST_NAME"));
+							list.add(p);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			System.out.println("ProductDao:게시글 출력 확인_" + list);
+		}
+		
+		else { //전부다 있을경우( 가격은 0으로 처리되기떄문에 따로 예외처리를 안해줘도된다.)
+			String query ="SELECT * FROM PAINT WHERE PAINT_NAME=? AND CATEGORY=? AND PAINT_PRICE BETWEEN 0 AND ? ";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				
+				pstmt.setString(1, po.getPaint_name());
+				pstmt.setString(2, po.getCategory());
+				pstmt.setInt(3, po.getPatint_price());
+				
+				
+				
+				rset = pstmt.executeQuery();
+				
+				while (rset.next()) {
+					product p = new product(rset.getInt("PAINT_NO"), 
+							rset.getString("PAINT_NAME"),
+							rset.getInt("PAINT_PRICE"),
+							rset.getInt("SIZE_NO"),
+							rset.getString("ARTIST_NAME"));
+							list.add(p);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			System.out.println("ProductDao:게시글 출력 확인_" + list);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Attachment> selectAllalist(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		ArrayList<Attachment> list = new ArrayList<>();
+		
+		String query = "SELECT * FROM PAINT_PHOTO WHERE FILELEVEL=0";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				Attachment a = new Attachment(rset.getInt("PAINT_NO"),
+										rset.getString("AFILE"),
+										rset.getString("FILEPATH"),	
+										rset.getInt("FILELEVEL"));
+
+				list.add(a);
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		System.out.println(list);
+		return list;
+	}
+
+	public product selectsearch(Connection conn, int paint_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		product p = new product();
+		String query = "SELECT * FROM PAINT WHERE PAINT_NO=?";
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1, paint_no);
+			
+			
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				p = new product(rset.getInt("PAINT_NO"),
+										rset.getString("PAINT_NAME"),
+										rset.getInt("PAINT_PRICE"),	
+										rset.getString("CATEGORY"),
+										rset.getString("ARTIST_NAME"),
+										rset.getString("PAINT_INT"),
+										rset.getString("PAINT_MADATE"),
+										rset.getString("SIZE_NO"));
+
+			}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return p;
+	}
+
+	public Attachment selectAttachment(Connection conn, int paint_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		Attachment a = new Attachment();
+		
+		String query = "SELECT * FROM PAINT_PHOTO WHERE PAINT_NO=?";
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1, paint_no);
+			
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				 a = new Attachment(rset.getInt("AFILE_NO"),
+										rset.getInt("PAINT_NO"),
+										rset.getString("AFILE"),	
+										rset.getString("FILEPATH"),
+										rset.getInt("FILELEVLE"));
+
+			}
+		} catch (SQLException e) {
+	
+			e.printStackTrace();
+		}
+		
+		
+		return a;
+	}
+
+	public ArrayList<product> selectsize(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<product> plist = new ArrayList<>();
+		
+		String query = "SELECT * FROM PAINT_SIZE";
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				product p = new product(rset.getInt("SIZE_NO"),
+											rset.getInt("WIDTH"),
+											rset.getInt("HEIGHT"));
+
+				plist.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	
+		
+		return plist;
 	}
 }

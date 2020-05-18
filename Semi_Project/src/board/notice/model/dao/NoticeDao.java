@@ -59,11 +59,9 @@ public class NoticeDao {
 			
 			if(rset.next()) {
 				listCount = rset.getInt(1);
-				
 			}
 			
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
 		}finally {
 			close(stmt);
@@ -73,18 +71,18 @@ public class NoticeDao {
 		return listCount;
 	}
 
+	//selectList_선택한 범위만큼 게시판 리스트를 띄우는 메소드
+	//추후 선택한 범위에 대한 최소/최대 매개변수를 넘길 예정
 	public ArrayList<Notice> selectList(Connection conn, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		ArrayList<Notice> list = new ArrayList<>();
 		
-		String query ="SELECT * FROM BOARD WHERE NOTI_NO BETWEEN ? AND ?"; 
-		
-		
-		//쿼리문 실행시 조건절에 넣을 변수를 (ROWNUM에 대한 조건 시 필요) 연산 처리
+		String query = "SELECT * FROM NOTICE_VIEW WHERE RNUM BETWEEN ? AND ?";
 		int startRow = (currentPage -1)*limit +1;
 		int endRow = startRow + limit -1;
+		
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -94,11 +92,11 @@ public class NoticeDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				Notice n = new Notice(rset.getInt("NOTI_NO"),
-									rset.getString("NOTI_TITLE"),
-									rset.getString("NOTI_CATE"),
-									rset.getDate("NOTI_DATE"),
-									rset.getString("NOTICE"));
+				Notice n = new Notice(rset.getInt("RNUM"),
+									  rset.getString("NOTI_TITLE"),
+									  rset.getString("NOTI_CATE"),
+									  rset.getDate("NOTI_DATE"),
+									  rset.getString("NOTICE"));
 				list.add(n);
 			}
 			
@@ -108,7 +106,7 @@ public class NoticeDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println("NoticeDao:게시글 출력 확인_"+list);
+		
 		return list;
 	}
 
@@ -117,7 +115,7 @@ public class NoticeDao {
 		ResultSet rset = null;
 		Notice n = null;
 		
-		String query = "SELECT * FROM BOARD WHERE NOTI_NO=?";
+		String query = "SELECT * FROM NOTICE_VIEW WHERE RNUM=?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -125,7 +123,7 @@ public class NoticeDao {
 			
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				n = new Notice(rset.getInt("noti_no"),
+				n = new Notice(rset.getInt("RNUM"),
 							   rset.getString("noti_title"),
 							   rset.getString("noti_cate"),
 							   rset.getDate("noti_date"),
