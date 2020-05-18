@@ -1,4 +1,4 @@
-package mypage_artist.controller;
+package mypage_artist.RefundQnACard.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import member.model.vo.Member;
-import mypage_artist.model.service.ArtistService;
-import mypage_artist.model.vo.BuyList_a;
-import mypage_artist.model.vo.PageInfo;
+import mypage_artist.RefundQnACard.model.service.ArtistService;
+import mypage_artist.RefundQnACard.model.vo.BuyList_a;
+import mypage_artist.RefundQnACard.model.vo.PageInfo;
 import product.model.vo.Attachment;
 
 /**

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "mypage_artist.model.vo.*, product.model.vo.*, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import = "mypage_artist.RefundQnACard.model.vo.*, product.model.vo.*, java.util.ArrayList"%>
     
     <%
     	ArrayList<BuyList_a> list = (ArrayList<BuyList_a>) request.getAttribute("list");
@@ -92,9 +92,10 @@
 							Attachment a = alist.get(j); %>
 							
 						<% if(b.getPaint_no() == a.getPaint_no()) { %>
-					<img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" width="150px" height="150px"></td>
+					<img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" width="150px" height="150px">
 					 <%} %>
 					<%} %>
+					</td>
 					<td>작품명 : <%=b.getPaint_name()%><br>작가명 :  <%=b.getArtist_name()%> </td>
 					
 					<td><%=b.getPaint_price()%></td>

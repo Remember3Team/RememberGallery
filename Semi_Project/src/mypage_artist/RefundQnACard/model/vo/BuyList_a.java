@@ -1,4 +1,4 @@
-package mypage_artist.model.vo;
+package mypage_artist.RefundQnACard.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -18,7 +18,7 @@ public class BuyList_a implements Serializable {
 	private Date order_date;		// 주문 날짜
 	
 	/* 상품 */
-	private int paint_no;		// 작품 번호
+	private int paint_no;			// 작품 번호
 	private String paint_price;		// 작품 가격
 	private String artist_name;		// 작가 이름
 	private String paint_name;		// 작품 이름

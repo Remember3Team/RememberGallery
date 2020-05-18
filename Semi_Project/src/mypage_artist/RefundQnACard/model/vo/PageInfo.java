@@ -1,4 +1,4 @@
-package mypage_artist.model.vo;
+package mypage_artist.RefundQnACard.model.vo;
 
 public class PageInfo {
 
