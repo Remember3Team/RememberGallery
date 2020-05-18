@@ -54,14 +54,14 @@
 	        <% Amateur a = list.get(i); %>
 	          	<div id="goDetail" class="col-lg-4 col-md-6 mb-4">
 			       <div class="card h-100">
-			             <%for(int j=0; j<fileList.size();j++){ 
+ 			             <%for(int j=0; j<fileList.size();j++){ 
 			              		FileManagement fm = fileList.get(j);%>
 			              		<%if(a.getEvent_no()==fm.getEvent_no()){ %>
 			             			 <a href="#">
 			             			 	<img class="card-img-top" src="<%=request.getContextPath() %>/thumbnail_uploadFiles/amateur/<%=fm.getEvent_file() %>" alt="">
 			             			 </a>
 			              		<%} %>
-			              	<%} %>
+			              	<%} %> 
 			        
 			              <div class="card-body">		              		
 			              	<input id="event_no" type="hidden" value="<%=a.getEvent_no() %>">
@@ -82,18 +82,19 @@
          </div>
         <!-- /.row -->
 
-			<!-- paginatino part -->
-      		<div style="text-align:center;">
-				<div class="col-mid-12">
-					 <ul class="pagination justify-content-center" style="margin:20px 0">
-	    	    	     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-	  					 <li class="page-item active"><a class="page-link" href="#">1</a></li>
-	  					 <li class="page-item"><a class="page-link" href="#">2</a></li>
-	  					 <li class="page-item"><a class="page-link" href="#">3</a></li>
-	                     <li class="page-item"><a class="page-link" href="#">Next</a></li>
-	        	  	</ul>
-				</div>
-			</div>
+		<!-- Pagination -->
+	  	<div style="text-align:center;">
+			<div class="col-mid-12">
+				 <ul class="pagination justify-content-center" style="margin:20px 0">
+	    	    	     <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/list.am?currentPage=1">Previous</a></li>
+	  					<%for(int p = startPage; p<=endPage; p++){ %>
+	  					 	<li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/list.am?currentPage=<%=p%>"><%=p%></a></li>
+	  					<%} %>
+	                     <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/list.am?currentPage=<%=maxPage%>">Next</a></li>
+	        	  </ul>
+			</div><!-- class col-mid-12 end --> 
+		</div><!-- Pagination end --> 
+	
 	
 	</div><!-- contatiner end -->
       

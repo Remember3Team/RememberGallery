@@ -97,9 +97,9 @@ public class ProductService {
 		return plist;
 	}
 
-	public ArrayList<Attachment> selectAttachment(int paint_no) {
+	public Attachment selectAttachment(int paint_no) {
 		Connection conn = getConnection();
-		ArrayList<Attachment> alist =new ProductDao().selectAttachment(conn,paint_no);
+		Attachment alist =new ProductDao().selectAttachment(conn,paint_no);
 		
 		
 		close(conn);

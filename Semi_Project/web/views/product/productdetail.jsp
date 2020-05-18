@@ -2,8 +2,8 @@
    pageEncoding="UTF-8" import = "product.model.vo.*, java.util.ArrayList"%>
 <%
 
-ArrayList<product> plist = (ArrayList<product>)request.getAttribute("plist");
-ArrayList<Attachment> alist = (ArrayList<Attachment>)request.getAttribute("alist");
+product plist = (product)request.getAttribute("plist");
+Attachment alist = (Attachment)request.getAttribute("alist");
 ArrayList<product> sizelist = (ArrayList<product>)request.getAttribute("sizelist");
 
 %>
@@ -108,7 +108,7 @@ border: solid 1px;
 <body>
    <%@include file="../common/menubar.jsp"%>
    <div id="sumnailimage">
-      <img src="${ contextPath }/resources/uploadFiles/${row.edit_name}"
+      <img src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%= alist.getSavefileName() %>"
          style="width: 528px; height: 507px;">
    </div>
    <div id="data">
@@ -118,16 +118,19 @@ border: solid 1px;
          <h3 align="left">작품명</h3>
       </div>
       <hr style="margin: 1;" color="black" width="554px">
-      <a style="text-align: left; width: 100px; margin: 0; font-size: 20px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;">작가명 : ${row.rnum }</a>
-       <a style="text-align: left; width: 100px; margin-left: 250px; font-size: 20px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;">카테고리
-         : ${row.movie_type}</a><br> <br> <a
-         style="text-align: left; width: 100px; margin: 0; font-size: 20px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;">제작년도
-         : ${row.open_date }</a> <a
-         style="text-align: left; width: 100px; margin-left: 230px; font-size: 20px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;">작품크기
-         : ${row.director_name}</a><br>
+      <a style="text-align: left; width: 100px; margin: 0; font-size: 20px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;">작가명 : <%=plist.getPaint_name()%></a>
+       <a style="text-align: left; width: 100px; margin-left: 250px; font-size: 20px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;">카테고리 : <%=plist.getCategory() %></a><br> <br> <a
+         style="text-align: left; width: 100px; margin: 0; font-size: 20px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;">제작년도 : <%=plist.getCategory() %></a> 
+         <a
+         style="text-align: left; width: 100px; margin-left: 230px; font-size: 20px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;">작품크기 : <% for(int i =0;i < sizelist.size();i++) {
+         																																																	product p = sizelist.get(i);
+         																																																	if(plist.getSize_no() == p.getSize_no() ){%>
+         																																																	
+         																																																		<%=p.getWidth()%> * <%=p.getHeight()%>
+         																																																		
+         																																																	<% }}%></a><br>    																																			
       <hr style="margin: 1;" color="black" width="554px">
-      <br> <a
-         style="text-align: left; width: 100px; margin-left: 500px; font-size: 20px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;">${row.director_name}원</a><br>
+      <br> <a style="text-align: left; width: 100px; margin-left: 500px; font-size: 20px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;"><%=plist.getPatint_price() %>원</a><br>
       <input type="button" value="바로 구매하기"
          style="background-color: rgb(224, 224, 224); margin-top: 10px;"
          onclick="location.href='<%=request.getContextPath()%>/views/product/productpay.jsp'">
@@ -139,9 +142,9 @@ border: solid 1px;
       <input type="button" value="Q & A"
          style="background-color: rgb(224, 224, 224); margin-right: 10px; text-decoration: none;"
          onclick="q&a"> <input type="hidden"
-         value="${ loginUser.mid }" id="mid">
+         value="" id="mid">
       <!-- <input type="hidden" value="${ movieDetail.movie_id }" id="movie_id"> -->
-      <input type="hidden" value=${ row.movie_id } id="movie_id">
+      <input type="hidden" value="" id="movie_id">
    </div>
 
    <br clear="both">
@@ -150,35 +153,35 @@ border: solid 1px;
    <br clear="both">
    <h3 align="center">인테리어 시뮬레이션</h3>
    <div id="simulationMain">
-      <img src="${ contextPath }/resources/uploadFiles/${row.edit_name}"
+      <img src="/resources/uploadFiles/"
          style="width: 369px; height: 358px;">
    </div>
    
    <div id="simulation1">
-      <img src="${ contextPath }/resources/uploadFiles/${row.edit_name}"
+      <img src="/resources/uploadFiles/"
          style="width: 121px; height: 125px;">
    </div>
    <div id="simulation2">
-      <img src="${ contextPath }/resources/uploadFiles/${row.edit_name}"
+      <img src="/resources/uploadFiles/"
          style="width: 121px; height: 125px;">
    </div>
    <div id="simulation3">
-      <img src="${ contextPath }/resources/uploadFiles/${row.edit_name}"
+      <img src="/resources/uploadFiles/"
          style="width: 121px; height: 125px;">
    </div>
    <br clear="both">
    <hr style="margin-left: 191px;" color="black" width="1128px">
    <h3 align="center">작품 소개</h3>
-   <a style="text-align: left; width: 100px; margin-left:300px; font-size: 15px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;">입벌려 글들어온다.${row.rnum }</a>
+   <a style="text-align: left; width: 100px; margin-left:300px; font-size: 15px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;">입벌려 글들어온다.</a>
    <br>
    <hr style="margin-left: 191px;" color="black" width="1128px">
    <h3 align="center">작가 소개</h3>
    <div id="writer">
-      <img src="${ contextPath }/resources/uploadFiles/${row.edit_name}"
+      <img src="/resources/uploadFiles/"
          style="width: 369px; height: 358px;">
    </div>
    <div id="data2">
-   <a style="text-align: left; width: 100px; margin-left:30px; font-size: 15px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;">입벌려 글들어온다.${row.rnum }</a>
+   <a style="text-align: left; width: 100px; margin-left:30px; font-size: 15px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;">입벌려 글들어온다</a>
    </div>
    <br clear="both">
    <hr style="margin-left: 191px;" color="black" width="1128px">
