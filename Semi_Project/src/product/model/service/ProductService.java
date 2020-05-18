@@ -26,10 +26,7 @@ public class ProductService {
 		Connection conn = getConnection();
 		
 		ArrayList<product> list = new ProductDao().selectList(conn,currentPage, limit);
-		ArrayList<Attachment> list2 =new ProductDao().selectphoto(conn,currentPage,limit);
 		System.out.println("ProductService:List출력-"+list);
-		
-		System.out.println(list2);
 		
 		close(conn);
 		return list;
@@ -37,6 +34,7 @@ public class ProductService {
 
 	public int insertProduct(product p, ArrayList<Attachment> fileList, String[] irr) {
 
+		
 		Connection conn = getConnection();
 		ProductDao pDao = new ProductDao();
 		
@@ -52,6 +50,14 @@ public class ProductService {
 	      }
 	      close(conn);
 	      return result2;
+	}
+
+	public ArrayList<Attachment> selectAList(int currentPage, int limit) {
+		Connection conn = getConnection();
+		ArrayList<Attachment> list2 =new ProductDao().selectphoto(conn,currentPage,limit);
+		System.out.println(list2);
+		close(conn);
+		return list2;
 	}
 
 }
