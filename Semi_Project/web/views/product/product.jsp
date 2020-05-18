@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "product.model.vo.*, java.util.ArrayList, board.notice.model.vo.*"%>
     <%
-    	ArrayList<product> plist = (ArrayList<product>) request.getAttribute("list");
-    	ArrayList<Attachment> alist = (ArrayList<Attachment>) request.getAttribute("alist");
+    	ArrayList<product> plist = (ArrayList<product>)request.getAttribute("list");
+    	ArrayList<Attachment> alist = (ArrayList<Attachment>)request.getAttribute("alist");
 
    		 PageInfo pi = (PageInfo) request.getAttribute("pi");
    		 int listCount = pi.getListCount();
@@ -50,38 +50,33 @@
   
 </head>
 <body>
-
 <%@include file="../common/menubar.jsp" %>
-
+<br>
        <h1 align="center">미술품 판매(가제)</h1>
         <div id="search">
-            <form>
+            
+            <form action="<%=request.getContextPath()%>/worksearch.po" method="post">
             <table class="table table-borderless" >
             <tr>
             <td></td>
             </tr>
                 <tr>
                 	<td></td>
-                    <td><b>작가 명</b><br><input type="search" id="artist"></td>
+                    <td><b>작가 명</b><br><input type="text" id="aname" name="aname"></td>
                     <td><b>테마</b><br><select name="category" id="category">
-                                <option value="figure painting">인물</option>
-                                <option value="landscape painting">풍경</option>
-                                <option value="landscape painting">인물</option>
-                                <option value="landscape painting">정물</option>
-                                <option value="landscape painting">동물</option>
-                                <option value="landscape painting">추상</option>
-                                <option value="landscape painting">팝아트</option>
-                                <option value="landscape painting">오브제</option>
+                                <option value="인물">인물</option>
+                                <option value="풍경">풍경</option> 
+                                <option value="정물">정물</option>
+                                <option value="동물">동물</option>
+                                <option value="추상">추상</option>
+                                <option value="팝아트">팝아트</option>
+                                <option value="오브제">오브제</option>
                     </select></td>
                     <td></td>
                     <td></td>
-                    <td><b>가격</b><br><input type="range" id="price" min="0" max="100000000" step="10000" value="0">
-                    <br><a>1</a></td>
-                </tr>
-                <tr>
-                	<td></td>
-                    <td><b>태그 검색</b><br><input type="search" id="tag_search" placeholder="내용을 입력해주세요">
-                    </td>
+                    <td><b>가격</b><br>
+                    <input type="range" id="price" min="0" max="100000000" step="10000" value="0" name="price">
+                    <br><div></div></td><!-- 가격이변하는걸 표현해줘야함. -->
                 </tr>
                 <tr>
                     <td></td>
@@ -98,11 +93,12 @@
         <p class="h3">작품</p>
         <br clear="both">
         <div>
+			<ul class="rul">
            <% for(int i=0; i<plist.size(); i++){ 
              product p = plist.get(i);
              Attachment a = alist.get(i);%>
 				<% if(p.getPaint_no() == a.getPaint_no()) { %>
-			<ul class="rul">
+				<input id="paint_no" type="hidden" value="<%=p.getPaint_no()%>">
 				<li class="gellary">
 				<img class="rimage" src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" style="width: 100%; height: 70%;">		      
 					<div class="mname">
@@ -113,8 +109,18 @@
 						<!-- 작가명-->
 						<p><%=p.getArtist_name() %></p>
 					</div>
+					<script>
+				 	$(function(){
+				 		$("#detail").click(function(){
+				 			var paint_no = $("#paint_no").val();
+				 			
+				 			location.href="<%=request.getContextPath()%>/detail.bo?paint_no="+paint_no;
+				 		});
+				 		
+				 	});
+					</script>
 					<div>
-						<button id="detail" onclick="location.href='<%=request.getContextPath()%>/views/product/productdetail.jsp'">상세보기</button>
+						<button id="detail">상세보기</button>
 						<!-- 상세정보보기로 이동 -->
 						<button id="book" onclick="location.href='<%=request.getContextPath()%>/views/product/productpay.jsp'">구매하기</button>
 						<!-- 구매페이지로이동-->
@@ -126,20 +132,20 @@
 		<!--  페이징 처리 시작! -->
       <div class="pageingArea" align="center">
       <!-- 맨 처음으로 (<<) -->
-      <button onclick="location.href='<%=request.getContextPath() %>/list.bo?currentPage=1'"> << </button>
+      <button onclick="location.href='<%=request.getContextPath() %>/list.po?currentPage=1'"> << </button>
       
       <!-- 이전 페이지로(<) -->
       <%if(currentPage <= 1) {%>
       <button disabled> < </button>
       <%}else{ %>
-      <button onclick="location.href='<%=request.getContextPath() %>/list.bo?currentPage=<%=currentPage-1 %>'"> < </button>
+      <button onclick="location.href='<%=request.getContextPath() %>/list.po?currentPage=<%=currentPage-1 %>'"> < </button>
        <%} %>
       <!-- 10개의 페이지 목록 -->
       <%for(int p = startPage ; p<=endPage;p++){ %>
      	 <%if(currentPage == p){ %>
      	 	<button disabled><%=p %></button>
      	 <%}else{ %>
-     	 	<button onclick="location.href='<%=request.getContextPath() %>/list.bo?currentPage=<%=p %>'"><%=p %></button>
+     	 	<button onclick="location.href='<%=request.getContextPath() %>/list.po?currentPage=<%=p %>'"><%=p %></button>
      	 <%} %>
       <%} %>
 
@@ -148,11 +154,11 @@
         <%if(currentPage == maxPage) {%>
       <button disabled> > </button>
       <%}else{ %>
-      <button onclick="location.href='<%=request.getContextPath() %>/list.bo?currentPage=<%=currentPage+1 %>'"> > </button>
+      <button onclick="location.href='<%=request.getContextPath() %>/list.po?currentPage=<%=currentPage+1 %>'"> > </button>
       <%} %>
       
       <!-- 맨 끝으로(>>) -->
-      <button onclick="location.href='<%=request.getContextPath() %>/list.bo?currentPage=<%= maxPage%>'"> >> </button>
+      <button onclick="location.href='<%=request.getContextPath() %>/list.po?currentPage=<%= maxPage%>'"> >> </button>
       
       </div>
 
