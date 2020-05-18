@@ -47,6 +47,33 @@ public class Mypage_ArtistService {
 		return OM_list;
 	}
 
+	public ArrayList<Mypage_artist> detail_order_view(String bWriter) {
+		Connection conn = getConnection();
+	
+		ArrayList<Mypage_artist> DOV_OP = new Mypage_ArtistDao().detail_order_view(conn, bWriter);
+		
+		close(conn);
+		return DOV_OP;
+	}
+
+	public ArrayList<Mypage_artist> detail_deposit_view(String bWriter) {
+		Connection conn = getConnection();
+		
+		ArrayList<Mypage_artist> DOV_D = new Mypage_ArtistDao().detail_deposit_view(conn, bWriter);
+		
+		close(conn);
+		return DOV_D;
+	}
+
+	public ArrayList<Mypage_artist> detail_shipping_view(String bWriter) {
+		Connection conn = getConnection();
+		
+		ArrayList<Mypage_artist> DOV_SI = new Mypage_ArtistDao().detail_shipping_view(conn, bWriter);
+		
+		close(conn);
+		return DOV_SI;
+	}
+
 }
 
 

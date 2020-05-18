@@ -49,11 +49,12 @@ public class Mypage_ArtistDao {
 		ResultSet rset = null;
 		ArrayList<Mypage_artist> PM_list = new ArrayList<>();
 		
-		String query = "SELECT PAINT_NO, AFILE, PAINT_INT, p.PAINT_PRICE FROM PAINT P\r\n" + 
-				"left JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
-				"JOIN BASKET ON (P.PAINT_NO = BASKET.PAINT_NO)\r\n" + 
-				"JOIN MEMBER ON (BASKET.USER_ID = MEMBER.USER_ID)\r\n" + 
-				"WHERE PAINT_NO BETWEEN ? AND ? AND  MEMBER.USER_ID = ?";
+		String query = "SELECT P.PAINT_NO, AFILE, P.PAINT_NAME, ARTIST_NAME, p.PAINT_PRICE FROM PAINT P\r\n" + 
+								"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
+								"JOIN BASKET ON (P.PAINT_NO = BASKET.PAINT_NO)\r\n" + 
+								"JOIN MEMBER ON (BASKET.USER_ID = MEMBER.USER_ID)\r\n" + 
+								"JOIN BUY_LIST BL ON (P.PAINT_NO = BL.PAINT_NO)\r\n" + 
+								"WHERE P.PAINT_NO BETWEEN ? AND ? AND  MEMBER.USER_ID = ? AND ORDER_STATUS ^= '판매완료'";
 		
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
@@ -69,7 +70,8 @@ public class Mypage_ArtistDao {
 			while(rset.next()) {
 				Mypage_artist myart = new Mypage_artist(rset.getInt("paint_no"),
 																			 rset.getString("afile"),
-																			 rset.getString("paint_int"),
+																			 rset.getString("paint_name"),
+																			 rset.getString("artist_name"),
 																			 rset.getInt("paint_price"));
 				PM_list.add(myart);
 			}
@@ -168,6 +170,117 @@ public class Mypage_ArtistDao {
 		}
 		
 		return OM_list;
+	}
+
+
+
+	public ArrayList<Mypage_artist> detail_order_view(Connection conn, String bWriter) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Mypage_artist> DOV_OP = new ArrayList<>();
+		
+		String query = "SELECT ORDER_NO, AFILE, PAINT_NAME, ARTIST_NAME, PAINT_PRICE, ORDER_STATUS FROM BUY_LIST BL\r\n" + 
+				"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
+				"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
+				"WHERE  USER_ID = ?";
+	
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, bWriter);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Mypage_artist myart = new Mypage_artist(rset.getInt("order_no"),
+																				 rset.getString("afile"),
+																				 rset.getString("paint_name"),
+																				 rset.getString("artist_name"),
+																				 rset.getInt("paint_price"),
+																				 rset.getString("order_status"));
+				DOV_OP.add(myart);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return DOV_OP;
+	}
+
+
+
+	public ArrayList<Mypage_artist> detail_deposit_view(Connection conn, String bWriter) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Mypage_artist> DOV_D = new ArrayList<>();
+		
+		String query = "SELECT ORDER_NAME, PAY_TYPE, ORDER_PHONE FROM BUY_LIST BL\r\n" + 
+				"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
+				"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
+				"WHERE  USER_ID = ?";
+	
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, bWriter);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Mypage_artist myart = new Mypage_artist(rset.getString("order_name"),
+																				 rset.getString("pay_type"),
+																				 rset.getString("order_phone"));
+				DOV_D.add(myart);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return DOV_D;
+	}
+
+
+
+	public ArrayList<Mypage_artist> detail_shipping_view(Connection conn, String bWriter) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Mypage_artist> DOV_SI = new ArrayList<>();
+		
+		String query = "SELECT REC_NAME, REC_LIST, REC_MESSAGE FROM BUY_LIST BL\r\n" + 
+				"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
+				"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
+				"WHERE  USER_ID = ?";
+	
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, bWriter);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Mypage_artist myart = new Mypage_artist(rset.getString("rec_name"),
+																				 rset.getString("rec_list"),
+																				 rset.getString("rec_message"));
+				DOV_SI.add(myart);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return DOV_SI;
 	}
 
 }

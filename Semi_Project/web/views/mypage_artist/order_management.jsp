@@ -96,7 +96,8 @@
                     	  작가명 : <%=ma.getArtist_name() %></td>
                     <td><%=ma.getPaint_price() %></td>
                     <td><%=ma.getOrder_status() %></td>
-                    <td><button class="btn btn-outline-dark" id="detail_order" style = "width:150px">주문 상세보기</button></td>
+                    <td><button class="btn btn-outline-dark" id="detail_order" style = "width:150px"
+                    		onclick="href=<%= request.getContextPath() %>/DO.view">주문 상세보기</button></td>
                 </tr>
 				<%} %>
             </table>

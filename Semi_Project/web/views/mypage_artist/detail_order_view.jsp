@@ -1,12 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "mypage_artist.management.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList"%>
+    <%
+    	ArrayList<Mypage_artist> DOV_OP = (ArrayList<Mypage_artist>)request.getAttribute("DOV_OP");
+    	ArrayList<Mypage_artist> DOV_D = (ArrayList<Mypage_artist>)request.getAttribute("DOV_D");
+    	ArrayList<Mypage_artist> DOV_SI = (ArrayList<Mypage_artist>)request.getAttribute("DOV_SI");
+    %>
 <!DOCTYPE html>
 <html lang='ko'>
     <head> 
         <meta charset="utf-8">
         <title>주문 상세 보기</title>
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-		  <link rel="stylesheet" href="../css/bootstrap.css">
+		  <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/bootstrap.css">
 		<script src="../js/jquery-3.4.1.min.js"></script>
 		<script type="text/javascript" src="../js/bootstrap.js"></script> 
         <style>
@@ -81,13 +86,15 @@
                     <td>금액</td>
                     <td>처리상태</td>
                 </tr>
+                <% for(Mypage_artist ma : DOV_OP){ %>
                 <tr>
-                    <td>a0001</td>
-                    <td><img src="C:\Users\diot0\Pictures\Saved Pictures/2.jpg" width="70px" height="70px"></td>
-                    <td>작품명 : Remember Me <br> 작가명 : 경섭</td>
-                    <td>10,000원</td>
-                    <td>배송중</td>
+                    <td><%=ma.getOrder_no() %></td>
+                    <td><%=ma.getAfile() %></td>
+                    <td>작품명 : <%=ma.getPaint_name() %><br> 작가명 : <%=ma.getArtist_name() %></td>
+                    <td><%=ma.getPaint_price() %></td>
+                    <td><%=ma.getOrder_status() %></td>
                 </tr>
+                <%} %>
             </table>
             </div>
             <br><br><br>
@@ -99,11 +106,13 @@
                         <td>결제 방법</td>
                         <td>연락처</td>
                     </tr>
+                    <% for(Mypage_artist ma : DOV_D){ %>
                     <tr>
-                        <td>경섭</td>
-                        <td>무통장 입금</td>
-                        <td>010-1010-1010</td>
+                        <td><%=ma.getOrder_name() %></td>
+                        <td><%=ma.getPay_type() %></td>
+                        <td><%=ma.getOrder_phone() %></td>
                     </tr>
+                    <%} %>
                 </table>
             </div>
             <br><br><br>
@@ -115,11 +124,13 @@
                         <td>배송지</td>
                         <td>배송 메시지</td>
                     </tr>
+                    <% for(Mypage_artist ma : OM_list){ %>
                     <tr>
                         <td>경섭</td>
                         <td>서울시 중랑구</td>
                         <td>집 앞에 놔주세요!</td>
                     </tr>
+                    <%} %>
                 </table>
             </div>
 

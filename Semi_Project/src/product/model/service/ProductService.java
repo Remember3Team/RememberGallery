@@ -26,7 +26,11 @@ public class ProductService {
 		Connection conn = getConnection();
 		
 		ArrayList<product> list = new ProductDao().selectList(conn,currentPage, limit);
+		ArrayList<Attachment> list2 =new ProductDao().selectphoto(conn,currentPage,limit);
 		System.out.println("ProductService:List출력-"+list);
+		
+		System.out.println(list2);
+		
 		close(conn);
 		return list;
 	}

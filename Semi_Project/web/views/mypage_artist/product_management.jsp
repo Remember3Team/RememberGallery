@@ -18,8 +18,8 @@
 <title>상품관리</title>
  <!-- link rel="stylesheet" href="../css/style.css" -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/bootstrap.css">
-  <link rel="stylesheet" href="../css/Style-refund.css">
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/bootstrap.css">
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/Style-refund.css">
 <script src="../js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.js"></script> 
 
@@ -100,7 +100,8 @@
                     <td><input type="checkbox"></td>
                     <td><%=ma.getPaint_no() %></td>
                     <td><%=ma.getAfile() %></td>
-                    <td><%=ma.getPaint_int() %></td>
+                    <td><%=ma.getPaint_name() %><br>
+                    	  <%=ma.getArtist_name() %></td>
                     <td><%=ma.getPaint_price() %></td>
                     <td><button class="btn btn-outline-dark" id="detail_order" style = "width:100px">내용수정</button>
                     	&nbsp;<button class="btn btn-outline-dark" id="detail_order" style = "width:100px">삭제</button>
