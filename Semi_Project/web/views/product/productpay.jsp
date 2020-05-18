@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "product.model.vo.*, java.util.ArrayList, board.notice.model.vo.*"%>
+    <%
+    	ArrayList<product> plist = (ArrayList<product>)request.getAttribute("list");
+    %>
 <!DOCTYPE html>
 <html>
 <head>

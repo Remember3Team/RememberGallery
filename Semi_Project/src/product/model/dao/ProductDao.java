@@ -571,7 +571,7 @@ public class ProductDao {
 		return list;
 	}
 
-	public ArrayList<product> selectsearch(Connection conn, int paint_no) {
+	public product selectsearch(Connection conn, int paint_no) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -667,5 +667,33 @@ public class ProductDao {
 	
 		
 		return plist;
+	}
+
+	public ArrayList<product> payList(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<product> pay_List = new ArrayList<>();
+		
+		String query = "";
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				product p = new product(rset.getInt(""),
+											rset.getInt(""),
+											rset.getInt(""));
+
+				pay_List.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	
+		
+		return pay_List;
 	}
 }

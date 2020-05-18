@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="board.notice.model.vo.Notice"%>
+<%
+	Notice n = (Notice) request.getAttribute("notice");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,22 +36,20 @@
 			<table class="table">
 				<tr>
 					<td>제목</td>
-					<td  colspan="6">사이트 이용문의 안내입니다.</td>
+					<td  colspan="6"><span><%=n.getNoti_title()%></span></td>
 				</tr>
 				<tr>
 					<td>작성자</td>
 					<td><span>관리자</span></td>
-					<td>조회수</td>
-					<td><span>1,030,203</span></td>
 					<td>작성일</td>
-					<td><span>2020-05-10</span>
+					<td><span><%=n.getNoti_date() %></span>
 				</tr>
 				<tr>
 					<td colspan="6">내용</td>
 				</tr>
 					<td colspan="6">
 						<p>
-							내용에 대한 값을 불러오려고 합니다.
+							<%=n.getNotice() %>
 						</p>
 					</td>
 			</table>

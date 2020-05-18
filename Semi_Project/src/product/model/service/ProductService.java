@@ -113,4 +113,12 @@ public class ProductService {
 		return plist;
 	}
 
+	public ArrayList<product> payList() {
+		Connection conn = getConnection();
+		
+		ArrayList<product> pay_list = new ProductDao().payList(conn);
+		
+		return pay_list;
+	}
+
 }
