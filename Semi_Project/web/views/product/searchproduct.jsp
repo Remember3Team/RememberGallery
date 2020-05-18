@@ -1,16 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "product.model.vo.*, java.util.ArrayList, board.notice.model.vo.*"%>
-    <%
-    	ArrayList<product> plist = (ArrayList<product>)request.getAttribute("list");
-    	ArrayList<Attachment> alist = (ArrayList<Attachment>)request.getAttribute("alist");
-
-   		 PageInfo pi = (PageInfo) request.getAttribute("pi");
-   		 int listCount = pi.getListCount();
-   		 int currentPage = pi.getCurrentPage();
-   		 int maxPage = pi.getMaxPage();
-   		 int startPage = pi.getStartPage();
-   		 int endPage = pi.getEndPage();
-    %>
+   
+   <%
+   	ArrayList<product> searchlist = (ArrayList<product>)request.getAttribute("searchlist");
+   	ArrayList<Attachment> alist = (ArrayList<Attachment>)request.getAttribute("alist");
+   %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,8 +15,7 @@
  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
  <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/bootstrap.css">
 <script src="<%=request.getContextPath() %>/views/js/jquery-3.4.1.min.js"></script>
-
-  <style>
+ <style>
  #search{
     background-color: rgb(224, 224, 224);
 }
@@ -47,7 +40,6 @@
 	text-align: center;
 }
   </style>
-  
 </head>
 <body>
 <%@include file="../common/menubar.jsp" %>
@@ -90,15 +82,17 @@
         
         
         </div>
-        <p class="h3">작품</p>
+        <p class="h3">검색 결과 작품</p>
         <br clear="both">
         <div>
 			<ul class="rul">
-           <% for(int i=0; i<plist.size(); i++){ 
-             product p = plist.get(i);
-             Attachment a = alist.get(i);%>
-				<% if(p.getPaint_no() == a.getPaint_no()) { %>
-				<input id="paint_no" type="hidden" value="<%=p.getPaint_no()%>">
+           <% for(int i=0; i<searchlist.size(); i++){ 
+             product p = searchlist.get(i);
+             for(int j=0;j<alist.size();j++){
+            	 
+             Attachment a = alist.get(j);%>
+             
+			 <%if(p.getPaint_no() == a.getPaint_no()) { %>
 				<li class="gellary">
 				<img class="rimage" src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" style="width: 100%; height: 70%;">		      
 					<div class="mname">
@@ -109,56 +103,23 @@
 						<!-- 작가명-->
 						<p><%=p.getArtist_name() %></p>
 					</div>
-					<script>
-				 	$(function(){
-				 		$("#detail").click(function(){
-				 			var paint_no = $("#paint_no").val();
-				 			
-				 			location.href="<%=request.getContextPath()%>/detail.bo?paint_no="+paint_no;
-				 		});
-				 		
-				 	});
-					</script>
 					<div>
-						<button id="detail">상세보기</button>
+					<script>
+					function(){
+						var paint_no = $(this).parent().children("input").val();
+					}
+					
+					</script>
+						<button id="detail" onclick="location.href=<%=request.getContextPath()%>/detail.po?Paint_no="+Paint_no;>상세보기</button>
 						<!-- 상세정보보기로 이동 -->
-						<button id="book" onclick="location.href='<%=request.getContextPath()%>/views/product/productpay.jsp'">구매하기</button>
+						<button id="book" onclick="location.href=<%=request.getContextPath()%>/views/product/productpay.jsp">구매하기</button>
 						<!-- 구매페이지로이동-->
 					</div></li>
-				<% } %>
-                  <% } %>
-		</div>
-		
-		<!--  페이징 처리 시작! -->
-      <div class="pageingArea" align="center">
-      <!-- 맨 처음으로 (<<) -->
-      <button onclick="location.href='<%=request.getContextPath() %>/list.po?currentPage=1'"> << </button>
-      
-      <!-- 이전 페이지로(<) -->
-      <%if(currentPage <= 1) {%>
-      <button disabled> < </button>
-      <%}else{ %>
-      <button onclick="location.href='<%=request.getContextPath() %>/list.po?currentPage=<%=currentPage-1 %>'"> < </button>
-       <%} %>
-      <!-- 10개의 페이지 목록 -->
-      <%for(int p = startPage ; p<=endPage;p++){ %>
-     	 <%if(currentPage == p){ %>
-     	 	<button disabled><%=p %></button>
-     	 <%}else{ %>
-     	 	<button onclick="location.href='<%=request.getContextPath() %>/list.po?currentPage=<%=p %>'"><%=p %></button>
-     	 <%} %>
-      <%} %>
+				<% }%>
 
-      
-      <!-- 다음 페이지로(>) -->
-        <%if(currentPage == maxPage) {%>
-      <button disabled> > </button>
-      <%}else{ %>
-      <button onclick="location.href='<%=request.getContextPath() %>/list.po?currentPage=<%=currentPage+1 %>'"> > </button>
-      <%} %>
-      
-      <!-- 맨 끝으로(>>) -->
-      <button onclick="location.href='<%=request.getContextPath() %>/list.po?currentPage=<%= maxPage%>'"> >> </button>
+                  <% } %>
+                  <%} %>
+		</div>
       
       </div>
 
@@ -166,5 +127,6 @@
    <br><br><br><br><br><br><br><br><br>
 
 <%@include file="../common/footer.jsp" %>
+
 </body>
 </html>
