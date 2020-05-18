@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "mypage_artist.management.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList"%>
+    <%
+    	ArrayList<Mypage_artist> SM_list = (ArrayList<Mypage_artist>)request.getAttribute("SM_list");
+    	PageInfo pi = (PageInfo)request.getAttribute("pi");
+    	
+    	int listCount = pi.getListCount();
+    	int currentPage = pi.getCurrentPage();
+    	int maxPage = pi.getMaxPage();
+    	int startPage = pi.getStartPage();
+    	int endPage = pi.getEndPage();
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +17,8 @@
 <title>배송관리</title>
  <!-- link rel="stylesheet" href="../css/style.css" -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/bootstrap.css">
-  <link rel="stylesheet" href="../css/Style-refund.css">
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/bootstrap.css">
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/Style-refund.css">
 <script src="../js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.js"></script> 
 
@@ -70,22 +80,24 @@
                     <th>주문 번호</th>
                     <th>이미지</th>
                     <th>상품 정보</th>
-                    <th>발송일</th>
+                    <th>주문날짜</th>
                     <th>배송 완료일</th>
                     <th>배송상태</th>
                     <th>수정 및 삭제</th>
                 </tr>
+                <% for(Mypage_artist ma : SM_list){ %>
                 <tr>
                     <td><input type="checkbox"></td>
-                    <td>p0001</td>
-                    <td><img src="../img/artist.JPG" alt="pimage"></td>
-                    <td>작품명 : Remember Me</td>
-                    <td>2020-05-01</td>
-                    <td>2020-05-05</td>
-                    <td>배송완료</td>
-                    <td><button class="btn btn-outline-dark" id="detail_order" style = "width:150px">주문 상세보기</button></td>
+                    <td><%=ma.getOrder_no() %></td>
+                    <td><%=ma.getAfile() %></td>
+                    <td><%=ma.getPaint_int() %></td>
+                    <td><%=ma.getOrder_date() %></td>
+                    <td><%=ma.getShip_date() %></td>
+                    <td><%=ma.getOrder_status() %></td>
+                    <td><button class="btn btn-outline-dark" id="detail_order" style = "width:150px"
+                    		onclick= "location.href='<%= request.getContextPath() %>/views/mypage_artist/detail_order_view.jsp'">주문 상세보기</button></td>
                 </tr>
-
+				<%} %>
             </table>
         </div>
         
