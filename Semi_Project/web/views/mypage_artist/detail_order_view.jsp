@@ -124,7 +124,7 @@
                         <td>배송지</td>
                         <td>배송 메시지</td>
                     </tr>
-                    <% for(Mypage_artist ma : OM_list){ %>
+                    <% for(Mypage_artist ma : DOV_SI){ %>
                     <tr>
                         <td>경섭</td>
                         <td>서울시 중랑구</td>

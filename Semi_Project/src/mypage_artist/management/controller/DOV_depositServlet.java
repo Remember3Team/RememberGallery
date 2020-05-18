@@ -55,6 +55,8 @@ public class DOV_depositServlet extends HttpServlet {
 				if(!DOV_D.isEmpty()) {
 					view = request.getRequestDispatcher("views/mypage_artist/detail_order_view.jsp");
 					request.setAttribute("DOV_D", DOV_D);
+					
+					
 				}else {
 //					view = request.getRequestDispatcher("views/common/errorPage.jsp");
 //					request.setAttribute("msg","게시판 리스트 조회 실패!");

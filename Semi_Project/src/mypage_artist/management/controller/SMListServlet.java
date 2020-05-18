@@ -99,8 +99,8 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 				
 				RequestDispatcher view = null;
 				if(!SM_list.isEmpty()) {
-					view = request.getRequestDispatcher("views/mypage_artist/product_management.jsp");
-					request.setAttribute("PM_list", SM_list);
+					view = request.getRequestDispatcher("views/mypage_artist/shipping_management.jsp");
+					request.setAttribute("SM_list", SM_list);
 					request.setAttribute("pi", pi);
 				}else {
 //					view = request.getRequestDispatcher("views/common/errorPage.jsp");

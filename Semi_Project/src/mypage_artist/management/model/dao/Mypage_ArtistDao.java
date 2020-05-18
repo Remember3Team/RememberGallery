@@ -94,7 +94,7 @@ public class Mypage_ArtistDao {
 		ArrayList<Mypage_artist> SM_list = new ArrayList<>();
 		
 		String query = "SELECT ORDER_NO, AFILE, PAINT_INT, ORDER_DATE, SHIP_DATE, ORDER_STATUS FROM BUY_LIST BL\r\n" + 
-				"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
+				"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 	
 				"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
 				"WHERE  ORDER_NO BETWEEN ? AND ? AND USER_ID = ?";
 		
@@ -117,7 +117,9 @@ public class Mypage_ArtistDao {
 																				 rset.getDate("ship_date"),
 																				 rset.getString("order_status"));
 				SM_list.add(myart);
+				
 			}
+			System.out.println(SM_list);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -218,10 +220,8 @@ public class Mypage_ArtistDao {
 		ResultSet rset = null;
 		ArrayList<Mypage_artist> DOV_D = new ArrayList<>();
 		
-		String query = "SELECT ORDER_NAME, PAY_TYPE, ORDER_PHONE FROM BUY_LIST BL\r\n" + 
-				"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
-				"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
-				"WHERE  USER_ID = ?";
+		String query = "SELECT ORDER_NAME, PAY_TYPE, ORDER_PHONE FROM ORDER_TABLE\r\n" + 
+				"WHERE USER_ID=?";
 	
 		
 		try {
@@ -254,10 +254,8 @@ public class Mypage_ArtistDao {
 		ResultSet rset = null;
 		ArrayList<Mypage_artist> DOV_SI = new ArrayList<>();
 		
-		String query = "SELECT REC_NAME, REC_LIST, REC_MESSAGE FROM BUY_LIST BL\r\n" + 
-				"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
-				"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
-				"WHERE  USER_ID = ?";
+		String query = "SELECT REC_NAME, REC_LIST, REC_MESSAGE FROM ORDER_TABLE\r\n" + 
+				"WHERE USER_ID=?";
 	
 		
 		try {

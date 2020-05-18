@@ -17,8 +17,8 @@
 <title>배송관리</title>
  <!-- link rel="stylesheet" href="../css/style.css" -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/bootstrap.css">
-  <link rel="stylesheet" href="../css/Style-refund.css">
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/bootstrap.css">
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/Style-refund.css">
 <script src="../js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.js"></script> 
 
@@ -94,7 +94,8 @@
                     <td><%=ma.getOrder_date() %></td>
                     <td><%=ma.getShip_date() %></td>
                     <td><%=ma.getOrder_status() %></td>
-                    <td><button class="btn btn-outline-dark" id="detail_order" style = "width:150px">주문 상세보기</button></td>
+                    <td><button class="btn btn-outline-dark" id="detail_order" style = "width:150px"
+                    		onclick= "location.href='<%= request.getContextPath() %>/views/mypage_artist/detail_order_view.jsp'">주문 상세보기</button></td>
                 </tr>
 				<%} %>
             </table>

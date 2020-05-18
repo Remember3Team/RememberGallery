@@ -32,7 +32,7 @@ public class Mypage_ArtistService {
 	public ArrayList<Mypage_artist> selectList_SM(int currentPage, int limit, String bWriter) {
 		Connection conn = getConnection();
 		
-		ArrayList<Mypage_artist> SM_list = new Mypage_ArtistDao().selectList_PM(conn, currentPage, limit, bWriter);
+		ArrayList<Mypage_artist> SM_list = new Mypage_ArtistDao().selectList_SM(conn, currentPage, limit, bWriter);
 		
 		close(conn);
 		return SM_list;
