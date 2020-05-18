@@ -10,24 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.oreilly.servlet.MultipartRequest;
-
-import board.notice.model.vo.PageInfo;
 import product.model.service.ProductService;
 import product.model.vo.Attachment;
 import product.model.vo.product;
 
 /**
- * Servlet implementation class worksearch
+ * Servlet implementation class productdetail
  */
-@WebServlet("/worksearch.po")
-public class worksearch extends HttpServlet {
+@WebServlet("/detail.po")
+public class productdetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public worksearch() {
+    public productdetail() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,43 +34,32 @@ public class worksearch extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-	
-	ProductService pService = new ProductService();
+		ProductService pService = new ProductService();
 		
+		int paint_no = Integer.valueOf(request.getParameter("paint_no"));
 		
-		
-		String aname= request.getParameter("aname");
-		String category = request.getParameter("category");
-		int price = Integer.valueOf(request.getParameter("price"));
-		String[] tagname = request.getParameterValues("tagname");
-		
-		System.out.println(aname);
-		System.out.println(category);
-		System.out.println(price);
-		product po = new product(aname,category,price);
-
-		ArrayList<product> searchlist = new ArrayList<product>();
-	
-		searchlist = pService.selectsearch(po);
+		product plist = new product();
+		plist = pService.selectsearch(paint_no);
 		
 		ArrayList<Attachment> alist = new ArrayList<Attachment>();
-		alist = pService.selectAllalist();
 		
-
-
+		alist = pService.selectAttachment(paint_no);	
+		
+		ArrayList<product> sizelist = new ArrayList<product>();
+		
+		sizelist = pService.selectsize();
+		
 		RequestDispatcher view = null;
-		
-		
-		if(!searchlist.isEmpty()) {
-			view = request.getRequestDispatcher("views/product/searchproduct.jsp");
+		if(!plist.isEmpty() && !alist.isEmpty() && !sizelist.isEmpty()) {
+			view = request.getRequestDispatcher("views/product/productdetail.jsp");
 			
-			request.setAttribute("searchlist", searchlist);
+			request.setAttribute("plist", plist);
 			request.setAttribute("alist", alist);
+			request.setAttribute("sizelist", sizelist);
 		}else {
 			System.out.println("상품내용 조회 실패");
 		}
 		view.forward(request,response);
-		
 		
 		
 		
