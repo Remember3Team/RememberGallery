@@ -2,21 +2,21 @@
     pageEncoding="UTF-8" import="board.notice.model.vo.*, java.util.ArrayList"%>
 <%
 	ArrayList<Notice> list = ((ArrayList<Notice>)request.getAttribute("list"));
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	
-	 
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>공지사항</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/bootstrap.css">
 	<script src="<%=request.getContextPath() %>/views/js/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/views/js/bootstrap.js"></script>    
@@ -45,7 +45,7 @@
 				<hr style="display:inline-block;">
 				<h3 style="font-size:20px;">Notice</h3>
 			</div><!-- class headLine end -->
-			<hr>
+			
 			<br clear="both">
 				 <div class="col-sm-6" style="display:block;">
 					<table class="table table-hover" id="listArea">
@@ -58,18 +58,20 @@
 				    		</tr>
 				  		</thead>
 				  		<tbody>
-				  		<%if(!list.isEmpty()){ %>
-				  			<%for(Notice n:list){ %>
-				    		<tr>
-				    			<input type="hidden" value="<%=n.getNoti_no() %>">
-								<td><%=n.getNoti_no() %></td>
-				      			<td><%=n.getNoti_title() %></td>
-				      			<td>관리자</td>
-				      			<td><%=n.getNoti_date() %></td>
-				    		</tr>
-				    		<%} %>
-				    	<%} else{%>
-				   				<td>데이터가 존재하지 않습니다.</td>
+				  		<%if(list.isEmpty()){ %>
+				  			<tr>
+				  				<td>게시글이 존재하지 않습니다.</td>
+				  			</tr>
+				  		<%}else{ %>				   				
+					  			<%for(Notice n:list){ %>
+					    		<tr>
+					    			<input type="hidden" value="<%=n.getNoti_no() %>">
+									<td><%=n.getNoti_no() %></td>
+					      			<td><%=n.getNoti_title() %></td>
+					      			<td>관리자</td>
+					      			<td><%=n.getNoti_date() %></td>
+					    		</tr>
+					    		<%}%>
 				    	<%} %>
 				  		</tbody>
 					</table><!-- class table end -->
@@ -77,18 +79,18 @@
 			</div><!-- id noticeList end -->
 			
 		<!-- Pagination -->
-	 	<div style="text-align:center;">
+	  	<div style="text-align:center;">
 			<div class="col-mid-12">
 				 <ul class="pagination justify-content-center" style="margin:20px 0">
 	    	    	     <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/list.no?currentPage=1">Previous</a></li>
 	  					<%for(int p = startPage; p<=endPage; p++){ %>
-	  					 <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/list.bo?currentPage=<%=p %>"><%=p %></a></li>
-	  					 <%} %>
-	  					
-	                     <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/list.bo?currentPage=<%=maxPage%>">Next</a></li>
+	  					 	<li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/list.no?currentPage=<%=p%>"><%=p%></a></li>
+	  					<%} %>
+	                     <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/list.no?currentPage=<%=maxPage%>">Next</a></li>
 	        	  </ul>
 			</div><!-- class col-mid-12 end --> 
-		</div><!-- Pagination end -->
+		</div><!-- Pagination end --> 
+	
 	
 		
 	<!-- 게시글 작성  -->	
@@ -98,6 +100,7 @@
 <br><br><br>
 	<%@include file="../../common/footer.jsp" %>
 </body>
+
 <script>
 	$(function(){
 		$("#listArea td").click(function(){

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import board.amateur.model.vo.Amateur;
 import board.amateur.model.vo.FileManagement;
+import board.amateur.model.vo.Reply;
 public class AmateurDao {
 
 	public int insertBoard(Connection conn, Amateur a) {
@@ -228,6 +229,64 @@ public class AmateurDao {
 			close(rset);
 		}
 			return fm;
+	}
+
+	public ArrayList<Reply> selectReplyList(Connection conn, int event_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Reply> rList = null;
+		
+		String query = "SELECT * FROM EVENT_REPLY WHERE EVENT_NO=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, event_no);
+			
+			rset = pstmt.executeQuery();
+			rList = new ArrayList<Reply>();
+			while(rset.next()) {
+				rList.add(new Reply(rset.getInt("REPLY_NO"),
+									rset.getInt("EVENT_NO"),
+									rset.getString("REPLY"),
+									rset.getDate("REPLY_DATE"),
+									rset.getString("USER_ID")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return rList;
+	}
+
+	public int insertReply(Connection conn, Reply r) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		System.out.println("AmateurDao"+r.getEvent_no());
+		System.out.println("AmateurDao"+r.getReply());
+		System.out.println("AmateurDao"+r.getUser_id());
+		
+		String query = "INSERT INTO EVENT_REPLY VALUES(REPLY_SEQ.NEXTVAL,?,?,SYSDATE,?)";
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, r.getEvent_no());
+			pstmt.setString(2, r.getReply());
+			pstmt.setString(3, r.getUser_id());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("[댓글 insert]Amateur Dao:"+result);
+		return result;
 	}
 
 }

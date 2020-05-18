@@ -4,6 +4,8 @@
 	Amateur a = (Amateur)request.getAttribute("amateur");
 	FileManagement fm = (FileManagement)request.getAttribute("fileList");
 	ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList");
+	
+	System.out.println("[jsp] 출력 결과 : "+rList);
 %>
 <!DOCTYPE html>
 <html>
@@ -72,12 +74,23 @@
 					</td>
 				  </tr>
 				  <br><br>
-				  <tr>
-				  	<td width="100px"> 작성자 </td>
-				  	<td width="400px"> 내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용 </td>
-				  	<td width="200px"> 게시일 </td> 
-				  </tr>
-               </table>
+				</table>
+       <div id="replySelectArea">
+			<table id="replySelectTable" class="table" align="center">
+				<% if(rList.isEmpty()) { %>
+					<tr><td colspan="3">댓글이 없습니다.</td></tr>
+					
+				<% }else { %>
+					<% for(int i=0; i<rList.size(); i++){ %>
+						<tr>
+							<td width="100px"><%= rList.get(i).getUser_id() %></td>
+							<td width="400px"><%= rList.get(i).getReply() %></td>
+							<td width="200px"><%= rList.get(i).getReply_date() %></td>
+						</tr>
+					<% } %>
+				<% } %>
+			</table>
+		</div>
             </div><!-- cols-sm-6 div end -->
          </div><!-- row div end -->
        </div><!-- container div end -->
@@ -86,7 +99,38 @@
    </body>
 
 	<script>
-
+		$(function(){
+			$("#addReply").click(function(){
+				var writer = "<%=loginUser.getUserId()%>";
+				var bid = <%=a.getEvent_no()%>;
+				var content = $("#replyContent").val();
+				
+				$.ajax({
+					url:"insertReply.am",
+					type:"post",
+					data:{writer:writer,content:content,bid:bid},
+					success:function(data){
+						$replyTable = $("#replySelectTable");
+						$replyTable.html("");
+						for(var key in data){
+							var $tr = $("<tr>");
+							var $writerTd = $("<td>").text(data[key].user_id).css("width","100px");
+							var $contentTd =$("<td>").text(data[key].reply).css("width","400px");
+							var $dateTd = $("<td>").text(data[key].reply_date).css("width","200px");
+							
+							$tr.append($writerTd);
+							$tr.append($contentTd);
+							$tr.append($dateTd);
+							$replyTable.append($tr);
+						}
+						$("#replyContent").val("");  
+					},
+					error:function(request,statur,error){
+						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error"+error);
+					}
+				})
+			})
+		})
 	</script>
 <!-- footer -->	
 <%@include file="../../common/footer.jsp" %>

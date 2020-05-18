@@ -20,6 +20,17 @@ public class Reply implements Serializable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	public Reply(int event_no, String reply, String user_id) {
+		super();
+		this.event_no = event_no;
+		this.reply = reply;
+		this.user_id = user_id;
+	}
+
+
 
 	public Reply(int reply_no, int event_no, String reply, Date reply_date, String user_id) {
 		super();
