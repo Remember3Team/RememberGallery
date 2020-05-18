@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "mypage_artist.model.vo.*, product.model.vo.*, java.util.ArrayList"%>
+    
+    <%
+    	ArrayList<BuyList_a> list = (ArrayList<BuyList_a>) request.getAttribute("list");
+    	ArrayList<Attachment> alist = (ArrayList<Attachment>) request.getAttribute("alist");
+    %>    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,10 +13,9 @@
 <title>art refund</title>
  <!-- link rel="stylesheet" href="../css/style.css" -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/bootstrap.css">
-  <link rel="stylesheet" href="../css/Style-refund.css">
-<script src="../js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="../js/bootstrap.js"></script> 
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/views/css/Style-refund.css">
+   <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/bootstrap.css">
+<script src="<%=request.getContextPath() %>/views/js/jquery-3.4.1.min.js"></script>
 
 </head>
 
@@ -65,24 +70,39 @@
             </div>
             <table style="width:100%" name="refund-list">
                 <tr>
-                    <th><input type="checkbox"></th>
-                    <th>주문 번호</th>
-                    <th>이미지</th>
-                    <th>상품 정보</th>
-                    <th>금액</th>
-                    <th>처리 상태</th>
-                    <th>주문 정보 확인</th>
+                    <th style = "text-align : center;"><input type="checkbox"></th>
+                    <th style = "text-align : center;">주문 번호</th>
+                    <th style = "text-align : center;">이미지</th>
+                    <th style = "text-align : center;">상품 정보</th>
+                    <th style = "text-align : center;">금액</th>
+                    <th style = "text-align : center;">처리 상태</th>
+                    <th style = "text-align : center;">주문 정보 확인</th>
                 </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>p0001</td>
-                    <td><img src="../img/artist.JPG" alt="pimage"></td>
-                    <td>작품명 : Remember Me</td>
-                    <td>10,000</td>
-                    <td>환불 요청</td>
-                    <td><button class="btn btn-outline-dark" id="detail_order" style = "width:150px">주문 상세보기</button></td>
-                </tr>
-
+                
+                
+                <% for(int i = 0 ; i < list.size(); i++){
+                	BuyList_a b = list.get(i);
+                %>
+               
+				<tr>
+					<td><input type="checkbox"></td>
+					<td><%=b.getOrder_no() %></td>
+					<td>
+					 <% for(int j=0; j<alist.size(); j++){ 
+							Attachment a = alist.get(j); %>
+							
+						<% if(b.getPaint_no() == a.getPaint_no()) { %>
+					<img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" width="150px" height="150px"></td>
+					 <%} %>
+					<%} %>
+					<td>작품명 : <%=b.getPaint_name()%><br>작가명 :  <%=b.getArtist_name()%> </td>
+					
+					<td><%=b.getPaint_price()%></td>
+					<td><%=b.getOrder_status()%></td>
+					<td><button class="btn btn-outline-dark" id="detail_order" style = "width:150px">주문 상세보기</button></td>
+				</tr>
+				<%} %>
+               
             </table>
         </div>
         

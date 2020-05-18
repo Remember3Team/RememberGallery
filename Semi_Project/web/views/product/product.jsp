@@ -99,8 +99,11 @@
         <br clear="both">
         <div>
            <% for(int i=0; i<plist.size(); i++){ 
+        	   
              product p = plist.get(i);
+             
              Attachment a = alist.get(i);%>
+             
 				<% if(p.getPaint_no() == a.getPaint_no()) { %>
 			<ul class="rul">
 				<li class="gellary">
