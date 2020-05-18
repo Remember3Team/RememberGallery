@@ -114,7 +114,7 @@
 				 		$("#detail").click(function(){
 				 			var paint_no = $("#paint_no").val();
 				 			
-				 			location.href="<%=request.getContextPath()%>/detail.bo?paint_no="+paint_no;
+				 			location.href="<%=request.getContextPath()%>/detail.po?paint_no="+paint_no;
 				 		});
 				 		
 				 	});
