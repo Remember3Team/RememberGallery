@@ -41,7 +41,7 @@ public class productdetail extends HttpServlet {
 		product plist = new product();
 		plist = pService.selectsearch(paint_no);
 		
-		ArrayList<Attachment> alist = new ArrayList<Attachment>();
+		Attachment alist = new Attachment();
 		
 		alist = pService.selectAttachment(paint_no);	
 		
@@ -50,7 +50,7 @@ public class productdetail extends HttpServlet {
 		sizelist = pService.selectsize();
 		
 		RequestDispatcher view = null;
-		if(!plist.isEmpty() && !alist.isEmpty() && !sizelist.isEmpty()) {
+		if(plist != null && alist != null && !sizelist.isEmpty()) {
 			view = request.getRequestDispatcher("views/product/productdetail.jsp");
 			
 			request.setAttribute("plist", plist);
