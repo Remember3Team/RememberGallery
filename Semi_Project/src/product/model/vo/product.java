@@ -25,6 +25,44 @@ public class product {
 	}
 
 	
+	public product(int size_no, int width, int height) {
+		this.size_no = size_no;
+		this.width = width;
+		this.height = height;
+	}
+
+
+	public product(int paint_no, String paint_name, int patint_price, String category, String artist_name,
+			String paint_int, String paint_mdate, int size_no) {
+		this.paint_no = paint_no;
+		this.paint_name = paint_name;
+		this.patint_price = patint_price;
+		this.category = category;
+		this.artist_name = artist_name;
+		this.paint_int = paint_int;
+		this.paint_mdate = paint_mdate;
+		this.size_no = size_no;
+	}
+
+
+	public product(int paint_no) {
+		this.paint_no = paint_no;
+	}
+
+
+	public product(int paint_no, String tag_name) {
+		this.paint_no = paint_no;
+		this.tag_name = tag_name;
+	}
+
+
+	public product(String paint_name, String category, int patint_price) {
+		this.paint_name = paint_name;
+		this.patint_price = patint_price;
+		this.category = category;
+	}
+
+
 	public product(String paint_name, String artist_name, String category, String paint_mdate, int patint_price,String paint_int,
 					String bWriter) {
 		this.paint_name = paint_name;
@@ -63,11 +101,6 @@ public class product {
 		this.afile = afile;
 	}
 
-	public product(int size_no, int width, int height) {
-		this.size_no = size_no;
-		this.width = width;
-		this.height = height;
-	}
 
 	public product(int paint_no, String paint_name, int patint_price, String category, String artist_name,
 			String paint_int, String paint_mdate, String auc_yn) {

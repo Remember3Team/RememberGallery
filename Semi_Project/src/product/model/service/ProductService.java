@@ -43,7 +43,7 @@ public class ProductService {
 		int result3 = pDao.insertmasterpiece(conn,p);
 		int result4 = pDao.insertTag(conn,irr);
 		
-		if(result1>0 && result2> 0 && result3 >0) {
+		if(result1>0 && result2> 0 && result3 >0 && result4 >0) {
 	         commit(conn);
 	      }else {
 	         rollback(conn);
@@ -58,6 +58,59 @@ public class ProductService {
 		System.out.println(list2);
 		close(conn);
 		return list2;
+	}
+
+	
+	public ArrayList<product> selectsearch(product po) {
+		Connection conn = getConnection();
+
+		ArrayList<product> list = new ProductDao().selectsearch(conn,po);
+
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<product> selectSearchTag(String[] tagname) {
+		Connection conn = getConnection();
+		
+			ArrayList<product> tagList = new ProductDao().selectrealsearch(conn,tagname);
+		
+			close(conn);
+		return tagList;
+	}
+
+	public ArrayList<Attachment> selectAllalist() {
+		Connection conn = getConnection();
+		
+		ArrayList<Attachment> alist = new ProductDao().selectAllalist(conn);
+		
+		close(conn);
+		return alist;
+	}
+
+	public ArrayList<product> selectsearch(int paint_no) {
+		Connection conn = getConnection();
+		ArrayList<product> plist =new ProductDao().selectsearch(conn,paint_no);
+		
+		
+		close(conn);
+		return plist;
+	}
+
+	public ArrayList<Attachment> selectAttachment(int paint_no) {
+		Connection conn = getConnection();
+		ArrayList<Attachment> alist =new ProductDao().selectAttachment(conn,paint_no);
+		
+		
+		close(conn);
+		return alist;
+	}
+
+	public ArrayList<product> selectsize() {
+		Connection conn = getConnection();
+		
+		ArrayList<product> plist =new ProductDao().selectsize(conn);
+		return plist;
 	}
 
 }
