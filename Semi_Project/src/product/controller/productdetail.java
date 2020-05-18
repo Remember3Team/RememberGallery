@@ -37,6 +37,7 @@ public class productdetail extends HttpServlet {
 		ProductService pService = new ProductService();
 		
 		int paint_no = Integer.valueOf(request.getParameter("paint_no"));
+		System.out.println(paint_no);
 		
 		product plist = new product();
 		plist = pService.selectsearch(paint_no);
