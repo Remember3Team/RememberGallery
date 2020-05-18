@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8" import = "product.model.vo.*, java.util.ArrayList.*"%>
+   pageEncoding="UTF-8" import = "product.model.vo.*, java.util.ArrayList"%>
 <%
-	
+
+ArrayList<product> plist = (ArrayList<product>)request.getAttribute("plist");
+ArrayList<Attachment> alist = (ArrayList<Attachment>)request.getAttribute("alist");
+ArrayList<product> sizelist = (ArrayList<product>)request.getAttribute("sizelist");
+
 %>
 <!DOCTYPE html>
 <html>

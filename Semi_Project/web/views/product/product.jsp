@@ -112,7 +112,7 @@
 					<script>
 				 	$(function(){
 				 		$("#detail").click(function(){
-				 			var pain_no = $("#paint_no").val();
+				 			var paint_no = $("#paint_no").val();
 				 			
 				 			location.href="<%=request.getContextPath()%>/detail.bo?paint_no="+paint_no;
 				 		});

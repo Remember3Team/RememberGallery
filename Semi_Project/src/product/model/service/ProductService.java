@@ -88,9 +88,9 @@ public class ProductService {
 		return alist;
 	}
 
-	public ArrayList<product> selectsearch(int paint_no) {
+	public product selectsearch(int paint_no) {
 		Connection conn = getConnection();
-		ArrayList<product> plist =new ProductDao().selectsearch(conn,paint_no);
+		product plist =new ProductDao().selectsearch(conn,paint_no);
 		
 		
 		close(conn);

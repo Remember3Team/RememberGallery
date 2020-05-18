@@ -38,7 +38,7 @@ public class productdetail extends HttpServlet {
 		
 		int paint_no = Integer.valueOf(request.getParameter("paint_no"));
 		
-		ArrayList<product> plist = new ArrayList<product>();
+		product plist = new product();
 		plist = pService.selectsearch(paint_no);
 		
 		ArrayList<Attachment> alist = new ArrayList<Attachment>();
