@@ -83,16 +83,19 @@ public class AmateurListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage);
 		
 		ArrayList<Amateur> list = aService.selectList(currentPage, limit);
-//		ArrayList<FileManagement> fileList = aService.selectList(list.get(0));
+		Amateur getEventNo = new Amateur();
+		ArrayList<FileManagement> fileList = aService.selectList(getEventNo);
+		
 		for(int i = 0;i<list.size();i++) {
-			System.out.println(list.get(i));
+			System.out.println("[servlet]게시글 출력 : "+list.get(i));
+			System.out.println("[servlet]파일 출력:"+fileList.get(i));
 		}
 		
 		//화면으로
 		RequestDispatcher view = null;
 		if(!list.isEmpty()) {
 			view = request.getRequestDispatcher("views/board/amateur/amateurBoard.jsp");
-			
+			request.setAttribute("fileList", fileList);
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		}else {

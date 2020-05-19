@@ -1,13 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="mypage_user.mainOrderRefundWish.model.vo.*,product.model.vo.*, java.util.ArrayList"%>
+    
+<%
+	ArrayList<Morw> list = ((ArrayList<Morw>)request.getAttribute("list"));
+	ArrayList<Attachment> plist = (ArrayList<Attachment>) request.getAttribute("plist");
+ 
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/bootstrap.css">
-<link rel="stylesheet" href="../css/Style-refund.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/views/css/bootstrap.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/views/css/Style-refund.css">
   
 <script src="../js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.js"></script>
@@ -17,81 +23,92 @@
 	<%@include file="../common/mypagehead2.jsp" %>
 	
 	<div class="title">
-        <h3><b>주문 내역</b></h3>
+        <h3><b>반품 / 환불</b></h3>
         <hr>
     </div>
     
 	<div class="container">
-	
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link" href="#">주문내역조회</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="#">취소/환불내역</a>
-        </li>
-      </ul>
+      <form action="">
+            <div class="search-bar">
+                <div class="bar1">
+                    <input type="text" name="order-status" list="status-list" placeholder=" 주문 처리 상태">
+                    <datalist id="status-list">
+                        <option>환불신청</option>
+                        <option>환불완료</option>
+                    </datalist>
+                </div>
+                <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="today">오늘
+                                </label>
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="week">1주일
+                                </label>
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="month" >1개월
+                                </label>
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="three_months" >3개월
+                                </label>
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="six_months" >6개월
+                                </label>
+                            </div> 
+                &nbsp;&nbsp;&nbsp;
+                <div class="bar3">
+                    <input type="date" name="refund-date1"> ~
+                    <input type="date" name="refund-date1">
+                </div>
+                <button type="submit" class="btn btn-dark" style="width:70px">조회</button>
+            </div>
 
-      <br>
-      <br>
-
-      <div class="form-row" align="center">
-        
-        <div class="btn-group-md" data-toggle="buttons">
-            <label class="btn btn-outline-dark">
-                <input type="radio" name="term" value="today">오늘
-            </label>
-            <label class="btn btn-outline-dark">
-                <input type="radio" name="term" value="week">1주일
-            </label>
-            <label class="btn btn-outline-dark">
-                <input type="radio" name="term" value="month" >1개월
-            </label>
-            <label class="btn btn-outline-dark">
-                <input type="radio" name="term" value="three_months" >3개월
-            </label>
-            <label class="btn btn-outline-dark">
-                <input type="radio" name="term" value="six_months" >6개월
-            </label>
-        </div> 
-
-        <div class="col-md-2 mb-3">
-          <input type="date" class="form-control" id="validationDefault05" required>
-        </div>
-        ~
-        <div class="col-md-2 mb-3">
-            <input type="date" class="form-control" id="validationDefault06" required>
-        </div>
-        <div class="col-md-1 mb-2">
-            <button class="btn btn-primary" type="submit">조회</button>
-        </div>
-    </div>
+        </form>
+     
+    
    
     <br>
     <br>
-    <div>
-        <h6>* 기본적으로 최근 3개월간의 자료가 조회되며, 기간 검색시 지난 내역을 조회할 수 있습니다.<br>
-        </h6>
-    </div>
-    <br>
-    <br>
+   
 
-      <table class="table table-sm">
-        <h6><b>취소/환불</b></h6>
-        <thead class="thead-light">
-          <tr>
-            <th scope="col">주문번호</th>
-            <th scope="col">이미지</th>
-            <th scope="col">상품정보</th>
-            <th scope="col">수량</th>
-            <th scope="col">상품구매금액</th>
-            <th scope="col">주문처리상태</th>
-            <th scope="col">취소/환불</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+      <div class = "refund-table">
+            <div class="table-headline">
+                <div><span><b>취소 / 환불</b></span></div>
+            </div>
+            <table style="width:100%" name="order-list">
+            	<thead>
+                <tr>
+                    <th>주문 번호</th>
+                    <th>이미지</th>
+                    <th>상품정보</th>
+                    <th>금액</th>
+                    <th>처리상태</th>
+                </tr>
+                </thead>
+                <tbody>
+                 <%if(!list.isEmpty()){ %>
+			  			<%for(Morw m:list){ %>
+			    		<tr>
+			    			<td><%=m.getOrderNo() %></td>
+							<td><% for(int j=0; j<plist.size(); j++){ 
+							Attachment a = plist.get(j); %>
+						<% if(m.getPaintNo() == a.getPaint_no()) { %>
+					 <img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" width="150px" height="150px">
+					 <%} %>
+					<%} %></td>
+			      			<td>작가 : <%=m.getArtistName()%><br>
+			      			작품명 : <%=m.getPaintName()%></td>
+			      			<td><%=m.getPaintPrice()%></td>
+			      			<td><%=m.getOrderStatus()%></td>
+			    		</tr>
+			    		<%} %>
+			    	<%} else{%>
+			    		
+			    	<%} %>
+
+                </tbody>
+
+            </table>
+        </div>
    
       <br>
       <br>
