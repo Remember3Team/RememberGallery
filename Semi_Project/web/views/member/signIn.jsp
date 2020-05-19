@@ -51,7 +51,7 @@
 
 	<%@include file="../common/menubar.jsp"%>
 	<!-- section1 -->
-	<div class="loginArea" style="background-color: beige; height: 600px;">
+	<div class="loginArea" style="background-color: darkgray; height: 600px;">
 		<%
 			if (loginUser == null) {
 		%>
@@ -77,7 +77,8 @@
 				<div id="LoginBtn" style="display: inline-block;">
 					<input type="submit" value="로그인">
 				</div>
-
+				<br>
+				<a href = "#">아이디 찾기</a>/<a href = "#">비밀번호 찾기</a>
 			</div>
 
 		</form>

@@ -1,11 +1,17 @@
 package member.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import member.model.service.MemberService;
+import member.model.vo.Member;
 
 /**
  * Servlet implementation class updateMemberServlet
@@ -29,8 +35,30 @@ public class updateMemberServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		
+		String userId = request.getParameter("userId");
+		String userName = request.getParameter("userName");
+		String userPwd = request.getParameter("userPwd");
+		String nickName = request.getParameter("nickName");
+		String phone = request.getParameter("phone");
+		String address = request.getParameter("address");
+		String email = request.getParameter("email");
 		
-	
+		Member m = new Member(userId,userName,userPwd,nickName,phone,address,email);
+		int result = new MemberService().updateMember(m);
+		System.out.println("회원 정보 수정 Servlet에서 update 결과:"+result);
+		
+		RequestDispatcher view = null; 
+		HttpSession session = request.getSession();
+		
+		if(result >0) {
+			session.setAttribute("loginUser",m);
+			view = request.getRequestDispatcher("views/member/SignSuccess.jsp");
+			request.setAttribute("msg","성공적으로 회원정보를 수정했습니다.");
+		}else {
+			view = request.getRequestDispatcher("view/member/SignError.jsp");
+			request.setAttribute("msg", "회원 정보 수정에 실패했습니다.");
+		}
+		view.forward(request, response);
 	}
 
 	/**

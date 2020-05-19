@@ -119,5 +119,68 @@ public class MemberDao {
 		
 		return result;
 	}
+	
+	
+
+	public Member selectMember(Connection conn,String userId) {
+		PreparedStatement pstmt = null; 
+		ResultSet rset = null; 
+		Member loginMember = null; 
+		System.out.println("dao userId:"+userId);
+		String query = "SELECT * FROM MEMBER WHERE USER_ID=? AND DELETE_YN='N'";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			rset = pstmt.executeQuery();
+
+			while(rset.next()) {
+				loginMember = new Member(rset.getString("USER_ID"), rset.getString("GRADE"),
+						rset.getString("USER_NAME"), rset.getString("USER_PWD"), rset.getString("EMAIL"),
+						rset.getString("PHONE"), rset.getString("ADDRESS"), rset.getString("NICKNAME"),
+						rset.getString("ACCOUNT_GRADE"), rset.getInt("POINT"), rset.getDate("ENROLL_DATE"),
+						rset.getString("DELETE_YN"), rset.getString("DELETE_DATE"), rset.getInt("CASH")
+											);
+			}
+			System.out.println(loginMember);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+			
+		}
+		return loginMember;
+	}
+
+
+	public int updateMember(Connection conn, Member member) {
+		PreparedStatement pstmt = null;
+		int result = 0; 
+		
+		String query ="UPDATE MEMBER SET USER_NAME =?,USER_PWD=?,EMAIL=?,PHONE=?,ADDRESS=?,NICKNAME=? WHERE USER_ID=?)";
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, member.getUserName());
+			pstmt.setString(2, member.getUserPwd());
+			pstmt.setString(3, member.getEmail());
+			pstmt.setString(4, member.getPhone());
+			pstmt.setString(5, member.getAddress());
+			pstmt.setString(6, member.getNickname());
+			pstmt.setString(7, member.getUserId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
 }

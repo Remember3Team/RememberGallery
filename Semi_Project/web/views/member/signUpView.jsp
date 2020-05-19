@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import = "member.model.vo.Member"%>
+
+<%
+Member mem = (Member)request.getAttribute("member");
+
+String userId = mem.getUserId();
+String userPwd = mem.getUserPwd()!=null? mem.getPhone():"";
+String userName = mem.getUserName();
+String email = mem.getEmail()!=null?mem.getEmail():"";
+String phone = mem.getPhone()!=null?mem.getPhone():"";
+String address = mem.getAddress()!=null?mem.getAddress():"";
+String nickname = mem.getNickname()!=null?mem.getAddress():"";
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,8 +64,8 @@ td {
 	<%@include file="../common/menubar.jsp"%>
 
 	<div class="container">
-		<form id="joinForm" action="<%=request.getContextPath()%>/insert.me"
-			method="post" onsubmit="return insertMember()">
+		<form id="updateForm" action="<%=request.getContextPath()%>/update.me"
+			method="post" >
 			<!--section1-->
 			<div class="section1" style="padding-bottom: 90px;">
 				<h1 style="color: black;">JOIN</h1>
@@ -65,7 +78,7 @@ td {
 					<div class="info-box1">
 						<label class="labelfirst" id="name">이름<a
 							style="color: red; font-size: 15px;">*</a></label><input
-							class="nomal-text" type="text" name="userName" >
+							class="nomal-text" type="text" name="userName" value ="<%=userName %>"readonly >
 						<label id="nameresult"></label>
 					</div>
 					<br>
@@ -73,7 +86,7 @@ td {
 					<div class="info-box2">
 						<label class="labelfirst" id="userId">아이디<a
 							style="color: red; font-size: 15px;">*</a></label><input
-							class="nomal-text" type="text" name="userId" required>
+							class="nomal-text" type="text" name="userId" value="<%=userId %>"readonly>
 
 					</div>
 					<div id="idCheck"
@@ -96,13 +109,13 @@ td {
 					<br> <br>
 					<div class="info-box5">
 						<label class="labelfirst">닉네임</label><input class="nomal-text"
-							type="text" name="nickName">
+							type="text" name="nickName" value="<%=nickname %>>">
 					</div>
 
 					<div class="info-box6">
 						<label class="labelfirst">휴대폰 번호</label>
 						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input
-							type="tel" id="Phone" name="phone" value="" maxlength="11"
+							type="tel" id="Phone" name="phone" placeholder="(-없이)0123456789"value="<%=phone %>>" maxlength="11"
 							autocomplete="off">
 
 					</div>
@@ -110,13 +123,13 @@ td {
 					<div class="info-box7">
 						<label class="labelfirst">주소<a
 							style="color: red; font-size: 15px;">*</a></label> <input
-							class="nomal-text" type="text" name="address">
+							class="nomal-text" type="text" name="address" value ="<%=address %>">
 
 					</div>
 
 					<div class="info-box7">
 						<label class="labelfirst">이메일</label><input class="nomal-text"
-							type="text" name="email">
+							type="text" name="email"value="<%=email %>>">
 					</div>
 					<br>
 <!-- 
@@ -146,8 +159,9 @@ td {
 				<div class="submit-box" align="center">
 					<div id="goMain" onclick="goMain();">메인으로</div>
 					<!-- <div id="joinBtn" onclick="insertMember();">가입하기</div> -->
-					<input type="submit" value="가입하기">
-					
+					<div id ="updateBtn" onclick = "updateMember();">수정하기</div>
+					<br><br><br><br><br>
+					<div id = "deleteBtn" onclick = "deleteMember();"><a href="#">탈퇴하기</a></div>
 				</div><!-- submit-box 끝 -->
 			</div><!-- section 끝-->
 		</form>
@@ -159,66 +173,22 @@ td {
 		location.href="<%=request.getContextPath()%>/index.jsp";
 	}
 	
-	function insertMember(){
-		/* alert("회원가입이 완료 되었습니다."); */
-		return true;
+	//수정하기
+	function updateMember(){
+		$("#updateForm").submit();
+		arlert("서밋!");
 	}
 	
-	//ajax
-	 	$(function(){
-	 		$("#idCheck").click(function(){
-	 			var userId = $("#joinForm input[name = 'userId']");
-	 			
-	 			if(!userId || userId.val().length<4){
-	 				alert("아이디는 최소 4자리 이상이어야합니다.");
-	 				userId.focus();
-	 			}else{
-	 				$.ajax({
-	 					url: "<%=request.getContextPath()%>/idCheck.me",
-	 					type:"post",
-	 					data:{userId : userId.val()},
-	 					success:function(data){
-	 						if(data=='fail'){
-	 							alert("아이디가 중복 됩니다.");
-	 							userId.focus();
-	 						}else{
-	 							alert("아이디가 사용가능합니다.");
-	 							userId.attr("readonly","true");
-	 						}
-	 					},
-	 					error:function(data){
-	 						console.log("서버 통신 안됨");
-	 					}
-	 					
-	 				})
-	 			}
-	 		})
-	 		
-	 	})
-
-
-		$(function(){
-			$("#userName").change(function(){
-				var regExp =/^[가-힣]{2,}$/;
-				if(regExp.test($this).val()){
-					$("#nameresult").jsp("정상입력").css('color','green');
-					$(this).css("background","white");
-				}else{
-					$('#name').val('');
-					$('#nameresult').jsp("이름은 한글로 2자 이상이여야합니다.").css('color','red');
-					$(this).focus().css("background","red");
-				}
-			});
-	/* 		$("#userPwd2").chacnge(function(){
-				if($('#userPwd').val()!=$(this).val)				
-			}) */
-			
-		}); /* function */
+	//탈퇴하기
+	function deleteMember(){
+		$("#updateForm").attr("action","<%=request.getContextPath()%>/delete.me");
+		$("#updateForm").submit();
+	}
 	
 	
 	</script>
 
-	<%-- 	<%@include file="../common/footer.jsp"%> --%>
+<%@include file="../common/footer.jsp"%> 
 
 </body>
 </html>
