@@ -104,8 +104,11 @@
         <p class="h3">작품</p>
         <br clear="both">
            <% for(int i=0; i<plist.size(); i++){ 
+        	   
              product p = plist.get(i);
+             
              Attachment a = alist.get(i);%>
+             
 				<% if(p.getPaint_no() == a.getPaint_no()) { %>
         	<div class="list">
 						<input id="paint_no" type="hidden" value="<%=p.getPaint_no()%>"><br>
