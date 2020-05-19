@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import artistapply.model.vo.Apply;
 import product.model.vo.Attachment;
 import product.model.vo.product;
 
@@ -591,8 +592,8 @@ public class ProductDao {
 										rset.getString("CATEGORY"),
 										rset.getString("ARTIST_NAME"),
 										rset.getString("PAINT_INT"),
-										rset.getString("PAINT_MADATE"),
-										rset.getString("SIZE_NO"));
+										rset.getString("PAINT_MDATE"),
+										rset.getInt("SIZE_NO"));
 
 			}
 			
@@ -607,11 +608,11 @@ public class ProductDao {
 		return p;
 	}
 
-	public Attachment selectAttachment(Connection conn, int paint_no) {
+	public ArrayList<Attachment> selectAttachment(Connection conn, int paint_no) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		Attachment a = new Attachment();
+		ArrayList<Attachment> alist = new ArrayList<Attachment>();
 		
 		String query = "SELECT * FROM PAINT_PHOTO WHERE PAINT_NO=?";
 		
@@ -621,20 +622,23 @@ public class ProductDao {
 			
 			rset = pstmt.executeQuery();
 			while (rset.next()) {
-				 a = new Attachment(rset.getInt("AFILE_NO"),
+				 Attachment a = new Attachment(rset.getInt("AFILE_NO"),
 										rset.getInt("PAINT_NO"),
 										rset.getString("AFILE"),	
 										rset.getString("FILEPATH"),
-										rset.getInt("FILELEVLE"));
-
+										rset.getInt("FILELEVEL"));
+				 alist.add(a);
 			}
 		} catch (SQLException e) {
 	
 			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		
-		return a;
+		return alist;
 	}
 
 	public ArrayList<product> selectsize(Connection conn) {
@@ -659,10 +663,40 @@ public class ProductDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
 		}
+		System.out.println("dao"+plist);
 		
 	
 		
 		return plist;
+	}
+
+	public Apply selectApply(Connection conn, product plist) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Apply apply = new Apply();
+		
+		String query = "SELECT * FROM SELLER WHERE USER_ID = (SELECT USER_ID FROM MEMBER WHERE USER_NAME=?)";
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setString(1,plist.getArtist_name());
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				apply = new Apply(rset.getString("USER_ID"),
+									rset.getString("ARTIST_INT"),
+									rset.getString("ARTIST_PRO"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return apply;
 	}
 }

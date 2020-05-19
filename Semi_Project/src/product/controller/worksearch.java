@@ -70,7 +70,7 @@ public class worksearch extends HttpServlet {
 			request.setAttribute("searchlist", searchlist);
 			request.setAttribute("alist", alist);
 		}else {
-			System.out.println("상품내용 조회 실패");
+			view = request.getRequestDispatcher("views/product/searchproducterror.jsp");
 		}
 		view.forward(request,response);
 		
