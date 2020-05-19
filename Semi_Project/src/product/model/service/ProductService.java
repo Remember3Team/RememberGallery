@@ -5,7 +5,7 @@ import static common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-
+import artistapply.model.vo.Apply;
 import product.model.dao.ProductDao;
 import product.model.vo.Attachment;
 import product.model.vo.product;
@@ -97,9 +97,9 @@ public class ProductService {
 		return plist;
 	}
 
-	public Attachment selectAttachment(int paint_no) {
+	public ArrayList<Attachment> selectAttachment(int paint_no) {
 		Connection conn = getConnection();
-		Attachment alist =new ProductDao().selectAttachment(conn,paint_no);
+		ArrayList<Attachment> alist =new ProductDao().selectAttachment(conn,paint_no);
 		
 		
 		close(conn);
@@ -110,15 +110,27 @@ public class ProductService {
 		Connection conn = getConnection();
 		
 		ArrayList<product> plist =new ProductDao().selectsize(conn);
+		System.out.println("service="+plist);
+		close(conn);
 		return plist;
 	}
 
+<<<<<<< HEAD
 	public ArrayList<product> payList() {
 		Connection conn = getConnection();
 		
 		ArrayList<product> pay_list = new ProductDao().payList(conn);
 		
 		return pay_list;
+=======
+	public Apply selectApply(product plist) {
+		Connection conn = getConnection();
+		
+		Apply apply = new Apply();
+		apply= new ProductDao().selectApply(conn,plist);
+		close(conn);
+		return apply;
+>>>>>>> refs/remotes/origin/master
 	}
 
 }
