@@ -3,6 +3,7 @@ package product.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,6 +35,16 @@ public class BuyProductServlet extends HttpServlet {
 		ProductService ps = new ProductService();
 		
 		ArrayList <product> pay_list = ps.payList();
+		
+		RequestDispatcher view = null;
+		if(!pay_list.isEmpty()) {
+			view = request.getRequestDispatcher("views/product/productpay.jsp");
+			
+			request.setAttribute("pay_list", pay_list);
+		}else {
+			System.out.println("상품내용 조회 실패");
+		}
+		view.forward(request,response);
 		
 	}
 

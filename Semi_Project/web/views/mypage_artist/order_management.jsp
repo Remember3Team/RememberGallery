@@ -45,21 +45,21 @@
 			            <option value="환불완료"></option>
                     </datalist>
                 </div>
-                <div class="btn-group" data-toggle="buttons">
+                <div class="btn-group" data-toggle="buttons" name="period">
                                 <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="today">오늘
+                                    <input type="radio" name="term" value="오늘">오늘
                                 </label>
                                 <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="week">1주일
+                                    <input type="radio" name="term" value="1주일">1주일            
                                 </label>
                                 <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="month" >1개월
+                                    <input type="radio" name="term" value="1개월" >1개월
                                 </label>
                                 <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="three_months" >3개월
+                                    <input type="radio" name="term" value="3개월" >3개월
                                 </label>
                                 <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="six_months" >6개월
+                                    <input type="radio" name="term" value="6개월" >6개월
                                 </label>
                             </div> 
                 &nbsp;&nbsp;&nbsp;
@@ -102,8 +102,8 @@
 				<%} %>
             </table>
         </div>
-        
     </div>
+    
     <div style="width : 350px; margin : 0 auto;">
         <div class="pagination">
             <a href="#" class="disabled" aria-label="Go to previous page">Previous</a>

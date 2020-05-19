@@ -671,7 +671,7 @@ public class ProductDao {
 		ResultSet rset = null;
 		ArrayList<product> pay_List = new ArrayList<>();
 		
-		String query = "";
+		String query = "SELECT PAINT_NAME, PAINT_PRICE";
 		
 		try {
 			pstmt= conn.prepareStatement(query);
@@ -679,9 +679,8 @@ public class ProductDao {
 			rset = pstmt.executeQuery();
 			
 			while (rset.next()) {
-				product p = new product(rset.getInt(""),
-											rset.getInt(""),
-											rset.getInt(""));
+				product p = new product(rset.getString("paint_name"),
+													  rset.getInt("patint_price"));
 
 				pay_List.add(p);
 			}

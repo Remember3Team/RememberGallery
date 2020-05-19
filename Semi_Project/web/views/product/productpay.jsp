@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "product.model.vo.*, java.util.ArrayList, board.notice.model.vo.*"%>
     <%
-    	ArrayList<product> plist = (ArrayList<product>)request.getAttribute("list");
+    	ArrayList<product> pay_List = (ArrayList<product>)request.getAttribute("pay_List");
     %>
 <!DOCTYPE html>
 <html>
@@ -50,6 +50,7 @@
       <th scope="col">합계</th>
     </tr>
   </thead>
+   
   <tbody>
       <tr>
       <th scope="row">
@@ -57,13 +58,15 @@
 					src="${contextPath }/resources/images/slide3.jpg"
 					style="width: 126px; height: 115px;">
       </th>
-      <td ><a>이름 가져오기</a></td>
+      <% for(product p : pay_List){ %>
+      <td ><a><%=p.getPaint_name() %></a></td>
       <td><a>1</a></td>
-      <td><a>판매가 가져오기</a></td>
-      <td><a>배송비 가져오기</a></td>
+      <td><a><%=p.getPatint_price() %></a></td>
+      <td><a>무료배송</a></td>
       <td><a>합계</a></td>
     </tr>
   </tbody>
+  <%} %>
 </table>
 <br clear="both"><br>
 
