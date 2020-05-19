@@ -254,7 +254,8 @@ public class ProductDao {
 		ResultSet rset = null;
 
 		ArrayList<product> list = new ArrayList<>();
-		
+		product p = new product();
+		list.add(p);
 		if(po.getArtist_name() == null) {//작가이름 null일경우
 			String query ="SELECT * FROM PAINT WHERE CATEGORY=? AND PAINT_PRICE BETWEEN 0 AND ?";// AND PAINT_NO BETWEEN ? AND ?
 			// 쿼리문 실행시 조건절에 넣을 변수를 (ROWNUM에 대한 조건 시 필요) 연산 처리
@@ -267,7 +268,7 @@ public class ProductDao {
 				rset = pstmt.executeQuery();
 				
 				while (rset.next()) {
-					product p = new product(rset.getInt("PAINT_NO"), 
+					 p = new product(rset.getInt("PAINT_NO"), 
 											rset.getString("PAINT_NAME"),
 											rset.getInt("PAINT_PRICE"),
 											rset.getInt("SIZE_NO"),
@@ -296,7 +297,7 @@ public class ProductDao {
 				rset = pstmt.executeQuery();
 				
 				while (rset.next()) {
-					product p = new product(rset.getInt("PAINT_NO"), 
+					p = new product(rset.getInt("PAINT_NO"), 
 							rset.getString("PAINT_NAME"),
 							rset.getInt("PAINT_PRICE"),
 							rset.getInt("SIZE_NO"),
@@ -326,7 +327,7 @@ public class ProductDao {
 				rset = pstmt.executeQuery();
 				
 				while (rset.next()) {
-					product p = new product(rset.getInt("PAINT_NO"), 
+					p = new product(rset.getInt("PAINT_NO"), 
 							rset.getString("PAINT_NAME"),
 							rset.getInt("PAINT_PRICE"),
 							rset.getInt("SIZE_NO"),
@@ -358,7 +359,7 @@ public class ProductDao {
 				rset = pstmt.executeQuery();
 				
 				while (rset.next()) {
-					product p = new product(rset.getInt("PAINT_NO"), 
+					 p = new product(rset.getInt("PAINT_NO"), 
 							rset.getString("PAINT_NAME"),
 							rset.getInt("PAINT_PRICE"),
 							rset.getInt("SIZE_NO"),
@@ -545,8 +546,7 @@ public class ProductDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		ArrayList<Attachment> list = new ArrayList<>();
-		
+		ArrayList<Attachment> list = new ArrayList<Attachment>();
 		String query = "SELECT * FROM PAINT_PHOTO WHERE FILELEVEL=0";
 		
 		try {

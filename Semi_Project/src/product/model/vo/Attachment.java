@@ -3,11 +3,11 @@ package product.model.vo;
 import java.util.Date;
 
 public class Attachment {
-	private int afile_no;			//파일번호
-	private int paint_no;			//파일이 등록된 상품 번호
-	private String savefileName;	//저장 파일명
-	private String filePath;		//파일의 저장경로	
-	private int fileLevel;			//대표이미지(0)와 일반이미지(1)
+	private int afile_no =0;			//파일번호
+	private int paint_no =0;			//파일이 등록된 상품 번호
+	private String savefileName =" ";	//저장 파일명
+	private String filePath =" ";		//파일의 저장경로	
+	private int fileLevel =0;			//대표이미지(0)와 일반이미지(1)
 	
 	
 	public Attachment(int afile_no, int paint_no, String savefileName, String filePath, int fileLevel) {

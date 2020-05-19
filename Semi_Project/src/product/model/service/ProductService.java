@@ -64,7 +64,8 @@ public class ProductService {
 	public ArrayList<product> selectsearch(product po) {
 		Connection conn = getConnection();
 
-		ArrayList<product> list = new ProductDao().selectsearch(conn,po);
+		ArrayList<product> list = new ArrayList<product>();
+		list = new ProductDao().selectsearch(conn,po);
 
 		close(conn);
 		return list;
@@ -82,7 +83,8 @@ public class ProductService {
 	public ArrayList<Attachment> selectAllalist() {
 		Connection conn = getConnection();
 		
-		ArrayList<Attachment> alist = new ProductDao().selectAllalist(conn);
+		ArrayList<Attachment> alist = new ArrayList<Attachment>();
+		alist = new ProductDao().selectAllalist(conn);
 		
 		close(conn);
 		return alist;

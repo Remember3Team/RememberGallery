@@ -281,8 +281,20 @@ border: solid 1px;
       	</tr>
       </table>  	 																																																																																	
       <hr style="margin: 1;" color="black" width="554px">
-      <span style="text-align: center; width: 100px; font-size: 35px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;"><%=plist.getPatint_price() %>원</span>
+      <table id="imgInfo">
+      <tr>
+      <td>
+       <span style="text-align: center; width: 100px; font-size: 35px;"><%=plist.getPatint_price() %>원</span>
+      </td>
+      <td>
+      		<div></div>
+      		<div style="float:right; display:none;"><img src="<%=request.getContextPath()%>/views/img/colorHeart.png"></div>
+      		<div style="float:right; display:none;"><img src="<%=request.getContextPath()%>/views/img/emptyHeart.png"></div>
+      </td>
+      </tr>
+      </table>
       
+     
 
       <div class="btnArea">
 	      <input type="button" class = "btn btn-outline-dark" value="바로 구매하기" onclick="location.href='<%=request.getContextPath()%>/views/product/productpay.jsp'"><br clear="both"><br>
