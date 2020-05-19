@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "mypage_artist.RefundQnACard.model.vo.*, product.model.vo.*, java.util.ArrayList"%>
+    
+<%
+	ArrayList<Message> mlist = (ArrayList<Message>) request.getAttribute("mlist");
+	ArrayList<Attachment> alist = (ArrayList<Attachment>) request.getAttribute("alist");
+%>    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,10 +13,9 @@
 <title>Insert title here</title>
  <!-- link rel="stylesheet" href="../css/style.css" -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/bootstrap.css">
-  <link rel="stylesheet" href="../css/Style-refund.css">
-<script src="../js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="../js/bootstrap.js"></script> 
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/views/css/Style-refund.css">
+   <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/bootstrap.css">
+<script src="<%=request.getContextPath() %>/views/js/jquery-3.4.1.min.js"></script>
 </head>
 <body>
 <%@include file="../common/menubar.jsp" %>
@@ -35,13 +40,24 @@
                         <option value="오브제"></option>
                     </datalist>
                 </div>
-                <div class="bar2">
-                    <button>오늘</button>
-                    <button>1주일</button>
-                    <button>1개월</button>
-                    <button>3개월</button>
-                    <button>6개월</button>
-                </div>
+                <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="today">오늘
+                                </label>
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="week">1주일
+                                </label>
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="month" >1개월
+                                </label>
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="three_months" >3개월
+                                </label>
+                                <label class="btn btn-outline-dark">
+                                    <input type="radio" name="term" value="six_months" >6개월
+                                </label>
+                            </div> 
+                &nbsp;&nbsp;&nbsp;
                 <div class="bar3">
                     <input type="date" name="refund-date1"> ~
                     <input type="date" name="refund-date1">
@@ -58,21 +74,33 @@
             <table style="width:100%" name="card-list">
                 <tr>
                     <th><input type="checkbox"></th>
-                    <th>상품 번호</th>
-                    <th>이미지</th>
-                    <th>상품 정보</th>
-                    <th>구매자 닉네임</th>
-                    <th>감동 카드</th>
+                    <th style = "text-align : center;">상품 번호</th>
+                    <th style = "text-align : center;">이미지</th>
+                    <th style = "text-align : center;">상품 정보</th>
+                    <th style = "text-align : center;">구매자 닉네임</th>
+                    <th style = "text-align : center;">감동 카드</th>
                 </tr>
+                
+                <% for(int i = 0 ; i < mlist.size(); i++){
+                	Message m = mlist.get(i);
+                %>
                 <tr>
                     <td><input type="checkbox"></td>
-                    <td>a0001</td>
-                    <td><img src="../image/artist.JPG" alt="pimage"></td>
-                    <td>작품명 : Remember Me</td>
-                    <td>짱짱</td>
-                    <td><textarea class="card"></textarea></td>
+                    <td><%=m.getPaint_no()%></td>
+                    <td>
+					 <% for(int j=0; j<alist.size(); j++){ 
+							Attachment a = alist.get(j); %>
+							
+						<% if(m.getPaint_no() == a.getPaint_no()) { %>
+					<img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" width="150px" height="150px">
+					 <%} %>
+					<%} %>
+					</td>
+                    <td>작품명 : <%=m.getPaint_name()%></td>
+                    <td><%=m.getUser_name()%></td>
+                    <td><%=m.getMessage()%></td>
                 </tr>
-
+			<%} %>
             </table>
         </div>
         
