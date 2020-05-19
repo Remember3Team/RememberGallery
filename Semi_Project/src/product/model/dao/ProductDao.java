@@ -674,6 +674,33 @@ public class ProductDao {
 		return plist;
 	}
 
+<<<<<<< HEAD
+	public ArrayList<product> payList(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<product> pay_List = new ArrayList<>();
+		
+		String query = "SELECT PAINT_NAME, PAINT_PRICE";
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				product p = new product(rset.getString("paint_name"),
+													  rset.getInt("patint_price"));
+
+				pay_List.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	
+		
+		return pay_List;
+=======
 	public Apply selectApply(Connection conn, product plist) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -698,5 +725,6 @@ public class ProductDao {
 			close(pstmt);
 		}
 		return apply;
+>>>>>>> refs/remotes/origin/master
 	}
 }
