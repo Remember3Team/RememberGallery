@@ -97,19 +97,24 @@ public class MemberDao {
 		PreparedStatement pstmt = null; 
 		int result = 0; 
 		
-		String query ="INSERT INTO MEMBER VALUES(?,DEFAULT,?,?,?,?,?,?,DEFAULT,DEFAULT,null,DEFAULT,?,DEFAULT)";
+		String query ="INSERT INTO MEMBER VALUES(?,DEFAULT,?,?,?,?,?,?,DEFAULT,DEFAULT,null,SYSDATE,SYSDATE,DEFAULT)";
 		
 		try {
 			pstmt=conn.prepareStatement(query);
 			pstmt.setString(1, member.getUserId());
-			pstmt.setString(1, member.getUserPwd());
-			pstmt.setString(1, member.getUserName());
-			pstmt.setString(1, member.getUserId());
-			pstmt.setString(1, member.getUserId());
+			pstmt.setString(2, member.getUserName());
+			pstmt.setString(3, member.getUserPwd());
+			pstmt.setString(4, member.getEmail());
+			pstmt.setString(5, member.getPhone());
+			pstmt.setString(6, member.getAddress());
+			pstmt.setString(7, member.getNickname());
 			
+			result = pstmt.executeUpdate();
+			System.out.println("dao에서 회원가입 결과:"+result);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
 		
 		return result;

@@ -33,7 +33,6 @@ public class MemberService {
 
 	public int insertMember(Member member) {
 		Connection conn = getConnection();
-		
 		int result = new MemberDao().insertMember(conn,member);
 		
 		if(result >0) {

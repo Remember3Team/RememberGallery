@@ -19,13 +19,13 @@ import member.model.vo.Member;
  * Servlet implementation class LoginServlet
  */
 @WebServlet("/login.me")
-public class LoginServlet extends HttpServlet {
+public class loginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public LoginServlet() {
+	public loginServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -63,13 +63,10 @@ public class LoginServlet extends HttpServlet {
 			writer.println("</script>");
 			writer.flush();
 			
-			  
-			 
-			
-			
-			/* response.sendRedirect("index.jsp"); */
-//			RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-//			view.forward(request, response);
+	
+//			 response.sendRedirect("index.jsp"); 
+//		RequestDispatcher view = request.getRequestDispatcher("index.jsp");
+//		view.forward(request, response);
 		} else { // 로그인 실패일 경우
 			request.setAttribute("msg", "로그인 실패");
 
