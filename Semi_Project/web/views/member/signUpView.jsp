@@ -5,12 +5,12 @@
 Member mem = (Member)request.getAttribute("member");
 
 String userId = mem.getUserId();
-String userPwd = mem.getUserPwd()!=null? mem.getPhone():"";
+String userPwd = mem.getUserPwd()!=null? mem.getUserPwd():"";
 String userName = mem.getUserName();
 String email = mem.getEmail()!=null?mem.getEmail():"";
 String phone = mem.getPhone()!=null?mem.getPhone():"";
 String address = mem.getAddress()!=null?mem.getAddress():"";
-String nickname = mem.getNickname()!=null?mem.getAddress():"";
+String nickname = mem.getNickname()!=null?mem.getNickname():"";
 
 %>
 <!DOCTYPE html>
@@ -68,10 +68,10 @@ td {
 			method="post" >
 			<!--section1-->
 			<div class="section1" style="padding-bottom: 90px;">
-				<h1 style="color: black;">JOIN</h1>
+				<h1 style="color: black;">MEMBER INFO</h1>
 				
 				<hr style="border: 1px soild black;">
-				<span>회원 가입<a style="color: red; font-size: 15px;">*</a></span>
+				<span>회원정보<a style="color: red; font-size: 15px;">*</a></span>
 				<hr style="border: 1px soild black;">
 				
 				<div class="artregi-infobox">
@@ -89,9 +89,7 @@ td {
 							class="nomal-text" type="text" name="userId" value="<%=userId %>"readonly>
 
 					</div>
-					<div id="idCheck"
-						style="float: right; width: 100px; height: 20px; background-color: gray; text-align: center; color: white;">중복확인</div>
-
+					
 					<br> <br>
 					<div class="info-box3">
 						<label class="labelfirst" id="userPwd">비밀번호<a
@@ -129,7 +127,7 @@ td {
 
 					<div class="info-box7">
 						<label class="labelfirst">이메일</label><input class="nomal-text"
-							type="text" name="email"value="<%=email %>>">
+							type="text" name="email"value="<%=email%>>">
 					</div>
 					<br>
 <!-- 
@@ -182,6 +180,7 @@ td {
 	//탈퇴하기
 	function deleteMember(){
 		$("#updateForm").attr("action","<%=request.getContextPath()%>/delete.me");
+		
 		$("#updateForm").submit();
 	}
 	

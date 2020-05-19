@@ -35,7 +35,6 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Member loginMember = null;
-
 //		String query = prop.getProperty("loginMember");
 		String query = "SELECT*FROM MEMBER WHERE USER_ID=? AND USER_PWD=? AND DELETE_YN='N'";
 
@@ -97,7 +96,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null; 
 		int result = 0; 
 		
-		String query ="INSERT INTO MEMBER VALUES(?,DEFAULT,?,?,?,?,?,?,DEFAULT,DEFAULT,null,SYSDATE,SYSDATE,DEFAULT)";
+		String query ="INSERT INTO MEMBER VALUES(?,DEFAULT,?,?,?,?,?,?,DEFAULT,DEFAULT,null,DEFAULT,SYSDATE,DEFAULT)";
 		
 		try {
 			pstmt=conn.prepareStatement(query);
@@ -159,17 +158,17 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		int result = 0; 
 		
-		String query ="UPDATE MEMBER SET USER_NAME =?,USER_PWD=?,EMAIL=?,PHONE=?,ADDRESS=?,NICKNAME=? WHERE USER_ID=?)";
-		
+		String query ="UPDATE MEMBER SET EMAIL=?,PHONE=?,ADDRESS=?,NICKNAME=? WHERE USER_ID=?";
+		//이것도 DB 테이블에 순서 맞춰서~
 		try {
 			pstmt=conn.prepareStatement(query);
-			pstmt.setString(1, member.getUserName());
-			pstmt.setString(2, member.getUserPwd());
-			pstmt.setString(3, member.getEmail());
-			pstmt.setString(4, member.getPhone());
-			pstmt.setString(5, member.getAddress());
-			pstmt.setString(6, member.getNickname());
-			pstmt.setString(7, member.getUserId());
+			/* pstmt.setString(1, member.getUserName()); */
+			/* pstmt.setString(2, member.getUserPwd()); */
+			pstmt.setString(1, member.getEmail());
+			pstmt.setString(2, member.getPhone());
+			pstmt.setString(3, member.getAddress());
+			pstmt.setString(4, member.getNickname());
+			pstmt.setString(5, member.getUserId());
 			
 			result = pstmt.executeUpdate();
 			
@@ -179,6 +178,30 @@ public class MemberDao {
 		}finally {
 			close(pstmt);
 		}
+		
+		return result;
+	}
+
+	public int deleteMember(Connection conn, String userId) {
+		PreparedStatement pstmt= null; 
+		int result = 0; 
+		
+		String query = "UPDATE MEMBER SET DELETE_YN='Y' WHERE USER_ID=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
 		
 		return result;
 	}

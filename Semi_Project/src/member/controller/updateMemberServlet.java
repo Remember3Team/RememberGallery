@@ -38,12 +38,13 @@ public class updateMemberServlet extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String userName = request.getParameter("userName");
 		String userPwd = request.getParameter("userPwd");
-		String nickName = request.getParameter("nickName");
+		String email = request.getParameter("email");
 		String phone = request.getParameter("phone");
 		String address = request.getParameter("address");
-		String email = request.getParameter("email");
+		String nickName = request.getParameter("nickName");
 		
-		Member m = new Member(userId,userName,userPwd,nickName,phone,address,email);
+		Member m = new Member(userId,userName,userPwd,email,phone,address,nickName); 
+		//이 순서는 화면단에 보이는 거랑 상관x DB 순서 맞춰주기
 		int result = new MemberService().updateMember(m);
 		System.out.println("회원 정보 수정 Servlet에서 update 결과:"+result);
 		

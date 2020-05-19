@@ -55,18 +55,22 @@ public class loginServlet extends HttpServlet {
 			session.setAttribute("loginUser", loginMember);
 			
 			/*로그인 후 이전 페이지로*/
-			PrintWriter writer  = response.getWriter();
-			writer.println("<script type = 'text/javascript'>");
-			writer.println("history.go(-2);");
+		
+			 PrintWriter writer = response.getWriter();
+			 writer.println("<script type = 'text/javascript'>");
+			 writer.println("history.go(-2);");
+	
 			// 회원가입 페이지를 따로 안만들시
 //			writer.println(" ");
-			writer.println("</script>");
-			writer.flush();
+			
+			  writer.println("</script>"); writer.flush();
+			
 			
 	
-//			 response.sendRedirect("index.jsp"); 
-//		RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-//		view.forward(request, response);
+			/*
+			 * response.sendRedirect("index.jsp"); RequestDispatcher view =
+			 * request.getRequestDispatcher("index.jsp"); view.forward(request, response);
+			 */
 		} else { // 로그인 실패일 경우
 			request.setAttribute("msg", "로그인 실패");
 
