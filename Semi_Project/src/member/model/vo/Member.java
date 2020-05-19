@@ -24,9 +24,21 @@ public class Member implements Serializable{
 	private String DeleteYe;	//탈퇴여부
 	private String DeleteDate;	//탈퇴일
 	private int cash;			//캐쉬
+	public Member() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	
 	
 	
+	public Member(String userId, String userPwd) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+	}
+
+
+
 	public Member(String userId, String userName, String userPwd, String email, String phone, String address,
 			String nickname) {
 		super();
@@ -38,11 +50,7 @@ public class Member implements Serializable{
 		this.address = address;
 		this.nickname = nickname;
 	}
-	public Member(String userId, String userPwd) {
-		super();
-		this.userId = userId;
-		this.userPwd = userPwd;
-	}
+
 	public Member(String userId, String grade, String userName, String userPwd, String email, String phone,
 			String address, String nickname, String accountGrade, int point, Date enrollDate, String deleteYe,
 			String deleteDate, int cash) {
@@ -156,6 +164,10 @@ public class Member implements Serializable{
 				+ ", accountGrade=" + accountGrade + ", point=" + point + ", enrollDate=" + enrollDate + ", DeleteYe="
 				+ DeleteYe + ", DeleteDate=" + DeleteDate + ", cash=" + cash + "]";
 	}
+
+	
+	
+	
 	
 	
 	

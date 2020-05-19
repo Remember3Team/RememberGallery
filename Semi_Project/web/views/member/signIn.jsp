@@ -51,16 +51,14 @@
 
 	<%@include file="../common/menubar.jsp"%>
 	<!-- section1 -->
-
-	<section id="content"
-		style="background: gray; height: 650px; margin-top: -62px;">
-
-		<pre>
-      </pre>
+	<div class="loginArea" style="background-color: darkgray; height: 600px;">
+		<%
+			if (loginUser == null) {
+		%>
 		<form method="get" action="<%=request.getContextPath()%>/login.me"
 			onsubmit="return validate();">
 			<br> <br> <br>
-			<h1 align="center">로그인</h1>
+			<h1 align="center" style="color: black;">로그인</h1>
 			<table class="inputinfo">
 				<tr>
 					<td><label>ID:</label>
@@ -75,32 +73,52 @@
 			</table>
 
 			<div class="btns" align="center">
-				<div id="memberJoinBtn" style="background-color:white;">
-					<a
-						href="<%=request.getContextPath()%>/views/member/signUp.jsp"
-						style="text-decoration: none; color: black;">회원가입</a>
-				</div>
+				<div id="memberJoinBtn" onclick="memberJoin();">회원가입</div>
 				<div id="LoginBtn" style="display: inline-block;">
 					<input type="submit" value="로그인">
 				</div>
-
+				<br>
+				<a href = "#">아이디 찾기</a>/<a href = "#">비밀번호 찾기</a>
 			</div>
 
 		</form>
-		<%-- 	
-		<div id="LoginArea">
+		<%
+			} else {
+		%>
+		
+		<%-- <div id="userInfo"
+			style="background-color: white; margin: 0 auto; float: right;">
 			<label><%=loginUser.getUserName()%>님의 방문을 환영합니다.</label>
-			<div class="btns" align="right">
+			<div class="btns" align="center">
+				<br> <br>
 				<div id="myPage"
 					onclick="location.href='myPage.me?userId=<%=loginUser.getUserId()%>';">정보수정
 				</div>
 				<div id="logoutBtn" onclick="logout();">로그아웃</div>
 			</div>
-		</div>
+		</div> --%>
+		<%
+			}
+		%>
+	</div><!-- loginArea 끝 -->
+		<script>
+		function memberJoin(){
+			location.href="<%=request.getContextPath()%>/views/member/signUp.jsp";
+			}
+		function logout(){
+			location.href="<%=request.getContextPath()%>/logout.me";
+		}
+		
+		
+		$(function userInfo(){
+			
+		});
+		
+		
+		</script>
 
-	 --%>
-	</section>
 
 	<%@include file="../common/footer.jsp"%>
+
 </body>
 </html>

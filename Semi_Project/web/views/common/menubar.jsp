@@ -141,10 +141,12 @@ ul li ul li:hover{
 
 					<li><a href="#">마이페이지 관리자</a></li>
 					<li><a href="#">마이페이지 판매자</a></li>
-					
+					<li><a href="<%=request.getContextPath()%>/mypage.me?userId=<%=loginUser.getUserId() %>">정보수정</a></li>
+
 					<li><a href="<%=request.getContextPath()%>/logout.me">로그아웃</a></li>
-						
-				</ul></li>
+
+			</ul>
+			</li>
 					<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 222222222222-->
 		 <!-- <input type="hidden" id = "checkLogin">  -->
 				<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 22222222222222222-->
