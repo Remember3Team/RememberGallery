@@ -18,54 +18,33 @@
 <%@include file="../../common/menubar.jsp" %>
 
 <div id="centerDiv" class="container">
-            <table class="table" style="width:800px; height:300px;">
-                <thead>
-                    <tr>
-                        <th>
-                            <select>
-                                <option>배송문의</option>
-                                <option>환불문의</option>
-                                <option>쇼핑몰 오류</option>
-                            </select>
-                        </th>
-                        
-                        <th colspan="4"><span style="float:right">2020-05-19</span></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="text" placeholder="제목을 입력해주세요(제목은 사이트 이용회원 모두 확인 가능합니다.)" style="width:1070px;"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="4"><textarea cols="150" rows="10"></textarea></td>
-                        <td colspan="4"><span style="float:right;"><button style="width:100px; height:238px;">제출하기</button></span></td>
-                    </tr>
-                    <tr>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table">
-                <div class = "test1" style="width:1200px;">
-                   
-                        <div>아이디</div>
-                        <div>배송문의</div>
-                        <div style = "float: right;">2020-05-19</div>
-                        <br clear="both">
-                        
-                </div>
-                <tbody style="display:blcok">
-                    <div style="margin-top:30px;">
-                        배송 도대체 언제오는거죠????
-                    </div>
-                    <tr>
-                        <td colspan="2"><textarea cols="150" rows="5"></textarea></td>
-                        <td><span style="float:right;"><button style="width:100px; height:125px;">제출하기</button></span></td>
-                    </tr>
-                </tbody>
-            </table>
-
-
-        </div>
+ <form>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      	<select id="inputState" class="form-control">
+       	 	<option selected>Choose...</option>
+        	<option>...</option>
+      </select>
+    </div>
+    <div class="form-group col-md-6">
+      <input type="text" class="form-control" id="inputTitle" placeholder="게시글 제목은 모든 사용자에게 노출됩니다.">
+    </div>
+  </div>
+  <div class="form-group">
+  	<div class="form-group col-md-12">
+    	<textarea class="form-control" id="inputAddress2" rows="5" placeholder="문의 내용을 입력해주세요"></textarea> 
+    </div>
+  </div>
+    
+  <div class="form-group">
+    <div class="form-check">
+      <button type="submit" class="btn btn-primary">문의하기</button>
+    </div>
+  </div>
+  
+  
+ </form>
+</div>
 
 <%@include file="../../common/footer.jsp" %>
 
