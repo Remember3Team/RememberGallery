@@ -46,11 +46,11 @@ public class AmateurDetailServlet extends HttpServlet {
 			request.setAttribute("amateur", amateur);
 			request.setAttribute("fileList", file);
 			request.setAttribute("rList", rList);
+			System.out.println("[아마추어게시판에서 게시글을 클릭했을 때[servlet]:"+amateur);
+			System.out.println("[아마추어게시판에서 게시글을 클릭했을 때[servlet]:"+file);
+			System.out.println("[아마추어게시판에서 게시글을 클릭했을 때[servlet]:"+rList);
 			request.getRequestDispatcher("views/board/amateur/amateurDetail.jsp").forward(request, response);
-		} else {
-			System.out.println("게시판 상세조회 실패 및 댓글 실패 그냥 다 여러가지 실패");
 		}
-	
 		
 	}
 

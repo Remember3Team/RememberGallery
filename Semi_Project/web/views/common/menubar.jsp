@@ -125,8 +125,7 @@ ul li ul li:hover{
 			<li><a href="#">NOTICE</a>
 				<ul>
 					<li><a href="<%=request.getContextPath()%>/list.no">공지사항</a></li>
-					<li><a
-						href="<%= request.getContextPath() %>/views/inquiry/inquiryBoard.jsp">1:1문의</a></li>
+					<li><a href="<%=request.getContextPath()%>/views/board/inquiry/inquiryBoard.jsp">1:1문의</a></li>
 				</ul></li>
 			<%if(loginUser != null){ %>
 			<li><a href="#">TEST</a> 
@@ -142,10 +141,12 @@ ul li ul li:hover{
 
 					<li><a href="#">마이페이지 관리자</a></li>
 					<li><a href="#">마이페이지 판매자</a></li>
-					
+					<li><a href="<%=request.getContextPath()%>/mypage.me?userId=<%=loginUser.getUserId() %>">정보수정</a></li>
+
 					<li><a href="<%=request.getContextPath()%>/logout.me">로그아웃</a></li>
-						
-				</ul></li>
+
+			</ul>
+			</li>
 					<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 222222222222-->
 		 <!-- <input type="hidden" id = "checkLogin">  -->
 				<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 22222222222222222-->

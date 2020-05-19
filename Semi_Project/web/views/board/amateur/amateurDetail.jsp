@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title><%=a.getEvent_title() %></title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/style.css">
  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
  <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/bootstrap.css">
@@ -81,7 +81,7 @@
 					<tr><td colspan="3">댓글이 없습니다.</td></tr>
 					
 				<% }else { %>
-					<% for(int i=0; i<rList.size(); i++){ %>
+					<% for(int i=rList.size()-1; i>=0; i--){ %>
 						<tr>
 							<td width="100px"><%= rList.get(i).getUser_id() %></td>
 							<td width="400px"><%= rList.get(i).getReply() %></td>
