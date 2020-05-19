@@ -55,7 +55,7 @@ public class AmateurListServlet extends HttpServlet {
 			currentPage=1;
 		}
 		// * limit - 한 페이지에 보여질 목록 갯수
-		limit = 10;
+		limit = 9;
 		
 		// *maxPage - 총 페이지 수 
 		// 목록 수가 123개이면 페이지 수는 13페이지가 됨
