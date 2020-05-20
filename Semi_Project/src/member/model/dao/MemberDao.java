@@ -103,10 +103,10 @@ public class MemberDao {
 			pstmt.setString(1, member.getUserId());
 			pstmt.setString(2, member.getUserName());
 			pstmt.setString(3, member.getUserPwd());
-			pstmt.setString(4, member.getEmail());
+			pstmt.setString(4, member.getNickname());
 			pstmt.setString(5, member.getPhone());
 			pstmt.setString(6, member.getAddress());
-			pstmt.setString(7, member.getNickname());
+			pstmt.setString(7, member.getEmail());
 			
 			result = pstmt.executeUpdate();
 			System.out.println("dao에서 회원가입 결과:"+result);
