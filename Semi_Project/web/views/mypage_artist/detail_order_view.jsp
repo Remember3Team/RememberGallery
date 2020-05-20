@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "mypage_artist.management.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import = "mypage_artist.management.model.vo.*,artistapply.model.vo.*, artistapply.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList"%>
     <%
     	ArrayList<Mypage_artist> DOV_OP = (ArrayList<Mypage_artist>)request.getAttribute("DOV_OP");
     	ArrayList<Mypage_artist> DOV_D = (ArrayList<Mypage_artist>)request.getAttribute("DOV_D");
     	ArrayList<Mypage_artist> DOV_SI = (ArrayList<Mypage_artist>)request.getAttribute("DOV_SI");
+    	/* Apply aphoto = (Apply) request.getAttribute("aphoto"); */
+    	
     %>
 <!DOCTYPE html>
 <html lang='ko'>
@@ -66,6 +68,22 @@
 
     <body>
     <%@include file="../common/menubar.jsp" %>
+    <div class="headline">
+        <div class="headline-text">
+            <hr>
+            <h3 style="font-size: 20px;"> 작가 마이페이지</h3>
+        </div>
+        <div class="headline-subbox">
+            <div class="artist-img">
+                <!--Artist Image-->
+				<%-- 	<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>" width="150px" height="150px">
+ --%>            </div>
+            <div class="artist-button">
+                <button style="margin-bottom: 3px;">정보수정</button>
+                <button>감동카드 확인</button>
+            </div>
+        </div>
+    </div>
 	<%@include file="../common/mypagehead.jsp" %>
         
         
