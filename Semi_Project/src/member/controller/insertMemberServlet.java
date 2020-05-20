@@ -47,6 +47,8 @@ public class insertMemberServlet extends HttpServlet {
 		Member member = new Member(userId, userName,userPwd , nickName, phone, address, email);
 		int result = new MemberService().insertMember(member);
 
+		
+		
 		String page = "";
 		if (result > 0) {
 			page = "views/member/SignSuccess.jsp";

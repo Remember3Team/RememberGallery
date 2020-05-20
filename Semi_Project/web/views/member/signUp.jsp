@@ -77,20 +77,21 @@ td {
 
 					</div>
 					<div id="idCheck"
-						style="float: right; width: 100px; height: 20px; background-color: gray; text-align: center; color: white;">중복확인</div>
+						style="float: right; width: 100px; height: 20px; background-color: gray; text-align: center; color: white;" >중복확인</div>
 
 					<br> <br>
 					<div class="info-box3">
 						<label class="labelfirst" id="userPwd">비밀번호<a
-							style="color: red; font-size: 15px;">*</a></label><input
-							class="nomal-text" type="password" name="userPwd"required>
+							style="color: red; font-size: 15px;">*</a></label>
+							<input class="nomal-text" type="password" name="userPwd"  required>
+
 					</div>
 					<br>
 
 					<div class="info-box4">
 						<label class="labelfirst" id="userPwd2">비밀번호 확인<a
 							style="color: red; font-size: 15px;">*</a></label> <input
-							class="nomal-text" type="password" name="userPwd2">
+							class="nomal-text" type="password" name="userPwd2"  required>
 						<label id="pwdResult">sadaddssd</label>
 					</div>
 					<br> <br>
@@ -109,14 +110,15 @@ td {
 
 					<div class="info-box7">
 						<label class="labelfirst">주소<a
-							style="color: red; font-size: 15px;">*</a></label> <input
-							class="nomal-text" type="text" name="address"required>
-
+							style="color: red; font-size: 15px;">*</a></label> 
+							<input class="nomal-text" type="text" name="address" required>
 					</div>
 
 					<div class="info-box7">
-						<label class="labelfirst">이메일</label><input class="nomal-text"
-							type="email" name="email">
+			<label class="labelfirst">이메일<a
+							style="color: red; font-size: 15px;">*</a></label><input class="nomal-text"
+							type="email" name="email"  required>
+r
 					</div>
 					<br>
 <!-- 
