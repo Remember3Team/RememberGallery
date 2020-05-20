@@ -310,11 +310,11 @@ public class Mypage_ArtistDao {
 					
 					while(rset.next()) {
 						myart = new Mypage_artist(rset.getInt("ORDER_NO"),
-																						   rset.getString("AFILE"),
-																						   rset.getString("PAINT_NAME"),
-																						   rset.getString("ARTIST_NAME"),
-																						   rset.getInt("PAINT_PRICE"),
-																						   rset.getString("ORDER_STATUS"));
+												rset.getString("AFILE"),
+												rset.getString("PAINT_NAME"),
+												rset.getString("ARTIST_NAME"),
+												 rset.getInt("PAINT_PRICE"),
+												rset.getString("ORDER_STATUS"));
 						search_list.add(myart);
 					}
 					
