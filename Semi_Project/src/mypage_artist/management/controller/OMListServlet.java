@@ -110,8 +110,6 @@ public class OMListServlet extends HttpServlet {
 				
 				view.forward(request, response);
 				
-				// boardListView.jsp 만들러 가자!
-				
 				
 				
 	}

@@ -1,25 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8" import = "product.model.vo.*, java.util.ArrayList"%>
+   pageEncoding="UTF-8" import = "product.model.vo.*,artistapply.model.vo.*, java.util.ArrayList"%>
 <%
 
 product plist = (product)request.getAttribute("plist");
-Attachment alist = (Attachment)request.getAttribute("alist");
+ArrayList<Attachment> alist = (ArrayList<Attachment>)request.getAttribute("alist");
 ArrayList<product> sizelist = (ArrayList<product>)request.getAttribute("sizelist");
-
+Apply apply = (Apply)request.getAttribute("aplly");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- link rel="stylesheet" href="../css/style.css"-->
-<link
-   href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-   rel="stylesheet">
-<link rel="stylesheet" href="../css/bootstrap.css">
 
-<script src="../js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="../js/bootstrap.js"></script>
+<!-- link rel="stylesheet" href="../css/style.css" -->
+ <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/style.css">
+ <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/bootstrap.css">
+<script src="<%=request.getContextPath() %>/views/js/jquery-3.4.1.min.js"></script>
+ <!— Swiper JS —>
+  <script src="<%=request.getContextPath() %>/views/js/swiper.min.js"></script>
+    <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/swiper.min.css">
+
+
 <style>
 #sumnailimage {
    border: solid 1px;
@@ -103,91 +107,302 @@ border: solid 1px;
    margin-right: 0px;
    margin-top: 100px;
 }
+
+
+ ul,li{
+      list-style:none;
+      }
+  #slide{
+      height:400px;
+      width: 700px;
+      position:relative;
+      overflow:hidden;
+      margin-left :100px;
+      }
+  #slide ul{
+      width:400%;
+      height:200%;
+      transition:1s;
+      }
+  #slide li{
+      float: left;
+      }
+  #slide input{
+      display:none;
+      }
+  #slide label{
+      display:inline-block;
+      vertical-align:middle;
+      margin-left:10px;
+      margin-right:10px;
+      margin-bottom:0px;
+      width:15px;
+      height:15px;
+      border:3px solid rgb(0, 0, 0);
+      transition:0.3s;
+      border-radius:50%;
+      cursor:pointer;
+      }
+  #slide .pos{
+      text-align:center;
+      position:absolute;
+      bottom: 0;
+      left:0;
+      width:100%;
+      }
+    #pos1:checked~ul{
+      margin-left:0%;
+      }
+    #pos2:checked~ul{
+      margin-left:-702px;
+      }
+    #pos3:checked~ul{
+      margin-left:-1404px;
+      }
+    #pos1:checked~.pos>label:nth-child(1){
+      background:rgb(255, 255, 255);
+      }
+    #pos2:checked~.pos>label:nth-child(2){
+      background:rgb(255, 255, 255);
+      }
+    #pos3:checked~.pos>label:nth-child(3){
+      background:rgb(255, 255, 255);
+      }
+
+      #imgInfo { width:100%; }
+      #imgInfo td { width:50%; font-size:20px; line-height:2; }
+      .btnArea { width:100%; margin:10px 0; }
+	  .btnArea:after { display:block; content:""; clear:both; }
+	 .btn{
+	 	width:550px;
+	 	height:40px;
+	 }
+	 
+	  <!-- Demo styles -->
+  <style>
+    html, body {
+      position: relative;
+      height: 100%;
+    }
+    body {
+      background: #eee;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color:#000;
+      margin: 0;
+      padding: 0;
+    }
+    .swiper-container {
+      width: 75%;
+      height: 500px;
+    }
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      }
+      
+      .swiper-fiximg {
+       	 position : absolute;
+       	 top : 20%;
+       	 left : 35%;
+       	 z-index:100;
+       	 
+      }
+
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+	 
 </style>
 </head>
 <body>
    <%@include file="../common/menubar.jsp"%>
-   <div id="sumnailimage">
-      <img src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%= alist.getSavefileName() %>"
-         style="width: 528px; height: 507px;">
-   </div>
-   <div id="data">
-      <br>
-      <br>
-      <div id="title">
-         <h3 align="left">작품명</h3>
+<br>
+<table>
+<tr>
+<td>
+   <div id="slide">
+  <input type="radio" name="pos" id="pos1" checked>
+  <input type="radio" name="pos" id="pos2">
+  <input type="radio" name="pos" id="pos3">
+
+  <ul>
+  <%for(int i =0; i< alist.size();i++){
+	  Attachment a = alist.get(i);
+	  if(a.getFileLevel() == 0){%>
+    <li><img src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=a.getSavefileName()%>" width=700px; height=400px;></li>
+    <%}}%>
+     <%for(int i =0; i< alist.size();i++){
+	  Attachment a = alist.get(i);
+	  if(a.getFileLevel() == 1){%>
+    <li><img src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=a.getSavefileName()%>" width=700px; height=400px;></li>
+        <%}}%>
+  </ul>
+  <p class="pos">
+    <label for="pos1"></label>
+    <label for="pos2"></label>
+    <label for="pos3"></label>
+
+  </p>
+</div>
+   
+   </td>
+  <td style="box-sizing:border-box; padding: 0 0 0 50px;">
+      <div>
+         <h3 align="left"><%=plist.getPaint_name() %></h3>
       </div>
       <hr style="margin: 1;" color="black" width="554px">
-      <a style="text-align: left; width: 100px; margin: 0; font-size: 20px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;">작가명 : <%=plist.getPaint_name()%></a>
-       <a style="text-align: left; width: 100px; margin-left: 250px; font-size: 20px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;">카테고리 : <%=plist.getCategory() %></a><br> <br> <a
-         style="text-align: left; width: 100px; margin: 0; font-size: 20px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;">제작년도 : <%=plist.getCategory() %></a> 
-         <a
-         style="text-align: left; width: 100px; margin-left: 230px; font-size: 20px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;">작품크기 : <% for(int i =0;i < sizelist.size();i++) {
-         																																																	product p = sizelist.get(i);
-         																																																	if(plist.getSize_no() == p.getSize_no() ){%>
-         																																																	
-         																																																		<%=p.getWidth()%> * <%=p.getHeight()%>
-         																																																		
-         																																																	<% }}%></a><br>    																																			
+      <table id="imgInfo">
+      	<tr>
+      		<td align="center">작가명 : <%= plist.getArtist_name()%></td>
+      		<td align="center">카테고리 : <%=plist.getCategory() %></td>
+      	</tr>
+      	<tr>
+      		<td align="center">제작년도 : <%=plist.getCategory() %></td>
+      		<td align="center">사이즈 :<% for(int i =0;i < sizelist.size();i++) {
+				product p = sizelist.get(i);
+				if(plist.getSize_no() == p.getSize_no() ){%>
+			
+					<%=p.getWidth()%> *<%=+p.getHeight()%>
+					
+				<% }}%></td>
+      	</tr>
+      </table>  	 																																																																																	
       <hr style="margin: 1;" color="black" width="554px">
-      <br> <a style="text-align: left; width: 100px; margin-left: 500px; font-size: 20px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;"><%=plist.getPatint_price() %>원</a><br>
-      <input type="button" value="바로 구매하기"
-         style="background-color: rgb(224, 224, 224); margin-top: 10px;"
-         onclick="location.href='<%=request.getContextPath()%>/views/product/productpay.jsp'">
-      <br>
-      <br> <input type="button" value="장바구니 담기"
-         style="background-color: rgb(224, 224, 224); margin-right: 10px; text-decoration: none;"
-         onclick="장바구니"> <br>
-      <br> 
-      <input type="button" value="Q & A"
-         style="background-color: rgb(224, 224, 224); margin-right: 10px; text-decoration: none;"
-         onclick="q&a"> <input type="hidden"
-         value="" id="mid">
-      <!-- <input type="hidden" value="${ movieDetail.movie_id }" id="movie_id"> -->
-      <input type="hidden" value="" id="movie_id">
-   </div>
+      <table id="imgInfo">
+      <tr>
+      <td>
+       <span style="text-align: center; width: 100px; font-size: 35px;"><%=plist.getPatint_price() %>원</span>
+      </td>
+      <td>
+      		<div></div>
+      		<div style="float:right; display:none;" onclick="colorheartCheck();" class="colorheartCheck">
+      		<input id="paint_no" type="hidden" value="<%=plist.getPaint_no()%>">
+      		<img src="<%=request.getContextPath()%>/views/img/colorHeart.png">
+      		</div>
+      		<div style="float:right; onclick="emptyheartCheck();" class="emptyheartCheck">
+      		<input id="paint_no" type="hidden" value="<%=plist.getPaint_no()%>">
+      		<img src="<%=request.getContextPath()%>/views/img/emptyHeart.png">
+      		</div>
+      </td>
+      </tr>
+      </table>
+      <script>
+      $(function(){
+      $(".colorheartCheck").click(function(){
+    	  var paint_no = $("#paint_no").val();
+    	  
+    	  $(".colorheartCheck").hide();
+    	  $(".emptyheartCheck").show();
+    	  
+    	  location.href="<%=request.getContextPath()%>/deletetmasterpiece.po?paint_no="+paint_no;
+      })
+      });
+      
+      $(function(){
+          $(".emptyheartCheck").click(function(){
+        	  var paint_no = $("#paint_no").val();
+        	  
+        	  $(".emptyheartCheck").hide();
+        	  $(".colorheartCheck").show();
+        	  
+    	  location.href="<%=request.getContextPath()%>/insertmasterpiece.po?paint_no="+paint_no;
+        	  
+  
+          })
+          });
+      </script>
+      
+     
 
+      <div class="btnArea">
+	      <input type="button" class = "btn btn-outline-dark" value="바로 구매하기" onclick="location.href='<%=request.getContextPath()%>/views/product/productpay.jsp'"><br clear="both"><br>
+	       <input type="button" class = "btn btn-outline-success"  value="장바구니 담기" onclick="장바구니"><br clear="both"><br>
+	      <inputtype="button" class = "btn btn-outline-danger"  value="Q & A" onclick="q&a"> Q & A<input type="hidden" value="" id="mid">
+	      <!-- <input type="hidden" value="${ movieDetail.movie_id }" id="movie_id"> -->
+	      <input type="hidden" value="" id="movie_id">
+  
+      </div>
+      
+  </td>
+	</tr>
+	</table>	
    <br clear="both">
    <br>
-   <hr style="margin-left: 191px;" color="black" width="1128px">
+   <hr style="margin-left: 100px;" color="black" width="1337px">
    <br clear="both">
-   <h3 align="center">인테리어 시뮬레이션</h3>
-   <div id="simulationMain">
-      <img src="/resources/uploadFiles/"
-         style="width: 369px; height: 358px;">
-   </div>
    
-   <div id="simulation1">
-      <img src="/resources/uploadFiles/"
-         style="width: 121px; height: 125px;">
-   </div>
-   <div id="simulation2">
-      <img src="/resources/uploadFiles/"
-         style="width: 121px; height: 125px;">
-   </div>
-   <div id="simulation3">
-      <img src="/resources/uploadFiles/"
-         style="width: 121px; height: 125px;">
-   </div>
+   <h3 align="center">인테리어 시뮬레이션</h3>
+     
+  <!-- Swiper -->
+  <div class="swiper-container"> 
+  <%for(int i =0; i< alist.size();i++){
+	  Attachment a = alist.get(i);
+	  if(a.getFileLevel() == 0){%>
+     	<img class = "swiper-fiximg" src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=a.getSavefileName()%>" width="30%">
+    <%}}%>
+ 
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><img src="<%=request.getContextPath()%>/views/interior/인테리어1.jpg" width="100%"></div>
+      <div class="swiper-slide"><img src="<%=request.getContextPath()%>/views/interior/인테리어2.jpg"  width="100%"></div>
+      <div class="swiper-slide"><img src="<%=request.getContextPath()%>/views/interior/인테리어3.jpg"  width="100%"></div>
+      <div class="swiper-slide">Slide 4</div>
+    </div>
+    <!— Add Pagination —>
+    <div class="swiper-pagination"></div>
+    <!— Add Arrows —>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+  
+  <!— Initialize Swiper —>
+  <script>
+    var swiper = new Swiper('.swiper-container', {
+      pagination: {
+        el: '.swiper-pagination',
+        type: 'progressbar',
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  </script>
+   
    <br clear="both">
    <hr style="margin-left: 191px;" color="black" width="1128px">
    <h3 align="center">작품 소개</h3>
-   <a style="text-align: left; width: 100px; margin-left:300px; font-size: 15px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;">입벌려 글들어온다.</a>
+   <a style="text-align: left; width: 100px; margin-left:300px; font-size: 15px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;"><%=plist.getPaint_int() %></a>
    <br>
    <hr style="margin-left: 191px;" color="black" width="1128px">
    <h3 align="center">작가 소개</h3>
+   
    <div id="writer">
-      <img src="/resources/uploadFiles/"
-         style="width: 369px; height: 358px;">
+      <img src="<%=request.getContextPath()%>/views/interior/<%=apply.getArtist_pro() %>" style="width: 369px; height: 358px;">
    </div>
+   
    <div id="data2">
-   <a style="text-align: left; width: 100px; margin-left:30px; font-size: 15px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;">입벌려 글들어온다</a>
+   <a style="text-align: left; width: 100px; margin-left:30px; font-size: 15px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;"><%=apply.getArtist_int() %></a>
    </div>
    <br clear="both">
    <hr style="margin-left: 191px;" color="black" width="1128px">
    <h3 align="center">Q & A</h3>
    <br clear="both">
    <%@include file="../common/footer.jsp"%>
+
+
 
 </body>
 </html>

@@ -252,6 +252,8 @@ public class AmateurDao {
 									rset.getDate("REPLY_DATE"),
 									rset.getString("USER_ID")));
 			}
+			System.out.println("[아마추어게시판에서 게시글을 클릭했을 때(dao)] event_no 값:"+event_no);
+			System.out.println("[아마추어게시판에서 게시글을 클릭했을 때(dao)] rList 값:"+rList);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

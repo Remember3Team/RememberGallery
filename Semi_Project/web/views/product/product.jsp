@@ -27,10 +27,11 @@
     background-color: rgb(224, 224, 224);
 }
 .rul {
-	margin-right: 20px;
-	margin-left: 20px;
+	margin-right: 10px;
+	margin-left: 10px;
 	height: 400px;
-	padding-left: 190px;
+	padding-left: 100px;
+	float:left;
 }
 .gellary {
 	display: inline-block;
@@ -46,13 +47,23 @@
 	height: 50px;
 	text-align: center;
 }
+.list{
+	margin-right: 10px;
+	margin-left: 130px;
+	padding-left: 10px;
+	float:left;
+
+}
+#buy{
+	margin-left:160px;
+
+}
   </style>
   
 </head>
 <body>
 <%@include file="../common/menubar.jsp" %>
-<br>
-       <h1 align="center">미술품 판매(가제)</h1>
+       <h1 align="center" style="color: black;">미술품 판매(가제)</h1>
         <div id="search">
             
             <form action="<%=request.getContextPath()%>/worksearch.po" method="post">
@@ -92,43 +103,48 @@
         </div>
         <p class="h3">작품</p>
         <br clear="both">
-        <div>
-			<ul class="rul">
            <% for(int i=0; i<plist.size(); i++){ 
+        	   
              product p = plist.get(i);
+             
              Attachment a = alist.get(i);%>
+             
 				<% if(p.getPaint_no() == a.getPaint_no()) { %>
-				<input id="paint_no" type="hidden" value="<%=p.getPaint_no()%>">
-				<li class="gellary">
-				<img class="rimage" src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" style="width: 100%; height: 70%;">		      
-					<div class="mname">
+        	<div class="list">
+						<input id="paint_no" type="hidden" value="<%=p.getPaint_no()%>"><br>
+				<img class="rimage" src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" style="width: 300px; height: 300px;">		      
+					<div class="mname" align="center">
 						<!-- 이름 -->
-						<p><%=p.getPaint_name() %></p>
+						<b><%=p.getPaint_name() %></b>
 					</div>
-					<div class="mname">
+					<div class="mname" align="center">
 						<!-- 작가명-->
-						<p><%=p.getArtist_name() %></p>
-					</div>
-					<script>
-				 	$(function(){
-				 		$("#detail").click(function(){
-				 			var paint_no = $("#paint_no").val();
+						<p>작가명 :<%=p.getArtist_name() %></p>
+					</div><br>
+					
+						<button class="goDetail">상세보기</button>
+										
+						<!-- 상세정보보기로 이동 -->
+						<button id="buy" onclick="location.href='<%=request.getContextPath()%>/views/product/productpay.jsp'">구매하기</button>
+						<!-- 구매페이지로이동-->
+					
+			</div>
+			<% } %>
+       <% } %>
+                  
+                  <script>
+                  $(function(){
+				 		$(".goDetail").click(function(){
+				 			var paint_no = $(this).parent().children("input").val();
 				 			
 				 			location.href="<%=request.getContextPath()%>/detail.po?paint_no="+paint_no;
 				 		});
 				 		
 				 	});
+				 	
 					</script>
-					<div>
-						<button id="detail">상세보기</button>
-						<!-- 상세정보보기로 이동 -->
-						<button id="book" onclick="location.href='<%=request.getContextPath()%>/views/product/productpay.jsp'">구매하기</button>
-						<!-- 구매페이지로이동-->
-					</div></li>
-				<% } %>
-                  <% } %>
-		</div>
-		
+					
+		<br clear="both"><br>
 		<!--  페이징 처리 시작! -->
       <div class="pageingArea" align="center">
       <!-- 맨 처음으로 (<<) -->
@@ -163,7 +179,7 @@
       </div>
 
 
-   <br><br><br><br><br><br><br><br><br>
+   <br><br>
 
 <%@include file="../common/footer.jsp" %>
 </body>

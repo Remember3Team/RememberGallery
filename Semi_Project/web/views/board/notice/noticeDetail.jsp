@@ -36,7 +36,10 @@
 			<table class="table">
 				<tr>
 					<td>제목</td>
-					<td  colspan="6"><span><%=n.getNoti_title()%></span></td>
+					<td colspan="6">
+						<span><%=n.getNoti_title()%></span>
+						<input id="deleteNo" type="hidden" value="<%=n.getNoti_no()%>">
+					</td>
 				</tr>
 				<tr>
 					<td>작성자</td>
@@ -57,8 +60,16 @@
 	</div>
 	<button id="goNoticeBoard" type="button active" class="btn btn-secondary" 
 		onclick="location.href='<%=request.getContextPath()%>/views/board/notice/noticeBoard.jsp'">목록으로 가기</button>
+	<button id="goDeleteBoard" type="button active" class="btn btn-secondary" 
+		onclick="goDelete();">목록으로 가기</button>	
 	
 <br><br><br>
 <%@include file="../../common/footer.jsp" %>
 </body>
+<script>
+	function goDelete(){
+		var deleteNo = document.getElementById("deleteNo").value;
+		location.href="<%=request.getContextPath()%>/delete.bo?deleteNo="+deleteNo;
+	}
+</script>
 </html>

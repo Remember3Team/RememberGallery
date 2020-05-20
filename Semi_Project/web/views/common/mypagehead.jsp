@@ -30,8 +30,8 @@
             <li><a href="<%= request.getContextPath() %>/PM.list">상품 관리</a></li><a>|</a>
             <li><a href="<%= request.getContextPath() %>/OM.list">주문 관리</a></li><a>|</a>
             <li><a href="<%= request.getContextPath() %>/SM.list">배송 관리</a></li><a>|</a>
-            <li><a href="<%= request.getContextPath() %>/views/mypage_artist/art-refund.jsp">반품 / 환불 관리</a></li><a>|</a>
-            <li><a href="<%= request.getContextPath() %>/views/mypage_artist/art-qna.jsp"">문의 내역</a></li>
+            <li><a href="<%= request.getContextPath() %>/list.ar">반품 / 환불 관리</a></li><a>|</a>
+            <li><a href="<%= request.getContextPath() %>/list.ac">문의 내역</a></li>
         </ul>
     </div>
 </body>

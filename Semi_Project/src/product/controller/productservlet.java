@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import product.model.vo.Attachment;
 import board.notice.model.vo.PageInfo;
 import product.model.service.ProductService;
+import product.model.vo.Attachment;
 import product.model.vo.product;
 
 /**
@@ -63,7 +63,8 @@ public class productservlet extends HttpServlet {
 		if(maxPage<endPage) {
 			endPage = maxPage;
 		}
-	
+ 
+		
 		PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage);
 
 		ArrayList<product> list = pService.selectList(currentPage, limit);

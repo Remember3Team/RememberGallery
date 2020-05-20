@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import artistapply.model.vo.Apply;
 import product.model.service.ProductService;
 import product.model.vo.Attachment;
 import product.model.vo.product;
@@ -42,13 +43,21 @@ public class productdetail extends HttpServlet {
 		product plist = new product();
 		plist = pService.selectsearch(paint_no);
 		
-		Attachment alist = new Attachment();
+		Apply apply = new Apply();
+		apply = pService.selectApply(plist);
+		System.out.println(apply);
+		
+		System.out.println("plist" + plist);
+		ArrayList<Attachment> alist = new ArrayList<Attachment>();
 		
 		alist = pService.selectAttachment(paint_no);	
+		System.out.println(alist);
 		
 		ArrayList<product> sizelist = new ArrayList<product>();
 		
 		sizelist = pService.selectsize();
+		
+		System.out.println(sizelist);
 		
 		RequestDispatcher view = null;
 		if(plist != null && alist != null && !sizelist.isEmpty()) {
@@ -57,6 +66,7 @@ public class productdetail extends HttpServlet {
 			request.setAttribute("plist", plist);
 			request.setAttribute("alist", alist);
 			request.setAttribute("sizelist", sizelist);
+			request.setAttribute("aplly", apply);
 		}else {
 			System.out.println("상품내용 조회 실패");
 		}
