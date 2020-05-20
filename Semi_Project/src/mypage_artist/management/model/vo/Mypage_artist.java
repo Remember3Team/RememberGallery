@@ -12,7 +12,7 @@ public class Mypage_artist implements Serializable{
 	
 	private int paint_no;					//작품번호
 	private String paint_name;		//작품이름
-	private int paint_price;			//작품가격
+	private int paint_price;				//작품가격
 	private String category;			//작품카테고리
 	private String artist_name;		//작가이름
 	private String paint_int;			//작품소개
@@ -23,16 +23,16 @@ public class Mypage_artist implements Serializable{
 	private String afile;					//첨부파일
 	
 	private int order_no;					//주문 번호
-	private Date order_date;			//주문 날짜
-	private String order_name;		//입금자
-	private String pay_type;			//결제 방법
+	private Date order_date;				//주문 날짜
+	private String order_name;			//입금자
+	private String pay_type;				//결제 방법
 	private String order_phone;		//입금자연락처
 	
-	private String rec_name;			//수령인
+	private String rec_name;				//수령인
 	private String rec_list;				//배송지
 	private String rec_message;		//판매자에게 전할 말
 	
-	private Date ship_date	;			//배송일
+	private Date ship_date	;				//배송일
 	private String order_status;		//처리상태
 	
 	public Mypage_artist() {}

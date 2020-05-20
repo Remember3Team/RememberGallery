@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import = "mypage_artist.management.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList"%>
     <%
     	ArrayList<Mypage_artist> OM_list = (ArrayList<Mypage_artist>)request.getAttribute("OM_list");
+    	ArrayList<Mypage_artist> search_list = (ArrayList<Mypage_artist>)request.getAttribute("search_list");
     	PageInfo pi = (PageInfo)request.getAttribute("pi");
     	
     	int listCount = pi.getListCount();
@@ -33,7 +34,7 @@
     </div>
 
     <div class="container">
-        <form action="">
+        <form action="<%=request.getContextPath()%>/Search.MP" method="post">
             <div class="search-bar">
                 <div class="bar1">
                     <input type="text" name="order_status" list="order_list" placeholder=" 주문 처리 상태">
@@ -45,29 +46,29 @@
 			            <option value="환불완료"></option>
                     </datalist>
                 </div>
-                <div class="btn-group" data-toggle="buttons">
+                <div class="btn-group" data-toggle="buttons" >
                                 <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="today">오늘
+                                    <input type="radio" name="term" value="0">오늘
                                 </label>
                                 <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="week">1주일
+                                    <input type="radio" name="term" value="7">1주일            
                                 </label>
                                 <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="month" >1개월
+                                    <input type="radio" name="term" value="30" >1개월
                                 </label>
                                 <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="three_months" >3개월
+                                    <input type="radio" name="term" value="90" >3개월
                                 </label>
                                 <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="six_months" >6개월
+                                    <input type="radio" name="term" value="180" >6개월
                                 </label>
                             </div> 
                 &nbsp;&nbsp;&nbsp;
                 <div class="bar3">
-                    <input type="date" name="refund-date1"> ~
-                    <input type="date" name="refund-date1">
+                    <input type="date" name="calendar1"> ~
+                    <input type="date" name="calendar2">
                 </div>
-                <button type="submit" class="btn btn-dark" style="width:70px">조회</button>
+                <button type="submit" class="btn btn-dark" style="width:70px">조회</button>s
             </div>
 
         </form>
@@ -102,8 +103,8 @@
 				<%} %>
             </table>
         </div>
-        
     </div>
+    
     <div style="width : 350px; margin : 0 auto;">
         <div class="pagination">
             <a href="#" class="disabled" aria-label="Go to previous page">Previous</a>
