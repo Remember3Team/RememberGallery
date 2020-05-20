@@ -40,6 +40,8 @@ public class productInsertServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		
 		request.setCharacterEncoding("utf-8");
 
 		int maxSize = 1024 * 1024 * 10; // 10Mbyte

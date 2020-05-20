@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "artistapply.model.vo.*"%>
+    
+    <%
+/*     Apply aphoto = (Apply)request.getAttribute("aphoto"); */
+    %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +13,7 @@
 <link rel="stylesheet" href="../css/Style-mypagehead.css">
 </head>
 <body>
-	<div class="headline">
+	<%-- <div class="headline">
         <div class="headline-text">
             <hr>
             <h3 style="font-size: 20px;"> 작가 마이페이지</h3>
@@ -16,14 +21,14 @@
         <div class="headline-subbox">
             <div class="artist-img">
                 <!--Artist Image-->
-                <img src="../img/artist.JPG" alt="artist-img">
+					<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>" width="150px" height="150px">
             </div>
             <div class="artist-button">
                 <button style="margin-bottom: 3px;">정보수정</button>
                 <button>감동카드 확인</button>
             </div>
         </div>
-    </div>
+    </div> --%>
     
     <div class="second-menu">
         <ul>

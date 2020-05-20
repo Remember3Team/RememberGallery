@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import artistapply.model.vo.Apply;
 import member.model.vo.Member;
 import mypage_artist.RefundQnACard.model.service.ArtistService;
 import mypage_artist.RefundQnACard.model.vo.BuyList_a;
@@ -103,6 +104,10 @@ public class ArtistRefundListServlet extends HttpServlet {
 			System.out.println(alist.get(i));
 		}
 		
+		// 프로필 사진 불러오기
+		Apply aphoto = aService.selectPhoto(loginMember.getUserId());
+		System.out.println(aphoto);
+		
 		// 출력이 잘 나오는걸 확인하면 이제 화면단으로 넘겨주자
 		
 		RequestDispatcher view = null;
@@ -111,6 +116,7 @@ public class ArtistRefundListServlet extends HttpServlet {
 			request.setAttribute("list", list);
 			request.setAttribute("alist", alist);
 			request.setAttribute("pi", pi);
+			request.setAttribute("aphoto", aphoto);
 		}else {
 			System.out.println("조회 실패");
 		}
