@@ -782,4 +782,30 @@ public class ProductDao {
 		
 		return result;
 	}
+
+	public int insertBasket(Connection conn, product po, String bWriter) {
+		PreparedStatement pstmt = null;
+
+		int result = 0;
+		
+		String query = "INSERT INTO BASKET VALUES(SEQ_BSK.NEXTVAL,?,?,?,?,'N')";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1,po.getPaint_name());
+			pstmt.setInt(2, po.getPatint_price());
+			pstmt.setString(3, bWriter);
+			pstmt.setInt(4, po.getPaint_no());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println(result);
+		return result;
+	}
 }
