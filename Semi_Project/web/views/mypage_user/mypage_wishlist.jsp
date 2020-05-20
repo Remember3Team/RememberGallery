@@ -80,6 +80,8 @@ function deleteBasket(){
 	}
 }
 
+
+
 var totalPrice = 0;
 
 //전체금액
