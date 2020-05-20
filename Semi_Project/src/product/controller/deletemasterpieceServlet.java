@@ -1,6 +1,8 @@
 package product.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,8 +44,9 @@ public class deletemasterpieceServlet extends HttpServlet {
 		
 		System.out.println(result);
 		
+		RequestDispatcher view = null;
+		view = request.getRequestDispatcher("views/product/productdetail.jsp");
 		if(result >0) {
-			
 		}else {
 			System.out.println("좋아요 실패");
 		}

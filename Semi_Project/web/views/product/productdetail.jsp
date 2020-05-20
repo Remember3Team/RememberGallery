@@ -328,13 +328,25 @@ border: solid 1px;
      
 
       <div class="btnArea">
-	      <input type="button" class = "btn btn-outline-dark" value="바로 구매하기" onclick="location.href='<%=request.getContextPath()%>/views/product/productpay.jsp'"><br clear="both"><br>
+      <input id="paint_no" type="hidden" value="<%=plist.getPaint_no()%>">
+	      <input type="button" class = "btn btn-outline-dark" value="바로 구매하기"><br clear="both"><br>
 	       <input type="button" class = "btn btn-outline-success"  value="장바구니 담기" onclick="장바구니"><br clear="both"><br>
 	      <inputtype="button" class = "btn btn-outline-danger"  value="Q & A" onclick="q&a"> Q & A<input type="hidden" value="" id="mid">
 	      <!-- <input type="hidden" value="${ movieDetail.movie_id }" id="movie_id"> -->
 	      <input type="hidden" value="" id="movie_id">
   
       </div>
+       <script>
+                  $(function(){
+				 		$(".btn-outline-dark").click(function(){
+				 			var paint_no = $(this).parent().children("#paint_no").val();
+				 			
+				 			location.href="<%=request.getContextPath()%>/Buy.po?paint_no="+paint_no;
+				 		});
+				 		
+				 	});
+				 	
+					</script>
       
   </td>
 	</tr>

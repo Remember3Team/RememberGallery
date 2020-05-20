@@ -2,6 +2,7 @@ package product.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,12 +44,7 @@ public class insertmasterpieceServlet extends HttpServlet {
 		int result = pService.insertmasterpiece(bWriter,paint_no);
 		
 		System.out.println(result);
-		
-		if(result >0) {
-			
-		}else {
-			System.out.println("좋아요 실패");
-		}
+	
 	}
 
 	/**

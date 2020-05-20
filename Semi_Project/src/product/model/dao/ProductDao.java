@@ -595,7 +595,6 @@ public class ProductDao {
 										rset.getString("PAINT_INT"),
 										rset.getString("PAINT_MDATE"),
 										rset.getInt("SIZE_NO"));
-
 			}
 			
 		} catch (SQLException e) {

@@ -32,19 +32,24 @@ public class BuyProductServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ProductService ps = new ProductService();
+		request.setCharacterEncoding("utf-8");
+		
+		ProductService pService = new ProductService();
+		
+		int paint_no = Integer.valueOf(request.getParameter("paint_no"));
+		System.out.println(paint_no);
+		
+		product po = new product();
+		po =  pService.selectsearch(paint_no);
+		
+		
+		
+		
+		
 		
 		ArrayList <product> pay_list = ps.payList();
 		
 		RequestDispatcher view = null;
-		if(!pay_list.isEmpty()) {
-			view = request.getRequestDispatcher("views/product/productpay.jsp");
-			
-			request.setAttribute("pay_list", pay_list);
-		}else {
-			System.out.println("상품내용 조회 실패");
-		}
-		view.forward(request,response);
 		
 	}
 
