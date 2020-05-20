@@ -37,11 +37,7 @@ public class deletemasterpieceServlet extends HttpServlet {
 		
 		System.out.println(bWriter);
 		System.out.println(paint_no);
-		
-		
-		
-		
-		
+
 		
 		
 	}

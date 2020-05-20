@@ -40,10 +40,12 @@ public class insertmasterpieceServlet extends HttpServlet {
 		System.out.println(bWriter);
 		System.out.println(paint_no);
 		
-		int result = new ProductService().insertmasterpiece(bWriter,paint_no);
+		int result = pService.insertmasterpiece(bWriter,paint_no);
+		
+		System.out.println(result);
 		
 		if(result >0) {
-			return;
+			
 		}else {
 			System.out.println("좋아요 실패");
 		}

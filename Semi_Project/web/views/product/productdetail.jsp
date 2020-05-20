@@ -307,7 +307,7 @@ border: solid 1px;
     	  $(".colorheartCheck").hide();
     	  $(".emptyheartCheck").show();
     	  
-    	  location.href="<%=request.getContextPath()%>/insertmasterpiece.po?paint_no="+paint_no;
+    	  location.href="<%=request.getContextPath()%>/deletetmasterpiece.po?paint_no="+paint_no;
       })
       });
       
@@ -318,7 +318,7 @@ border: solid 1px;
         	  $(".emptyheartCheck").hide();
         	  $(".colorheartCheck").show();
         	  
-    	  location.href="<%=request.getContextPath()%>/deletetmasterpiece.po?paint_no="+paint_no;
+    	  location.href="<%=request.getContextPath()%>/insertmasterpiece.po?paint_no="+paint_no;
         	  
   
           })

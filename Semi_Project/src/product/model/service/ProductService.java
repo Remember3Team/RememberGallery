@@ -143,6 +143,8 @@ public class ProductService {
 		
 		int result = new ProductDao().insertmasterpiece(conn, bWriter,paint_no);
 		
+		System.out.println(result);
+		
 		if(result >0) {
 			commit(conn);
 		}else {
