@@ -34,6 +34,9 @@ public class insertMemberServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		
+		request.setCharacterEncoding("UTF-8");
+		
 		String userId = request.getParameter("userId");
 		String userName = request.getParameter("userName");
 		String userPwd = request.getParameter("userPwd");
@@ -45,6 +48,8 @@ public class insertMemberServlet extends HttpServlet {
 		Member member = new Member(userId, userName,userPwd , nickName, phone, address, email);
 		int result = new MemberService().insertMember(member);
 
+		
+		
 		String page = "";
 		if (result > 0) {
 			page = "views/member/SignSuccess.jsp";
