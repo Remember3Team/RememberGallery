@@ -21,7 +21,7 @@ public class Member implements Serializable{
 	private String accountGrade;//계정등급	
 	private int point;			//포인트
 	private Date enrollDate;	//가입일
-	private String DeleteYe;	//탈퇴여부
+	private String DeleteYN;	//탈퇴여부
 	private String DeleteDate;	//탈퇴일
 	private int cash;			//캐쉬
 	public Member() {
@@ -52,7 +52,7 @@ public class Member implements Serializable{
 	}
 
 	public Member(String userId, String grade, String userName, String userPwd, String email, String phone,
-			String address, String nickname, String accountGrade, int point, Date enrollDate, String deleteYe,
+			String address, String nickname, String accountGrade, int point, Date enrollDate, String deleteYN,
 			String deleteDate, int cash) {
 		super();
 		this.userId = userId;
@@ -66,7 +66,7 @@ public class Member implements Serializable{
 		this.accountGrade = accountGrade;
 		this.point = point;
 		this.enrollDate = enrollDate;
-		DeleteYe = deleteYe;
+		DeleteYN = deleteYN;
 		DeleteDate = deleteDate;
 		this.cash = cash;
 	}
@@ -136,11 +136,11 @@ public class Member implements Serializable{
 	public void setEnrollDate(Date enrollDate) {
 		this.enrollDate = enrollDate;
 	}
-	public String getDeleteYe() {
-		return DeleteYe;
+	public String getDeleteYN() {
+		return DeleteYN;
 	}
-	public void setDeleteYe(String deleteYe) {
-		DeleteYe = deleteYe;
+	public void setDeleteYN(String deleteYN) {
+		DeleteYN = deleteYN;
 	}
 	public String getDeleteDate() {
 		return DeleteDate;
@@ -161,12 +161,10 @@ public class Member implements Serializable{
 	public String toString() {
 		return "Member [userId=" + userId + ", grade=" + grade + ", userName=" + userName + ", userPwd=" + userPwd
 				+ ", email=" + email + ", phone=" + phone + ", address=" + address + ", nickname=" + nickname
-				+ ", accountGrade=" + accountGrade + ", point=" + point + ", enrollDate=" + enrollDate + ", DeleteYe="
-				+ DeleteYe + ", DeleteDate=" + DeleteDate + ", cash=" + cash + "]";
+				+ ", accountGrade=" + accountGrade + ", point=" + point + ", enrollDate=" + enrollDate + ", DeleteYN="
+				+ DeleteYN + ", DeleteDate=" + DeleteDate + ", cash=" + cash + "]";
 	}
 
-	
-	
 	
 	
 	

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import artistapply.model.vo.Apply;
 import product.model.vo.Attachment;
+import product.model.vo.masterpiece;
 import product.model.vo.product;
 
 public class ProductDao {
@@ -254,7 +255,8 @@ public class ProductDao {
 		ResultSet rset = null;
 
 		ArrayList<product> list = new ArrayList<>();
-		
+		product p = new product();
+		list.add(p);
 		if(po.getArtist_name() == null) {//작가이름 null일경우
 			String query ="SELECT * FROM PAINT WHERE CATEGORY=? AND PAINT_PRICE BETWEEN 0 AND ?";// AND PAINT_NO BETWEEN ? AND ?
 			// 쿼리문 실행시 조건절에 넣을 변수를 (ROWNUM에 대한 조건 시 필요) 연산 처리
@@ -267,7 +269,7 @@ public class ProductDao {
 				rset = pstmt.executeQuery();
 				
 				while (rset.next()) {
-					product p = new product(rset.getInt("PAINT_NO"), 
+					 p = new product(rset.getInt("PAINT_NO"), 
 											rset.getString("PAINT_NAME"),
 											rset.getInt("PAINT_PRICE"),
 											rset.getInt("SIZE_NO"),
@@ -296,7 +298,7 @@ public class ProductDao {
 				rset = pstmt.executeQuery();
 				
 				while (rset.next()) {
-					product p = new product(rset.getInt("PAINT_NO"), 
+					p = new product(rset.getInt("PAINT_NO"), 
 							rset.getString("PAINT_NAME"),
 							rset.getInt("PAINT_PRICE"),
 							rset.getInt("SIZE_NO"),
@@ -326,7 +328,7 @@ public class ProductDao {
 				rset = pstmt.executeQuery();
 				
 				while (rset.next()) {
-					product p = new product(rset.getInt("PAINT_NO"), 
+					p = new product(rset.getInt("PAINT_NO"), 
 							rset.getString("PAINT_NAME"),
 							rset.getInt("PAINT_PRICE"),
 							rset.getInt("SIZE_NO"),
@@ -358,7 +360,7 @@ public class ProductDao {
 				rset = pstmt.executeQuery();
 				
 				while (rset.next()) {
-					product p = new product(rset.getInt("PAINT_NO"), 
+					 p = new product(rset.getInt("PAINT_NO"), 
 							rset.getString("PAINT_NAME"),
 							rset.getInt("PAINT_PRICE"),
 							rset.getInt("SIZE_NO"),
@@ -545,8 +547,7 @@ public class ProductDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		ArrayList<Attachment> list = new ArrayList<>();
-		
+		ArrayList<Attachment> list = new ArrayList<Attachment>();
 		String query = "SELECT * FROM PAINT_PHOTO WHERE FILELEVEL=0";
 		
 		try {
@@ -674,11 +675,10 @@ public class ProductDao {
 		return plist;
 	}
 
-<<<<<<< HEAD
 	public ArrayList<product> payList(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<product> pay_List = new ArrayList<>();
+		ArrayList<product> pay_List = new ArrayList<product>();
 		
 		String query = "SELECT PAINT_NAME, PAINT_PRICE";
 		
@@ -695,12 +695,16 @@ public class ProductDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 	
 		
 		return pay_List;
-=======
+	}
+
 	public Apply selectApply(Connection conn, product plist) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -725,6 +729,32 @@ public class ProductDao {
 			close(pstmt);
 		}
 		return apply;
->>>>>>> refs/remotes/origin/master
+
+	}
+
+	public int insertmasterpiece(Connection conn,String bWriter, int paint_no) {
+		PreparedStatement pstmt = null;
+
+		int result = 0;
+
+		String query = "INSERT INTO MASTERPIECE VALUES(?,?)";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, paint_no);
+			pstmt.setString(2, bWriter);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		System.out.println(result);
+		
+		return result;
 	}
 }

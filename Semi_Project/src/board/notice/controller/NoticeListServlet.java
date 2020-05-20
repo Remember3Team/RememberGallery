@@ -50,9 +50,6 @@ public class NoticeListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage,startPage, endPage);
 		
 		ArrayList<Notice> list = nService.selectList(currentPage, limit);
-		for(int i = 0;i<list.size();i++) {
-			System.out.println(list.get(i));
-		}
 		
 		//화면으로
 		RequestDispatcher view = null;

@@ -3,16 +3,16 @@ package product.model.vo;
 public class product {
 	
 	private int paint_no;		//작품번호
-	private String paint_name;	//작품이름
-	private int patint_price;	//작품가격
-	private String category;	//작품카테고리
-	private String artist_name;	//작가이름
-	private String paint_int;	//작품소개
-	private String paint_mdate;	//작품제작년도
-	private int size_no;		//사이즈번호
-	private int width;			//사이즈 가로크기
+	private String paint_name ;	//작품이름
+	private int patint_price ;	//작품가격
+	private String category ;	//작품카테고리
+	private String artist_name ;	//작가이름
+	private String paint_int ;	//작품소개
+	private String paint_mdate ;	//작품제작년도
+	private int size_no ;		//사이즈번호
+	private int width ;			//사이즈 가로크기
 	private int height;			//사이즈 세로크기
-	private String auc_yn;   	//경매여부
+	private String auc_yn ;   	//경매여부
 	
 	private int afile_no;		//첨부사진번호
 	private String afile;		//첨부파일
@@ -22,6 +22,7 @@ public class product {
 	private String pId;			//판매자 아이디
 	
 	public product() {
+		
 	}
 
 	

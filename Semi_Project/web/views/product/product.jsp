@@ -49,8 +49,8 @@
 }
 .list{
 	margin-right: 10px;
-	margin-left: 10px;
-	padding-left: 30px;
+	margin-left: 130px;
+	padding-left: 10px;
 	float:left;
 
 }
