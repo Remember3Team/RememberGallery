@@ -117,7 +117,7 @@ td {
 					<div class="info-box7">
 						<label class="labelfirst">이메일<a
 							style="color: red; font-size: 15px;">*</a></label><input class="nomal-text"
-							type="text" name="email"  required>
+							type="email" name="email"  required>
 					</div>
 					<br>
 <!-- 
