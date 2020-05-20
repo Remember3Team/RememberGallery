@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import artistapply.model.vo.Apply;
 import product.model.vo.Attachment;
+import product.model.vo.masterpiece;
 import product.model.vo.product;
 
 public class ProductDao {
@@ -674,11 +675,11 @@ public class ProductDao {
 		return plist;
 	}
 
-<<<<<<< HEAD
+
 	public ArrayList<product> payList(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<product> pay_List = new ArrayList<>();
+		ArrayList<product> pay_List = new ArrayList<product>();
 		
 		String query = "SELECT PAINT_NAME, PAINT_PRICE";
 		
@@ -695,12 +696,16 @@ public class ProductDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 	
 		
 		return pay_List;
-=======
+	}
+
 	public Apply selectApply(Connection conn, product plist) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -725,6 +730,31 @@ public class ProductDao {
 			close(pstmt);
 		}
 		return apply;
->>>>>>> refs/remotes/origin/master
+
+	}
+
+	public int insertmasterpiece(Connection conn,String bWriter, int paint_no) {
+		PreparedStatement pstmt = null;
+
+		int result = 0;
+
+		String query = "INSERT INTO MASTERPIECE VALUES(?,?)";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, paint_no);
+			pstmt.setString(2, bWriter);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println(result);
+		return result;
 	}
 }

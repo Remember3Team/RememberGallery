@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import artistapply.model.vo.Apply;
 import product.model.dao.ProductDao;
 import product.model.vo.Attachment;
+import product.model.vo.masterpiece;
 import product.model.vo.product;
 
 
@@ -117,14 +118,16 @@ public class ProductService {
 		return plist;
 	}
 
-<<<<<<< HEAD
+
 	public ArrayList<product> payList() {
 		Connection conn = getConnection();
 		
 		ArrayList<product> pay_list = new ProductDao().payList(conn);
 		
+		close(conn);
 		return pay_list;
-=======
+	}
+
 	public Apply selectApply(product plist) {
 		Connection conn = getConnection();
 		
@@ -132,7 +135,22 @@ public class ProductService {
 		apply= new ProductDao().selectApply(conn,plist);
 		close(conn);
 		return apply;
->>>>>>> refs/remotes/origin/master
+
+	}
+
+	public int insertmasterpiece(String bWriter, int paint_no) {
+		Connection conn = getConnection();
+		
+		int result = new ProductDao().insertmasterpiece(conn, bWriter,paint_no);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
 	}
 
 }

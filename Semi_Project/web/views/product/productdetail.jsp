@@ -288,11 +288,42 @@ border: solid 1px;
       </td>
       <td>
       		<div></div>
-      		<div style="float:right; display:none;"><img src="<%=request.getContextPath()%>/views/img/colorHeart.png"></div>
-      		<div style="float:right; display:none;"><img src="<%=request.getContextPath()%>/views/img/emptyHeart.png"></div>
+      		<div style="float:right; display:none;" onclick="colorheartCheck();" class="colorheartCheck">
+      		<input id="paint_no" type="hidden" value="<%=plist.getPaint_no()%>">
+      		<img src="<%=request.getContextPath()%>/views/img/colorHeart.png">
+      		</div>
+      		<div style="float:right; onclick="emptyheartCheck();" class="emptyheartCheck">
+      		<input id="paint_no" type="hidden" value="<%=plist.getPaint_no()%>">
+      		<img src="<%=request.getContextPath()%>/views/img/emptyHeart.png">
+      		</div>
       </td>
       </tr>
       </table>
+      <script>
+      $(function(){
+      $(".colorheartCheck").click(function(){
+    	  var paint_no = $("#paint_no").val();
+    	  
+    	  $(".colorheartCheck").hide();
+    	  $(".emptyheartCheck").show();
+    	  
+    	  location.href="<%=request.getContextPath()%>/insertmasterpiece.po?paint_no="+paint_no;
+      })
+      });
+      
+      $(function(){
+          $(".emptyheartCheck").click(function(){
+        	  var paint_no = $("#paint_no").val();
+        	  
+        	  $(".emptyheartCheck").hide();
+        	  $(".colorheartCheck").show();
+        	  
+    	  location.href="<%=request.getContextPath()%>/deletetmasterpiece.po?paint_no="+paint_no;
+        	  
+  
+          })
+          });
+      </script>
       
      
 

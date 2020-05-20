@@ -3,6 +3,7 @@ package product.model.vo;
 import java.util.Date;
 
 public class Attachment {
+	
 	private int afile_no =0;			//파일번호
 	private int paint_no =0;			//파일이 등록된 상품 번호
 	private String savefileName =" ";	//저장 파일명
