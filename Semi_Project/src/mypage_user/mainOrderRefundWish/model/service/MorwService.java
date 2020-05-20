@@ -66,4 +66,15 @@ public class MorwService {
 		close(conn);
 		return plist;
 	}
+
+	public void updateStatus(String param) {
+		Connection conn =getConnection();
+		
+		new MorwDao().updateStatus(conn,param);
+		
+		close(conn);
+		
+		
+		
+	}
 }

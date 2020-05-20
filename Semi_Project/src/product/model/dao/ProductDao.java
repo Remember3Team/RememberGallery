@@ -571,12 +571,11 @@ public class ProductDao {
 		return list;
 	}
 
-	public ArrayList<product> selectsearch(Connection conn, int paint_no) {
+	public product selectsearch(Connection conn, int paint_no) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		ArrayList<product> plist = new ArrayList<>();
-		
+		product p = new product();
 		String query = "SELECT * FROM PAINT WHERE PAINT_NO=?";
 		
 		try {
@@ -586,7 +585,7 @@ public class ProductDao {
 			
 			rset = pstmt.executeQuery();
 			while (rset.next()) {
-				product p = new product(rset.getInt("PAINT_NO"),
+				p = new product(rset.getInt("PAINT_NO"),
 										rset.getString("PAINT_NAME"),
 										rset.getInt("PAINT_PRICE"),	
 										rset.getString("CATEGORY"),
@@ -595,7 +594,6 @@ public class ProductDao {
 										rset.getString("PAINT_MADATE"),
 										rset.getString("SIZE_NO"));
 
-				plist.add(p);
 			}
 			
 		} catch (SQLException e) {
@@ -606,14 +604,14 @@ public class ProductDao {
 			close(pstmt);
 		}
 		
-		return plist;
+		return p;
 	}
 
-	public ArrayList<Attachment> selectAttachment(Connection conn, int paint_no) {
+	public Attachment selectAttachment(Connection conn, int paint_no) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		ArrayList<Attachment> plist = new ArrayList<>();
+		Attachment a = new Attachment();
 		
 		String query = "SELECT * FROM PAINT_PHOTO WHERE PAINT_NO=?";
 		
@@ -623,13 +621,12 @@ public class ProductDao {
 			
 			rset = pstmt.executeQuery();
 			while (rset.next()) {
-				Attachment a = new Attachment(rset.getInt("AFILE_NO"),
+				 a = new Attachment(rset.getInt("AFILE_NO"),
 										rset.getInt("PAINT_NO"),
 										rset.getString("AFILE"),	
 										rset.getString("FILEPATH"),
 										rset.getInt("FILELEVLE"));
 
-				plist.add(a);
 			}
 		} catch (SQLException e) {
 	
@@ -637,7 +634,7 @@ public class ProductDao {
 		}
 		
 		
-		return plist;
+		return a;
 	}
 
 	public ArrayList<product> selectsize(Connection conn) {

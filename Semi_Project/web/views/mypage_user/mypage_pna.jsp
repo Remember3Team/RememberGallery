@@ -47,7 +47,7 @@
                 <tr>
                     <th>주문 번호</th>
                     <th>상품명</th>
-                    <th>문의 내용</th>
+                    <th>문의</th>
                     <th>작성일</th>
                     <th>답변여부</th>
                   
@@ -84,7 +84,7 @@
 			  			<%for(Qna qna:list2){ %>
 			    		 <tr>
 			    			<td><%=qna.getqCate() %></td>
-			      			<td><%=qna.getQuestion()%></td>
+			      			<td><%=qna.getQuestionTitle() %></td>
 			      			<td><%=qna.getqDate()%></td>
 			      			<td><%=qna.getqYN()%></td>
 			    		</tr> 
