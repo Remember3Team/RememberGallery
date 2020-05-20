@@ -9,6 +9,7 @@
 
 </head>
 <body>
+
 	<%@include file="views/common/menubar.jsp" %>
 	<%@include file="views/main/main.jsp" %>
 	<input type="button" value="바로 구매하기"

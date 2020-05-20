@@ -115,6 +115,14 @@ public class ProductService {
 		return plist;
 	}
 
+<<<<<<< HEAD
+	public ArrayList<product> payList() {
+		Connection conn = getConnection();
+		
+		ArrayList<product> pay_list = new ProductDao().payList(conn);
+		
+		return pay_list;
+=======
 	public Apply selectApply(product plist) {
 		Connection conn = getConnection();
 		
@@ -122,6 +130,7 @@ public class ProductService {
 		apply= new ProductDao().selectApply(conn,plist);
 		close(conn);
 		return apply;
+>>>>>>> refs/remotes/origin/master
 	}
 
 }
