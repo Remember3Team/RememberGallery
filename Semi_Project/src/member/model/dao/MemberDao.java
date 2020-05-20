@@ -48,8 +48,8 @@ public class MemberDao {
 				loginMember = new Member(rset.getString("USER_ID"), rset.getString("GRADE"),
 						rset.getString("USER_NAME"), rset.getString("USER_PWD"), rset.getString("EMAIL"),
 						rset.getString("PHONE"), rset.getString("ADDRESS"), rset.getString("NICKNAME"),
-						rset.getString("ACCOUNT_GRADE"), rset.getInt("POINT"), rset.getDate("ENROLL_DATE"),
-						rset.getString("DELETE_YN"), rset.getString("DELETE_DATE"), rset.getInt("CASH"));
+						rset.getString("ACCOUNT_GRADE"), rset.getInt("POINT"),
+						rset.getString("DELETE_YN"), rset.getString("DELETE_DATE"), rset.getInt("CASH"), rset.getDate("ENROLL_DATE"));
 
 			}
 //			System.out.println(loginMember);		
@@ -96,7 +96,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null; 
 		int result = 0; 
 		
-		String query ="INSERT INTO MEMBER VALUES(?,DEFAULT,?,?,?,?,?,?,DEFAULT,DEFAULT,null,DEFAULT,SYSDATE,DEFAULT)";
+		String query ="INSERT INTO MEMBER VALUES(?,DEFAULT,?,?,?,?,?,?,DEFAULT,DEFAULT,DEFAULT,SYSDATE,DEFAULT,SYSDATE)";
 		
 		try {
 			pstmt=conn.prepareStatement(query);
@@ -137,9 +137,8 @@ public class MemberDao {
 				loginMember = new Member(rset.getString("USER_ID"), rset.getString("GRADE"),
 						rset.getString("USER_NAME"), rset.getString("USER_PWD"), rset.getString("EMAIL"),
 						rset.getString("PHONE"), rset.getString("ADDRESS"), rset.getString("NICKNAME"),
-						rset.getString("ACCOUNT_GRADE"), rset.getInt("POINT"), rset.getDate("ENROLL_DATE"),
-						rset.getString("DELETE_YN"), rset.getString("DELETE_DATE"), rset.getInt("CASH")
-											);
+						rset.getString("ACCOUNT_GRADE"), rset.getInt("POINT"),
+						rset.getString("DELETE_YN"), rset.getString("DELETE_DATE"), rset.getInt("CASH"), rset.getDate("ENROLL_DATE"));
 			}
 			System.out.println(loginMember);
 		} catch (SQLException e) {
