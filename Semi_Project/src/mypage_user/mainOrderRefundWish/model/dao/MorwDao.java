@@ -227,5 +227,26 @@ public class MorwDao {
 		return plist;
 	}
 
+	public void updateStatus(Connection conn, String param) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "UPDATE BUY_LIST SET ORDER_STATUS = '수령완료' WHERE ORDER_NO =?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, param);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+	
+	}
+
 
 }
