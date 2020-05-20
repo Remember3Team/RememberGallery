@@ -96,7 +96,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null; 
 		int result = 0; 
 		
-		String query ="INSERT INTO MEMBER VALUES(?,DEFAULT,?,?,?,?,?,?,DEFAULT,DEFAULT,null,DEFAULT,SYSDATE,DEFAULT)";
+		String query ="INSERT INTO MEMBER VALUES(?,DEFAULT,?,?,?,?,?,?,DEFAULT,DEFAULT,DEFAULT,SYSDATE,DEFAULT,SYSDATE)";
 		
 		try {
 			pstmt=conn.prepareStatement(query);
