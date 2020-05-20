@@ -44,7 +44,15 @@ public class insertmasterpieceServlet extends HttpServlet {
 		int result = pService.insertmasterpiece(bWriter,paint_no);
 		
 		System.out.println(result);
-	
+		
+		RequestDispatcher view = null;
+		if(result>0) {
+			view = request.getRequestDispatcher("views/product/productdetail.jsp");
+		}else {
+			System.out.println("게시판 조회 실패");
+		}
+		
+		view.forward(request, response);
 	}
 
 	/**

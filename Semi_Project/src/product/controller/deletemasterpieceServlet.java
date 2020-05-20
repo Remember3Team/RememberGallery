@@ -45,12 +45,14 @@ public class deletemasterpieceServlet extends HttpServlet {
 		System.out.println(result);
 		
 		RequestDispatcher view = null;
-		view = request.getRequestDispatcher("views/product/productdetail.jsp");
-		if(result >0) {
+
+		if(result>0) {
+			view = request.getRequestDispatcher("views/product/productdetail.jsp");
 		}else {
-			System.out.println("좋아요 실패");
+			System.out.println("게시판 조회 실패");
 		}
 		
+		view.forward(request, response);
 	}
 
 	/**

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import product.model.service.ProductService;
+import product.model.vo.Attachment;
 import product.model.vo.product;
 
 /**
@@ -41,16 +42,24 @@ public class BuyProductServlet extends HttpServlet {
 		
 		product po = new product();
 		po =  pService.selectsearch(paint_no);
+		System.out.println(po);
+		ArrayList<Attachment> at = new ArrayList<Attachment>();
 		
-		
-		
-		
-		
-		
-		ArrayList <product> pay_list = ps.payList();
+		at = pService.selectAttachment(paint_no);
+		System.out.println(at);
 		
 		RequestDispatcher view = null;
 		
+		if(po !=null) {
+			view = request.getRequestDispatcher("views/product/productpay.jsp");
+				request.setAttribute("po", po);
+				request.setAttribute("at", at);
+				System.out.println("가랏");
+			
+		}else {
+		System.out.println("불러오기 실패");	
+		}
+		view.forward(request, response);
 	}
 
 	/**

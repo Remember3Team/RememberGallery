@@ -54,7 +54,7 @@
 	float:left;
 
 }
-#buy{
+.buy{
 	margin-left:160px;
 
 }
@@ -125,7 +125,7 @@
 						<button class="goDetail">상세보기</button>
 										
 						<!-- 상세정보보기로 이동 -->
-						<button id="buy" onclick="location.href='<%=request.getContextPath()%>/views/product/productpay.jsp'">구매하기</button>
+						<button class="buy" onclick="location.href='<%=request.getContextPath()%>/views/product/productpay.jsp'">구매하기</button>
 						<!-- 구매페이지로이동-->
 					
 			</div>
@@ -141,6 +141,15 @@
 				 		});
 				 		
 				 	});
+                  
+                  $(function(){
+                	  $(".buy").click(function(){
+                		  var paint_no = $(this).parent().children("input").val();
+                		  
+                		  location.href="<%=request.getContextPath()%>/Buy.po?paint_no="+paint_no;
+                	  })
+                	  
+                  })
 				 	
 					</script>
 					

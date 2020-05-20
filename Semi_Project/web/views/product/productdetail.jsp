@@ -117,7 +117,7 @@ border: solid 1px;
       width: 700px;
       position:relative;
       overflow:hidden;
-      margin-left :100px;
+      margin-left :300px;
       }
   #slide ul{
       width:400%;

@@ -768,7 +768,7 @@ public class ProductDao {
 		try {
 			pstmt = conn.prepareStatement(query);
 			
-			pstmt.setString(2, bWriter);
+			pstmt.setString(1, bWriter);
 			
 			result = pstmt.executeUpdate();
 			
