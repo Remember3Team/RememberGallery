@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "mypage_artist.management.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import = "mypage_artist.management.model.vo.*, artistapply.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList"%>
     <%
     	ArrayList<Mypage_artist> PM_list = (ArrayList<Mypage_artist>)request.getAttribute("PM_list");
     	PageInfo pi = (PageInfo)request.getAttribute("pi");
+    	/* Apply aphoto = (Apply) request.getAttribute("aphoto"); */
     	
     	int listCount = pi.getListCount();
     	int currentPage = pi.getCurrentPage();
@@ -27,6 +28,21 @@
 
 <body>
 <%@include file="../common/menubar.jsp" %>
+<%-- <div class="headline">
+        <div class="headline-text">
+            <hr>
+            <h3 style="font-size: 20px;"> 작가 마이페이지</h3>
+        </div>
+        <div class="headline-subbox">
+            <div class="artist-img">
+                <!--Artist Image-->
+				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>" style= "width:150px; height=150px;">        </div>
+            <div class="artist-button">
+                <button style="margin-bottom: 3px;">정보수정</button>
+                <button>감동카드 확인</button>
+            </div>
+        </div>
+    </div> --%>
 <%@include file="../common/mypagehead.jsp" %>
     <div class="title">
         <h3>상품관리</h3>
@@ -99,9 +115,9 @@
                 <tr>
                     <td><input type="checkbox"></td>
                     <td><%=ma.getPaint_no() %></td>
-                    <td><%=ma.getAfile() %></td>
-                    <td><%=ma.getPaint_name() %><br>
-                    	  <%=ma.getArtist_name() %></td>
+                    <td><img src="<%=request.getContextPath() %>/views/img/2.jsp"></td>
+                    <td>작품명 : <%=ma.getPaint_name() %><br>
+                    	  작가명 : <%=ma.getArtist_name() %></td>
                     <td><%=ma.getPaint_price() %></td>
                     <td><button class="btn btn-outline-dark" id="detail_order" style = "width:100px">내용수정</button>
                     	&nbsp;<button class="btn btn-outline-dark" id="detail_order" style = "width:100px">삭제</button>

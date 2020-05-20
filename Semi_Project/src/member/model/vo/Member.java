@@ -20,8 +20,8 @@ public class Member implements Serializable{
 	private String nickname;	//닉네임
 	private String accountGrade;//계정등급	
 	private int point;			//포인트
-	private String DeleteYe;	//탈퇴여부
-	private String DeleteDate;	//탈퇴일
+	private String deleteYN;	//탈퇴여부
+	private String deleteDate;	//탈퇴일
 	private int cash;			//캐쉬
 	private Date enrollDate;	//가입일
 	
@@ -44,7 +44,7 @@ public class Member implements Serializable{
 		this.userPwd = userPwd;
 	}
 	public Member(String userId, String grade, String userName, String userPwd, String email, String phone,
-			String address, String nickname, String accountGrade, int point, String deleteYe, String deleteDate,
+			String address, String nickname, String accountGrade, int point, String deleteYN, String deleteDate,
 			int cash, Date enrollDate) {
 		super();
 		this.userId = userId;
@@ -57,8 +57,8 @@ public class Member implements Serializable{
 		this.nickname = nickname;
 		this.accountGrade = accountGrade;
 		this.point = point;
-		DeleteYe = deleteYe;
-		DeleteDate = deleteDate;
+		this.deleteYN = deleteYN;
+		this.deleteDate = deleteDate;
 		this.cash = cash;
 		this.enrollDate = enrollDate;
 	}
@@ -122,17 +122,17 @@ public class Member implements Serializable{
 	public void setPoint(int point) {
 		this.point = point;
 	}
-	public String getDeleteYe() {
-		return DeleteYe;
+	public String getDeleteYN() {
+		return deleteYN;
 	}
-	public void setDeleteYe(String deleteYe) {
-		DeleteYe = deleteYe;
+	public void setDeleteYN(String deleteYN) {
+		this.deleteYN = deleteYN;
 	}
 	public String getDeleteDate() {
-		return DeleteDate;
+		return deleteDate;
 	}
 	public void setDeleteDate(String deleteDate) {
-		DeleteDate = deleteDate;
+		this.deleteDate = deleteDate;
 	}
 	public int getCash() {
 		return cash;
@@ -153,15 +153,13 @@ public class Member implements Serializable{
 	public String toString() {
 		return "Member [userId=" + userId + ", grade=" + grade + ", userName=" + userName + ", userPwd=" + userPwd
 				+ ", email=" + email + ", phone=" + phone + ", address=" + address + ", nickname=" + nickname
-				+ ", accountGrade=" + accountGrade + ", point=" + point + ", DeleteYe=" + DeleteYe + ", DeleteDate="
-				+ DeleteDate + ", cash=" + cash + ", enrollDate=" + enrollDate + "]";
+				+ ", accountGrade=" + accountGrade + ", point=" + point + ", deleteYN=" + deleteYN + ", deleteDate="
+				+ deleteDate + ", cash=" + cash + ", enrollDate=" + enrollDate + "]";
 	}
-	
+
 	
 	
 }
-
-
 
 
 

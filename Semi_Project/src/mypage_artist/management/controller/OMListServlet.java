@@ -95,12 +95,20 @@ public class OMListServlet extends HttpServlet {
 //				for(int i = 0 ; i < list.size(); i++) {
 //					System.out.println(list.get(i));
 //				}
+				
+				// 프로필 사진 불러오기
+//				ArtistService aService1 = new ArtistService();
+//				
+//				Apply aphoto = aService1.selectPhoto(bWriter);
+//				System.out.println(aphoto);
+				
 				// 출력이 잘 나오는걸 확인하면 이제 화면단으로 넘겨주자
 				
 				RequestDispatcher view = null;
 				if(!OM_list.isEmpty()) {
 					view = request.getRequestDispatcher("views/mypage_artist/order_management.jsp");
 					request.setAttribute("OM_list", OM_list);
+//					request.setAttribute("aphoto", aphoto);
 					request.setAttribute("pi", pi);
 				}else {
 //					view = request.getRequestDispatcher("views/common/errorPage.jsp");
@@ -109,8 +117,6 @@ public class OMListServlet extends HttpServlet {
 				}
 				
 				view.forward(request, response);
-				
-				// boardListView.jsp 만들러 가자!
 				
 				
 				

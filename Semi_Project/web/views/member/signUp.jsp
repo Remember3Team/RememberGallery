@@ -65,7 +65,7 @@ td {
 					<div class="info-box1">
 						<label class="labelfirst" id="name">이름<a
 							style="color: red; font-size: 15px;">*</a></label><input
-							class="nomal-text" type="text" name="userName" >
+							class="nomal-text" type="text" name="userName" required >
 						<label id="nameresult"></label>
 					</div>
 					<br>
@@ -82,8 +82,9 @@ td {
 					<br> <br>
 					<div class="info-box3">
 						<label class="labelfirst" id="userPwd">비밀번호<a
-							style="color: red; font-size: 15px;">*</a></label><input
-							class="nomal-text" type="password" name="userPwd"  required>
+							style="color: red; font-size: 15px;">*</a></label>
+							<input class="nomal-text" type="password" name="userPwd"  required>
+
 					</div>
 					<br>
 
@@ -102,22 +103,22 @@ td {
 					<div class="info-box6">
 						<label class="labelfirst">휴대폰 번호</label>
 						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input
-							type="tel" id="Phone" name="phone" value="" maxlength="11"
-							autocomplete="off">
+							type="tel" id="Phone" name="phone"  maxlength="11"
+							autocomplete="off" placeholder="(-)없이 휴대폰 번호를 적어주세요." style = "width:280px;">
 
 					</div>
 
 					<div class="info-box7">
 						<label class="labelfirst">주소<a
-							style="color: red; font-size: 15px;">*</a></label> <input
-							class="nomal-text" type="text" name="address" required>
-
+							style="color: red; font-size: 15px;">*</a></label> 
+							<input class="nomal-text" type="text" name="address" required>
 					</div>
 
 					<div class="info-box7">
-						<label class="labelfirst">이메일<a
+			<label class="labelfirst">이메일<a
 							style="color: red; font-size: 15px;">*</a></label><input class="nomal-text"
 							type="email" name="email"  required>
+r
 					</div>
 					<br>
 <!-- 

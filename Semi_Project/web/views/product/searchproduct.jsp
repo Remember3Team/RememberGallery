@@ -20,10 +20,11 @@
     background-color: rgb(224, 224, 224);
 }
 .rul {
-	margin-right: 20px;
-	margin-left: 20px;
+	margin-right: 10px;
+	margin-left: 10px;
 	height: 400px;
-	padding-left: 190px;
+	padding-left: 100px;
+	float:left;
 }
 .gellary {
 	display: inline-block;
@@ -38,6 +39,17 @@
 	width: 100%;
 	height: 50px;
 	text-align: center;
+}
+.list{
+	margin-right: 10px;
+	margin-left: 130px;
+	padding-left: 30px;
+	float:left;
+
+}
+#buy{
+	margin-left:160px;
+
 }
   </style>
 </head>
@@ -84,47 +96,47 @@
         </div>
         <p class="h3">검색 결과 작품</p>
         <br clear="both">
-        <div>
-			<ul class="rul">
            <% for(int i=0; i<searchlist.size(); i++){ 
              product p = searchlist.get(i);
-             for(int j=0;j<alist.size();j++){
-            	 
+             for(int j=0;j<alist.size();j++){	 
              Attachment a = alist.get(j);%>
-             
 			 <%if(p.getPaint_no() == a.getPaint_no()) { %>
-				<li class="gellary">
-				<img class="rimage" src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" style="width: 100%; height: 70%;">		      
-					<div class="mname">
+        <div class="list">
+						<input id="paint_no" type="hidden" value="<%=p.getPaint_no()%>"><br>
+				<img class="rimage" src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" style="width: 300px; height: 300px;">		      
+					<div class="mname" align="center">
 						<!-- 이름 -->
-						<p><%=p.getPaint_name() %></p>
+						<b><%=p.getPaint_name() %></b>
 					</div>
-					<div class="mname">
+					<div class="mname" align="center">
 						<!-- 작가명-->
-						<p><%=p.getArtist_name() %></p>
-					</div>
-					<div>
-					<script>
-					function(){
-						var paint_no = $(this).parent().children("input").val();
-					}
+						<p>작가명 :<%=p.getArtist_name() %></p>
+					</div><br>
 					
-					</script>
-						<button id="detail" onclick="location.href=<%=request.getContextPath()%>/detail.po?Paint_no="+Paint_no;>상세보기</button>
+						<button class="goDetail">상세보기</button>
+										
 						<!-- 상세정보보기로 이동 -->
-						<button id="book" onclick="location.href=<%=request.getContextPath()%>/views/product/productpay.jsp">구매하기</button>
+						<button id="buy" onclick="location.href='<%=request.getContextPath()%>/views/product/productpay.jsp'">구매하기</button>
 						<!-- 구매페이지로이동-->
-					</div></li>
+					
+			</div>
 				<% }%>
 
                   <% } %>
                   <%} %>
-		</div>
-      
-      </div>
+					<script>
+					 $(function(){
+					 		$(".goDetail").click(function(){
+					 			var paint_no = $(this).parent().children("input").val();
+					 			
+					 			location.href="<%=request.getContextPath()%>/detail.po?paint_no="+paint_no;
+					 		});
+					 		
+					 	});
+					
+					</script>
 
-
-   <br><br><br><br><br><br><br><br><br>
+   <br clear="both"><br><br><br><br><br><br><br><br>
 
 <%@include file="../common/footer.jsp" %>
 
