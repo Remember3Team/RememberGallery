@@ -1,5 +1,5 @@
-CREATE SEQUENCE SEQ_PID START WITH 0; --PAINT 컬럼에사용
-CREATE SEQUENCE SEQ_PNO START WITH 0; -- PAINT_PHOTO 컬럼에사용
+CREATE SEQUENCE SEQ_PID START WITH 1; --PAINT 컬럼에사용
+CREATE SEQUENCE SEQ_PNO START WITH 1; -- PAINT_PHOTO 컬럼에사용
 
 
   CREATE OR REPLACE FORCE VIEW "SEMI"."V_GALLERY" ("작품번호", "작품이름", "작품가격", "카테고리", "작가이름", "작품소개", "작품제작년도", "사이즈번호", "좋아요", "작가아이디") AS 

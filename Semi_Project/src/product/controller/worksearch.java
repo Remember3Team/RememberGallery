@@ -45,19 +45,24 @@ public class worksearch extends HttpServlet {
 		String aname= request.getParameter("aname");
 		String category = request.getParameter("category");
 		int price = Integer.valueOf(request.getParameter("price"));
-		String[] tagname = request.getParameterValues("tagname");
 		
 		System.out.println(aname);
 		System.out.println(category);
 		System.out.println(price);
-		product po = new product(aname,category,price);
+		product po = new product();
+		
+		po =  new product(aname,category,price);
 
 		ArrayList<product> searchlist = new ArrayList<product>();
-	
+		
 		searchlist = pService.selectsearch(po);
 		
+		System.out.println(searchlist);
+		
 		ArrayList<Attachment> alist = new ArrayList<Attachment>();
+		
 		alist = pService.selectAllalist();
+		System.out.println(alist);
 		
 
 
@@ -70,7 +75,11 @@ public class worksearch extends HttpServlet {
 			request.setAttribute("searchlist", searchlist);
 			request.setAttribute("alist", alist);
 		}else {
-			System.out.println("상품내용 조회 실패");
+				view = request.getRequestDispatcher("views/product/abc.jsp");
+			
+				request.setAttribute("searchlist", searchlist);
+				request.setAttribute("alist", alist);
+			//view = request.getRequestDispatcher("views/product/searchproducterror.jsp");
 		}
 		view.forward(request,response);
 		

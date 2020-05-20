@@ -23,7 +23,10 @@
 </head>
 <body Style ="width:100%; height:600px; background-color:beige;">
 	<%@include file="../common/menubar.jsp" %>
-<h1>로그인 실패</h1>
+<h1 style= "color:black";> 실패 창</h1>
+<a href = "#">아이디 찾기</a>
+/
+<a href = "#">비밀번호 찾기</a>
 
 	
 </body>

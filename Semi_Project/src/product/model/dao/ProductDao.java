@@ -9,7 +9,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import artistapply.model.vo.Apply;
 import product.model.vo.Attachment;
+import product.model.vo.masterpiece;
 import product.model.vo.product;
 
 public class ProductDao {
@@ -253,7 +255,8 @@ public class ProductDao {
 		ResultSet rset = null;
 
 		ArrayList<product> list = new ArrayList<>();
-		
+		product p = new product();
+		list.add(p);
 		if(po.getArtist_name() == null) {//작가이름 null일경우
 			String query ="SELECT * FROM PAINT WHERE CATEGORY=? AND PAINT_PRICE BETWEEN 0 AND ?";// AND PAINT_NO BETWEEN ? AND ?
 			// 쿼리문 실행시 조건절에 넣을 변수를 (ROWNUM에 대한 조건 시 필요) 연산 처리
@@ -266,7 +269,7 @@ public class ProductDao {
 				rset = pstmt.executeQuery();
 				
 				while (rset.next()) {
-					product p = new product(rset.getInt("PAINT_NO"), 
+					 p = new product(rset.getInt("PAINT_NO"), 
 											rset.getString("PAINT_NAME"),
 											rset.getInt("PAINT_PRICE"),
 											rset.getInt("SIZE_NO"),
@@ -295,7 +298,7 @@ public class ProductDao {
 				rset = pstmt.executeQuery();
 				
 				while (rset.next()) {
-					product p = new product(rset.getInt("PAINT_NO"), 
+					p = new product(rset.getInt("PAINT_NO"), 
 							rset.getString("PAINT_NAME"),
 							rset.getInt("PAINT_PRICE"),
 							rset.getInt("SIZE_NO"),
@@ -325,7 +328,7 @@ public class ProductDao {
 				rset = pstmt.executeQuery();
 				
 				while (rset.next()) {
-					product p = new product(rset.getInt("PAINT_NO"), 
+					p = new product(rset.getInt("PAINT_NO"), 
 							rset.getString("PAINT_NAME"),
 							rset.getInt("PAINT_PRICE"),
 							rset.getInt("SIZE_NO"),
@@ -357,7 +360,7 @@ public class ProductDao {
 				rset = pstmt.executeQuery();
 				
 				while (rset.next()) {
-					product p = new product(rset.getInt("PAINT_NO"), 
+					 p = new product(rset.getInt("PAINT_NO"), 
 							rset.getString("PAINT_NAME"),
 							rset.getInt("PAINT_PRICE"),
 							rset.getInt("SIZE_NO"),
@@ -544,8 +547,7 @@ public class ProductDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		ArrayList<Attachment> list = new ArrayList<>();
-		
+		ArrayList<Attachment> list = new ArrayList<Attachment>();
 		String query = "SELECT * FROM PAINT_PHOTO WHERE FILELEVEL=0";
 		
 		try {
@@ -591,8 +593,8 @@ public class ProductDao {
 										rset.getString("CATEGORY"),
 										rset.getString("ARTIST_NAME"),
 										rset.getString("PAINT_INT"),
-										rset.getString("PAINT_MADATE"),
-										rset.getString("SIZE_NO"));
+										rset.getString("PAINT_MDATE"),
+										rset.getInt("SIZE_NO"));
 
 			}
 			
@@ -607,11 +609,11 @@ public class ProductDao {
 		return p;
 	}
 
-	public Attachment selectAttachment(Connection conn, int paint_no) {
+	public ArrayList<Attachment> selectAttachment(Connection conn, int paint_no) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		Attachment a = new Attachment();
+		ArrayList<Attachment> alist = new ArrayList<Attachment>();
 		
 		String query = "SELECT * FROM PAINT_PHOTO WHERE PAINT_NO=?";
 		
@@ -621,20 +623,23 @@ public class ProductDao {
 			
 			rset = pstmt.executeQuery();
 			while (rset.next()) {
-				 a = new Attachment(rset.getInt("AFILE_NO"),
+				 Attachment a = new Attachment(rset.getInt("AFILE_NO"),
 										rset.getInt("PAINT_NO"),
 										rset.getString("AFILE"),	
 										rset.getString("FILEPATH"),
-										rset.getInt("FILELEVLE"));
-
+										rset.getInt("FILELEVEL"));
+				 alist.add(a);
 			}
 		} catch (SQLException e) {
 	
 			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		
-		return a;
+		return alist;
 	}
 
 	public ArrayList<product> selectsize(Connection conn) {
@@ -659,10 +664,98 @@ public class ProductDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
 		}
+		System.out.println("dao"+plist);
 		
 	
 		
 		return plist;
+	}
+
+
+	public ArrayList<product> payList(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<product> pay_List = new ArrayList<product>();
+		
+		String query = "SELECT PAINT_NAME, PAINT_PRICE";
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				product p = new product(rset.getString("paint_name"),
+													  rset.getInt("patint_price"));
+
+				pay_List.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+	
+		
+		return pay_List;
+	}
+
+	public Apply selectApply(Connection conn, product plist) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Apply apply = new Apply();
+		
+		String query = "SELECT * FROM SELLER WHERE USER_ID = (SELECT USER_ID FROM MEMBER WHERE USER_NAME=?)";
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setString(1,plist.getArtist_name());
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				apply = new Apply(rset.getString("USER_ID"),
+									rset.getString("ARTIST_INT"),
+									rset.getString("ARTIST_PRO"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return apply;
+
+	}
+
+	public int insertmasterpiece(Connection conn,String bWriter, int paint_no) {
+		PreparedStatement pstmt = null;
+
+		int result = 0;
+
+		String query = "INSERT INTO MASTERPIECE VALUES(?,?)";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, paint_no);
+			pstmt.setString(2, bWriter);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		System.out.println(result);
+		
+		return result;
 	}
 }

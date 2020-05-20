@@ -101,6 +101,7 @@ public class AmateurService {
 		Connection conn = getConnection();
 		
 		ArrayList<Reply> rList = new AmateurDao().selectReplyList(conn, event_no);
+		System.out.println("[아마추어 게시판에서 게시글을 클릭했을 때] 댓글 인서트 결과 값(service):"+rList);
 		close(conn);
 		return rList;
 	}

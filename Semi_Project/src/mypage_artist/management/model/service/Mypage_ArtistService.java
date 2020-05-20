@@ -74,6 +74,17 @@ public class Mypage_ArtistService {
 		return DOV_SI;
 	}
 
+	public ArrayList<Mypage_artist> listSearch(String order_status, String term, String calendar1, String calendar2,
+			String bWriter) {
+		Connection conn = getConnection();
+		
+		ArrayList<Mypage_artist> search_list = new Mypage_ArtistDao().listSearch(conn, order_status, term, calendar1, calendar2, bWriter);
+		
+		close(conn);
+		System.out.println(search_list);
+		return search_list;
+	}
+
 }
 
 

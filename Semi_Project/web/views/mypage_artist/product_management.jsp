@@ -115,9 +115,9 @@
                 <tr>
                     <td><input type="checkbox"></td>
                     <td><%=ma.getPaint_no() %></td>
-                    <td><%=ma.getAfile() %></td>
-                    <td><%=ma.getPaint_name() %><br>
-                    	  <%=ma.getArtist_name() %></td>
+                    <td><img src="<%=request.getContextPath() %>/views/img/2.jsp"></td>
+                    <td>작품명 : <%=ma.getPaint_name() %><br>
+                    	  작가명 : <%=ma.getArtist_name() %></td>
                     <td><%=ma.getPaint_price() %></td>
                     <td><button class="btn btn-outline-dark" id="detail_order" style = "width:100px">내용수정</button>
                     	&nbsp;<button class="btn btn-outline-dark" id="detail_order" style = "width:100px">삭제</button>

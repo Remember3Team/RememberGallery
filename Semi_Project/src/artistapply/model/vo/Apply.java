@@ -22,6 +22,15 @@ public class Apply implements Serializable {
 
 	
 
+	public Apply(String user_id, String artist_int, String artist_pro) {
+		this.user_id = user_id;
+		this.artist_int = artist_int;
+		this.artist_pro = artist_pro;
+	}
+
+
+
+
 	public Apply(String user_id, String artist_int, String car_etc,String car_file, String artist_pro) {
 		super();
 		this.user_id = user_id;
