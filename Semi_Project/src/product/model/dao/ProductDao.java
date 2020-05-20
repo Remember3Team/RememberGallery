@@ -758,4 +758,29 @@ public class ProductDao {
 		
 		return result;
 	}
+
+	public int deletemasterpiece(Connection conn, String bWriter, int paint_no) {
+		PreparedStatement pstmt = null;
+
+		int result = 0;
+
+		String query = "DELETE FROM MASTERPIECE WHERE USER_ID=? ";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(2, bWriter);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		System.out.println(result);
+		
+		return result;
+	}
 }

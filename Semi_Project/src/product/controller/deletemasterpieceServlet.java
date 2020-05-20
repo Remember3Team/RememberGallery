@@ -38,7 +38,15 @@ public class deletemasterpieceServlet extends HttpServlet {
 		System.out.println(bWriter);
 		System.out.println(paint_no);
 
+		int result = pService.deletemasterpiece(bWriter,paint_no);
 		
+		System.out.println(result);
+		
+		if(result >0) {
+			
+		}else {
+			System.out.println("좋아요 실패");
+		}
 		
 	}
 

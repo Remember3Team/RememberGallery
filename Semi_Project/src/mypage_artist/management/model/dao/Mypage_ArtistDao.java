@@ -344,11 +344,11 @@ public class Mypage_ArtistDao {
 					
 					while(rset.next()) {
 						myart = new Mypage_artist(rset.getInt("order_no"),
-																						   rset.getString("afile"),
-																						   rset.getString("paint_name"),
-																						   rset.getString("artist_name"),
-																						   rset.getInt("paint_price"),
-																						   rset.getString("order_status"));
+											   rset.getString("afile"),
+											   rset.getString("paint_name"),
+											   rset.getString("artist_name"),
+											   rset.getInt("paint_price"),
+													   rset.getString("order_status"));
 						search_list.add(myart);
 					}
 					System.out.println(search_list);
@@ -378,12 +378,12 @@ public class Mypage_ArtistDao {
 					
 					while(rset.next()) {
 						myart = new Mypage_artist(rset.getInt("order_no"),
-																						   rset.getString("afile"),
-																						   rset.getString("paint_name"),
-																						   rset.getString("artist_name"),
-																						   rset.getInt("paint_price"),
-																						   rset.getString("order_status"));
-						search_list.add(myart);
+											   rset.getString("afile"),
+											   rset.getString("paint_name"),
+											   rset.getString("artist_name"),
+											   rset.getInt("paint_price"),
+											   rset.getString("order_status"));
+search_list.add(myart);
 					}
 					
 					System.out.println(search_list);
@@ -410,11 +410,11 @@ public class Mypage_ArtistDao {
 					
 					while(rset.next()) {
 						myart = new Mypage_artist(rset.getInt("order_no"),
-																						   rset.getString("afile"),
-																						   rset.getString("paint_name"),
-																						   rset.getString("artist_name"),
-																						   rset.getInt("paint_price"),
-																						   rset.getString("order_status"));
+												   rset.getString("afile"),
+												   rset.getString("paint_name"),
+												   rset.getString("artist_name"),
+												   rset.getInt("paint_price"),
+												   rset.getString("order_status"));
 						search_list.add(myart);
 					}
 					
@@ -430,7 +430,7 @@ public class Mypage_ArtistDao {
 				String query = "SELECT * FROM BUY_LIST BL \r\n" + 
 						"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
 						"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
-						"WHERE USER_ID = ? AND ORDER_DATE  BETWEEN (SYSDATE -?) AND (SYSDATE)";
+						"WHERE USER_ID = ? AND ORDER_DATE  BETWEEN (SYSDATE - ?) AND (SYSDATE)";
 				
 				try {
 					pstmt = conn.prepareStatement(query);
@@ -441,11 +441,11 @@ public class Mypage_ArtistDao {
 					
 					while(rset.next()) {
 						myart = new Mypage_artist(rset.getInt("order_no"),
-																						   rset.getString("afile"),
-																						   rset.getString("paint_name"),
-																						   rset.getString("artist_name"),
-																						   rset.getInt("paint_price"),
-																						   rset.getString("order_status"));
+											   rset.getString("afile"),
+											   rset.getString("paint_name"),
+											   rset.getString("artist_name"),
+											   rset.getInt("paint_price"),
+											   rset.getString("order_status"));
 						search_list.add(myart);
 					}
 					

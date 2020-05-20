@@ -155,4 +155,21 @@ public class ProductService {
 		return result;
 	}
 
+	public int deletemasterpiece(String bWriter, int paint_no) {
+		Connection conn = getConnection();
+		
+		int result = new ProductDao().deletemasterpiece(conn, bWriter,paint_no);
+		
+		System.out.println(result);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
 }
