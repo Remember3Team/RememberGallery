@@ -1,17 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import = "member.model.vo.Member"%>
+	pageEncoding="UTF-8" import="member.model.vo.Member"%>
 
 <%
-Member mem = (Member)request.getAttribute("member");
+	Member mem = (Member) request.getAttribute("member");
 
 String userId = mem.getUserId();
-String userPwd = mem.getUserPwd()!=null? mem.getUserPwd():"";
+String userPwd = mem.getUserPwd() != null ? mem.getUserPwd() : "";
 String userName = mem.getUserName();
-String email = mem.getEmail()!=null?mem.getEmail():"";
-String phone = mem.getPhone()!=null?mem.getPhone():"";
-String address = mem.getAddress()!=null?mem.getAddress():"";
-String nickname = mem.getNickname()!=null?mem.getNickname():"";
-
+String email = mem.getEmail() != null ? mem.getEmail() : "";
+String phone = mem.getPhone() != null ? mem.getPhone() : "";
+String address = mem.getAddress() != null ? mem.getAddress() : "";
+String nickname = mem.getNickname() != null ? mem.getNickname() : "";
 %>
 <!DOCTYPE html>
 <html>
@@ -32,13 +31,22 @@ String nickname = mem.getNickname()!=null?mem.getNickname():"";
 	cursor: pointer;
 }
 
-#idCheck, #goMain, #joinBtn {
-	background:red ;
-	color:white;
+#idCheck, #goMain, #joinBtn  {
+	background: #5d5d5d;
+	color: white;
+	width: 70px;
+	height: 25px;
+	/* text-align: center; */
+	font-size:15px;
+}
+
+#updateBtn{
+	background: red;
+	color: white;
 	border-radius: 5px;
 	width: 80px;
 	height: 25px;
-	text-align: center;
+	/* text-align: center; */
 }
 
 #idCheck:hover, #joinBtn:hover, #goMain:hover {
@@ -65,72 +73,80 @@ td {
 
 	<div class="container">
 		<form id="updateForm" action="<%=request.getContextPath()%>/update.me"
-			method="post" >
+			method="post">
 			<!--section1-->
 			<div class="section1" style="padding-bottom: 90px;">
 				<h1 style="color: black;">MEMBER INFO</h1>
-				
+
 				<hr style="border: 1px soild black;">
 				<span>회원정보<a style="color: red; font-size: 15px;">*</a></span>
 				<hr style="border: 1px soild black;">
-				
+
 				<div class="artregi-infobox">
 					<div class="info-box1">
 						<label class="labelfirst" id="name">이름<a
 							style="color: red; font-size: 15px;">*</a></label><input
-							class="nomal-text" type="text" name="userName" value ="<%=userName %>"readonly >
-						<label id="nameresult"></label>
+							class="nomal-text" type="text" name="userName"
+							value="<%=userName%>" readonly> <label id="nameresult"></label>
 					</div>
 					<br>
 
 					<div class="info-box2">
 						<label class="labelfirst" id="userId">아이디<a
 							style="color: red; font-size: 15px;">*</a></label><input
-							class="nomal-text" type="text" name="userId" value="<%=userId %>"readonly>
+							class="nomal-text" type="text" name="userId" value="<%=userId%>"
+							readonly>
 
 					</div>
-					
+
 					<br> <br>
 					<div class="info-box3">
-						<label class="labelfirst" id="userPwd">비밀번호<a
+						<label class="labelfirst">비밀번호<a
 							style="color: red; font-size: 15px;">*</a></label><input
-							class="nomal-text" type="password" name="userPwd">
+							class="nomal-text" type="password" 
+							placeholder="영어,숫자 포함해서 6글자 이상 입력하세요."
+							id="userPwd" name="userPwd">
 					</div>
+					<div id="pwdresult" style="font-size: 13px; float: right;"></div>
 					<br>
 
 					<div class="info-box4">
-						<label class="labelfirst" id="userPwd2">비밀번호 확인<a
+						<label class="labelfirst">비밀번호 확인<a
 							style="color: red; font-size: 15px;">*</a></label> <input
-							class="nomal-text" type="password" name="userPwd2">
-						<label id="pwdResult">sadaddssd</label>
+							class="nomal-text" type="password" placeholder="confirm password"
+							id="userPwd2" name="userPwd2">
 					</div>
+					<div id="pwdcheck" style="font-size: 13px; float: right;"></div>
+
+
 					<br> <br>
 					<div class="info-box5">
 						<label class="labelfirst">닉네임</label><input class="nomal-text"
-							type="text" name="nickName" value="<%=nickname %>>">
+							type="text" name="nickName" value="<%=nickname%>>">
 					</div>
 
 					<div class="info-box6">
 						<label class="labelfirst">휴대폰 번호</label>
 						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input
-							type="tel" id="Phone" name="phone" placeholder="(-없이)0123456789"value="<%=phone %>>" maxlength="11"
-							autocomplete="off">
+							type="tel" id="Phone" name="phone" placeholder="(-없이)0123456789"
+							value="<%=phone%>>" maxlength="11" autocomplete="off">
 
 					</div>
 
 					<div class="info-box7">
 						<label class="labelfirst">주소<a
 							style="color: red; font-size: 15px;">*</a></label> <input
-							class="nomal-text" type="text" name="address" value ="<%=address %>">
+							class="nomal-text" type="text" name="address"
+							value="<%=address%>">
 
 					</div>
 
 					<div class="info-box7">
 						<label class="labelfirst">이메일</label><input class="nomal-text"
-							type="text" name="email"value="<%=email%>>">
+							type="text" name="email" value="<%=email%>>">
 					</div>
 					<br>
-<!-- 
+					<!-- 
 					<div>
 						<div class="info-box8">
 							<div class="info-box8">
@@ -152,16 +168,23 @@ td {
 							class="" type="checkbox" name="price">확인 후, 동의하겠습니다.</label>
 					</div> -->
 
-				</div><!-- infobox 끝 -->
+				</div>
+				<!-- infobox 끝 -->
 				<br> <br> <br> <br>
 				<div class="submit-box" align="center">
-					<div id="goMain" onclick="goMain();">메인으로</div>
 					<!-- <div id="joinBtn" onclick="insertMember();">가입하기</div> -->
-					<div id ="updateBtn" onclick = "updateMember();">수정하기</div>
-					<br><br><br><br><br>
-					<div id = "deleteBtn" onclick = "deleteMember();"><a href="#">탈퇴하기</a></div>
-				</div><!-- submit-box 끝 -->
-			</div><!-- section 끝-->
+					<div id="updateBtn" onclick="updateMember();" style=>수정하기</div>
+					<br>
+					<div id="goMain" onclick="goMain();">메인으로</div>
+					<br>
+					<br>
+					<div id="deleteBtn" onclick="deleteMember();" style="background:gray; ">
+						<a href="#" style="color:white;">탈퇴하기</a>
+					</div>
+				</div>
+				<!-- submit-box 끝 -->
+			</div>
+			<!-- section 끝-->
 		</form>
 	</div>
 	<!-- container 끝-->
@@ -174,20 +197,42 @@ td {
 	//수정하기
 	function updateMember(){
 		$("#updateForm").submit();
-		arlert("서밋!");
+		window.alert("수정 성공");
 	}
 	
 	//탈퇴하기
 	function deleteMember(){
 		$("#updateForm").attr("action","<%=request.getContextPath()%>/delete.me");
-		
-		$("#updateForm").submit();
-	}
-	
-	
+
+			$("#updateForm").submit();
+			window.alert("탈퇴 성공");
+		}
+
+		//pwdcheck
+		$(function(){
+			$("#userPwd2").change(function() {
+
+				if ($('#userPwd').val() != $(this).val()) {
+					$('#pwdcheck').html('비밀번호 일치 x').css("color", 'red');
+					$('#userPwd2').val('');
+					$(this).focus();
+				} else {
+					$("#pwdcheck").html('비밀번호 일치').css("color", 'green');
+				}
+			})
+			$("#userPwd").change(function() {
+				if ($('#userPwd2').val() != $(this).val()) {
+					/* $('#pwdcheck').html('비밀번호 일치 x').css("color", 'red');
+					 */$('#userPwd2').val('');
+					$('#userPwd2').focus();
+				} else {
+					$('#pwdcheck').html('비밀번호 일치').css("color", 'green');
+				}
+			});
+		});
 	</script>
 
-<%@include file="../common/footer.jsp"%> 
+	<%@include file="../common/footer.jsp"%>
 
 </body>
 </html>

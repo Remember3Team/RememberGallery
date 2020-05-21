@@ -11,20 +11,40 @@
 	display: inline-block;
 	vertical-align: middle;
 	text-align: center;
-	background: red;
-	color: white;
-	height: 30px;
 	width: 100px;
+	padding: 7px;
+	border-style: none;
+	
 }
 
 #memberJoinBtn {
-	background: gray;
+	width: 86px;
+	background: black;
+	color: white;
+	font-size: 12px;
+	height: 17px;
+	border: 1px solid white;
 }
 
-#loginBtn:hover
-      #memberJoinBtn:hover, #logoutBtn:hover, #memberJoinBtn:hover,
+#loginBtn:hover, #memberJoinBtn:hover, #logoutBtn:hover, #memberJoinBtn:hover,
 	#myPage:hover {
 	cursor: pointer;
+	color:red;
+	
+}
+#LoginBtn input:hover {
+	color:red;'
+		
+}
+
+ a:hover {
+color:red;
+}
+
+#loginBtn {
+	background: red;
+	width: 100px;
+	
 }
 </style>
 
@@ -51,41 +71,48 @@
 
 	<%@include file="../common/menubar.jsp"%>
 	<!-- section1 -->
-	<div class="loginArea" style="background-color: darkgray; height: 600px;">
+	<div class="loginArea" style="background-color: #e9ecef; height: 600px;">
 		<%
 			if (loginUser == null) {
 		%>
 		<form method="get" action="<%=request.getContextPath()%>/login.me"
 			onsubmit="return validate();">
-			<br> <br> <br>
-			<h1 align="center" style="color: black;">로그인</h1>
+			<br> <br> <br> <br> <br>
+			<h1 align="center" style="color:#cc0000;">로그인</h1>
+			<br> <br>
 			<table class="inputinfo">
 				<tr>
-					<td><label>ID:</label>
+					<td><label></label>
 					<td>
-					<td><input type="text" name="userId" id="userId"></td>
+					<td><input type="text" name="userId" id="userId"
+						placeholder="ID" style="width: 200px; height: 30px;"></td>
 				</tr>
 				<tr>
-					<td><label>PW: </label>
+					<td><label></label>
 					<td>
-					<td><input type="password" name="userPwd" id="userPwd"></td>
+					<td><input type="password" name="userPwd" id="userPwd"
+						placeholder="PASSWORD" style="width: 200px; height: 30px;"></td>
 				</tr>
 			</table>
-
-			<div class="btns" align="center">
-				<div id="memberJoinBtn" onclick="memberJoin();">회원가입</div>
+			<br>
+			<div class="btns" align="center" >
+				<div id="memberJoinBtn" onclick="memberJoin();">
+					<span style="">회원가입</span>
+				</div>
 				<div id="LoginBtn" style="display: inline-block;">
 					<input type="submit" value="로그인">
 				</div>
-				<br>
-				<a href = "#">아이디 찾기</a>/<a href = "#">비밀번호 찾기</a>
+				
+				<div id="infofind" style="font-size:13px; padding:5px; " >
+					<a href="<%=request.getContextPath()%>/views/member/Forget/forgetInfo.jsp" style="color:black;">아이디 찾기/비밀번호 찾기</a>
+				</div>
 			</div>
 
 		</form>
 		<%
 			} else {
 		%>
-		
+
 		<%-- <div id="userInfo"
 			style="background-color: white; margin: 0 auto; float: right;">
 			<label><%=loginUser.getUserName()%>님의 방문을 환영합니다.</label>
@@ -100,22 +127,20 @@
 		<%
 			}
 		%>
-	</div><!-- loginArea 끝 -->
-		<script>
+	</div>
+	<!-- loginArea 끝 -->
+	<script>
 		function memberJoin(){
 			location.href="<%=request.getContextPath()%>/views/member/signUp.jsp";
 			}
 		function logout(){
 			location.href="<%=request.getContextPath()%>/logout.me";
 		}
-		
-		
-		$(function userInfo(){
-			
+
+		$(function userInfo() {
+
 		});
-		
-		
-		</script>
+	</script>
 
 
 	<%@include file="../common/footer.jsp"%>
