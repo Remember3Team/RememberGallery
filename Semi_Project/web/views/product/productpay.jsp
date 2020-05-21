@@ -1,19 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "product.model.vo.*, java.util.ArrayList, board.notice.model.vo.*"%>
+   pageEncoding="UTF-8" import = "product.model.vo.*,artistapply.model.vo.*, java.util.ArrayList"%>
     <%
-    	ArrayList<product> pay_List = (ArrayList<product>)request.getAttribute("pay_List");
+    	product po = (product)request.getAttribute("po");
+    ArrayList<Attachment> at = (ArrayList<Attachment>)request.getAttribute("at");
     %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <link rel="stylesheet" href="../css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/bootstrap.css">
-  
-<script src="../js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="../js/bootstrap.js"></script> 
+<!-- link rel="stylesheet" href="../css/style.css" -->
+ <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/style.css">
+ <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/bootstrap.css">
+<script src="<%=request.getContextPath() %>/views/js/jquery-3.4.1.min.js"></script>
+ <!— Swiper JS —>
+  <script src="<%=request.getContextPath() %>/views/js/swiper.min.js"></script>
+    <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/swiper.min.css">
+
+ 
+
+
 </head>
 <style>
 #order {
@@ -54,19 +62,20 @@
   <tbody>
       <tr>
       <th scope="row">
-      <img class="rimage"
-					src="${contextPath }/resources/images/slide3.jpg"
-					style="width: 126px; height: 115px;">
+       <%for(int i =0; i< at.size();i++){
+	  Attachment a = at.get(i);
+	  if(a.getFileLevel() == 0){%>
+      <img class="rimage" src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=a.getSavefileName()%>" style="width: 126px; height: 115px;">
+      <%}} %>
       </th>
-      <% for(product p : pay_List){ %>
-      <td ><a><%=p.getPaint_name() %></a></td>
+      <td ><a><%=po.getPaint_name() %></a></td>
       <td><a>1</a></td>
-      <td><a><%=p.getPatint_price() %></a></td>
+      <td><a><%=po.getPatint_price() %></a></td>
       <td><a>무료배송</a></td>
       <td><a>합계</a></td>
     </tr>
   </tbody>
-  <%} %>
+  
 </table>
 <br clear="both"><br>
 

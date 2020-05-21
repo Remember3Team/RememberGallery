@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import artistapply.model.dao.ApplyDao;
 import artistapply.model.vo.Apply;
 import artistapply.model.vo.Career;
+import mypage_artist.RefundQnACard.model.dao.ArtistDao;
+import product.model.vo.Attachment;
 
 import static common.JDBCTemplate.*;
 
@@ -27,5 +29,7 @@ public class ApplyService {
 		
 		return result2;
 	}
+
+	
 
 }

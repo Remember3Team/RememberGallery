@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import artistapply.model.vo.Apply;
 import product.model.dao.ProductDao;
 import product.model.vo.Attachment;
+import product.model.vo.Basket;
 import product.model.vo.masterpiece;
 import product.model.vo.product;
 
@@ -143,6 +144,40 @@ public class ProductService {
 		int result = new ProductDao().insertmasterpiece(conn, bWriter,paint_no);
 		
 		System.out.println(result);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+	public int deletemasterpiece(String bWriter, int paint_no) {
+		Connection conn = getConnection();
+		
+		int result = new ProductDao().deletemasterpiece(conn, bWriter,paint_no);
+		
+		System.out.println(result);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+	public int insertBasket(product po, String bWriter) {
+		Connection conn = getConnection();
+		
+		int result = 0;
+		
+		result = new ProductDao().insertBasket(conn,po,bWriter);
 		
 		if(result >0) {
 			commit(conn);

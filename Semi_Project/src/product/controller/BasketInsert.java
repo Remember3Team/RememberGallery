@@ -11,19 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import member.model.vo.Member;
 import product.model.service.ProductService;
-import product.model.vo.masterpiece;
+import product.model.vo.Basket;
+import product.model.vo.product;
 
 /**
- * Servlet implementation class insertmasterpieceServlet
+ * Servlet implementation class BasketInsert
  */
-@WebServlet("/insertmasterpiece.po")
-public class insertmasterpieceServlet extends HttpServlet {
+@WebServlet("/basket.po")
+public class BasketInsert extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public insertmasterpieceServlet() {
+    public BasketInsert() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,26 +34,34 @@ public class insertmasterpieceServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		
 		ProductService pService = new ProductService();
 		
 		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getUserId());
 		int paint_no = Integer.valueOf(request.getParameter("paint_no"));
-		
-		System.out.println(bWriter);
 		System.out.println(paint_no);
 		
-		int result = pService.insertmasterpiece(bWriter,paint_no);
+		product po = new product();
 		
+		po = pService.selectsearch(paint_no);
+		
+		Basket bs = new Basket();
+		System.out.println("po : " +po);
+		
+		int result =0;
+		result = pService.insertBasket(po,bWriter);
 		System.out.println(result);
 		
 		RequestDispatcher view = null;
 		if(result>0) {
 			view = request.getRequestDispatcher("views/product/productdetail.jsp");
 		}else {
-			System.out.println("게시판 조회 실패");
+			System.out.println("장바구니 실패");
 		}
-		
 		view.forward(request, response);
+		
+		
+		
 	}
 
 	/**

@@ -53,6 +53,8 @@ public class Apply implements Serializable {
 		this.career = career;
 	}
 
+
+
 	public String getUser_id() {
 		return user_id;
 	}

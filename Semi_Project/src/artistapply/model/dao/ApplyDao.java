@@ -2,11 +2,13 @@ package artistapply.model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import artistapply.model.vo.Apply;
 import artistapply.model.vo.Career;
+import product.model.vo.Attachment;
 
 import static common.JDBCTemplate.*;
 
@@ -70,5 +72,7 @@ public class ApplyDao {
 		
 		return result;
 	}
+	
+	
 
 }

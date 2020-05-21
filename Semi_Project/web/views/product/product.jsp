@@ -44,7 +44,7 @@
 }
 .mname {
 	width: 100%;
-	height: 50px;
+	height: 20px;
 	text-align: center;
 }
 .list{
@@ -54,7 +54,7 @@
 	float:left;
 
 }
-#buy{
+.buy{
 	margin-left:160px;
 
 }
@@ -73,8 +73,8 @@
             </tr>
                 <tr>
                 	<td></td>
-                    <td><b>작가 명</b><br><input type="text" id="aname" name="aname"></td>
-                    <td><b>테마</b><br><select name="category" id="category">
+                    <td><b>작가 명</b><br><input type="text" class="form-control" id="aname" name="aname" style="width:200px"></td>
+                    <td><b>테마</b><br><select name="category" id="category" class="form-control" style="width:200px">
                                 <option value="인물">인물</option>
                                 <option value="풍경">풍경</option> 
                                 <option value="정물">정물</option>
@@ -83,16 +83,14 @@
                                 <option value="팝아트">팝아트</option>
                                 <option value="오브제">오브제</option>
                     </select></td>
-                    <td></td>
-                    <td></td>
                     <td><b>가격</b><br>
-                    <input type="range" id="price" min="0" max="100000000" step="10000" value="0" name="price">
+                    <input type="range" class="form-control-range" min="0" max="100000000" step="10000" value="0" name="price" style="width:200px">
                     <br><div></div></td><!-- 가격이변하는걸 표현해줘야함. -->
                 </tr>
                 <tr>
                     <td></td>
                     <td></td>
-                    <td><button type="submit" id="submit" class="btn btn-dark">검색</button></td>
+                    <td><button type="submit" id="submit" class="btn btn-dark"  style="width:150px">검색</button></td>
                     <td></td>
                 </tr>
             </table>
@@ -120,13 +118,13 @@
 					<div class="mname" align="center">
 						<!-- 작가명-->
 						<p>작가명 :<%=p.getArtist_name() %></p>
-					</div><br>
+					</div>
 					
-						<button class="goDetail">상세보기</button>
-										
 						<!-- 상세정보보기로 이동 -->
-						<button id="buy" onclick="location.href='<%=request.getContextPath()%>/views/product/productpay.jsp'">구매하기</button>
-						<!-- 구매페이지로이동-->
+						<button type="button" class="btn btn-outline-dark" style="width:303px; heighht:20px;">상세보기</button><br><br>
+						
+						<!-- 구매페이지로이동-->					
+						<button class="btn btn-outline-secondary" style="width:303px; heighht:20px;">구매하기</button>
 					
 			</div>
 			<% } %>
@@ -134,13 +132,22 @@
                   
                   <script>
                   $(function(){
-				 		$(".goDetail").click(function(){
+				 		$(".btn-outline-dark").click(function(){
 				 			var paint_no = $(this).parent().children("input").val();
 				 			
 				 			location.href="<%=request.getContextPath()%>/detail.po?paint_no="+paint_no;
 				 		});
 				 		
 				 	});
+                  
+                  $(function(){
+                	  $(".btn-outline-secondary").click(function(){
+                		  var paint_no = $(this).parent().children("input").val();
+                		  
+                		  location.href="<%=request.getContextPath()%>/Buy.po?paint_no="+paint_no;
+                	  })
+                	  
+                  })
 				 	
 					</script>
 					

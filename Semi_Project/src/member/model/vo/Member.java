@@ -20,15 +20,15 @@ public class Member implements Serializable{
 	private String nickname;	//닉네임
 	private String accountGrade;//계정등급	
 	private int point;			//포인트
-	private Date enrollDate;	//가입일
-	private String DeleteYN;	//탈퇴여부
-	private String DeleteDate;	//탈퇴일
+	private String deleteYN;	//탈퇴여부
+	private String deleteDate;	//탈퇴일
 	private int cash;			//캐쉬
+	private Date enrollDate;	//가입일
 	public Member() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	
 	
 	public Member(String userId, String userPwd) {
@@ -52,8 +52,8 @@ public class Member implements Serializable{
 	}
 
 	public Member(String userId, String grade, String userName, String userPwd, String email, String phone,
-			String address, String nickname, String accountGrade, int point, Date enrollDate, String deleteYN,
-			String deleteDate, int cash) {
+			String address, String nickname, String accountGrade, int point, String deleteYN, String deleteDate,
+			int cash, Date enrollDate) {
 		super();
 		this.userId = userId;
 		this.grade = grade;
@@ -65,10 +65,10 @@ public class Member implements Serializable{
 		this.nickname = nickname;
 		this.accountGrade = accountGrade;
 		this.point = point;
-		this.enrollDate = enrollDate;
-		DeleteYN = deleteYN;
-		DeleteDate = deleteDate;
+		this.deleteYN = deleteYN;
+		this.deleteDate = deleteDate;
 		this.cash = cash;
+		this.enrollDate = enrollDate;
 	}
 	public String getUserId() {
 		return userId;
@@ -130,29 +130,29 @@ public class Member implements Serializable{
 	public void setPoint(int point) {
 		this.point = point;
 	}
-	public Date getEnrollDate() {
-		return enrollDate;
-	}
-	public void setEnrollDate(Date enrollDate) {
-		this.enrollDate = enrollDate;
-	}
 	public String getDeleteYN() {
-		return DeleteYN;
+		return deleteYN;
 	}
 	public void setDeleteYN(String deleteYN) {
-		DeleteYN = deleteYN;
+		this.deleteYN = deleteYN;
 	}
 	public String getDeleteDate() {
-		return DeleteDate;
+		return deleteDate;
 	}
 	public void setDeleteDate(String deleteDate) {
-		DeleteDate = deleteDate;
+		this.deleteDate = deleteDate;
 	}
 	public int getCash() {
 		return cash;
 	}
 	public void setCash(int cash) {
 		this.cash = cash;
+	}
+	public Date getEnrollDate() {
+		return enrollDate;
+	}
+	public void setEnrollDate(Date enrollDate) {
+		this.enrollDate = enrollDate;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -161,19 +161,12 @@ public class Member implements Serializable{
 	public String toString() {
 		return "Member [userId=" + userId + ", grade=" + grade + ", userName=" + userName + ", userPwd=" + userPwd
 				+ ", email=" + email + ", phone=" + phone + ", address=" + address + ", nickname=" + nickname
-				+ ", accountGrade=" + accountGrade + ", point=" + point + ", enrollDate=" + enrollDate + ", DeleteYN="
-				+ DeleteYN + ", DeleteDate=" + DeleteDate + ", cash=" + cash + "]";
+				+ ", accountGrade=" + accountGrade + ", point=" + point + ", deleteYN=" + deleteYN + ", deleteDate="
+				+ deleteDate + ", cash=" + cash + ", enrollDate=" + enrollDate + "]";
 	}
 
-	
-	
-	
-	
-	
-	
+
 }
-
-
 
 
 

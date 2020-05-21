@@ -595,7 +595,6 @@ public class ProductDao {
 										rset.getString("PAINT_INT"),
 										rset.getString("PAINT_MDATE"),
 										rset.getInt("SIZE_NO"));
-
 			}
 			
 		} catch (SQLException e) {
@@ -755,6 +754,57 @@ public class ProductDao {
 		
 		System.out.println(result);
 		
+		return result;
+	}
+
+	public int deletemasterpiece(Connection conn, String bWriter, int paint_no) {
+		PreparedStatement pstmt = null;
+
+		int result = 0;
+
+		String query = "DELETE FROM MASTERPIECE WHERE USER_ID=? ";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, bWriter);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		System.out.println(result);
+		
+		return result;
+	}
+
+	public int insertBasket(Connection conn, product po, String bWriter) {
+		PreparedStatement pstmt = null;
+
+		int result = 0;
+		
+		String query = "INSERT INTO BASKET VALUES(SEQ_BSK.NEXTVAL,?,?,?,?,'N')";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1,po.getPaint_name());
+			pstmt.setInt(2, po.getPatint_price());
+			pstmt.setString(3, bWriter);
+			pstmt.setInt(4, po.getPaint_no());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println(result);
 		return result;
 	}
 }

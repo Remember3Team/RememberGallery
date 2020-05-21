@@ -1,6 +1,8 @@
 package product.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,8 +40,19 @@ public class deletemasterpieceServlet extends HttpServlet {
 		System.out.println(bWriter);
 		System.out.println(paint_no);
 
+		int result = pService.deletemasterpiece(bWriter,paint_no);
 		
+		System.out.println(result);
 		
+		RequestDispatcher view = null;
+
+		if(result>0) {
+			view = request.getRequestDispatcher("views/product/productdetail.jsp");
+		}else {
+			System.out.println("게시판 조회 실패");
+		}
+		
+		view.forward(request, response);
 	}
 
 	/**
