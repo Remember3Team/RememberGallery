@@ -1,10 +1,10 @@
-CREATE SEQUENCE SEQ_PID START WITH 1; --PAINT ÄÃ·³¿¡»ç¿ë
-CREATE SEQUENCE SEQ_PNO START WITH 1; -- PAINT_PHOTO ÄÃ·³¿¡»ç¿ë
+CREATE SEQUENCE SEQ_PID START WITH 1; --PAINT ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+CREATE SEQUENCE SEQ_PNO START WITH 1; -- PAINT_PHOTO ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
-  CREATE OR REPLACE FORCE VIEW "SEMI"."V_GALLERY" ("ÀÛÇ°¹øÈ£", "ÀÛÇ°ÀÌ¸§", "ÀÛÇ°°¡°Ý", "Ä«Å×°í¸®", "ÀÛ°¡ÀÌ¸§", "ÀÛÇ°¼Ò°³", "ÀÛÇ°Á¦ÀÛ³âµµ", "»çÀÌÁî¹øÈ£", "ÁÁ¾Æ¿ä", "ÀÛ°¡¾ÆÀÌµð") AS 
-  SELECT P.PAINT_NO ÀÛÇ°¹øÈ£ ,PAINT_NAME ÀÛÇ°ÀÌ¸§,PAINT_PRICE ÀÛÇ°°¡°Ý,CATEGORY Ä«Å×°í¸®,ARTIST_NAME ÀÛ°¡ÀÌ¸§,PAINT_INT ÀÛÇ°¼Ò°³
-            ,PAINT_MDATE ÀÛÇ°Á¦ÀÛ³âµµ, SIZE_NO »çÀÌÁî¹øÈ£, LIKES ÁÁ¾Æ¿ä, M.USER_ID ÀÛ°¡¾ÆÀÌµð
+  CREATE OR REPLACE FORCE VIEW "SEMI"."V_GALLERY" ("ï¿½ï¿½Ç°ï¿½ï¿½È£", "ï¿½ï¿½Ç°ï¿½Ì¸ï¿½", "ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½", "Ä«ï¿½×°ï¿½", "ï¿½Û°ï¿½ï¿½Ì¸ï¿½", "ï¿½ï¿½Ç°ï¿½Ò°ï¿½", "ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Û³âµµ", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£", "ï¿½ï¿½ï¿½Æ¿ï¿½", "ï¿½Û°ï¿½ï¿½ï¿½ï¿½Ìµï¿½") AS 
+  SELECT P.PAINT_NO ï¿½ï¿½Ç°ï¿½ï¿½È£ ,PAINT_NAME ï¿½ï¿½Ç°ï¿½Ì¸ï¿½,PAINT_PRICE ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½,CATEGORY Ä«ï¿½×°ï¿½,ARTIST_NAME ï¿½Û°ï¿½ï¿½Ì¸ï¿½,PAINT_INT ï¿½ï¿½Ç°ï¿½Ò°ï¿½
+            ,PAINT_MDATE ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Û³âµµ, SIZE_NO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£, LIKES ï¿½ï¿½ï¿½Æ¿ï¿½, M.USER_ID ï¿½Û°ï¿½ï¿½ï¿½ï¿½Ìµï¿½
     FROM PAINT P
     JOIN MASTERPIECE M ON (P.PAINT_NO = M.PAINT_NO)
     JOIN MEMBER ME ON (M.USER_ID = ME.USER_ID);

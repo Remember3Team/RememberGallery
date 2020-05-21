@@ -125,7 +125,7 @@ ul li ul li:hover{
 			<li><a href="#">NOTICE</a>
 				<ul>
 					<li><a href="<%=request.getContextPath()%>/list.no">공지사항</a></li>
-					<li><a href="<%=request.getContextPath()%>/views/board/inquiry/inquiryBoard.jsp">1:1문의</a></li>
+					<li><a href="<%=request.getContextPath()%>/list.in">1:1문의</a></li>
 				</ul></li>
 			<%if(loginUser != null){ %>
 			<li><a href="#">TEST</a> 

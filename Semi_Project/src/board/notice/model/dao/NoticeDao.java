@@ -77,8 +77,9 @@ public class NoticeDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
+		Notice n = new Notice();
 		ArrayList<Notice> list = new ArrayList<>();
-		
+		list.add(n);
 		String query = "SELECT * FROM NOTICE_VIEW WHERE RNUM BETWEEN ? AND ?";
 		int startRow = (currentPage -1)*limit +1;
 		int endRow = startRow + limit -1;
@@ -92,7 +93,7 @@ public class NoticeDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				Notice n = new Notice(rset.getInt("RNUM"),
+				n = new Notice(rset.getInt("RNUM"),
 									  rset.getString("NOTI_TITLE"),
 									  rset.getString("NOTI_CATE"),
 									  rset.getDate("NOTI_DATE"),
