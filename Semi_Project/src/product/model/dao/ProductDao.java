@@ -675,7 +675,6 @@ public class ProductDao {
 		return plist;
 	}
 
-
 	public ArrayList<product> payList(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;

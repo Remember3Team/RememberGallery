@@ -122,7 +122,6 @@ public class ProductService {
 		return plist;
 	}
 
-
 	public ArrayList<product> payList() {
 		Connection conn = getConnection();
 		

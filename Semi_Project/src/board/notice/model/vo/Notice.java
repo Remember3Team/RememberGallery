@@ -16,7 +16,13 @@ public class Notice implements Serializable{
 	private Date noti_date;			//게시일
 	private String notice;			//게시글 내용
 	
-	public Notice() {}
+	public Notice() {
+		int noti_no; 			//게시판 번호
+		String noti_title;		//게시판 제목
+		String noti_cate; 		//게시판 구분
+		Date noti_date;			//게시일
+		String notice;			//게시글 내용
+	}
 
 	//게시글 작성 시 필요한 생성자(사용자는 게시판 제목과 게시글 내용만 작성)
 	public Notice(String noti_title, String notice) {
