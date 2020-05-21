@@ -3,13 +3,6 @@
     <%
     	ArrayList<Mypage_artist> OM_list = (ArrayList<Mypage_artist>)request.getAttribute("OM_list");
     	ArrayList<Mypage_artist> search_list = (ArrayList<Mypage_artist>)request.getAttribute("search_list");
-    	PageInfo pi = (PageInfo)request.getAttribute("pi");
-    	
-    	int listCount = pi.getListCount();
-    	int currentPage = pi.getCurrentPage();
-    	int maxPage = pi.getMaxPage();
-    	int startPage = pi.getStartPage();
-    	int endPage = pi.getEndPage();
     %>
 <!DOCTYPE html>
 <html>
@@ -68,7 +61,7 @@
                     <input type="date" name="calendar1"> ~
                     <input type="date" name="calendar2">
                 </div>
-                <button type="submit" class="btn btn-dark" style="width:70px">조회</button>s
+                <button type="submit" class="btn btn-dark" style="width:70px">조회</button>
             </div>
 
         </form>

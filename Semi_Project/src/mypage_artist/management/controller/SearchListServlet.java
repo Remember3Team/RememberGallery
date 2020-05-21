@@ -35,9 +35,11 @@ public class SearchListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		
+		
 		request.setCharacterEncoding("utf-8");
 		
-		Mypage_ArtistService ma = new Mypage_ArtistService();
+		Mypage_ArtistService mya = new Mypage_ArtistService();
 		
 		String order_status = request.getParameter("order_status");
 		String term = request.getParameter("term");
@@ -55,7 +57,7 @@ public class SearchListServlet extends HttpServlet {
 		
 		ArrayList<Mypage_artist> search_list = new ArrayList<>();
 		
-		search_list = ma.listSearch(order_status, term, calendar1, calendar2, bWriter);
+		search_list = mya.listSearch(order_status, term, calendar1, calendar2, bWriter);
 		System.out.println(search_list);
 		
 		RequestDispatcher view = null;
