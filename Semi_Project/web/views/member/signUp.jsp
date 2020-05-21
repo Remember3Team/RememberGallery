@@ -86,12 +86,10 @@ td {
 					<br> <br>
 
 					<div class="info-box3">
-
 						<label class="labelfirst">비밀번호<a
 							style="color: red; font-size: 15px;">*</a></label> <input
 							class="nomal-text" type="password" id="userPwd" name="userPwd"
 							placeholder="PASSWORD" required>
-
 					</div>
 					<div id="pwdresult" style="font-size: 13px; float: right;">영어,숫자
 						포함해서 6글자 이상 입력하세요.</div>
@@ -155,12 +153,10 @@ td {
 						</table> -->
 
 					<div class="info-box7">
-
 						<label class="labelfirst">이메일<a
 							style="color: red; font-size: 15px;">*</a></label><input
 							class="nomal-text" type="email" name="email"
 							placeholder="@ 포함한 이메일 기재" required>
-
 					</div>
 					<br>
 					<!-- 
@@ -202,19 +198,11 @@ td {
 	</div>
 	<!-- container 끝-->
 
-
-<input type= "hidden" name ="checked_id" value="">
-
 	<script>
 	
-	$("#idCheck").click(function(){
-		
 
-		});
-
-		function goMain() {
-			location.href = "
-	<%=request.getContextPath()%>/index.jsp";
+	function goMain() {
+			location.href = "<%=request.getContextPath()%>/index.jsp";
 	}
 	
 	function insertMember(){
