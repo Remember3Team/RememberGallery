@@ -38,7 +38,6 @@ public class inquiryListServlet extends HttpServlet {
 		
 		int listCount = inService.getListCount();
 		
-		Inquiry in = new Inquiry();
 		
 		int currentPage;		// 현재 페이지를 저장할 변수
 		int limit;				// 한 페이지에 보여질 게시글 수
@@ -50,7 +49,8 @@ public class inquiryListServlet extends HttpServlet {
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.valueOf(request.getParameter("currentPage"));	
 		}
-		System.out.println("currentPage:"+currentPage);
+		
+//		System.out.println("currentPage:"+currentPage);
 		limit = 10;
 		maxPage = (int)((double)listCount/limit+0.9);
 		startPage = (((int)((double)currentPage/limit+0.9))-1)*limit+1;
@@ -63,6 +63,9 @@ public class inquiryListServlet extends HttpServlet {
 
 		ArrayList<Inquiry> list = inService.selectList(currentPage,limit);
 		
+		for(int i = 0;i<list.size();i++) {
+			System.out.println(list.get(i));
+		}
 		RequestDispatcher view = null;
 		
 		if(!list.isEmpty()) {

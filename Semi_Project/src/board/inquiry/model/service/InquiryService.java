@@ -1,10 +1,7 @@
 package board.inquiry.model.service;
 
-import static common.JDBCTemplate.close;
-import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.*;
 import static common.JDBCTemplate.getConnection;
-import static common.JDBCTemplate.rollback;
-
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -26,10 +23,28 @@ public class InquiryService {
 		Connection conn = getConnection();
 		
 		ArrayList<Inquiry> list = new InquiryDao().selectList(conn,currentPage, limit);
-		System.out.println("[NoticeService]selectList출력-"+list);
+		System.out.println("[InquiryService]selectList출력-"+list);
 		
 		close(conn);
 		return list;
+	}
+
+	public ArrayList<Inquiry> insertQuestion(Inquiry in,int currentPage, int limit) {
+		Connection conn = getConnection();
+		InquiryDao inDao = new InquiryDao();
+		
+		int result = inDao.insertQuestion(conn,in);
+		ArrayList<Inquiry> inList = null;
+		System.out.println("[service]문의 인서트 결과값:"+result);
+		if(result>0) {
+			commit(conn);
+			inList = selectList(currentPage,limit);
+			System.out.println("[service]문의 인서트 결과값:"+inList);
+		}
+
+		
+		
+		return inList;
 	}
 
 	

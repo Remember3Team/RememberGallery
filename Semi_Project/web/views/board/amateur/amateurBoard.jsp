@@ -69,7 +69,7 @@
 			              </div><!-- class card-body end -->
 			              
 			              <div class="card-footer">
-			                <img class="emptyHeart" onclick="heartCheck();" src="<%=request.getContextPath() %>/views/img/emptyHeart.png">
+			                <img class="Heart" src="<%=request.getContextPath() %>/views/img/emptyHeart.png">
 		              	  	
 		              	  </div><!-- class card-footer end -->
 		            </div><!-- class card end -->
@@ -115,9 +115,21 @@ $(function(){
 		location.href="<%=request.getContextPath()%>/detail.am?event_no="+event_no;
 				
 	})
+	$(".Heart").click(function(){
+        var heart = $(".Heart").attr('src');
+        var hState;
+        if(heart=='emptyHeart.png'){
+            $(".Heart").attr('src',"<%=request.getContextPath() %>/views/img/colorHeart.png");
+            hState = 'Y';
+        }
+        if(heart=='colorHeart.png'){
+            $(".Heart").attr('src',"<%=request.getContextPath() %>/views/img/emptyHeart.png");
+            hState= 'N';
+        }
+    });
 })
 //하트 변경
-function heartCheck(){
+<%-- function heartCheck(){
 	var heart = document.getElementsByClassName("emptyHeart");
 	if(heart.src.match("colorHeart")){
 		heart.src="<%=request.getContextPath() %>/views/img/emptyHeart.png"
@@ -126,6 +138,6 @@ function heartCheck(){
 		heart.src="<%=request.getContextPath() %>/views/img/colorHeart.png"
 		var heartYN = 'Y';		
 	}
-}
+} --%>
 </script>
 </html>

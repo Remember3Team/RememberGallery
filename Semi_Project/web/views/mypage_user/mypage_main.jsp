@@ -42,7 +42,7 @@
                 <thead>
                 <tr>
                     <th>주문 번호</th>
-                    <th>이미지</th>
+                    <th>그림</th>
                     <th>상품명</th>
                     <th>금액</th>
                     <th>주문일자</th>

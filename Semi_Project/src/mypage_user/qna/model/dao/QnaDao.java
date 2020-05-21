@@ -52,7 +52,7 @@ public class QnaDao {
 		
 		ArrayList<Qna> list2 = new ArrayList<>();
 		
-		String query = "SELECT Q_CATE,QEUSTION,Q_DATE,Q_YN FROM QUESTION WHERE USER_ID=?";
+		String query = "SELECT Q_CATE,QUESTION_TITLE,Q_DATE,Q_YN FROM QUESTION WHERE USER_ID=?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -61,7 +61,7 @@ public class QnaDao {
 			
 			while(rset.next()) {
 				Qna qna = new Qna(rset.getString("Q_CATE"),
-						  rset.getString("QEUSTION"),
+						  rset.getString("QUESTION_TITLE"),
 						  rset.getDate("Q_DATE"),
 						  rset.getString("Q_YN"));
 				list2.add(qna);

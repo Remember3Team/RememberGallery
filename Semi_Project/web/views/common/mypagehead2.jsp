@@ -20,7 +20,7 @@
             <li><a href="<%= request.getContextPath() %>/views/mypage_user/mypage_info.jsp">회원 정보</a></li><a>|</a>
             <%-- 파라미터에 MENU=ORDER일때 주문내역 --%>
             <li><a href="<%= request.getContextPath() %>/Mo.li?menu=order">주문 내역</a></li><a>|</a>
-            <li><a href="<%= request.getContextPath() %>/Refund.li">반품/환불</a></li><a>|</a>
+            <li><a href="<%= request.getContextPath() %>/Refund.li">취소/환불</a></li><a>|</a>
             <li><a href="<%= request.getContextPath() %>/Wishlist">장바구니</a></li><a>|</a>
             <li><a href="<%= request.getContextPath() %>/qna">문의 내역</a></li>
         </ul>

@@ -44,6 +44,7 @@
 		<div id="noticeList" class="row" style="display:block">
 			
 			<!-- Notice 게시판 Logo -->
+			
 			<div class="headLine">
 				<hr style="display:inline-block;">
 				<h3 style="font-size:20px;">Notice</h3>

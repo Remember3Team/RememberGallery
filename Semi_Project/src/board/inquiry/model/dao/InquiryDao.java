@@ -45,8 +45,8 @@ public class InquiryDao {
 		
 		Inquiry in = new Inquiry();
 		ArrayList<Inquiry> list = new ArrayList<>();
-		list.add(in);
-		String query = "SELECT * FROM QUESTION WHERE Q_NO BETWEEN ? AND ?";
+//		list.add(in);
+		String query = "SELECT * FROM Q_VIEW WHERE RNUM BETWEEN ? AND ?";
 		int startRow = (currentPage -1)*limit +1;
 		int endRow = startRow + limit -1;
 		
@@ -59,13 +59,13 @@ public class InquiryDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				in = new Inquiry(rset.getInt("Q_NO"),
-									  rset.getString("USER_ID"),
-									  rset.getDate("Q_DATE"),
-									  rset.getString("Q_CATE"),
-									  rset.getString("QUESTION"),
-									  rset.getString("Q_YN"),
-									  rset.getString("QUESTION_TITLE"));
+				in = new Inquiry(rset.getInt("rnum"),
+									  rset.getString("user_id"),
+									  rset.getDate("q_date"),
+									  rset.getString("q_cate"),
+									  rset.getString("qeustion"),
+									  rset.getString("q_yn"),
+									  rset.getString("question_title"));
 				list.add(in);
 			}
 			
@@ -78,5 +78,30 @@ public class InquiryDao {
 		
 		return list;
 	}
+
+	public int insertQuestion(Connection conn, Inquiry in) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "INSERT INTO QUESTION VALUES(Q_SEQ.NEXTVAL,?,SYSDATE,?,?,'N',?)";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, in.getUser_id());
+			pstmt.setString(2, in.getQ_cate());
+			pstmt.setString(3, in.getQuestion_title());
+			pstmt.setString(4, in.getQuestion());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 }

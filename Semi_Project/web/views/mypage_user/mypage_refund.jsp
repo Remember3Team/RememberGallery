@@ -78,7 +78,7 @@
             	<thead>
                 <tr>
                     <th>주문 번호</th>
-                    <th>이미지</th>
+                    <th>그림</th>
                     <th>상품정보</th>
                     <th>금액</th>
                     <th>처리상태</th>

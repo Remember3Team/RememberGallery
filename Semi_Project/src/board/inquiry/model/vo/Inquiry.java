@@ -9,13 +9,22 @@ public class Inquiry {
 	private String q_cate;
 	private String question;
 	private String q_yn;
-	private String queistion_title;
+	private String question_title;
 	public Inquiry() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Inquiry(String user_id, String q_cate, String question, String question_title) {
+		super();
+		this.user_id = user_id;
+		this.q_cate = q_cate;
+		this.question = question;
+		this.question_title = question_title;
+	}
+
 	public Inquiry(int q_no, String user_id, Date q_date, String q_cate, String question, String q_yn,
-			String queistion_title) {
+			String question_title) {
 		super();
 		this.q_no = q_no;
 		this.user_id = user_id;
@@ -23,7 +32,7 @@ public class Inquiry {
 		this.q_cate = q_cate;
 		this.question = question;
 		this.q_yn = q_yn;
-		this.queistion_title = queistion_title;
+		this.question_title = question_title;
 	}
 	public int getQ_no() {
 		return q_no;
@@ -61,19 +70,17 @@ public class Inquiry {
 	public void setQ_yn(String q_yn) {
 		this.q_yn = q_yn;
 	}
-	public String getQueistion_title() {
-		return queistion_title;
+	public String getQuestion_title() {
+		return question_title;
 	}
-	public void setQueistion_title(String queistion_title) {
-		this.queistion_title = queistion_title;
+	public void setQuestion_title(String question_title) {
+		this.question_title = question_title;
 	}
 	@Override
 	public String toString() {
 		return "Inquiry [q_no=" + q_no + ", user_id=" + user_id + ", q_date=" + q_date + ", q_cate=" + q_cate
-				+ ", question=" + question + ", q_yn=" + q_yn + ", queistion_title=" + queistion_title + "]";
+				+ ", question=" + question + ", q_yn=" + q_yn + ", question_title=" + question_title + "]";
 	}
-
-	
-	
+		
 
 }

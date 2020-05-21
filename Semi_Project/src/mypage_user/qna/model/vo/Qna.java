@@ -13,10 +13,10 @@ public class Qna {
 	
 	//1:1문의
 	private String qCate;		// 1:1 문의내역 카테고리
-	private String question;	// 1:1 질문
+	private String questionTitle;	// 1:1 질문
 	private Date qDate;			// 1:1 문의 날짜
 	private String qYN;			// 답변여부
-	
+
 	
 	
 	
@@ -29,8 +29,12 @@ public class Qna {
 
 
 
+	
+
+
+	//전체
 	public Qna(String orderNo, String paintName, String pQuestion, Date pQdate, String pqYN, String qCate,
-			String question, Date qDate, String qYN) {
+			String questionTitle, Date qDate, String qYN) {
 		super();
 		this.orderNo = orderNo;
 		this.paintName = paintName;
@@ -38,10 +42,15 @@ public class Qna {
 		this.pQdate = pQdate;
 		this.pqYN = pqYN;
 		this.qCate = qCate;
-		this.question = question;
+		this.questionTitle = questionTitle;
 		this.qDate = qDate;
 		this.qYN = qYN;
 	}
+
+
+
+
+
 
 
 
@@ -60,13 +69,19 @@ public class Qna {
 
 
 	//1:1 문의
-	public Qna(String qCate, String question, Date qDate, String qYN) {
+	public Qna(String qCate, String questionTitle, Date qDate, String qYN) {
 		super();
 		this.qCate = qCate;
-		this.question = question;
+		this.questionTitle = questionTitle;
 		this.qDate = qDate;
 		this.qYN = qYN;
 	}
+
+
+
+
+
+	
 
 
 
@@ -80,9 +95,15 @@ public class Qna {
 
 
 
+
+
+
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
+
+
+
 
 
 
@@ -96,9 +117,15 @@ public class Qna {
 
 
 
+
+
+
 	public void setPaintName(String paintName) {
 		this.paintName = paintName;
 	}
+
+
+
 
 
 
@@ -112,9 +139,15 @@ public class Qna {
 
 
 
+
+
+
 	public void setpQuestion(String pQuestion) {
 		this.pQuestion = pQuestion;
 	}
+
+
+
 
 
 
@@ -128,9 +161,15 @@ public class Qna {
 
 
 
+
+
+
 	public void setpQdate(Date pQdate) {
 		this.pQdate = pQdate;
 	}
+
+
+
 
 
 
@@ -144,9 +183,15 @@ public class Qna {
 
 
 
+
+
+
 	public void setPqYN(String pqYN) {
 		this.pqYN = pqYN;
 	}
+
+
+
 
 
 
@@ -160,6 +205,9 @@ public class Qna {
 
 
 
+
+
+
 	public void setqCate(String qCate) {
 		this.qCate = qCate;
 	}
@@ -168,17 +216,26 @@ public class Qna {
 
 
 
-	public String getQuestion() {
-		return question;
+
+
+
+	public String getQuestionTitle() {
+		return questionTitle;
 	}
 
 
 
 
 
-	public void setQuestion(String question) {
-		this.question = question;
+
+
+
+	public void setQuestionTitle(String questionTitle) {
+		this.questionTitle = questionTitle;
 	}
+
+
+
 
 
 
@@ -192,9 +249,15 @@ public class Qna {
 
 
 
+
+
+
 	public void setqDate(Date qDate) {
 		this.qDate = qDate;
 	}
+
+
+
 
 
 
@@ -208,6 +271,9 @@ public class Qna {
 
 
 
+
+
+
 	public void setqYN(String qYN) {
 		this.qYN = qYN;
 	}
@@ -216,18 +282,16 @@ public class Qna {
 
 
 
+
+
+
 	@Override
 	public String toString() {
 		return "Qna [orderNo=" + orderNo + ", paintName=" + paintName + ", pQuestion=" + pQuestion + ", pQdate="
-				+ pQdate + ", pqYN=" + pqYN + ", qCate=" + qCate + ", question=" + question + ", qDate=" + qDate
-				+ ", qYN=" + qYN + "]";
+				+ pQdate + ", pqYN=" + pqYN + ", qCate=" + qCate + ", questionTitle=" + questionTitle + ", qDate="
+				+ qDate + ", qYN=" + qYN + "]";
 	}
-	
-	
-	
-	
-	
-	
+
 	
 }
 
