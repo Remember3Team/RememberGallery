@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import artistapply.model.vo.Apply;
 import product.model.vo.Attachment;
+import product.model.vo.MasterpieceCount;
 import product.model.vo.masterpiece;
 import product.model.vo.product;
 
@@ -595,7 +596,6 @@ public class ProductDao {
 										rset.getString("PAINT_INT"),
 										rset.getString("PAINT_MDATE"),
 										rset.getInt("SIZE_NO"));
-
 			}
 			
 		} catch (SQLException e) {
@@ -674,7 +674,6 @@ public class ProductDao {
 		
 		return plist;
 	}
-
 
 	public ArrayList<product> payList(Connection conn) {
 		PreparedStatement pstmt = null;
@@ -757,5 +756,129 @@ public class ProductDao {
 		System.out.println(result);
 		
 		return result;
+	}
+
+	public int deletemasterpiece(Connection conn, String bWriter, int paint_no) {
+		PreparedStatement pstmt = null;
+
+		int result = 0;
+
+		String query = "DELETE FROM MASTERPIECE WHERE USER_ID=? AND PAINT_NO =?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, bWriter);
+			pstmt.setInt(2, paint_no);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		System.out.println(result);
+		
+		return result;
+	}
+
+	public int insertBasket(Connection conn, product po, String bWriter) {
+		PreparedStatement pstmt = null;
+
+		int result = 0;
+		
+		String query = "INSERT INTO BASKET VALUES(SEQ_BSK.NEXTVAL,?,?,?,?,'N')";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1,po.getPaint_name());
+			pstmt.setInt(2, po.getPatint_price());
+			pstmt.setString(3, bWriter);
+			pstmt.setInt(4, po.getPaint_no());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println(result);
+		return result;
+	}
+
+	public masterpiece selectMasterpiece(Connection conn, String bWriter, int paint_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		masterpiece ma = new masterpiece();
+		
+		String query ="SELECT * FROM MASTERPIECE WHERE USER_ID=? AND PAINT_NO=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1,bWriter);
+			pstmt.setInt(2, paint_no);
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				ma = new masterpiece(rset.getInt("PAINT_NO"),
+						rset.getString("USER_ID"));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println(ma);
+		return ma;
+	}
+
+	public int selectMasterpiece2(Connection conn, int paint_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count =0;
+		String query="SELECT COUNT(*)좋아요수 FROM MASTERPIECE WHERE PAINT_NO = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, paint_no);
+			
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				count = rset.getInt("좋아요수");
+									}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		System.out.println("좋아요 갯수"+count);
+		return count;
+	}
+
+	public MasterpieceCount countMasterpiece(Connection conn, int paint_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		MasterpieceCount mc = new MasterpieceCount();
+		String query = "SELECT COUNT(*)좋아요수 FROM MASTERPIECE WHERE PAINT_NO = ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, paint_no);
+			
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				mc = new MasterpieceCount(rset.getInt("좋아요수"));
+									}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+	
+		return mc;
 	}
 }

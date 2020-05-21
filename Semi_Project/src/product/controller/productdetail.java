@@ -11,8 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import artistapply.model.vo.Apply;
+import member.model.vo.Member;
 import product.model.service.ProductService;
 import product.model.vo.Attachment;
+import product.model.vo.MasterpieceCount;
+import product.model.vo.masterpiece;
 import product.model.vo.product;
 
 /**
@@ -37,7 +40,7 @@ public class productdetail extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		ProductService pService = new ProductService();
 		
-		int paint_no = Integer.valueOf(request.getParameter("paint_no"));
+		int paint_no = Integer.valueOf(request.getParameter("paint_no")); //작품번호
 		System.out.println(paint_no);
 		
 		product plist = new product();
@@ -58,8 +61,25 @@ public class productdetail extends HttpServlet {
 		sizelist = pService.selectsize();
 		
 		System.out.println(sizelist);
+		String bWriter ="";
+		if(((Member) request.getSession().getAttribute("loginUser")) != null){
+		bWriter = (((Member) request.getSession().getAttribute("loginUser")).getUserId()); //아이디
+		}
+		
+		System.out.println(bWriter);
+		
+		masterpiece mp = new masterpiece();
+		if(bWriter != null) {
+		mp = pService.selectMasterpiece(paint_no,bWriter);
+		}
+		System.out.println(mp);
+		
+		MasterpieceCount mc = new MasterpieceCount();
+		mc = pService.countMasterpiece(paint_no);
+		
 		
 		RequestDispatcher view = null;
+		
 		if(plist != null && alist != null && !sizelist.isEmpty()) {
 			view = request.getRequestDispatcher("views/product/productdetail.jsp");
 			
@@ -67,6 +87,8 @@ public class productdetail extends HttpServlet {
 			request.setAttribute("alist", alist);
 			request.setAttribute("sizelist", sizelist);
 			request.setAttribute("aplly", apply);
+			request.setAttribute("mp",mp);
+			request.setAttribute("mc", mc);
 		}else {
 			System.out.println("상품내용 조회 실패");
 		}

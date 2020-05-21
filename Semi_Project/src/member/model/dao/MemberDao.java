@@ -48,8 +48,8 @@ public class MemberDao {
 				loginMember = new Member(rset.getString("USER_ID"), rset.getString("GRADE"),
 						rset.getString("USER_NAME"), rset.getString("USER_PWD"), rset.getString("EMAIL"),
 						rset.getString("PHONE"), rset.getString("ADDRESS"), rset.getString("NICKNAME"),
-						rset.getString("ACCOUNT_GRADE"), rset.getInt("POINT"), rset.getDate("ENROLL_DATE"),
-						rset.getString("DELETE_YN"), rset.getString("DELETE_DATE"), rset.getInt("CASH"));
+						rset.getString("ACCOUNT_GRADE"), rset.getInt("POINT"),
+						rset.getString("DELETE_YN"), rset.getString("DELETE_DATE"), rset.getInt("CASH"), rset.getDate("ENROLL_DATE"));
 
 			}
 //			System.out.println(loginMember);		
@@ -103,10 +103,10 @@ public class MemberDao {
 			pstmt.setString(1, member.getUserId());
 			pstmt.setString(2, member.getUserName());
 			pstmt.setString(3, member.getUserPwd());
-			pstmt.setString(4, member.getEmail());
+			pstmt.setString(4, member.getNickname());
 			pstmt.setString(5, member.getPhone());
 			pstmt.setString(6, member.getAddress());
-			pstmt.setString(7, member.getNickname());
+			pstmt.setString(7, member.getEmail());
 			
 			result = pstmt.executeUpdate();
 			System.out.println("dao에서 회원가입 결과:"+result);
@@ -137,9 +137,8 @@ public class MemberDao {
 				loginMember = new Member(rset.getString("USER_ID"), rset.getString("GRADE"),
 						rset.getString("USER_NAME"), rset.getString("USER_PWD"), rset.getString("EMAIL"),
 						rset.getString("PHONE"), rset.getString("ADDRESS"), rset.getString("NICKNAME"),
-						rset.getString("ACCOUNT_GRADE"), rset.getInt("POINT"), rset.getDate("ENROLL_DATE"),
-						rset.getString("DELETE_YN"), rset.getString("DELETE_DATE"), rset.getInt("CASH")
-											);
+						rset.getString("ACCOUNT_GRADE"), rset.getInt("POINT"),
+						rset.getString("DELETE_YN"), rset.getString("DELETE_DATE"), rset.getInt("CASH"), rset.getDate("ENROLL_DATE"));
 			}
 			System.out.println(loginMember);
 		} catch (SQLException e) {

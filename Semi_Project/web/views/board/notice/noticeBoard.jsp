@@ -28,9 +28,12 @@
  	#noticeList div{margin: 0 auto;}
  	#noticeCorner {margin-top:40px;} 
 	#subnav{ float: left; margin-left:20px;}
-	.headLine{ margin-top:90px; margin-left:90px; margin-bottom:50px; display:block;}
+	.headLine{ float:left; width:30%; /*margin-top:90px; margin-left:90px; margin-bottom:50px;*/ display:block; box-sizing:border-box;}
 	.headLine hr{ background-color:red; width:25px; border:2px solid red; margin-bottom:10px;}
  	table{ margin-top:30px; }
+ 	#noticeCorner .col-sm-6 { box-sizing:border-box; float:left; width:70%; margin:0; padding:0; }
+ 	#noticeList:after { display:block; content:""; clear:both; }
+ 	#noticeList { width:1800px; margin: 20px auto 0; }
  </style>
 </head>
 <body>
@@ -47,7 +50,6 @@
 				<h3 style="font-size:20px;">Notice</h3>
 			</div><!-- class headLine end -->
 			
-			<br clear="both">
 				 <div class="col-sm-6" style="display:block;">
 					<table class="table table-hover" id="listArea">
 				  		<thead>

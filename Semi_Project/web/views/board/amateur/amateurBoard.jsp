@@ -19,7 +19,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>아마추어 게시판</title>
  <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/bootstrap.css">
 	<script src="<%=request.getContextPath() %>/views/js/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/views/js/bootstrap.js"></script>    
@@ -29,25 +29,22 @@
 <style>
 	#subnav{ float: left; margin-left:20px;}
 	#goDetail{z-index:4;}
-	.container{
-	position : relative;
-	margin-top:10px;}
+	.container{ position : relative; margin-top:10px;}
+	.headLine{ /*float:left;*/ width:30%; /*margin-top:90px; margin-left:90px; margin-bottom:50px;*/ display:block; box-sizing:border-box;}
+	.headLine hr{ background-color:red; width:25px; border:2px solid red; margin-bottom:10px;}
+	
 </style>
 </head>
 <body>
 	<%@include file="../../common/menubar.jsp" %>
 <br clear="both">
 <br><br><br>
+	<!-- 아마추어 게시판 Logo -->
+			<div class="headLine">
+				<hr style="display:inline-block;">
+				<h3 style="font-size:20px;">Amateur</h3>
+			</div><!-- class headLine end -->
 	<div class="container">
-		<ul id="subnav" class="nav flex-column">
-		  <li class="nav-item">
-		    <a class="nav-link active" href="amateurBoard.jsp">아마추어 게시판</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" href="../free/freeBoard.jsp">자유 게시판</a>
-		  </li>
-		</ul>
-
         <div class="row">
 		
 		<%for(int i=0;i<list.size();i++){ %>
@@ -72,7 +69,7 @@
 			              </div><!-- class card-body end -->
 			              
 			              <div class="card-footer">
-			                <img class="emptyHeart" onclick="heartCheck();" src="<%=request.getContextPath() %>/views/img/emptyHeart.png">
+			                <img class="Heart" src="<%=request.getContextPath() %>/views/img/emptyHeart.png">
 		              	  	
 		              	  </div><!-- class card-footer end -->
 		            </div><!-- class card end -->
@@ -118,9 +115,21 @@ $(function(){
 		location.href="<%=request.getContextPath()%>/detail.am?event_no="+event_no;
 				
 	})
+	$(".Heart").click(function(){
+        var heart = $(".Heart").attr('src');
+        var hState;
+        if(heart=='emptyHeart.png'){
+            $(".Heart").attr('src',"<%=request.getContextPath() %>/views/img/colorHeart.png");
+            hState = 'Y';
+        }
+        if(heart=='colorHeart.png'){
+            $(".Heart").attr('src',"<%=request.getContextPath() %>/views/img/emptyHeart.png");
+            hState= 'N';
+        }
+    });
 })
 //하트 변경
-function heartCheck(){
+<%-- function heartCheck(){
 	var heart = document.getElementsByClassName("emptyHeart");
 	if(heart.src.match("colorHeart")){
 		heart.src="<%=request.getContextPath() %>/views/img/emptyHeart.png"
@@ -129,6 +138,6 @@ function heartCheck(){
 		heart.src="<%=request.getContextPath() %>/views/img/colorHeart.png"
 		var heartYN = 'Y';		
 	}
-}
+} --%>
 </script>
 </html>
