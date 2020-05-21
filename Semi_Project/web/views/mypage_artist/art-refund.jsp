@@ -30,12 +30,19 @@
         <div class="headline-subbox">
             <div class="artist-img">
                 <!--Artist Image-->
-				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>" style = "width:83px; height:83px;">
-			</div>
-            <div class="artist-button">
-                <button style="margin-bottom: 3px;">정보수정</button>
-                <button>감동카드 확인</button>
+				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>" style="width:83px; height :83px;">
+           </div>
+            <div class="artist-btn" style = "display: inline-block; vertical-align: middle;">
+                <button class="btn btn-outline-dark" style = "width:120px; display:block; margin-bottom:5px;" onclick="checkCard();">정보 수정</button>
+                <button class="btn btn-outline-dark" style = "width:120px; display:block;margin-top:5px;" onclick="checkCard();">감동 카드</button>
+                
             </div>
+                <script>
+                	function checkCard() {
+                		location.href = "<%= request.getContextPath() %>/list.ac"
+                			
+                	}
+                </script>
         </div>
     </div>
 <%@include file="../common/mypagehead.jsp" %>
@@ -54,7 +61,7 @@
                         <option value="환불완료"></option>
                     </datalist>
                 </div>
-                <div class="btn-group" data-toggle="buttons">
+                <div class="btn-group" data-toggle="buttons" style="vertical-align : inherit;">
                                 <label class="btn btn-outline-dark">
                                     <input type="radio" name="term" value="today">오늘
                                 </label>
@@ -76,15 +83,79 @@
                     <input type="date" name="refund-date1"> ~
                     <input type="date" name="refund-date1">
                 </div>
-                <button type="submit" class="btn btn-dark" style="width:70px">조회</button>
+                <button type="submit" class="btn btn-outline-dark" style = "margin : 10px 0; width:100px">조회</button>
             </div>
 
         </form>
         <div class = "refund-table">
             <div class="table-headline">
                 <div><span>반품 / 환불 목록</span></div>
-                <div class="button"><button class="btn btn-outline-dark" style = "width:120px">환불 완료</button></div>
+                <button class="btn btn-outline-dark" style = "width:120px; float:right;" onclick = "refund(this);">환불 완료</button>
             </div>
+            
+            <script type="text/javascript">
+
+/* $("document").ready(function(){
+	$("#input[name=check]:checkbox").click(function(){
+		totalPrice();
+	});
+}); */
+
+// BASKET_NO 를 일정한 형식으로 담을 변수
+var arrayList = '';
+
+
+function refund(){
+	
+	var checkboxList = $("input[name=check]:checked");
+	arrayList = '';
+	for(var i=0; i<checkboxList.length; i++){
+		
+		// checkbox가 체크 되어있을 때만 실행
+		if($(checkboxList[i]).is(":checked")){
+			console.log(i);
+			
+		if(i != checkboxList.length-1){
+			
+				arrayList += $(checkboxList[i]).val() + ",";
+				
+		} else{
+			
+				arrayList += $(checkboxList[i]).val();
+				
+		}
+			
+		}
+	}
+	
+	console.log(arrayList);
+	
+	// 하나도 체크 안했을 시 
+	if(arrayList == ''){
+		alert("한가지 이상을 선택해주세요.");
+	}
+	else{
+		if(!confirm('환불하시겠습니까?'))
+			return false;
+		
+		// post ajax 통신 
+		
+		$.ajax({
+			type: "POST",
+			url: "list.ar",
+			data: {order_no : arrayList},
+			success: function(ret){
+				// 현재 페이지 새로고침
+				location.reload();
+			}
+		});
+	}
+}
+
+
+</script>
+          
+            
             <table style="width:100%" name="refund-list">
                 <tr>
                     <th style = "text-align : center;"><input type="checkbox"></th>
@@ -92,6 +163,7 @@
                     <th style = "text-align : center;">이미지</th>
                     <th style = "text-align : center;">상품 정보</th>
                     <th style = "text-align : center;">금액</th>
+                    <th style = "text-align : center;">구매자 아이디</th>
                     <th style = "text-align : center;">처리 상태</th>
                     <th style = "text-align : center;">주문 정보 확인</th>
                 </tr>
@@ -102,7 +174,7 @@
                 %>
                
 				<tr>
-					<td><input type="checkbox"></td>
+					<td><input type="checkbox" name="check" value="<%=b.getOrder_no() %>"></td>
 					<td><%=b.getOrder_no() %></td>
 					<td>
 					 <% for(int j=0; j<alist.size(); j++){ 
@@ -113,9 +185,9 @@
 					 <%} %>
 					<%} %>
 					</td>
-					<td>작품명 : <%=b.getPaint_name()%><br>작가명 :  <%=b.getArtist_name()%> </td>
-					
+					<td>작품명 : <%=b.getPaint_name()%><br>작가명 : <%=b.getArtist_name()%> </td>
 					<td><%=b.getPaint_price()%></td>
+					<td><%=b.getUser_id()%></td>
 					<td><%=b.getOrder_status()%></td>
 					<td><button class="btn btn-outline-dark" id="detail_order" style = "width:150px">주문 상세보기</button></td>
 				</tr>
@@ -125,7 +197,7 @@
         </div>
         
     </div>
-    <div style="width : 350px; margin : 0 auto;">
+    <!-- <div style="width : 350px; margin : 0 auto;">
         <div class="pagination">
             <a href="#" class="disabled" aria-label="Go to previous page">Previous</a>
             <ol>
@@ -150,7 +222,7 @@
             </ol>
             <a href="#" aria-label="Go to next page">Next</a>
           </div>
-        </div>
+        </div> -->
 
 <%@include file="../common/footer.jsp" %>
 </body>

@@ -132,6 +132,36 @@ public class ArtistRefundListServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+		
+		// 화면에서 값 전달 받음
+		String param = request.getParameter("order_no");
+		System.out.println(param);
+		
+		ArtistService aService = new ArtistService();
+		
+		// 업데이트 메소드 실행
+		String[] paramArray = param.split(",");
+		aService.updateRefund(paramArray);
+		
+		
+		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
