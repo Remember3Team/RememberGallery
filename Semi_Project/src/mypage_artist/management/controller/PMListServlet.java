@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import artistapply.model.vo.Apply;
 import board.notice.model.vo.PageInfo;
+import mypage_artist.RefundQnACard.model.service.ArtistService;
 import mypage_artist.management.model.service.Mypage_ArtistService;
 import mypage_artist.management.model.vo.Mypage_artist;
 
@@ -96,12 +98,21 @@ public class PMListServlet extends HttpServlet {
 //				for(int i = 0 ; i < list.size(); i++) {
 //					System.out.println(list.get(i));
 //				}
+				
+				// 프로필 사진 불러오기
+//				ArtistService aService1 = new ArtistService();
+//				
+//				Apply aphoto = aService1.selectPhoto(bWriter);
+//				System.out.println(aphoto);
+				
+				
 				// 출력이 잘 나오는걸 확인하면 이제 화면단으로 넘겨주자
 				
 				RequestDispatcher view = null;
 				if(!PM_list.isEmpty()) {
 					view = request.getRequestDispatcher("views/mypage_artist/product_management.jsp");
 					request.setAttribute("PM_list", PM_list);
+//					request.setAttribute("aphoto", aphoto);
 					request.setAttribute("pi", pi);
 				}else {
 //					view = request.getRequestDispatcher("views/common/errorPage.jsp");

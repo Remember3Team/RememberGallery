@@ -117,7 +117,7 @@ border: solid 1px;
       width: 700px;
       position:relative;
       overflow:hidden;
-      margin-left :100px;
+      margin-left :300px;
       }
   #slide ul{
       width:400%;
@@ -281,24 +281,87 @@ border: solid 1px;
       	</tr>
       </table>  	 																																																																																	
       <hr style="margin: 1;" color="black" width="554px">
-      <span style="text-align: center; width: 100px; font-size: 35px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;"><%=plist.getPatint_price() %>원</span>
+      <table id="imgInfo">
+      <tr>
+      <td>
+       <span style="text-align: center; width: 100px; font-size: 35px;"><%=plist.getPatint_price() %>원</span>
+      </td>
+      <td>
+      		<div></div>
+      		<div style="float:right; display:none;" onclick="colorheartCheck();" class="colorheartCheck">
+      		<input id="paint_no" type="hidden" value="<%=plist.getPaint_no()%>">
+      		<img src="<%=request.getContextPath()%>/views/img/colorHeart.png">
+      		</div>
+      		<div style="float:right; onclick="emptyheartCheck();" class="emptyheartCheck">
+      		<input id="paint_no" type="hidden" value="<%=plist.getPaint_no()%>">
+      		<img src="<%=request.getContextPath()%>/views/img/emptyHeart.png">
+      		</div>
+      </td>
+      </tr>
+      </table>
+      <script>
+      $(function(){
+      $(".colorheartCheck").click(function(){
+    	  var paint_no = $("#paint_no").val();
+    	  
+    	  $(".colorheartCheck").hide();
+    	  $(".emptyheartCheck").show();
+    	  
+    	  location.href="<%=request.getContextPath()%>/deletetmasterpiece.po?paint_no="+paint_no;
+      })
+      });
       
+      $(function(){
+          $(".emptyheartCheck").click(function(){
+        	  var paint_no = $("#paint_no").val();
+        	  
+        	  $(".emptyheartCheck").hide();
+        	  $(".colorheartCheck").show();
+        	  
+    	  location.href="<%=request.getContextPath()%>/insertmasterpiece.po?paint_no="+paint_no;
+        	  
+  
+          })
+          });
+      </script>
+      
+     
 
       <div class="btnArea">
-	      <input type="button" class = "btn btn-outline-dark" value="바로 구매하기" onclick="location.href='<%=request.getContextPath()%>/views/product/productpay.jsp'"><br clear="both"><br>
+      <input id="paint_no" type="hidden" value="<%=plist.getPaint_no()%>">
+	      <input type="button" class = "btn btn-outline-dark" value="바로 구매하기"><br clear="both"><br>
 	       <input type="button" class = "btn btn-outline-success"  value="장바구니 담기" onclick="장바구니"><br clear="both"><br>
 	      <inputtype="button" class = "btn btn-outline-danger"  value="Q & A" onclick="q&a"> Q & A<input type="hidden" value="" id="mid">
 	      <!-- <input type="hidden" value="${ movieDetail.movie_id }" id="movie_id"> -->
 	      <input type="hidden" value="" id="movie_id">
   
       </div>
+       <script>
+                  $(function(){
+				 		$(".btn-outline-dark").click(function(){
+				 			var paint_no = $(this).parent().children("#paint_no").val();
+				 			
+				 			location.href="<%=request.getContextPath()%>/Buy.po?paint_no="+paint_no;
+				 		});
+				 		
+				 	});
+				 	
+                  $(function(){
+				 		$(".btn-outline-success").click(function(){
+				 			var paint_no = $(this).parent().children("#paint_no").val();
+				 			
+				 			location.href="<%=request.getContextPath()%>/basket.po?paint_no="+paint_no;
+				 		});
+				 		
+				 	});
+			</script>
       
   </td>
 	</tr>
 	</table>	
    <br clear="both">
    <br>
-   <hr style="margin-left: 100px;" color="black" width="1337px">
+   <hr style="margin-left: 191px;" color="black" width="1480px">
    <br clear="both">
    
    <h3 align="center">인테리어 시뮬레이션</h3>
@@ -339,11 +402,11 @@ border: solid 1px;
   </script>
    
    <br clear="both">
-   <hr style="margin-left: 191px;" color="black" width="1128px">
+   <hr style="margin-left: 191px;" color="black" width="1480px">
    <h3 align="center">작품 소개</h3>
    <a style="text-align: left; width: 100px; margin-left:300px; font-size: 15px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;"><%=plist.getPaint_int() %></a>
    <br>
-   <hr style="margin-left: 191px;" color="black" width="1128px">
+   <hr style="margin-left: 191px;" color="black" width="1480px">
    <h3 align="center">작가 소개</h3>
    
    <div id="writer">
@@ -354,7 +417,7 @@ border: solid 1px;
    <a style="text-align: left; width: 100px; margin-left:30px; font-size: 15px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;"><%=apply.getArtist_int() %></a>
    </div>
    <br clear="both">
-   <hr style="margin-left: 191px;" color="black" width="1128px">
+   <hr style="margin-left: 191px;" color="black" width="1480px">
    <h3 align="center">Q & A</h3>
    <br clear="both">
    <%@include file="../common/footer.jsp"%>

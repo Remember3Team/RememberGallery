@@ -1,16 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "mypage_artist.RefundQnACard.model.vo.*, product.model.vo.*, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import = "mypage_artist.RefundQnACard.model.vo.*, artistapply.model.vo.*, product.model.vo.*, java.util.ArrayList"%>
     
 <%
 	ArrayList<Message> mlist = (ArrayList<Message>) request.getAttribute("mlist");
 	ArrayList<Attachment> alist = (ArrayList<Attachment>) request.getAttribute("alist");
+	Apply aphoto = (Apply) request.getAttribute("aphoto");
 %>    
     
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>감동 카드 확인하기</title>
  <!-- link rel="stylesheet" href="../css/style.css" -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<%=request.getContextPath()%>/views/css/Style-refund.css">
@@ -18,11 +19,32 @@
 <script src="<%=request.getContextPath() %>/views/js/jquery-3.4.1.min.js"></script>
 </head>
 <body>
+
 <%@include file="../common/menubar.jsp" %>
+<div class="headline">
+        <div class="headline-text">
+            <hr>
+            <h3 style="font-size: 20px;"> 작가 마이페이지</h3>
+        </div>
+        <div class="headline-subbox">
+            <div class="artist-img">
+                <!--Artist Image-->
+				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>" style="width:83px; height :83px;">
+            </div>
+            <div class="artist-button">
+                <button style="margin-bottom: 3px;">정보수정</button>
+                <button>감동카드 확인</button>
+            </div>
+        </div>
+    </div>
 <%@include file="../common/mypagehead.jsp" %>
     <div class="title">
         <h3>감동카드</h3>
         <hr>
+        
+        
+        
+        
     </div>
 
     <div class="container">

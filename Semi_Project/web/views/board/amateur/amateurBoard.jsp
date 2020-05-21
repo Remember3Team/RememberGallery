@@ -119,7 +119,7 @@ $(function(){
 				
 	})
 })
-
+//하트 변경
 function heartCheck(){
 	var heart = document.getElementsByClassName("emptyHeart");
 	if(heart.src.match("colorHeart")){

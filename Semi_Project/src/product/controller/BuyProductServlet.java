@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import product.model.service.ProductService;
+import product.model.vo.Attachment;
 import product.model.vo.product;
 
 /**
@@ -32,20 +33,33 @@ public class BuyProductServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ProductService ps = new ProductService();
+		request.setCharacterEncoding("utf-8");
 		
-		ArrayList <product> pay_list = ps.payList();
+		ProductService pService = new ProductService();
+		
+		int paint_no = Integer.valueOf(request.getParameter("paint_no"));
+		System.out.println(paint_no);
+		
+		product po = new product();
+		po =  pService.selectsearch(paint_no);
+		System.out.println(po);
+		ArrayList<Attachment> at = new ArrayList<Attachment>();
+		
+		at = pService.selectAttachment(paint_no);
+		System.out.println(at);
 		
 		RequestDispatcher view = null;
-		if(!pay_list.isEmpty()) {
-			view = request.getRequestDispatcher("views/product/productpay.jsp");
-			
-			request.setAttribute("pay_list", pay_list);
-		}else {
-			System.out.println("상품내용 조회 실패");
-		}
-		view.forward(request,response);
 		
+		if(po !=null) {
+			view = request.getRequestDispatcher("views/product/productpay.jsp");
+				request.setAttribute("po", po);
+				request.setAttribute("at", at);
+				System.out.println("가랏");
+			
+		}else {
+		System.out.println("불러오기 실패");	
+		}
+		view.forward(request, response);
 	}
 
 	/**
