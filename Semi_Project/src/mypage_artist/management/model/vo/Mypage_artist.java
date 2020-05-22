@@ -42,6 +42,13 @@ public class Mypage_artist implements Serializable{
 		this.user_id = user_id;
 	}
 	
+	public Mypage_artist(int paint_no, String rec_name, String rec_list, String rec_message) {
+		super();
+		this.rec_name = rec_name;
+		this.rec_list = rec_list;
+		this.rec_message = rec_message;
+	}
+
 	public Mypage_artist(String order_name, String pay_type, String order_phone) {
 		super();
 		this.order_name = order_name;
