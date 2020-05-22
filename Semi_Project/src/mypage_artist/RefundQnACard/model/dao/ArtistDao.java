@@ -351,6 +351,53 @@ public class ArtistDao {
 		return a;
 	}
 
+	public void updateRefundList(Connection conn, String[] paramArray) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "UPDATE BUY_LIST SET ORDER_STATUS = '환불 완료' WHERE ORDER_NO = ?";
+		
+		try {
+			for(int i = 0 ; i < paramArray.length ; i++) {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, paramArray[i]);
+			
+			result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println(result);
+		
+	}
+
+	public void deleteCardList(Connection conn, String[] messageArray) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "DELETE FROM MESSAGE WHERE ORDER_NO = ?";
+		
+		try {
+			for(int i = 0 ; i < messageArray.length ; i++) {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, messageArray[i]);
+			
+			result += pstmt.executeUpdate();
+			
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		// 확인
+		System.out.println(result);
+		
+	}
+
 	
 
 }
