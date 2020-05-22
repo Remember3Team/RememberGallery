@@ -56,19 +56,31 @@ function setStatus(obj){
 
 
 //수령확인을 orderNo로 받아올때
-function confirm2(orderNo){
-		   var status = $("#order_status_"+orderNo).val();
+<%--function confirm2(gOrderNo, gPaintName, gArtistName, gPaintNo){
+	console.log(gOrderNo);
+	console.log(gPaintNo);
+	console.log(gPaintName);
+	console.log(gArtistName)
+
+		   var status = $("#order_status_"+gOrderNo).val();
+		   
+		   // input hidden태그에 보조 정보들 넣기
+		   $("#modal_order_no").val(gOrderNo);
+		   $("#modal_paint_no").val(gPaintNo);
+		   $("#modal_paint_name").val(gPaintName);
+		   $("#modal_artist_name").val(gArtistName);
 		   if(status == '배송완료'){
 			   if(confirm('수령하시겠습니까?')==true){
-				   var param = "order_no="+encodeURIComponent(orderNo); //ajax 뒷단 통신. 컴퓨터가 알아먹기 위해 A=A다.
+				   //var param = "order_no="+encodeURIComponent(orderNo); //ajax 뒷단 통신. 컴퓨터가 알아먹기 위해 A=A다.
 					$.ajax({
 						type: "POST",
 						url: "Mo.li",
-						data: param,
+						data: {order_no:gOrderNo},
 						success: function(ret){ //통신이 완료되었을때 안에거 실행
-							$("#order_status_"+orderNo).val("수령완료"); //우리는 리로드 해야만 백단 데이터를 가져옴 
-							$("#td_order_status_"+orderNo).html("수령완료");
+							$("#order_status_"+gOrderNo).val("수령완료"); //우리는 리로드 해야만 백단 데이터를 가져옴 
+							$("#td_order_status_"+gOrderNo).html("수령완료");
 							 alert("수령확인 완료되었습니다!");
+							   $("#modal_order_no").val(gOrderNo);
 							   $("#confirm2button").css("background","white").css("color","black");
 							   $("#modal").fadeIn(500);
 						}
@@ -80,12 +92,112 @@ function confirm2(orderNo){
 		      alert("수령은 배달완료 이후 가능합니다!");
 		   }
 		}
+--%>
 
+
+function confirm2(gOrderNo, gPaintName, gArtistName, gPaintNo){
+	console.log(gOrderNo);
+	console.log(gPaintNo);
+	console.log(gPaintName);
+	console.log(gArtistName);
+
+		   var status = $("#order_status_"+gOrderNo).val();
+		   
+		   // input hidden태그에 보조 정보들 넣기
+		   $("#modal_order_no").val(gOrderNo);
+		   $("#modal_paint_no").val(gPaintNo);
+		   $("#modal_paint_name").val(gPaintName);
+		   $("#modal_artist_name").val(gArtistName);
+		   if(status == '배송완료'){
+	            if(confirm('수령하시겠습니까?')==true){
+	               var param = "order_no="+encodeURIComponent(gOrderNo); //ajax 뒷단 통신
+	               $.ajax({
+	                  type: "POST",
+	                  url: "Mo.li",
+	                  data: param,
+	                  success: function(ret){ //통신이 완료되었을때 안에거 실행
+	                     $("order_status_"+gOrderNo).val("수령완료");
+	                     $("#td_order_status_"+gOrderNo).html("수령완료");
+	                      alert("수령확인 완료되었습니다!");
+	                        $("#modal_order_no").val(gOrderNo);
+	                        $("#confirm2button").css("background","white").css("color","black");
+	                        $("#modal").fadeIn(500);
+	                  }
+	               });
+	            }
+	         }else if(status=='수령완료'){            
+	               alert("이미 수령된 상품입니다!");
+	         }else{
+	            alert("수령은 배달완료 이후 가능합니다!");
+	         }
+	      }
 
 //취소 환불버튼 누르고 orderNo로 받아올때
+$(document).ready(function () {
+  // Your code
+});
+
 function refundApply(orderNo){
 	 $("#modal_refund").fadeIn(500);
+	 
+	 $("#selectBank").change(function(){
+     	var selectBank = this.value;
+     	});
+	 var refundName = $("#refundName").val();
+	 var account = $("#account").val();
+	 var refundReason = $("#refundReason").val();
+	 
+	 console.log(refundName);
+	 console.log(selectBank);
+	 console.log(account);
+	 console.log(refundReason);
 }
+
+<%--function insertMessage(orderNo){
+	$("#modal").fadeIn(500);
+	var message = $("#message"+orderNo).val();
+	var param="order_no="+encodeURIComponent(orderNo)+"&message="+encodeURIComponent(message); //ajax 뒷단 통신. 컴퓨터가 알아먹기 위해 A=A다.
+		$.ajax({
+			type: "POST",
+			url: "Mo.li",
+			data: param,
+			success: function(ret){ //통신이 완료되었을때 안에거 실행
+				location.reload();
+			}
+		});
+}--%>
+
+function insertMessage(){
+	console.log(orderNo);
+	console.log(message);
+	console.log(paintNo);
+	console.log(paintName);
+	console.log(artistName);
+	
+	   if(confirm('메세지를 보내시겠습니까?')==false)
+	    return false;
+
+	    var orderNo = $("#modal_order_no").val(gOrderNo);
+	    var message = $("#message").val();
+	    var paintNo = $("#modal_paint_no").val(gPaintNo);
+	    var paintName = $("#modal_paint_name").val(gPaintName);
+	    var artistName =  $("#modal_artist_name").val(gArtistName);
+	    
+	    <%--var param2 = "order_no="+encodeURIComponent(orderNo)+"&message="+encodeURIComponent(message);--%>
+	console.log("Ajax 시작전 ");
+	$.ajax({
+	  type: "POST",
+	  url: "Mo.litwo",
+	  data: {orderNo:orderNo, message:message, paintNo:paintNo, paintName:paintName, artistName:artistName},
+	  success: function(ret){
+	    location.reload();
+	},
+	  error:function(){
+		  alert("ajax불능");
+	  }
+	
+	});
+	}
 
 
 </script>
@@ -175,7 +287,13 @@ function refundApply(orderNo){
                 </thead>
                 <tbody>
                 <%if(!list.isEmpty()){ %>
-			  			<%for(Morw m:list){ %>
+			  			<%for(int i =0 ; i <list.size();i++){ 
+			  			Morw m = list.get(i);
+			  			String gOrderStatus = m.getOrderStatus();
+			  			String gOrderNo = m.getOrderNo();
+			  			String gPaintName = m.getPaintName();
+			  			String gArtistName = m.getArtistName();
+			  			int gPaintNo = m.getPaintNo();%>
 			    		<tr>
 			    			<td><%=m.getOrderNo() %><input type = "hidden" id="order_status_<%=m.getOrderNo()%>" value="<%=m.getOrderStatus()%>"></td>
 							<td><% for(int j=0; j<plist.size(); j++){ 
@@ -185,14 +303,15 @@ function refundApply(orderNo){
 					 <input type="hidden" id="img_<%=m.getOrderNo()%>" value="<%= a.getSavefileName() %>" />
 					 <%} %>
 					<%} %></td>
-			      			<td>작가 : <%=m.getArtistName()%><br>
-			      			작품명 : <%=m.getPaintName()%></td>
+			      			<td id="artistname"><label>작가 : </label><p><%=m.getArtistName()%></p><br>
+			      			<label>작품명 : </label><p><%=m.getPaintName()%></p></td>
 			      			<td><%=m.getPaintPrice()%></td>
 			      			<td><%=m.getOrderDate()%></td>
 			      			<td id="td_order_status_<%=m.getOrderNo()%>"><%=m.getOrderStatus()%></td>
 			      			<td><a href="javascript: refundApply('<%=m.getOrderNo()%>')" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">반품/취소</a>
-			      			<a href="javascript: confirm2('<%=m.getOrderNo()%>')" id="confirm2button" class="btn btn-secondary btn-sm active" role="button" value="confirm2Status" >수령확인</a>
+			      			<a href="javascript: confirm2('<%=gOrderNo %>','<%=gPaintName %>','<%=gArtistName %>',<%=gPaintNo %>)" id="confirm2button" class="btn btn-secondary btn-sm active" role="button" value="confirm2Status" >수령확인</a>
 			      			</td>
+			      			<td style="display:none"><%=m.getPaintNo() %></td>
 			    		</tr>
 			    		<%} %>
 			    	<%} else{%>
@@ -213,36 +332,36 @@ function refundApply(orderNo){
       	<div style="position: absolute; top : 30px; left:40px;"><h5><b>작가님에게 메세지를 남겨 보세요!</b></h5></div>
           <a href="javascript: $('#modal').fadeOut(500);" style="width: 15px; height: 15px; position: absolute; top: 15px; right: 20px; display: block;">
                    <img src="thumbnail_uploadFiles/modal.png" style="width: 100%;" /></a>
-          <textarea id="message" style="position:absolute; top :100px; left:40px; width:310px; height:110px;"></textarea>
-          <button type="button" id="submitButton" onclick="submit()" style="position:absolute; left:170px; bottom:20px; border-radius:10px;"><b>전송</b></button>
-       <img id=modal_img src=>
+          <textarea id="message" style="position:absolute; bottom :60px; left:40px; width:310px; height:110px;"></textarea>
+          <input type="hidden" id="modal_order_no"><button type="button" id="#" onclick="insertMessage()" style="position:absolute; left:170px; bottom:20px; border-radius:10px;"><b>전송</b></button>
+		  <input type="hidden" id="modal_paint_no"><!-- 안나오는 이유 체크 1 -->
+		  <input type="hidden" id="modal_paint_name"><!-- 안나오는 이유 체크 2 -->
+		  <input type="hidden" id="modal_artist_name">
       </div>
    </div>
    
    <div id="modal_refund" style="position: fixed; display:none; width: 100%; height: 100%; top: 0; left: 0; background-color: rgba(0, 0, 0, 0.7); z-index: 9999;">
-      <div style="width: 400px; height: 440px; background-color: #fff; border-radius: 20px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+      <div style="width: 400px; height: 380px; background-color: #fff; border-radius: 20px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
       	<div style="position: absolute; top : 20px; left:20px;"><h5><b>환불계좌등록</b></h5></div>
           <a href="javascript: $('#modal_refund').fadeOut(500);" style="width: 15px; height: 15px; position: absolute; top: 15px; right: 20px; display: block;">
                    <img src="thumbnail_uploadFiles/modal.png" style="width: 100%;" /></a>
-          <div style="border-radius:5px; width:360px; height:320px; background-color:lightgray; position:absolute; top:60px; left:20px; border:1px black;">
-          	<ul class= "refund" style="position:absolute; top:25px; left:20px;">
-          	<li><label style="margin:14px; width:100px;">예금주</label><input type="text" style="width:180px">
+          <div style="border-radius:5px; width:360px; height:250px; background-color:lightgray; position:absolute; top:60px; left:20px; border:1px black;">
+          	<ul class= "refund" style="position:absolute; top:20px; left:20px;">
+          	<li><label style="margin:14px; width:100px;">예금주</label><input type="text" id="refundName" style="width:180px">
           	<div style="font-size:10px; position:absolute; left:126px; margin-top: -6px;">예금주명은 주문자명과 동일해야합니다.</div></li>
-		    <li><label style="margin:14px; width:100px;">은행선택</label><select style="width:180px">
-		    <option>국민</option>
-		    <option>신한</option>
-		    <option>NH</option>
-		    <option>우리</option>
+		    <li><label style="margin:14px; width:100px;">은행선택</label><select id="selectBank" style="width:180px">
+		    <option value="국민">국민</option>
+		    <option value="신한">신한</option>
+		    <option value="NH">NH</option>
+		    <option value="우리">우리</option>
 		    </select></li>
-		    <li><label style="margin:14px; width:100px;">계좌번호</label><input type="text" style="width:180px">
-		    <div style="font-size:10px; position:absolute; left:126px; margin-top: -6px;">'-'없이 숫자만 입력해주세요.</div></li>
-		    <li><label style="margin:14px; width:100px;">환불사유</label><input type="text" style="width:180px"></li>
-		    <li><label style="margin:14px; width:100px;">비밀번호 확인</label><input type="password" style="width:180px">
-		    <div style="font-size:10px; position:absolute; left:126px; margin-top: -6px;">등록된 비밀번호를 확인합니다.</div></li>
+		    <li><label style="margin:14px; width:100px;">계좌번호</label><input type="text" id="account" style="width:180px">
+		    <div style="font-size:10px; position:absolute; left:126px; margin-top: -9px;">'-'없이 숫자만 입력해주세요.</div></li>
+		    <li><label style="margin:14px; width:100px;">환불사유</label><input type="text" id="refundReason" style="width:180px"></li>
           	</ul>
           </div>
-          <button type="button" id="" onclick="submit()" style="position:absolute; width:80px; left:115px; bottom:10px; border-radius:10px;"><b>등록</b></button>
-       	  <button type="button" id="" onclick="submit()" style="position:absolute; width:80px; right:115px; bottom:10px; border-radius:10px;"><b>취소</b></button>
+          <button type="button" id="" onclick="submit()" style="position:absolute; width:80px; left:115px; bottom:15px; border-radius:10px;"><b>등록</b></button>
+       	  <button type="button" id="" onclick="submit()" style="position:absolute; width:80px; right:115px; bottom:15px; border-radius:10px;"><b>취소</b></button>
       </div>
    </div>
 </body>

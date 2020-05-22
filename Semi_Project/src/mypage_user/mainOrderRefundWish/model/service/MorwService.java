@@ -77,4 +77,24 @@ public class MorwService {
 		
 		
 	}
+
+	public int insertMessage(Morw morw)  {
+		Connection conn =getConnection();
+		
+		int result = new MorwDao().insertMessage(conn,morw);
+		
+		close(conn);
+		
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+		
+	}
+
+	
 }

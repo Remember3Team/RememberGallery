@@ -18,18 +18,10 @@ public class Qna {
 	private String qYN;			// 답변여부
 
 	
-	
-	
-	
 	public Qna() {
 		super();
 	}
 
-
-
-
-
-	
 
 
 	//전체
