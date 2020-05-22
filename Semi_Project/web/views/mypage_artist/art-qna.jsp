@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>문의 내역</title>
  <!-- link rel="stylesheet" href="../css/style.css" -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/views/css/Style-refund.css">
@@ -28,11 +28,19 @@
         <div class="headline-subbox">
             <div class="artist-img">
                 <!--Artist Image-->
-				<%-- 	<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>" width="150px" height="150px">
- --%>            </div>
-            <div class="artist-button">
-                <button style="margin-bottom: 3px;">정보수정</button>
-                <button>감동카드 확인</button>
+				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>" style="width:83px; height :83px;">
+           </div>
+            <div class="artist-btn" style = "display: inline-block; vertical-align: middle;
+            ">
+                <button class="btn btn-outline-dark" style = "width:120px; display:block; margin-bottom:5px;" onclick="checkCard();">정보 수정</button>
+                <button class="btn btn-outline-dark" style = "width:120px; display:block;margin-top:5px;" onclick="checkCard();">감동 카드</button>
+                <script>
+                	function checkCard() {
+                		location.href = "<%= request.getContextPath() %>/list.ac"
+                			
+                			
+                	}
+                </script>
             </div>
         </div>
     </div>
@@ -59,7 +67,7 @@
                         <option value="오브제"></option>
                     </datalist>
                 </div>
-                 <div class="btn-group" data-toggle="buttons">
+                 <div class="btn-group" data-toggle="buttons" style="vertical-align : inherit;">
                                 <label class="btn btn-outline-dark">
                                     <input type="radio" name="term" value="today">오늘
                                 </label>
@@ -76,28 +84,30 @@
                                     <input type="radio" name="term" value="six_months" >6개월
                                 </label>
                             </div> 
+                &nbsp;&nbsp;&nbsp;
                 <div class="bar3">
                     <input type="date" name="refund-date1"> ~
                     <input type="date" name="refund-date1">
                 </div>
-                <button type="submit">조회</button>
+                <button type="submit" class="btn btn-outline-dark" style = "margin : 10px 0; width:100px">조회</button>
             </div>
 
         </form>
         <div class = "artq-table">
             <div class="table-headline">
-                <div class="button"><button class="btn btn-outline-dark" style = "width:100px">선택삭제</button></div>
+                <!-- <div><span>문의 내역</span></div> -->
+<!--                 <div class="button"><button class="btn btn-outline-dark" style = "width:120px">선택 삭제</button></div> -->
             </div>
             <table style="width:100%" name="question-list">
                 <tr>
-                    <th style = "text-align : center;"><input type="checkbox"></th>
+                    <!-- <th style = "text-align : center;"><input type="checkbox"></th> -->
                     <th style = "text-align : center;">상품 번호</th>
                     <th style = "text-align : center;">이미지</th>
                     <th style = "text-align : center;">상품 정보</th>
                     <th style = "text-align : center;">문의 날짜</th>
                     <th style = "text-align : center;">문의 내용</th>
+                    <th style = "text-align : center;">문의자 아이디</th>
                     <th style = "text-align : center;">답변 상태</th>
-                    <th style = "text-align : center;">답변하기</th>
                 </tr>
                 
                 <% for(int i = 0 ; i < qnalist.size(); i++){
@@ -105,7 +115,7 @@
                 %>
                 
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <!-- <td><input type="checkbox"></td> -->
                     <td><%=q.getPaint_no()%></td>
                     <td>
                      <% for(int j=0; j<alist.size(); j++){ 
@@ -119,15 +129,25 @@
                     <td>작품명 : <%=q.getPaint_name()%></td>
                     <td><%=q.getPq_date()%></td>
                     <td><%=q.getPquestion()%></td>
-                    <td><%=q.getPq_yn()%></td>
-                    <td><button class="goanswer-bt">답변하기</button></td>
+                    <td><%=q.getUser_id() %></td>
+                    <td>
+                    <%
+                    if(q.getPq_yn().equals("Y")) { %>
+                    
+					  답변 완료
+					          
+                    <%} else {%>
+                    	<button class="btn btn-outline-dark" style = "width:100px">답변하기</button>
+                    <%} %>
+                    </td>
+                    <!-- <td><button class="btn btn-outline-dark" style = "width:100px">답변하기</button></td> -->
                 </tr>
 			<%} %>
             </table>
         </div>
         
     </div>
-    <div style="width : 350px; margin : 0 auto;">
+   <!--  <div style="width : 350px; margin : 0 auto;">
         <div class="pagination">
             <a href="#" class="disabled" aria-label="Go to previous page">Previous</a>
             <ol>
@@ -153,7 +173,7 @@
             <a href="#" aria-label="Go to next page">Next</a>
           </div>
         </div>
-    
+     -->
 
 
 
