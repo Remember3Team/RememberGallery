@@ -46,10 +46,10 @@ public class ProductService {
 		
 		int result1 = pDao.insertProduct(conn,p);
 		int result2 = pDao.insertAttachment(conn,fileList);
-		int result3 = pDao.insertmasterpiece(conn,p);
+//		int result3 = pDao.insertmasterpiece(conn,p);
 //		int result4 = pDao.insertTag(conn,irr);
 		
-		if(result1>0 && result2> 0 && result3 >0) {
+		if(result1>0 && result2> 0) {
 	         commit(conn);
 	      }else {
 	         rollback(conn);
