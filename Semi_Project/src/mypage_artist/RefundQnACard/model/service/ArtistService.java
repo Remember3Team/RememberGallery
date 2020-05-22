@@ -68,7 +68,7 @@ public class ArtistService {
 		return list;
 	}
 
-	// 감동카드 이미지 받아오
+	// 감동카드 이미지 받아오기
 	public ArrayList<Attachment> selectCAList(String user_id, int currentPage, int limit) {
 		Connection conn = getConnection();
 		ArrayList<Attachment> list2 =new ArtistDao().selectCAphoto(conn, user_id, currentPage,limit);
@@ -80,6 +80,7 @@ public class ArtistService {
 		return list2;
 	}
 
+	// qna 목록 조회하기
 	public ArrayList<QnA_Q> selectQnAList(String user_id, int currentPage, int limit) {
 		Connection conn = getConnection();
 		ArrayList<QnA_Q> qnalist = new ArtistDao().selectQnAList(conn, user_id, currentPage, limit);
@@ -89,6 +90,7 @@ public class ArtistService {
 		return qnalist;
 	}
 
+	// qna 사진 받아오기
 	public ArrayList<Attachment> selectQpList(String user_id, int currentPage, int limit) {
 		Connection conn = getConnection();
 		ArrayList<Attachment> list2 =new ArtistDao().selectQpphoto(conn, user_id, currentPage,limit);
@@ -100,7 +102,8 @@ public class ArtistService {
 		return list2;
 	}
 	
-public Apply selectPhoto(String user_id) {
+	// 프로필 사진 받아오기
+	public Apply selectPhoto(String user_id) {
 		
 		Connection conn = getConnection();
 		
@@ -111,6 +114,25 @@ public Apply selectPhoto(String user_id) {
 		close(conn);
 		
 		return aphoto;
+	}
+
+	public void updateRefund(String[] paramArray) {
+		Connection conn = getConnection();
+		
+		new ArtistDao().updateRefundList(conn, paramArray);
+		
+		
+		close(conn);
+		
+	}
+
+	public void deleteCard(String[] messageArray) {
+		Connection conn = getConnection();
+		
+		new ArtistDao().deleteCardList(conn, messageArray);
+		
+		close(conn);
+		
 	}
 
 }

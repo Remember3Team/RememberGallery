@@ -135,6 +135,19 @@ public class ArtistCardListServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+		
+		// 화면에서 값을 전달받음
+		String message = request.getParameter("order_no");
+		// 확인 
+		System.out.println(message);
+		
+		ArtistService aService = new ArtistService();
+		
+		// 가져온 값을 나눔
+		String[] messageArray = message.split(",");
+		// 삭제 메소드 실행
+		aService.deleteCard(messageArray);
+		
 	}
 
 }

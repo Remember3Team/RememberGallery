@@ -30,28 +30,31 @@
             <div class="artist-img">
                 <!--Artist Image-->
 				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>" style="width:83px; height :83px;">
-            </div>
-            <div class="artist-button">
-                <button style="margin-bottom: 3px;">정보수정</button>
-                <button>감동카드 확인</button>
+           </div>
+            <div class="artist-btn" style = "display: inline-block; vertical-align: middle;
+            ">
+                <button class="btn btn-outline-dark" style = "width:120px; display:block; margin-bottom:5px;" onclick="checkCard();">정보 수정</button>
+                <button class="btn btn-outline-dark" style = "width:120px; display:block;margin-top:5px;" onclick="checkCard();">감동 카드</button>
+                <script>
+                	function checkCard() {
+                		location.href = "<%= request.getContextPath() %>/list.ac"
+                			
+                			
+                	}
+                </script>
             </div>
         </div>
     </div>
 <%@include file="../common/mypagehead.jsp" %>
     <div class="title">
-        <h3>감동카드</h3>
+        <h3>감동 카드 확인</h3>
         <hr>
-        
-        
-        
-        
-    </div>
-
+ 	</div>
     <div class="container">
         <form action="">
             <div class="search-bar">
                 <div class="bar1">
-                    <input type="text" name="order-status" list="status-list" placeholder=" 테마">
+                    <input type="text" name="order-status" list="status-list" placeholder="테마">
                     <datalist id="status-list">
                         <option value="풍경"></option>
                         <option value="인물"></option>
@@ -62,7 +65,7 @@
                         <option value="오브제"></option>
                     </datalist>
                 </div>
-                <div class="btn-group" data-toggle="buttons">
+                <div class="btn-group" data-toggle="buttons" style="vertical-align : inherit;">
                                 <label class="btn btn-outline-dark">
                                     <input type="radio" name="term" value="today">오늘
                                 </label>
@@ -84,22 +87,22 @@
                     <input type="date" name="refund-date1"> ~
                     <input type="date" name="refund-date1">
                 </div>
-                <button type="submit">조회</button>
+                <button type="submit" class="btn btn-outline-dark" style = "margin : 10px 0; width:100px">조회</button>
             </div>
 
         </form>
         <div class = "card-table">
-            <div class="table-headline">
-                <div><span>카드 내역</span></div>
-                <div class="button"><button class="delete-bt" style = "width:120px">선택 삭제</button></div>
+            <div class="table-headline" style="margin-top: 50px;">
+                <!-- <div><span>카드 내역</span></div> -->
+                <div class="button"><button class="btn btn-outline-dark" style = "width:120px;margin-bottom: 15px;" onclick="deleteCard()" >선택 삭제</button></div>
             </div>
             <table style="width:100%" name="card-list">
                 <tr>
-                    <th><input type="checkbox"></th>
+                    <th><input type="checkbox" id = "check_all"></th>
                     <th style = "text-align : center;">상품 번호</th>
                     <th style = "text-align : center;">이미지</th>
                     <th style = "text-align : center;">상품 정보</th>
-                    <th style = "text-align : center;">구매자 닉네임</th>
+                    <th style = "text-align : center;">구매자 이름</th>
                     <th style = "text-align : center;">감동 카드</th>
                 </tr>
                 
@@ -107,7 +110,7 @@
                 	Message m = mlist.get(i);
                 %>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input class = "check_sub" type="checkbox" name = "check" value="<%=m.getOrder_no()%>"></td>
                     <td><%=m.getPaint_no()%></td>
                     <td>
 					 <% for(int j=0; j<alist.size(); j++){ 
@@ -127,32 +130,91 @@
         </div>
         
     </div>
-    <div style="width : 350px; margin : 0 auto;">
-        <div class="pagination">
-            <a href="#" class="disabled" aria-label="Go to previous page">Previous</a>
-            <ol>
-              <li class="current-page">
-                <a href="#" aria-label="Current page. Page 1">1</a>
-              </li>
-              <li>
-                <a href="#" aria-label="Go to 2 page">2</a>
-              </li>
-              <li>
-                <a href="#" aria-label="Go to 3 page">3</a>
-              </li>
-              <li>
-                <button type="button" disabled>...</button>
-              </li>
-              <li>
-                <a href="#" aria-label="Go to 7 page">7</a>
-              </li>
-              <li>
-                <a href="#" aria-label="Go to 8 page">8</a>
-              </li>
-            </ol>
-            <a href="#" aria-label="Go to next page">Next</a>
-          </div>
-        </div>
+    
+    <script type="text/javascript">
+    
+    $(function(){
+    	
+        $("#check_all").click(function(){
+        	
+            var chk = $(this).is(":checked");//.attr('checked');
+            
+            if(chk) $(".check_sub").prop('checked', true);
+            
+            else  $(".check_sub").prop('checked', false);
+        });
+    });
+
+    
+    var arrayList = '';
+    
+    function deleteCard(){
+    	
+    	var checkboxList = $("input[name=check]:checked");
+    	
+    	arrayList = '';
+    	
+    	for(var i=0 ; i<checkboxList.length; i++) {
+    		
+    		if($(checkboxList[i]).is(":checked")){
+    			console.log(i);
+    			
+    			// 마지막 값이 아니면
+    			if(i != checkboxList.length-1){
+    				arrayList += $(checkboxList[i]).val() + "," ;
+    			} else {
+    				arrayList += $(checkboxList[i]).val();
+    			}
+    			
+    		}
+    		
+    	}
+    	
+    	console.log(arrayList);
+    	
+    
+    
+    // 하나도 체크가 안 됐을 경우
+    if (arrayList == ''){
+    	alert("한 가지 이상을 선택해 주세요.");
+    } else {
+    	if(!confirm("삭제하시겠습니까? 한번 삭제시 복구할 수 없습니다."))
+    		return false;
+    	
+    	// post ajax 통신
+    	
+    	$.ajax({
+    		type : "POST",
+    		url : "list.ac",
+    		data : {order_no : arrayList},
+    		success : function(ret){
+    			// 페이지 새로 고침
+    			location.reload();
+    		}
+    	});
+    }
+    }
+    
+    </script>
+    
+    
+	 <ul class="pagination justify-content-center">
+    <li class="page-item disabled">
+      <span class="page-link">Previous</span>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item">
+      <span class="page-link">
+        ...
+      </span>
+    </li>
+    <li class="page-item active"><a class="page-link" href="#">4</a></li>
+    <li class="page-item"><a class="page-link" href="#">5</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
     
 <%@include file="../common/footer.jsp" %>
 
