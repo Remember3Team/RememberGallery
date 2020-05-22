@@ -98,7 +98,7 @@
             </div>
             <table style="width:100%" name="card-list">
                 <tr>
-                    <th><input type="checkbox"></th>
+                    <th><input type="checkbox" id = "check_all"></th>
                     <th style = "text-align : center;">상품 번호</th>
                     <th style = "text-align : center;">이미지</th>
                     <th style = "text-align : center;">상품 정보</th>
@@ -110,7 +110,7 @@
                 	Message m = mlist.get(i);
                 %>
                 <tr>
-                    <td><input type="checkbox" name = "check" value="<%=m.getOrder_no()%>"></td>
+                    <td><input class = "check_sub" type="checkbox" name = "check" value="<%=m.getOrder_no()%>"></td>
                     <td><%=m.getPaint_no()%></td>
                     <td>
 					 <% for(int j=0; j<alist.size(); j++){ 
@@ -132,6 +132,19 @@
     </div>
     
     <script type="text/javascript">
+    
+    $(function(){
+    	
+        $("#check_all").click(function(){
+        	
+            var chk = $(this).is(":checked");//.attr('checked');
+            
+            if(chk) $(".check_sub").prop('checked', true);
+            
+            else  $(".check_sub").prop('checked', false);
+        });
+    });
+
     
     var arrayList = '';
     
@@ -185,32 +198,23 @@
     </script>
     
     
-	<div style="width : 350px; margin : 0 auto;">
-        <div class="pagination">
-            <a href="#" class="disabled" aria-label="Go to previous page">Previous</a>
-            <ol>
-              <li class="current-page">
-                <a href="#" aria-label="Current page. Page 1">1</a>
-              </li>
-              <li>
-                <a href="#" aria-label="Go to 2 page">2</a>
-              </li>
-              <li>
-                <a href="#" aria-label="Go to 3 page">3</a>
-              </li>
-              <li>
-                <button type="button" disabled>...</button>
-              </li>
-              <li>
-                <a href="#" aria-label="Go to 7 page">7</a>
-              </li>
-              <li>
-                <a href="#" aria-label="Go to 8 page">8</a>
-              </li>
-            </ol>
-            <a href="#" aria-label="Go to next page">Next</a>
-          </div>
-        </div>
+	 <ul class="pagination justify-content-center">
+    <li class="page-item disabled">
+      <span class="page-link">Previous</span>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item">
+      <span class="page-link">
+        ...
+      </span>
+    </li>
+    <li class="page-item active"><a class="page-link" href="#">4</a></li>
+    <li class="page-item"><a class="page-link" href="#">5</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
     
 <%@include file="../common/footer.jsp" %>
 
