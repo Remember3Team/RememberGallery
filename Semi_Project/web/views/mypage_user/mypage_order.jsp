@@ -133,6 +133,10 @@ function confirm2(gOrderNo, gPaintName, gArtistName, gPaintNo){
 	      }
 
 //취소 환불버튼 누르고 orderNo로 받아올때
+$(document).ready(function () {
+  // Your code
+});
+
 function refundApply(orderNo){
 	 $("#modal_refund").fadeIn(500);
 	 
