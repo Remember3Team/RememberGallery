@@ -13,6 +13,7 @@ import board.amateur.model.service.AmateurService;
 import board.amateur.model.vo.Amateur;
 import board.amateur.model.vo.FileManagement;
 import board.amateur.model.vo.Reply;
+import product.model.vo.MasterpieceCount;
 
 /**
  * Servlet implementation class AmateurDetailServlet
@@ -38,6 +39,7 @@ public class AmateurDetailServlet extends HttpServlet {
 		int event_no = Integer.valueOf(request.getParameter("event_no"));
 		Amateur amateur = new AmateurService().selectBoard(event_no);
 		FileManagement file = new AmateurService().selectFile(event_no);
+		MasterpieceCount heartCount = new AmateurService().selectHCount(event_no);
 		//////////////////////// ajax
 		ArrayList<Reply> rList = new AmateurService().selectReplyList(event_no);
 		
@@ -46,6 +48,7 @@ public class AmateurDetailServlet extends HttpServlet {
 			request.setAttribute("amateur", amateur);
 			request.setAttribute("fileList", file);
 			request.setAttribute("rList", rList);
+			request.setAttribute("heartCount", heartCount);
 			System.out.println("[아마추어게시판에서 게시글을 클릭했을 때[servlet]:"+amateur);
 			System.out.println("[아마추어게시판에서 게시글을 클릭했을 때[servlet]:"+file);
 			System.out.println("[아마추어게시판에서 게시글을 클릭했을 때[servlet]:"+rList);

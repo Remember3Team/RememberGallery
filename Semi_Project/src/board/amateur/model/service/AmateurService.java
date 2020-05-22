@@ -12,6 +12,8 @@ import board.amateur.model.dao.AmateurDao;
 import board.amateur.model.vo.Amateur;
 import board.amateur.model.vo.FileManagement;
 import board.amateur.model.vo.Reply;
+import product.model.dao.ProductDao;
+import product.model.vo.MasterpieceCount;
 
 public class AmateurService {
 
@@ -130,6 +132,55 @@ public class AmateurService {
 		}
 		close(conn);
 		return rList;
+	}
+
+	public int insertPlus(String user, int event_no) {
+		Connection conn = getConnection();
+		
+		int result = new AmateurDao().insertPlus(conn, user,event_no);
+		
+		System.out.println("[service]좋아요+1:"+result);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+	public int insertMinus(String user, int event_no) {
+		Connection conn = getConnection();
+		
+		int result = new AmateurDao().insertMinus(conn, user,event_no);
+		
+		System.out.println("[service]좋아요+1:"+result);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+	public int selectTotalCount(int event_no) {
+		Connection conn = getConnection();
+		int count = new AmateurDao().selectTotalCount(conn,event_no);
+		
+		System.out.println("좋아요 갯수:"+count);
+		return count;
+	}
+
+	public MasterpieceCount selectHCount(int event_no) {
+		Connection conn = getConnection();
+		MasterpieceCount mpc = new AmateurDao().selectHCount(conn,event_no);
+		
+		return mpc;
 	}
 
 

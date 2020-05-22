@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="board.amateur.model.vo.*, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import="product.model.vo.*, board.amateur.model.vo.*, java.util.ArrayList"%>
 <%
 	Amateur a = (Amateur)request.getAttribute("amateur");
 	FileManagement fm = (FileManagement)request.getAttribute("fileList");
 	ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList");
-	
+	MasterpieceCount heartCount = (MasterpieceCount)request.getAttribute("heartCount");
 	System.out.println("[jsp] 출력 결과 : "+rList);
 %>
 <!DOCTYPE html>
@@ -60,14 +60,21 @@
                   <tr>
                   	<td> 좋아요 </td>
                   	<td> 
-                  		<div style="float:right; onclick="emptyheartCheck();" class="emptyheartCheck">
+                  		<div style="float:right;" onclick="emptyheartCheck();" class="emptyheartCheck">
       						<input id="paint_no" type="hidden" value="<%=a.getEvent_like()%>">
-							<%if(a.getUser_id() != null){ %>
-									<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/emptyHeart.png">
-							<%}else{%>
-									<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/emptyHeart.png">
-							<%} %> 
-      		     					</div>
+							<div style="float:right;">
+				      		<div class="likeCount" style="float:left; margin-right:10px;">
+				      			<span class="countArea"><%=heartCount.getCount() %></span>
+				      		</div>
+			      			</div>
+      		
+				      		<%if(a.getUser_id() != null){ %>
+				      		<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/colorHeart.png">
+				      		<%}else{%>
+				      		<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/emptyHeart.png">
+				      		<%} %>
+			
+      					</div>
 					</td>
                   </tr>
                   <br><br><br>
@@ -80,39 +87,7 @@
 				  </tr>
 				  <br><br>
 				</table>
-				<script>
-				 $(function(){
-				      $(".heartcheck").click(function(){
-				    	  var event_no = "<%=a.getEvent_no()%>";
-				    	  var heart = $(".heartcheck").attr('src');
-				    	  var heartYN;
-
-				    	  if(heart=='<%=request.getContextPath()%>/views/img/colorHeart.png'){
-				    		  $(".heartcheck").attr('src','<%=request.getContextPath()%>/views/img/emptyHeart.png');
-				    		  heartYN = 'N';
-				    	  }else{
-				    		  $(".heartcheck").attr('src','<%=request.getContextPath()%>/views/img/colorHeart.png');
-				    		  heartYN = 'Y';
-				    	  }
-				    	  $.ajax({
-				    		url:"like.am",
-				    		type:"post",
-				    		data:{event_no:event_no,heartYN:heartYN},
-				   
-				    		success:function(data){
-				    			var $likeCount = $(".likeCount");
-				    			var $count = $("<span>").text(data);
-				    			
-				    			$likeCount.html($count);
-				    			
-				    		},
-				    		error:function(request,statur,error){
-				    			alert("로그인을 하셔야 합니다.");
-				    			 $(".heartcheck").attr('src','<%=request.getContextPath()%>/views/img/emptyHeart.png');
-				    		}
-				    		  
-				    	  })
-				</script>
+				
        <div id="replySelectArea">
 			<table id="replySelectTable" class="table" align="center">
 				<% if(rList.isEmpty()) { %>
@@ -138,6 +113,38 @@
 
 	<script>
 		$(function(){
+			$(".heartcheck").click(function(){
+		    	  var event_no = "<%=a.getEvent_no()%>";
+		    	  var heart = $(".heartcheck").attr('src');
+		    	  var heartYN;
+
+		    	  if(heart=='<%=request.getContextPath()%>/views/img/colorHeart.png'){
+		    		  $(".heartcheck").attr('src','<%=request.getContextPath()%>/views/img/emptyHeart.png');
+		    		  heartYN = 'N';
+		    	  }else{
+		    		  $(".heartcheck").attr('src','<%=request.getContextPath()%>/views/img/colorHeart.png');
+		    		  heartYN = 'Y';
+		    	  }
+		    	  $.ajax({
+		    		url:"like.am",
+		    		type:"post",
+		    		data:{event_no:event_no,heartYN:heartYN},
+		   
+		    		success:function(data){
+		    			var $likeCount = $(".likeCount");
+		    			var $count = $("<span>").text(data);
+		    			
+		    			$likeCount.html($count);
+		    			
+		    		},
+		    		error:function(request,statur,error){
+		    			alert("로그인을 하셔야 합니다.");
+		    			 $(".heartcheck").attr('src','<%=request.getContextPath()%>/views/img/emptyHeart.png');
+		    		}
+		    		  
+		    	  })
+			})
+		
 			$("#addReply").click(function(){
 				var writer = "<%=loginUser.getUserId()%>";
 				var bid = <%=a.getEvent_no()%>;

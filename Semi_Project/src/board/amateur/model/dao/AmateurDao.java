@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import board.amateur.model.vo.Amateur;
 import board.amateur.model.vo.FileManagement;
 import board.amateur.model.vo.Reply;
+import product.model.vo.MasterpieceCount;
 public class AmateurDao {
 
 	public int insertBoard(Connection conn, Amateur a) {
@@ -94,8 +95,10 @@ public class AmateurDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		ArrayList<Amateur> list = new ArrayList<>();
+		Amateur am = new Amateur();
 		
+		ArrayList<Amateur> list = new ArrayList<>();
+//		list.add(am);
 		String query = "SELECT * FROM EVENT WHERE EVENT_NO BETWEEN ? AND ?";
 		
 		int startRow = (currentPage -1)*limit+1;
@@ -129,8 +132,10 @@ public class AmateurDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
+		FileManagement fm1 = new FileManagement();
 		ArrayList<FileManagement> list = new ArrayList<>();
 		
+//		list.add(fm1);
 		String query = "SELECT * FROM EVENT_FILE";
 		
 		try {
@@ -289,6 +294,102 @@ public class AmateurDao {
 		}
 		System.out.println("[댓글 insert]Amateur Dao:"+result);
 		return result;
+	}
+
+	public int insertPlus(Connection conn, String user, int event_no) {
+		PreparedStatement pstmt = null;
+
+		int result = 0;
+
+		String query = "INSERT INTO EVENT_LIKE VALUES(?,?)";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, event_no);
+			pstmt.setString(2, user);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		System.out.println(result);
+		
+		return result;
+	}
+
+	public int insertMinus(Connection conn, String user, int event_no) {
+		PreparedStatement pstmt = null;
+
+		int result = 0;
+
+		String query = "DELETE FROM EVENT_LIKE WHERE USER_ID=? AND EVENT_NO =?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, user);
+			pstmt.setInt(2, event_no);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		System.out.println(result);
+		
+		return result;
+	}
+
+	public int selectTotalCount(Connection conn, int event_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count =0;
+		String query="SELECT COUNT(*)좋아요수 FROM EVENT_LIKE WHERE EVENT_NO = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, event_no);
+			
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				count = rset.getInt("좋아요수");
+			}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		System.out.println("[dao]좋아요 갯수:"+count);
+		return count;
+	}
+
+	public MasterpieceCount selectHCount(Connection conn, int event_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		MasterpieceCount mc = new MasterpieceCount();
+		String query = "SELECT COUNT(*)좋아요수 FROM EVENT_LIKE WHERE EVENT_NO = ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, event_no);
+			
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				mc = new MasterpieceCount(rset.getInt("좋아요수"));
+									}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+	
+		return mc;
 	}
 
 }

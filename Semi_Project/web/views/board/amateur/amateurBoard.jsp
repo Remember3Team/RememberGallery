@@ -1,12 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="board.amateur.model.vo.*, board.notice.model.vo.*, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import="product.model.vo.*, board.amateur.model.vo.*, board.notice.model.vo.*, java.util.ArrayList"%>
 
 <%
+	Amateur a = (Amateur)request.getAttribute("amateur");
 	ArrayList<Amateur> list = ((ArrayList<Amateur>)request.getAttribute("list"));
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
 	ArrayList<FileManagement> fileList = ((ArrayList<FileManagement>)request.getAttribute("fileList"));
-	
-	System.out.println("[jsp]게시글 리스트 출력확인:"+list);
+	MasterpieceCount heartCount = (MasterpieceCount)request.getAttribute("heartCount");
+/* 	System.out.println("list.get(0):"+list.get(0));
+	System.out.println("Amateur():"+new Amateur());
+	System.out.println("list.get(0).equals(new Amateur())"+list.get(0).equals(new Amateur()));
+	System.out.println("list.get(0) == new Amateur()"+(list.get(0) == new Amateur())); */
+	/* System.out.println("list.isEmpty()"+list.isEmpty()); */
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();
@@ -30,7 +35,7 @@
 	#subnav{ float: left; margin-left:20px;}
 	#goDetail{z-index:4;}
 	.container{ position : relative; margin-top:10px;}
-	.headLine{ /*float:left;*/ width:30%; /*margin-top:90px; margin-left:90px; margin-bottom:50px;*/ display:block; box-sizing:border-box;}
+	.headLine{ /*float:left;*/ width:30%; margin-top:90px; margin-left:90px; margin-bottom:50px; display:block; box-sizing:border-box;}
 	.headLine hr{ background-color:red; width:25px; border:2px solid red; margin-bottom:10px;}
 	
 </style>
@@ -46,9 +51,12 @@
 			</div><!-- class headLine end -->
 	<div class="container">
         <div class="row">
-		
+		<%if(list.isEmpty()){%>
+          	<span style="font-size:20px; margin:0 auto; margin-top:140px; margin-bottom:240px;">게시글이 존재하지 않습니다.</span>
+		<%}else{ %>
 		<%for(int i=0;i<list.size();i++){ %>
-	        <% Amateur a = list.get(i); %>
+	        <% a = list.get(i); %>
+	        	<%if(a.getEvent_no()!=0){ %>
 	          	<div id="goDetail" class="col-lg-4 col-md-6 mb-4">
 			       <div class="card h-100">
  			             <%for(int j=0; j<fileList.size();j++){ 
@@ -69,17 +77,32 @@
 			              </div><!-- class card-body end -->
 			              
 			              <div class="card-footer">
-			                <img class="Heart" src="<%=request.getContextPath() %>/views/img/emptyHeart.png">
-		              	  	
+							<div style="float:right;" onclick="emptyheartCheck();" class="emptyheartCheck">
+	      		
+								<div style="float:right;">
+					      		<div class="likeCount" style="float:left; margin-right:10px;">
+					      			<span class="countArea"><%=heartCount.getCount() %></span>
+					      		</div>
+				      			</div>
+	      		
+					      		<%if(a.getUser_id() != null){ %>
+					      		<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/colorHeart.png">
+					      		<%}else{%>
+					      		<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/emptyHeart.png">
+					      		<%} %>
+				
+      						</div>		              	  	
 		              	  </div><!-- class card-footer end -->
 		            </div><!-- class card end -->
 		          </div><!-- id goDetail end -->
+          <%}%>
+          <%} %>
           <%} %>
          </div>
         <!-- /.row -->
 
 		<!-- Pagination -->
-	  	<div style="text-align:center;">
+	  	<div style="text-align:center; margin-bottom:100px;">
 			<div class="col-mid-12">
 				 <ul class="pagination justify-content-center" style="margin:20px 0">
 	    	    	     <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/list.am?currentPage=1">Previous</a></li>
@@ -96,10 +119,8 @@
       
       <!-- /.col-lg-9 -->
 
-      
-     <button id="insertAma" type="button active" class="btn btn-secondary" 
-     		 onclick="location.href='<%=request.getContextPath()%>/views/board/amateur/amateurInsert.jsp'">게시글 작성</button>
-
+    <button id="insertAma" type="button active" class="btn btn-secondary" style="float:right; margin-bottom:100px; margin-right:100px">게시글 작성</button>
+	<br clear="both">
 
 <!--footer -->
 <%@include file="../../common/footer.jsp" %>
@@ -109,6 +130,37 @@
 <script>
 
 $(function(){
+	$(".heartcheck").click(function(){
+  	  var event_no = "<%=a.getEvent_no()%>";
+  	  var heart = $(".heartcheck").attr('src');
+  	  var heartYN;
+
+  	  if(heart=='<%=request.getContextPath()%>/views/img/colorHeart.png'){
+  		  $(".heartcheck").attr('src','<%=request.getContextPath()%>/views/img/emptyHeart.png');
+  		  heartYN = 'N';
+  	  }else{
+  		  $(".heartcheck").attr('src','<%=request.getContextPath()%>/views/img/colorHeart.png');
+  		  heartYN = 'Y';
+  	  }
+  	  $.ajax({
+  		url:"like.am",
+  		type:"post",
+  		data:{event_no:event_no,heartYN:heartYN},
+ 
+  		success:function(data){
+  			var $likeCount = $(".likeCount");
+  			var $count = $("<span>").text(data);
+  			
+  			$likeCount.html($count);
+  			
+  		},
+  		error:function(request,statur,error){
+  			alert("로그인을 하셔야 합니다.");
+  			 $(".heartcheck").attr('src','<%=request.getContextPath()%>/views/img/emptyHeart.png');
+  		}
+  		  
+  	  })
+	})
 	$(".card-title").click(function(){
 		var event_no = $(this).parent().children("input").val();
 		alert("event_no:"+event_no);
@@ -127,6 +179,15 @@ $(function(){
             hState= 'N';
         }
     });
+	
+	
+	$("#insertAma").click(function(){
+		<% if(loginUser != null){ %>
+		    location.href="<%=request.getContextPath()%>/views/board/amateur/amateurInsert.jsp"		
+		<% }else{ %>
+			alert("로그인 해야만 게시글 상세보기가 가능합니다!");
+		<% } %>
+	});
 })
 //하트 변경
 <%-- function heartCheck(){

@@ -38,11 +38,11 @@ public class AmateurListServlet extends HttpServlet {
 		
 		int listCount = aService.getListCount();
 		
-		int currentPage;		//현재 페이지를 저장할 변수
-		int limit; 				//한 페이지에 보여질 게시글 수
-		int maxPage;			//전체 페이지의 맨 마지막 페이지
-		int startPage;			//한번에 표시될 페이지가 시작할 페이지
-		int endPage;			//한번에 표시될 페이지가 끝나는 페이지
+		int currentPage =0 ;		//현재 페이지를 저장할 변수
+		int limit =0 ; 				//한 페이지에 보여질 게시글 수
+		int maxPage =0 ;			//전체 페이지의 맨 마지막 페이지
+		int startPage =0;			//한번에 표시될 페이지가 시작할 페이지
+		int endPage =0;			//한번에 표시될 페이지가 끝나는 페이지
 		
 		// * currentPage - 현재 페이지
 		// 기본 게시판 페이지는 1페이지부터 시작
@@ -93,15 +93,11 @@ public class AmateurListServlet extends HttpServlet {
 		
 		//화면으로
 		RequestDispatcher view = null;
-		if(!list.isEmpty()) {
 			view = request.getRequestDispatcher("views/board/amateur/amateurBoard.jsp");
 			request.setAttribute("fileList", fileList);
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
-		}else {
-			System.out.println("게시글 조회 실패");
-			view = request.getRequestDispatcher("views/board/amateur/amateurBoard.jsp");
-		}
+		
 		view.forward(request,response);
 		
 	

@@ -248,5 +248,41 @@ public class MorwDao {
 	
 	}
 
+	public int insertMessage(Connection conn, Morw morw) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		
+		
+		
+		String query = "INSERT INTO MESSAGE(ORDER_NO,PAINT_NO,USER_ID,MESSAGE,PAINT_NAME,ARTIST_NAME) VALUES(?,?,?,?,?,?)";
+		
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1,morw.getOrderNo());
+			pstmt.setInt(2,morw.getPaintNo());
+			pstmt.setString(3,morw.getUserId());
+			pstmt.setString(4,morw.getMessage());
+			pstmt.setString(5, morw.getPaintName());
+			pstmt.setString(6, morw.getArtistName());
+			
+			result = pstmt.executeUpdate();
+			
+			System.out.println("Dao단 result"+result);
+			
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+
+	 
+
 
 }

@@ -145,7 +145,6 @@ function totalPrice(){
 			  				%>
 			    		<tr>
                 			<td><input type="checkbox" name="check" value="<%=m.getBasketNo() %>"></td>
-                			
                 			<td><% for(int j=0; j<plist.size(); j++){ 
 							Attachment a = plist.get(j); %>
 						<% if(m.getPaintNo() == a.getPaint_no()) { %>
