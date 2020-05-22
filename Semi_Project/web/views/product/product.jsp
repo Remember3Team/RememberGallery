@@ -58,6 +58,24 @@
 	margin-left:160px;
 
 }
+
+            input[type=range]::-webkit-slider-runnable-track { 
+                width: 100%; 
+                height: 8.4px; 
+                cursor: pointer; 
+                box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+                 background: red; 
+                 border-radius: 1.3px; 
+                 border: 0.2px solid #010101;
+            }
+                  
+            input[type=range]:focus::-webkit-slider-runnable-track {
+                    background: red;
+            }
+
+	table{
+		table-layout:fixed;
+	}
   </style>
   
 </head>
@@ -68,11 +86,8 @@
             
             <form action="<%=request.getContextPath()%>/worksearch.po" method="post">
             <table class="table table-borderless" >
-            <tr>
-            <td></td>
-            </tr>
                 <tr>
-                	<td></td>
+          
                     <td><b>작가 명</b><br><input type="text" class="form-control" id="aname" name="aname" style="width:200px"></td>
                     <td><b>테마</b><br><select name="category" id="category" class="form-control" style="width:200px">
                                 <option value="인물">인물</option>
@@ -83,9 +98,13 @@
                                 <option value="팝아트">팝아트</option>
                                 <option value="오브제">오브제</option>
                     </select></td>
-                    <td><b>가격</b><br>
-                    <input type="range" class="form-control-range" min="0" max="100000000" step="10000" value="0" name="price" style="width:200px">
-                    <br><div></div></td><!-- 가격이변하는걸 표현해줘야함. -->
+                    <td>
+                    <div>
+                    <label> 가격: </label>
+                    <input type="range" name="price" min="0" max="10000000" step="100000" value="0" oninput="document.getElementById('value1').innerHTML=this.value;">
+                    <span id="value1"></span>
+                </div>
+                    </td>
                 </tr>
                 <tr>
                     <td></td>

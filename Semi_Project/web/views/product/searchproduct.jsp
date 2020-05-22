@@ -51,6 +51,19 @@
 	margin-left:160px;
 
 }
+  input[type=range]::-webkit-slider-runnable-track { 
+                width: 100%; 
+                height: 8.4px; 
+                cursor: pointer; 
+                box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+                 background: red; 
+                 border-radius: 1.3px; 
+                 border: 0.2px solid #010101;
+            }
+                  
+            input[type=range]:focus::-webkit-slider-runnable-track {
+                    background: red;
+            }
   </style>
 </head>
 <body>
@@ -78,9 +91,13 @@
                     </select></td>
                     <td></td>
                     <td></td>
-                    <td><b>가격</b><br>
-                    <input type="range" id="price" min="0" max="100000000" step="10000" value="0" name="price">
-                    <br><div></div></td><!-- 가격이변하는걸 표현해줘야함. -->
+                    <td>
+                    <div>
+                    <label> 가격: </label>
+                    <input type="range" name="price" min="0" max="10000000" step="100000" value="0" oninput="document.getElementById('value1').innerHTML=this.value;">
+                    <span id="value1"></span>
+                </div>
+                    </td>
                 </tr>
                 <tr>
                     <td></td>

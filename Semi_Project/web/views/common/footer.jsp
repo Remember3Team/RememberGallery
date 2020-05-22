@@ -10,7 +10,7 @@
 	margin : 0;}
 
 	.footer{
-	
+	width : 100%;
 	padding : 20px 0;
     text-align: center;
 	background-color: black;
@@ -22,7 +22,7 @@
 <body>
 
   <footer>
-  <div class="footer">
+  <div class="footer" style = "width : 100%">
     "Copyright © 1998-2019 KH Information Educational Institute All Right Reserved"
     </div>
    </footer>

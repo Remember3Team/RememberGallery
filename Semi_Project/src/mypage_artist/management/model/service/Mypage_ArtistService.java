@@ -85,6 +85,53 @@ public class Mypage_ArtistService {
 		return search_list;
 	}
 
+	public ArrayList<Mypage_artist> selectList_DOV_P(String bWriter, int order_no) {
+		Connection conn = getConnection();
+		
+		ArrayList<Mypage_artist> DOV_plist = new Mypage_ArtistDao().selectList_DOV_P(conn,  bWriter, order_no);
+		
+		close(conn);
+		
+		return DOV_plist;
+	}
+
+	public ArrayList<Mypage_artist> selectList_DOV_D(String bWriter, int order_no) {
+		Connection conn = getConnection();
+		
+		ArrayList<Mypage_artist> DOV_dlist = new Mypage_ArtistDao().selectList_DOV_D(conn,  bWriter, order_no);
+		
+		close(conn);
+		
+		return DOV_dlist;
+	}
+
+	public ArrayList<Mypage_artist> selectList_DOV_S(String bWriter, int order_no) {
+		Connection conn = getConnection();
+		
+		ArrayList<Mypage_artist> DOV_slist = new Mypage_ArtistDao().selectList_DOV_S(conn,  bWriter, order_no);
+		
+		close(conn);
+		
+		return DOV_slist;
+	}
+
+	public int deleteProduct(String bWriter, int paint_no) {
+		Connection conn = getConnection();
+		
+		int result1 = new Mypage_ArtistDao().deleteProduct(conn, bWriter, paint_no);
+		int result2 = new Mypage_ArtistDao().deleteProduct2(conn, bWriter, paint_no);
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		
+		return result2;
+	}
+
 }
 
 

@@ -9,9 +9,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import org.omg.PortableInterceptor.USER_EXCEPTION;
+
 import artistapply.model.vo.Apply;
 import product.model.vo.Attachment;
 import product.model.vo.MasterpieceCount;
+import product.model.vo.Paint_QnA;
 import product.model.vo.masterpiece;
 import product.model.vo.product;
 
@@ -880,5 +883,132 @@ public class ProductDao {
 		}
 	
 		return mc;
+	}
+
+	public ArrayList<Paint_QnA> selectQ(Connection conn, int paint_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Paint_QnA qa = new Paint_QnA();
+		ArrayList<Paint_QnA> pqa = new ArrayList<Paint_QnA>();
+		String query = "SELECT * FROM PAINT_Q WHERE PAINT_NO = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, paint_no);
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				qa = new Paint_QnA(rset.getInt("PQ_NO"),
+									rset.getString("PQUESTION"),
+									rset.getString("PQ_DATE"),
+									rset.getInt("PAINT_NO"),
+									rset.getString("USER_ID"),
+									rset.getString("PQ_YN"));
+				pqa.add(qa);
+							}
+		} catch (SQLException e) {
+	
+			e.printStackTrace();
+		}
+		
+		return pqa;
+	}
+
+	public ArrayList<Paint_QnA> selectA(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Paint_QnA qa = new Paint_QnA();
+		ArrayList<Paint_QnA> pqa = new ArrayList<Paint_QnA>();
+		
+		
+		String query = "SELECT * FROM PAINT_A";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				qa = new Paint_QnA( 
+									rset.getInt("PQ_NO"),
+									rset.getString("PANSWER"),
+									rset.getString("PA_DATE"));
+				pqa.add(qa);
+									}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		
+		return pqa;
+	}
+
+	public int insertQuestion(Connection conn, String writer, int paint_no, String content) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result =0;
+		String query = "INSERT INTO PAINT_Q VALUES(SEQ_QNA.NEXTVAL, ?, SYSDATE, ?, ?, 'N')";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, content);
+			pstmt.setInt(2, paint_no);
+			pstmt.setString(3, writer);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		return result;
+	}
+
+	public int insertAnwser(Connection conn, int qna_no, String content) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result =0;
+		String query = "INSERT INTO PAINT_A VALUES(?, ?,SYSDATE)";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, qna_no);
+			pstmt.setString(2, content);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println(result);
+		return result;
+	}
+
+	public int updateQ(Connection conn, int qna_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result =0;
+		
+		String query = "UPDATE PAINT_Q SET PQ_YN='Y' WHERE  PQ_NO=? AND PQ_YN='N'";
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, qna_no);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		return result;
 	}
 }
