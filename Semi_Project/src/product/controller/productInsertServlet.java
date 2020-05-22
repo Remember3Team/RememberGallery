@@ -85,14 +85,16 @@ public class productInsertServlet extends HttpServlet {
 		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getUserId());
 		System.out.println(bWriter);
 		// 태그는 여러개를 받아야함.
-		String[] irr = multiRequest.getParameterValues("tagname");
+		/*
+		 * String[] irr = multiRequest.getParameterValues("tagname");
+		 * 
+		 * String tagname = "";
+		 */
 
-		String tagname = "";
-
-		if (irr != null) {
-			tagname = String.join(",", irr);
-		} // 태그는 한번 갔다온후 작품번호로 다시한번 보내서 저장
-		System.out.println(tagname);
+		/*
+		 * if (irr != null) { tagname = String.join(",", irr); } // 태그는 한번 갔다온후 작품번호로
+		 * 다시한번 보내서 저장 System.out.println(tagname);
+		 */
 
 		product p = new product(pname, aname, thema, year, price, paintInt, bWriter);
 
@@ -112,7 +114,7 @@ public class productInsertServlet extends HttpServlet {
 
 			fileList.add(at);
 		}
-		int result = new ProductService().insertProduct(p, fileList,irr);
+		int result = new ProductService().insertProduct(p, fileList);
 
 		if (result > 0) {
 			System.out.println("파일 등록 완료");

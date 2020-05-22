@@ -2,13 +2,14 @@
    pageEncoding="UTF-8" import = "product.model.vo.*,artistapply.model.vo.*, java.util.ArrayList"%>
 <%
 
-product plist = (product)request.getAttribute("plist");
-ArrayList<Attachment> alist = (ArrayList<Attachment>)request.getAttribute("alist");
-ArrayList<product> sizelist = (ArrayList<product>)request.getAttribute("sizelist");
-Apply apply = (Apply)request.getAttribute("aplly");
-masterpiece mp = (masterpiece)request.getAttribute("mp");
-MasterpieceCount mc = (MasterpieceCount)request.getAttribute("mc");
-
+	product plist = (product)request.getAttribute("plist");
+	ArrayList<Attachment> alist = (ArrayList<Attachment>)request.getAttribute("alist");
+	ArrayList<product> sizelist = (ArrayList<product>)request.getAttribute("sizelist");
+	Apply apply = (Apply)request.getAttribute("aplly");
+	masterpiece mp = (masterpiece)request.getAttribute("mp");
+	MasterpieceCount mc = (MasterpieceCount)request.getAttribute("mc");
+	ArrayList<Paint_QnA> qna = (ArrayList<Paint_QnA>)request.getAttribute("qna");
+	ArrayList<Paint_QnA> qna2 = (ArrayList<Paint_QnA>)request.getAttribute("qna2");
 
 
 %>
@@ -398,11 +399,12 @@ border: solid 1px;
 	  if(a.getFileLevel() == 0){%>
      	<img class = "swiper-fiximg" src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=a.getSavefileName()%>" width="30%">
     <%}}%>
+    
  
     <div class="swiper-wrapper">
-      <div class="swiper-slide"><img src="<%=request.getContextPath()%>/views/interior/인테리어1.jpg" width="100%"></div>
-      <div class="swiper-slide"><img src="<%=request.getContextPath()%>/views/interior/인테리어2.jpg"  width="100%"></div>
-      <div class="swiper-slide"><img src="<%=request.getContextPath()%>/views/interior/인테리어3.jpg"  width="100%"></div>
+      <div class="swiper-slide"><img src="<%=request.getContextPath() %>/views/interior/인테리어1.jpg" width="100%"></div>
+      <div class="swiper-slide"><img src="<%=request.getContextPath() %>/views/interior/인테리어2.jpg"  width="100%"></div>
+      <div class="swiper-slide"><img src="<%=request.getContextPath() %>/views/interior/인테리어3.jpg"  width="100%"></div>
       <div class="swiper-slide">Slide 4</div>
     </div>
     <!— Add Pagination —>
@@ -443,21 +445,143 @@ border: solid 1px;
    </div>
    <br clear="both">
    <hr style = "margin : 50px auto;" color="black" width="1300px">
+  
    <h3 align="center">Q & A</h3>
    <br>
+   <div class="q&a">
    <table style = "margin : 0 auto;">
     <tr>
-		<td style = "margin : 0 auto;">Q & A 작성</td>
-	</tr>
-	<tr>
-<br>
-	<td><textArea rows="5" cols="100" id="replyContent" style = "margin : 50px auto;"></textArea></td>
-	<td >
-	<button id="addReply" type="button active" class="btn btn-secondary" style="width:100px; margin-left : 15px;">Q&A 등록</button>
-	</td>
-	</tr>
+		<td>Q & A 작성</td>
+		<td>
+		<textArea rows="5" cols="100" class="QnAContent"></textArea>
+		</td>
+		<td>
+			<button class="addQNA" type="button active" class="btn btn-secondary" style="width:100px;">Q&A등록</button>
+		</td>
+		</tr>
    </table>
-
+   <div id="replySelectArea">
+			<table id="replySelectTable" class="table" align="center">
+				<% if(qna.isEmpty()) { %>
+					<tr><td colspan="3">Q & A가 없습니다.</td></tr>				
+				<% }else { %>
+					<% for(int i=qna.size()-1; i>=0; i--){ %>
+						<tr>
+							<td width="100px"><%= qna.get(i).getUser_id() %></td>
+							<td width="400px"><%= qna.get(i).getPqusetion() %></td>
+							<td width="200px"><%= qna.get(i).getPq_date() %></td>
+							<%if(qna.get(i).getPq_yn().equals("N")) {%>
+							<td>
+								<input class="qna_no" type="hidden" value="<%=qna.get(i).getPq_no()%>">
+								<button class="addA" type="button active" class="btn btn-secondary" style="width:100px;">답변하기</button>
+								<div class="Acontents" style="display:none;">
+									<textArea rows="5" cols="100" class="AContent"></textArea>
+									<button class="hideA"  type="button active" class="btn btn-secondary" style="width:100px;">답변접기</button>
+									<button class="insertA" type="button active" class="btn btn-secondary" style="width:100px;">작성완료</button>
+								</div>
+								<div></div>
+							</td>
+							<%}else if(qna.get(i).getPq_yn().equals("Y")){%>
+							<td>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>답변완료</b>
+							</td>
+							<%} %>
+						</tr>
+							<%for(int j=qna2.size()-1; j>0; j--){ %>
+							<%if(qna.get(i).getPq_no() == qna2.get(j).getPq_no()){%>
+							<div class="answertable">
+							<tr>
+							<td width ="100px">판매자</td>
+							<td width="400px"><%= qna.get(j).getPanswer()%></td>
+							<td width="200px"><%= qna.get(j).getPq_date() %></td>
+							</tr>
+							</div>
+							<%}} %>
+					<% } %>
+				<% } %>
+			</table>
+		</div>
+</div>
+		<script>
+		$(function(){
+			$(".hideA").click(function(){
+				$(this).parent(".Acontents").hide();
+				
+			})
+		})
+		
+		
+		$(function(){
+			$(".addA").click(function(){
+				$(this).parent().children(".Acontents").show();
+				
+			})
+		})
+		
+		$(function(){
+			$(".insertA").click(function(){ 
+				var qna_no = $(this).parent().parent().children(".qna_no").val();
+				var content = $(this).parent().children(".AContent").val();
+				$.ajax({
+					url:"insertA.po",
+					type:"post",
+					data:{qna_no:qna_no,content:content},
+					
+					success:function(data){
+						$replyTable = $("answertable");
+						$replyTable.html("");
+						for(var key in data){
+							var $tr = $("<tr>");
+							
+							var $contentTd =$("<td>").text(data[key].panswer).css("width","400px");
+							var $dateTd = $("<td>").text(data[key].pq_date).css("width","200px");
+							
+						
+							$tr.append($contentTd);
+							$tr.append($dateTd);
+							$replyTable.append($tr);
+						}
+					},
+					error:function(request,statur,error){
+						alter("댓글은 한번만 등록할 수 있습니다.");
+					}
+				})
+			})
+		})
+		
+		$(function(){
+			$(".addQNA").click(function(){
+				var paint_no = "<%=plist.getPaint_no()%>";
+				var content = $(".QnAContent").val();
+				
+				$.ajax({
+					url:"insertQnA.po",
+					type:"post",
+					data:{content:content,paint_no:paint_no},
+					
+					success:function(data){
+						$replyTable = $("#replySelectTable");
+						$replyTable.html("");
+						for(var key in data){
+							var $tr = $("<tr>");
+							var $writerTd = $("<td>").text(data[key].user_id).css("width","100px");
+							var $contentTd =$("<td>").text(data[key].pqusetion).css("width","400px");
+							var $dateTd = $("<td>").text(data[key].pq_date).css("width","200px");
+							
+							$tr.append($writerTd);
+							$tr.append($contentTd);
+							$tr.append($dateTd);
+							$replyTable.append($tr);
+						}
+						$("#QnAContent").val("");
+					},
+					error:function(request,statur,error){
+						alert("로그인을해야합니다.");
+					}
+				})
+			})
+		})
+		</script>
    <br clear="both">
    <%@include file="../common/footer.jsp"%>
 

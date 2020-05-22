@@ -15,6 +15,7 @@ import member.model.vo.Member;
 import product.model.service.ProductService;
 import product.model.vo.Attachment;
 import product.model.vo.MasterpieceCount;
+import product.model.vo.Paint_QnA;
 import product.model.vo.masterpiece;
 import product.model.vo.product;
 
@@ -77,6 +78,17 @@ public class productdetail extends HttpServlet {
 		MasterpieceCount mc = new MasterpieceCount();
 		mc = pService.countMasterpiece(paint_no);
 		
+		Paint_QnA qa = new Paint_QnA();
+
+		ArrayList<Paint_QnA> qna = new ArrayList<Paint_QnA>();
+		
+		qna = pService.selectQ(paint_no);
+		
+		ArrayList<Paint_QnA> qna2 = new ArrayList<Paint_QnA>();
+		
+		qna2 = pService.selectP();
+		
+		//QNA Q A 받아옴
 		
 		RequestDispatcher view = null;
 		
@@ -89,12 +101,12 @@ public class productdetail extends HttpServlet {
 			request.setAttribute("aplly", apply);
 			request.setAttribute("mp",mp);
 			request.setAttribute("mc", mc);
+			request.setAttribute("qna", qna);
+			request.setAttribute("qna2", qna2);
 		}else {
 			System.out.println("상품내용 조회 실패");
 		}
 		view.forward(request,response);
-		
-		
 		
 	}
 
