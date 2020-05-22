@@ -11,10 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import artistapply.model.vo.Apply;
 import member.model.vo.Member;
 import mypage_artist.RefundQnACard.model.service.ArtistService;
 import mypage_artist.RefundQnACard.model.vo.BuyList_a;
 import mypage_artist.RefundQnACard.model.vo.PageInfo;
+import mypage_artist.RefundQnACard.model.vo.QnA_Q;
 import product.model.vo.Attachment;
 
 /**
@@ -91,31 +93,33 @@ public class ArtistQnAListServlet extends HttpServlet {
 				PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage,
 						                   startPage, endPage);
 				
-				// 1_2. 게시판 리스트 조회해오기
-				ArrayList<BuyList_a> list = aService.selectList(loginMember.getUserId(), currentPage, limit);
-				for(int i = 0 ; i < list.size(); i++) {
-					System.out.println(list.get(i));
+				// 1_2. qna 게시판 리스트 조회해오기
+				
+				ArrayList<QnA_Q> qnalist = aService.selectQnAList(loginMember.getUserId(), currentPage, limit);
+				for(int i = 0 ; i < qnalist.size(); i++) {
+					System.out.println(qnalist.get(i));
 				}
 				
-//				ArrayList<BuyList_a> qnalist = aService.selectQnAList(loginMember.getUserId(), currentPage, limit);
-//				for(int i = 0 ; i < list.size(); i++) {
-//					System.out.println(list.get(i));
-//				}
-				
-				ArrayList<Attachment> alist = aService.selectAList(loginMember.getUserId(), currentPage, limit);
+				ArrayList<Attachment> alist = aService.selectQpList(loginMember.getUserId(), currentPage, limit);
 				
 				for(int i = 0 ; i <alist.size(); i++) {
 					System.out.println(alist.get(i));
 				}
 				
+				// 프로필 사진 불러오기
+				Apply aphoto = aService.selectPhoto(loginMember.getUserId());
+				
+				System.out.println(aphoto);
+				
 				// 출력이 잘 나오는걸 확인하면 이제 화면단으로 넘겨주자
 				
 				RequestDispatcher view = null;
-				if(!list.isEmpty()) {
-					view = request.getRequestDispatcher("views/mypage_artist/art-refund.jsp");
-					request.setAttribute("list", list);
+				if(!qnalist.isEmpty()) {
+					view = request.getRequestDispatcher("views/mypage_artist/art-qna.jsp");
+					request.setAttribute("qnalist", qnalist);
 					request.setAttribute("alist", alist);
 					request.setAttribute("pi", pi);
+					request.setAttribute("aphoto", aphoto);
 				}else {
 					System.out.println("조회 실패");
 				}

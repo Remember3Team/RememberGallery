@@ -1,6 +1,9 @@
 package product.model.service;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -8,6 +11,7 @@ import java.util.ArrayList;
 import artistapply.model.vo.Apply;
 import product.model.dao.ProductDao;
 import product.model.vo.Attachment;
+import product.model.vo.MasterpieceCount;
 import product.model.vo.masterpiece;
 import product.model.vo.product;
 
@@ -118,7 +122,6 @@ public class ProductService {
 		return plist;
 	}
 
-
 	public ArrayList<product> payList() {
 		Connection conn = getConnection();
 		
@@ -153,6 +156,60 @@ public class ProductService {
 		close(conn);
 		
 		return result;
+	}
+
+	public int deletemasterpiece(String bWriter, int paint_no) {
+		Connection conn = getConnection();
+		
+		int result = new ProductDao().deletemasterpiece(conn, bWriter,paint_no);
+		
+		System.out.println(result);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+	public int insertBasket(product po, String bWriter) {
+		Connection conn = getConnection();
+		
+		int result = 0;
+		
+		result = new ProductDao().insertBasket(conn,po,bWriter);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+	public masterpiece selectMasterpiece(int paint_no, String bWriter) {
+		Connection conn = getConnection();
+		
+		masterpiece mp = new ProductDao().selectMasterpiece(conn,bWriter,paint_no);
+		return mp;
+	}
+
+	public int selectMasterpiece2(int paint_no) {
+		Connection conn = getConnection();
+		int count = new ProductDao().selectMasterpiece2(conn,paint_no);
+		
+		return count;
+	}
+
+	public MasterpieceCount countMasterpiece(int paint_no) {
+		Connection conn = getConnection();
+		MasterpieceCount mc = new ProductDao().countMasterpiece(conn,paint_no);
+		return mc;
 	}
 
 }

@@ -53,7 +53,8 @@ public class updateMemberServlet extends HttpServlet {
 		
 		if(result >0) {
 			session.setAttribute("loginUser",m);
-			view = request.getRequestDispatcher("views/member/SignSuccess.jsp");
+			/* view = request.getRequestDispatcher("views/member/SignSuccess.jsp"); */
+			view = request.getRequestDispatcher("index.jsp");
 			request.setAttribute("msg","성공적으로 회원정보를 수정했습니다.");
 		}else {
 			view = request.getRequestDispatcher("view/member/SignError.jsp");

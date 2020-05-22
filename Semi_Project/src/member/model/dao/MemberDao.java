@@ -48,8 +48,8 @@ public class MemberDao {
 				loginMember = new Member(rset.getString("USER_ID"), rset.getString("GRADE"),
 						rset.getString("USER_NAME"), rset.getString("USER_PWD"), rset.getString("EMAIL"),
 						rset.getString("PHONE"), rset.getString("ADDRESS"), rset.getString("NICKNAME"),
-						rset.getString("ACCOUNT_GRADE"), rset.getInt("POINT"), rset.getDate("ENROLL_DATE"),
-						rset.getString("DELETE_YN"), rset.getString("DELETE_DATE"), rset.getInt("CASH"));
+						rset.getString("ACCOUNT_GRADE"), rset.getInt("POINT"),
+						rset.getString("DELETE_YN"), rset.getString("DELETE_DATE"), rset.getInt("CASH"), rset.getDate("ENROLL_DATE"));
 
 			}
 //			System.out.println(loginMember);		
@@ -103,10 +103,10 @@ public class MemberDao {
 			pstmt.setString(1, member.getUserId());
 			pstmt.setString(2, member.getUserName());
 			pstmt.setString(3, member.getUserPwd());
-			pstmt.setString(4, member.getEmail());
+			pstmt.setString(4, member.getNickname());
 			pstmt.setString(5, member.getPhone());
 			pstmt.setString(6, member.getAddress());
-			pstmt.setString(7, member.getNickname());
+			pstmt.setString(7, member.getEmail());
 			
 			result = pstmt.executeUpdate();
 			System.out.println("dao에서 회원가입 결과:"+result);
@@ -137,9 +137,8 @@ public class MemberDao {
 				loginMember = new Member(rset.getString("USER_ID"), rset.getString("GRADE"),
 						rset.getString("USER_NAME"), rset.getString("USER_PWD"), rset.getString("EMAIL"),
 						rset.getString("PHONE"), rset.getString("ADDRESS"), rset.getString("NICKNAME"),
-						rset.getString("ACCOUNT_GRADE"), rset.getInt("POINT"), rset.getDate("ENROLL_DATE"),
-						rset.getString("DELETE_YN"), rset.getString("DELETE_DATE"), rset.getInt("CASH")
-											);
+						rset.getString("ACCOUNT_GRADE"), rset.getInt("POINT"),
+						rset.getString("DELETE_YN"), rset.getString("DELETE_DATE"), rset.getInt("CASH"), rset.getDate("ENROLL_DATE"));
 			}
 			System.out.println(loginMember);
 		} catch (SQLException e) {
@@ -157,7 +156,7 @@ public class MemberDao {
 	public int updateMember(Connection conn, Member member) {
 		PreparedStatement pstmt = null;
 		int result = 0; 
-		
+		System.out.println(member);
 		String query ="UPDATE MEMBER SET EMAIL=?,PHONE=?,ADDRESS=?,NICKNAME=? WHERE USER_ID=?";
 		//이것도 DB 테이블에 순서 맞춰서~
 		try {
@@ -201,6 +200,30 @@ public class MemberDao {
 			close(pstmt);
 		}
 		
+		
+		
+		return result;
+	}
+
+	public int updatePwd(Connection conn,String id, String body) {
+		PreparedStatement pstmt = null; 
+		int result = 0;
+		
+		String query="UPDATE MEMBER SET USER_PWD=? WHERE USER_ID=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, body);
+			pstmt.setString(2, id);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			
+		}
 		
 		
 		return result;

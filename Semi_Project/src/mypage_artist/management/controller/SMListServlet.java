@@ -95,12 +95,20 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 //				for(int i = 0 ; i < list.size(); i++) {
 //					System.out.println(list.get(i));
 //				}
+				
+				// 프로필 사진 불러오기
+//				ArtistService aService1 = new ArtistService();
+//				
+//				Apply aphoto = aService1.selectPhoto(bWriter);
+//				System.out.println(aphoto);
+				
 				// 출력이 잘 나오는걸 확인하면 이제 화면단으로 넘겨주자
 				
 				RequestDispatcher view = null;
 				if(!SM_list.isEmpty()) {
 					view = request.getRequestDispatcher("views/mypage_artist/shipping_management.jsp");
 					request.setAttribute("SM_list", SM_list);
+//					request.setAttribute("aphoto", aphoto);
 					request.setAttribute("pi", pi);
 				}else {
 //					view = request.getRequestDispatcher("views/common/errorPage.jsp");
