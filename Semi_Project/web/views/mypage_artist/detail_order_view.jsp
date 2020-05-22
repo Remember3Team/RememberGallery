@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "mypage_artist.management.model.vo.*,artistapply.model.vo.*, artistapply.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList"%>
     <%
-    	ArrayList<Mypage_artist> DOV_OP = (ArrayList<Mypage_artist>)request.getAttribute("DOV_OP");
-    	ArrayList<Mypage_artist> DOV_D = (ArrayList<Mypage_artist>)request.getAttribute("DOV_D");
-    	ArrayList<Mypage_artist> DOV_SI = (ArrayList<Mypage_artist>)request.getAttribute("DOV_SI");
+    	ArrayList<Mypage_artist> DOV_plist = (ArrayList<Mypage_artist>)request.getAttribute("DOV_plist");
+    	ArrayList<Mypage_artist> DOV_dlist = (ArrayList<Mypage_artist>)request.getAttribute("DOV_dlist");
+    	ArrayList<Mypage_artist> DOV_slist = (ArrayList<Mypage_artist>)request.getAttribute("DOV_slist");
     	/* Apply aphoto = (Apply) request.getAttribute("aphoto"); */
     	
     %>
@@ -104,7 +104,7 @@
                     <td>금액</td>
                     <td>처리상태</td>
                 </tr>
-                <% for(Mypage_artist ma : DOV_OP){ %>
+                <% for(Mypage_artist ma : DOV_plist){ %>
                 <tr>
                     <td><%=ma.getOrder_no() %></td>
                     <td><%=ma.getAfile() %></td>
@@ -124,7 +124,7 @@
                         <td>결제 방법</td>
                         <td>연락처</td>
                     </tr>
-                    <% for(Mypage_artist ma : DOV_D){ %>
+                    <% for(Mypage_artist ma : DOV_dlist){ %>
                     <tr>
                         <td><%=ma.getOrder_name() %></td>
                         <td><%=ma.getPay_type() %></td>
@@ -142,11 +142,11 @@
                         <td>배송지</td>
                         <td>배송 메시지</td>
                     </tr>
-                    <% for(Mypage_artist ma : DOV_SI){ %>
+                    <% for(Mypage_artist ma : DOV_slist){ %>
                     <tr>
-                        <td>경섭</td>
-                        <td>서울시 중랑구</td>
-                        <td>집 앞에 놔주세요!</td>
+                        <td><%=ma.getRec_name() %></td>
+                        <td><%=ma.getRec_list() %></td>
+                        <td><%=ma.getRec_message() %></td>
                     </tr>
                     <%} %>
                 </table>

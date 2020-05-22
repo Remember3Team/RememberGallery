@@ -10,7 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>MyPage Head</title>
-<link rel="stylesheet" href="../css/Style-mypagehead.css">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/Style-mypagehead.css">
 </head>
 <body>
 	<%-- <div class="headline">
