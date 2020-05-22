@@ -58,7 +58,8 @@ public class SearchListServlet extends HttpServlet {
 		// 1_1. 게시판 리스트 갯수 구하기
 		int listCount = ma.getListCount(bWriter);
 		System.out.println(listCount);
-// 페이지 수 처리용 변수 선언
+		
+		// 페이지 수 처리용 변수 선언
 		int currentPage;		// 현재 페이지를 저장할 변수
 		int limit;					// 한 페이지에 보여질 게시글 수
 		int maxPage;				// 전체 페이지의 맨 마지막 페이지
