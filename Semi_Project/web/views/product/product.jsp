@@ -49,7 +49,7 @@
 }
 .list{
 	margin-right: 10px;
-	margin-left: 130px;
+	margin-left: 50px;
 	padding-left: 10px;
 	float:left;
 

@@ -43,7 +43,9 @@ public class deleteMemberServlet extends HttpServlet {
 			if(session !=null) {
 				session.invalidate();
 			}
-			view = request.getRequestDispatcher("views/member/SignSuccess.jsp");
+			/* view = request.getRequestDispatcher("views/member/SignSuccess.jsp"); */
+			 view = request.getRequestDispatcher("index.jsp");
+			
 			request.setAttribute("msg", "성공적으로 회원 탈퇴 했습니다.");
 		}else {
 			view = request.getRequestDispatcher("views/member/SignError.jsp");
