@@ -12,6 +12,7 @@ import artistapply.model.vo.Apply;
 import product.model.dao.ProductDao;
 import product.model.vo.Attachment;
 import product.model.vo.MasterpieceCount;
+import product.model.vo.Paint_QnA;
 import product.model.vo.masterpiece;
 import product.model.vo.product;
 
@@ -37,7 +38,7 @@ public class ProductService {
 		return list;
 	}
 
-	public int insertProduct(product p, ArrayList<Attachment> fileList, String[] irr) {
+	public int insertProduct(product p, ArrayList<Attachment> fileList) {
 
 		
 		Connection conn = getConnection();
@@ -45,10 +46,10 @@ public class ProductService {
 		
 		int result1 = pDao.insertProduct(conn,p);
 		int result2 = pDao.insertAttachment(conn,fileList);
-		int result3 = pDao.insertmasterpiece(conn,p);
-		int result4 = pDao.insertTag(conn,irr);
+//		int result3 = pDao.insertmasterpiece(conn,p);
+//		int result4 = pDao.insertTag(conn,irr);
 		
-		if(result1>0 && result2> 0 && result3 >0 && result4 >0) {
+		if(result1>0 && result2> 0 ) {
 	         commit(conn);
 	      }else {
 	         rollback(conn);
@@ -210,6 +211,55 @@ public class ProductService {
 		Connection conn = getConnection();
 		MasterpieceCount mc = new ProductDao().countMasterpiece(conn,paint_no);
 		return mc;
+	}
+
+	public ArrayList<Paint_QnA> selectQ(int paint_no) {
+		Connection conn = getConnection();
+		ArrayList<Paint_QnA>  pqa = new ProductDao().selectQ(conn,paint_no);
+		close(conn);
+		return pqa;
+	}
+
+	public ArrayList<Paint_QnA> selectP() {
+		Connection conn = getConnection();
+		ArrayList<Paint_QnA>  pqa = new ProductDao().selectA(conn);
+		return pqa;
+	}
+
+	public int insertQuestion(String writer, int paint_no, String content) {
+		Connection conn = getConnection();
+		int result = new ProductDao().insertQuestion(conn,writer,paint_no,content);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public int insertAnwser(int qna_no, String content) {
+		Connection conn = getConnection();
+		int result = new ProductDao().insertAnwser(conn,qna_no,content);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+	public int updateQ(int qna_no) {
+		Connection conn = getConnection();
+		int result = new ProductDao().updateQ(conn,qna_no);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
 	}
 
 }
