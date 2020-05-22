@@ -156,7 +156,7 @@ public class MemberDao {
 	public int updateMember(Connection conn, Member member) {
 		PreparedStatement pstmt = null;
 		int result = 0; 
-		
+		System.out.println(member);
 		String query ="UPDATE MEMBER SET EMAIL=?,PHONE=?,ADDRESS=?,NICKNAME=? WHERE USER_ID=?";
 		//이것도 DB 테이블에 순서 맞춰서~
 		try {
@@ -200,6 +200,30 @@ public class MemberDao {
 			close(pstmt);
 		}
 		
+		
+		
+		return result;
+	}
+
+	public int updatePwd(Connection conn,String id, String body) {
+		PreparedStatement pstmt = null; 
+		int result = 0;
+		
+		String query="UPDATE MEMBER SET USER_PWD=? WHERE USER_ID=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, body);
+			pstmt.setString(2, id);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			
+		}
 		
 		
 		return result;

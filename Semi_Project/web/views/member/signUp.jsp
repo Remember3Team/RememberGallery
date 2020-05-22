@@ -124,6 +124,7 @@ td {
 					<div class="info-box7">
 						<label class="labelfirst">주소<a
 							style="color: red; font-size: 15px;">*</a></label> <br>
+						
 					</div>
 						<!-- <table>
 							<colgroup>
@@ -197,6 +198,8 @@ td {
 		</form>
 	</div>
 	<!-- container 끝-->
+	
+
 
 	<script>
 	
@@ -325,6 +328,7 @@ function jusoCallBack(roadFullAddr){
 			//pwdcheck
 			$("#userPwd2").change(function() {
 
+				
 				if ($('#userPwd').val() != $(this).val()) {
 					$('#pwdcheck').html('비밀번호 일치 x').css("color", 'red');
 					$('#userPwd2').val('');

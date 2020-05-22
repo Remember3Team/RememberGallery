@@ -104,7 +104,7 @@ color:red;
 				</div>
 				
 				<div id="infofind" style="font-size:13px; padding:5px; " >
-					<a href="<%=request.getContextPath()%>/views/member/Forget/forgetInfo.jsp" style="color:black;">아이디 찾기/비밀번호 찾기</a>
+					<a href="<%=request.getContextPath()%>/views/member/Forget/forgetInfo.jsp" style="color:black;margin-left:120px;color:#cc0000;">비밀번호 찾기</a>
 				</div>
 			</div>
 

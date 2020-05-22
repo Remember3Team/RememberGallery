@@ -122,14 +122,14 @@ td {
 					<br> <br>
 					<div class="info-box5">
 						<label class="labelfirst">닉네임</label><input class="nomal-text"
-							type="text" name="nickName" value="<%=nickname%>>">
+							type="text" name="nickName" value="<%=nickname%>">
 					</div>
 
 					<div class="info-box6">
 						<label class="labelfirst">휴대폰 번호</label>
 						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input
 							type="tel" id="Phone" name="phone" placeholder="(-없이)0123456789"
-							value="<%=phone%>>" maxlength="11" autocomplete="off">
+							value="<%=phone%>" maxlength="11" autocomplete="off">
 
 					</div>
 
@@ -143,7 +143,7 @@ td {
 
 					<div class="info-box7">
 						<label class="labelfirst">이메일</label><input class="nomal-text"
-							type="text" name="email" value="<%=email%>>">
+							type="text" name="email" value="<%=email%>">
 					</div>
 					<br>
 					<!-- 
