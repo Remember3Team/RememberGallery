@@ -112,7 +112,6 @@ public class PMListServlet extends HttpServlet {
 				if(!PM_list.isEmpty()) {
 					view = request.getRequestDispatcher("views/mypage_artist/product_management.jsp");
 					request.setAttribute("PM_list", PM_list);
-//					request.setAttribute("aphoto", aphoto);
 					request.setAttribute("pi", pi);
 				}else {
 //					view = request.getRequestDispatcher("views/common/errorPage.jsp");
