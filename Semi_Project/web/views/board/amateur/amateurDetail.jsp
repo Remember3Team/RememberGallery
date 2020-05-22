@@ -62,8 +62,12 @@
                   	<td> 
                   		<div style="float:right; onclick="emptyheartCheck();" class="emptyheartCheck">
       						<input id="paint_no" type="hidden" value="<%=a.getEvent_like()%>">
-      						<img src="<%=request.getContextPath()%>/views/img/emptyHeart.png">
-      					</div>
+							<%if(a.getUser_id() != null){ %>
+									<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/emptyHeart.png">
+							<%}else{%>
+									<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/emptyHeart.png">
+							<%} %> 
+      		     					</div>
 					</td>
                   </tr>
                   <br><br><br>
@@ -77,18 +81,37 @@
 				  <br><br>
 				</table>
 				<script>
-					$(function(){
-						$(".colorheartCheck").click(function(){
-							var paint_no = $("#paint_no").val();
-							
-							$(".colorheartCheck").hide();
-							$(".emptyheartCheck").hide();
-							
-							location.href="<%=request.getContextPath()%>/delete.am?paint_no+'paint_no'";
-						});
-						
-						
-					})
+				 $(function(){
+				      $(".heartcheck").click(function(){
+				    	  var event_no = "<%=a.getEvent_no()%>";
+				    	  var heart = $(".heartcheck").attr('src');
+				    	  var heartYN;
+
+				    	  if(heart=='<%=request.getContextPath()%>/views/img/colorHeart.png'){
+				    		  $(".heartcheck").attr('src','<%=request.getContextPath()%>/views/img/emptyHeart.png');
+				    		  heartYN = 'N';
+				    	  }else{
+				    		  $(".heartcheck").attr('src','<%=request.getContextPath()%>/views/img/colorHeart.png');
+				    		  heartYN = 'Y';
+				    	  }
+				    	  $.ajax({
+				    		url:"like.am",
+				    		type:"post",
+				    		data:{event_no:event_no,heartYN:heartYN},
+				   
+				    		success:function(data){
+				    			var $likeCount = $(".likeCount");
+				    			var $count = $("<span>").text(data);
+				    			
+				    			$likeCount.html($count);
+				    			
+				    		},
+				    		error:function(request,statur,error){
+				    			alert("로그인을 하셔야 합니다.");
+				    			 $(".heartcheck").attr('src','<%=request.getContextPath()%>/views/img/emptyHeart.png');
+				    		}
+				    		  
+				    	  })
 				</script>
        <div id="replySelectArea">
 			<table id="replySelectTable" class="table" align="center">

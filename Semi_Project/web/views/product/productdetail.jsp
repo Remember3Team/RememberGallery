@@ -6,6 +6,11 @@ product plist = (product)request.getAttribute("plist");
 ArrayList<Attachment> alist = (ArrayList<Attachment>)request.getAttribute("alist");
 ArrayList<product> sizelist = (ArrayList<product>)request.getAttribute("sizelist");
 Apply apply = (Apply)request.getAttribute("aplly");
+masterpiece mp = (masterpiece)request.getAttribute("mp");
+MasterpieceCount mc = (MasterpieceCount)request.getAttribute("mc");
+
+
+
 %>
 <!DOCTYPE html>
 <html>
@@ -117,7 +122,7 @@ border: solid 1px;
       width: 700px;
       position:relative;
       overflow:hidden;
-      margin-left :300px;
+     
       }
   #slide ul{
       width:400%;
@@ -230,7 +235,7 @@ border: solid 1px;
 <body>
    <%@include file="../common/menubar.jsp"%>
 <br>
-<table>
+<table style = "margin : 0 auto;">
 <tr>
 <td>
    <div id="slide">
@@ -287,42 +292,62 @@ border: solid 1px;
        <span style="text-align: center; width: 100px; font-size: 35px;"><%=plist.getPatint_price() %>원</span>
       </td>
       <td>
-      		<div></div>
-      		<div style="float:right; display:none;" onclick="colorheartCheck();" class="colorheartCheck">
-      		<input id="paint_no" type="hidden" value="<%=plist.getPaint_no()%>">
-      		<img src="<%=request.getContextPath()%>/views/img/colorHeart.png">
+  
+      		
+      		<div style="float:right;">
+      		<div class="likeCount" style="float:left; margin-right:10px;">
+      			<span class="countArea"><%=mc.getCount() %></span>
       		</div>
-      		<div style="float:right; onclick="emptyheartCheck();" class="emptyheartCheck">
-      		<input id="paint_no" type="hidden" value="<%=plist.getPaint_no()%>">
-      		<img src="<%=request.getContextPath()%>/views/img/emptyHeart.png">
+      		
+      		<%if(mp.getUser_id() != null){ %>
+      		<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/colorHeart.png">
+      		<%}else{%>
+      		<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/emptyHeart.png">
+      		<%} %>
+      		
+      		
       		</div>
       </td>
       </tr>
       </table>
       <script>
       $(function(){
-      $(".colorheartCheck").click(function(){
-    	  var paint_no = $("#paint_no").val();
+      $(".heartcheck").click(function(){
+    	  var paint_no = "<%=plist.getPaint_no()%>";
+    	  var heart = $(".heartcheck").attr('src');
+    	  var heartYN;
+
+    	  if(heart=='<%=request.getContextPath()%>/views/img/colorHeart.png'){
+    		  $(".heartcheck").attr('src','<%=request.getContextPath()%>/views/img/emptyHeart.png');
+    		  heartYN = 'N';
+    	  }else{
+    		  $(".heartcheck").attr('src','<%=request.getContextPath()%>/views/img/colorHeart.png');
+    		  heartYN = 'Y';
+    	  }
+    	  $.ajax({
+    		url:"masterpiece.po",
+    		type:"post",
+    		data:{paint_no:paint_no,heartYN:heartYN},
+   
+    		success:function(data){
+    			var $likeCount = $(".likeCount");
+    			var $count = $("<span>").text(data);
+    			
+    			$likeCount.html($count);
+    			
+    		},
+    		error:function(request,statur,error){
+    			alert("로그인을 하셔야 합니다.");
+    			 $(".heartcheck").attr('src','<%=request.getContextPath()%>/views/img/emptyHeart.png');
+    		}
+    		  
+    	  })
     	  
-    	  $(".colorheartCheck").hide();
-    	  $(".emptyheartCheck").show();
     	  
-    	  location.href="<%=request.getContextPath()%>/deletetmasterpiece.po?paint_no="+paint_no;
-      })
+      });
       });
       
-      $(function(){
-          $(".emptyheartCheck").click(function(){
-        	  var paint_no = $("#paint_no").val();
-        	  
-        	  $(".emptyheartCheck").hide();
-        	  $(".colorheartCheck").show();
-        	  
-    	  location.href="<%=request.getContextPath()%>/insertmasterpiece.po?paint_no="+paint_no;
-        	  
-  
-          })
-          });
+     
       </script>
       
      
@@ -361,7 +386,7 @@ border: solid 1px;
 	</table>	
    <br clear="both">
    <br>
-   <hr style="margin-left: 191px;" color="black" width="1480px">
+   <hr style = "margin : 50px auto;" color="black" width="1300px">
    <br clear="both">
    
    <h3 align="center">인테리어 시뮬레이션</h3>
@@ -402,11 +427,11 @@ border: solid 1px;
   </script>
    
    <br clear="both">
-   <hr style="margin-left: 191px;" color="black" width="1480px">
+   <hr style = "margin : 50px auto;" color="black" width="1300px">
    <h3 align="center">작품 소개</h3>
    <a style="text-align: left; width: 100px; margin-left:300px; font-size: 15px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;"><%=plist.getPaint_int() %></a>
    <br>
-   <hr style="margin-left: 191px;" color="black" width="1480px">
+   <hr style = "margin : 50px auto;" color="black" width="1300px">
    <h3 align="center">작가 소개</h3>
    
    <div id="writer">
@@ -417,8 +442,22 @@ border: solid 1px;
    <a style="text-align: left; width: 100px; margin-left:30px; font-size: 15px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;"><%=apply.getArtist_int() %></a>
    </div>
    <br clear="both">
-   <hr style="margin-left: 191px;" color="black" width="1480px">
+   <hr style = "margin : 50px auto;" color="black" width="1300px">
    <h3 align="center">Q & A</h3>
+   <br>
+   <table style = "margin : 0 auto;">
+    <tr>
+		<td style = "margin : 0 auto;">Q & A 작성</td>
+	</tr>
+	<tr>
+<br>
+	<td><textArea rows="5" cols="100" id="replyContent" style = "margin : 50px auto;"></textArea></td>
+	<td >
+	<button id="addReply" type="button active" class="btn btn-secondary" style="width:100px; margin-left : 15px;">Q&A 등록</button>
+	</td>
+	</tr>
+   </table>
+
    <br clear="both">
    <%@include file="../common/footer.jsp"%>
 
