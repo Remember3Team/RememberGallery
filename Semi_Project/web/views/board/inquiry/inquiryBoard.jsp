@@ -126,7 +126,7 @@ int endPage = pi.getEndPage();
                     </div>
                     <form action="answer.in" method="get">
 	                    <div class="modal-body">
-	                        <textarea cols="80" row="30"></textarea>
+	                        <textarea id="answerArea" name="answerArea" cols="80" row="30"></textarea>
 	                    </div>
 	                    <div class="modal-footer">
 	                        <button type="submit" class="btn btn-default">전송</button>
