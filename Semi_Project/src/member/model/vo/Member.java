@@ -37,6 +37,16 @@ public class Member implements Serializable{
 		this.userPwd = userPwd;
 	}
 
+	
+
+
+	public Member(String userId, String userName, String accountGrade) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.accountGrade = accountGrade;
+	}
+
 
 
 	public Member(String userId, String userName, String userPwd, String email, String phone, String address,
@@ -50,6 +60,8 @@ public class Member implements Serializable{
 		this.address = address;
 		this.nickname = nickname;
 	}
+	
+	
 
 	public Member(String userId, String grade, String userName, String userPwd, String email, String phone,
 			String address, String nickname, String accountGrade, int point, String deleteYN, String deleteDate,
