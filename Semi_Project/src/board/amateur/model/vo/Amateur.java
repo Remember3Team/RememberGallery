@@ -24,6 +24,13 @@ public class Amateur implements Serializable{
 	}
 	
 	
+	public Amateur(int event_no, String user_id) {
+		super();
+		this.event_no = event_no;
+		this.user_id = user_id;
+	}
+
+
 	public Amateur(String event_title, String event, String user_id) {
 		super();
 		this.event_title = event_title;

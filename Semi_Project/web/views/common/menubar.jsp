@@ -129,7 +129,7 @@ ul li ul li:hover{
 					<li><a
 						href="<%= request.getContextPath() %>/list.am">아마추어
 							게시판</a></li>
-					<li><a href="#">자유게시판</a></li>
+					<li><a href="<%= request.getContextPath() %>/list.ee">자유게시판</a></li>
 				</ul></li>
 			<li><a href="#">NOTICE</a>
 				<ul>
