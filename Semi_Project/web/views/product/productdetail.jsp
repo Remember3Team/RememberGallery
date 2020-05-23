@@ -276,7 +276,7 @@ border: solid 1px;
       		<td align="center">카테고리 : <%=plist.getCategory() %></td>
       	</tr>
       	<tr>
-      		<td align="center">제작년도 : <%=plist.getCategory() %></td>
+      		<td align="center">제작년도 : <%=plist.getPaint_mdate() %></td>
       		<td align="center">사이즈 :<% for(int i =0;i < sizelist.size();i++) {
 				product p = sizelist.get(i);
 				if(plist.getSize_no() == p.getSize_no() ){%>
