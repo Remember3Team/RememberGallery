@@ -1011,4 +1011,88 @@ public class ProductDao {
 		}
 		return result;
 	}
+
+	public int insertordertable(Connection conn, int paint_no, String orderid, String ordername, String orderphone,
+			String orderEmail, String orderadress, String orderrule) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result =0;
+		
+		String query = "INSERT INTO ORDER_TABLE VALUES(SEQ_ORD.CURRVAL,?, ?,?,?,?,?,?)";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, paint_no);
+			pstmt.setString(2,orderid);
+			pstmt.setString(3,ordername);
+			pstmt.setString(4,orderphone);
+			pstmt.setString(5,orderEmail);
+			pstmt.setString(6,orderadress);
+			pstmt.setString(7,orderrule);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println(result);
+		return result;
+	}
+
+	public int insertreceivetable(Connection conn, String orderid, int paint_no, String receivename,
+			String receivephone, String receiveaddress, String receivecontent) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result =0;
+		
+		String query = "INSERT INTO RECEIPT_TABLE VALUES(SEQ_ORD.CURRVAL,?,?,?,?,?,?)";
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, paint_no);
+			pstmt.setString(2, orderid);
+			pstmt.setString(3, receivename);
+			pstmt.setString(4, receivephone);
+			pstmt.setString(5, receiveaddress);
+			pstmt.setString(6, receivecontent);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println(result);
+		return result;
+	}
+
+	public int insertbuylist(Connection conn, int paint_no, String orderid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result =0;
+		
+		String query = "INSERT INTO BUY_LIST VALUES(SEQ_ORD.NEXTVAL,?,?,DEFAULT,NULL,DEFAULT,NULL,SYSDATE)";
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, paint_no);
+			pstmt.setString(2, orderid);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println(result);
+		return result;
+	}
 }
