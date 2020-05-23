@@ -45,11 +45,12 @@ public class ArtistRefundListServlet extends HttpServlet {
 		ArtistService aService = new ArtistService();
 		
 		// 작가 이름 가져오기
-		Member m = aService.selectMember(artist);
-		String name = m.getUserName();
+//		Member m = aService.selectMember(artist);
+//		String name = m.getUserName();
+		String name = (((Member) request.getSession().getAttribute("loginUser")).getUserName());
+		System.out.println(name);
 		
-		
-		int listCount = aService.getListCount();
+		int listCount = aService.getListCount(name);
 		
 		// ---------- 페이징 처리 추가 ---------------
 		int currentPage;		// 현재 페이지를 저장할 변수
@@ -68,7 +69,7 @@ public class ArtistRefundListServlet extends HttpServlet {
 		}
 		
 		// * limit - 한 페이지에 보여질 목록 갯수
-		limit = 10;
+		limit = 5;
 		
 		// * maxPage - 총 페이지 수
 		// 목록 수가 123개이면 페이지 수는 13페이지가 됨
@@ -109,7 +110,7 @@ public class ArtistRefundListServlet extends HttpServlet {
 		}
 		
 		// 프로필 사진 불러오기
-		Apply aphoto = aService.selectPhoto(m.getUserId());
+		Apply aphoto = aService.selectPhoto(artist);
 		System.out.println(aphoto);
 		
 		// 출력이 잘 나오는걸 확인하면 이제 화면단으로 넘겨주자
@@ -122,7 +123,9 @@ public class ArtistRefundListServlet extends HttpServlet {
 			request.setAttribute("pi", pi);
 			request.setAttribute("aphoto", aphoto);
 		}else {
-			System.out.println("조회 실패");
+			view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			       request.setAttribute("msg","환불 목록이 없습니다.");
+			
 		}
 		
 		view.forward(request, response);

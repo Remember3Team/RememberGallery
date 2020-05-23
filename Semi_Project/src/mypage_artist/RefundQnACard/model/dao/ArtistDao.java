@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import artistapply.model.vo.Apply;
@@ -18,16 +19,20 @@ import product.model.vo.Attachment;
 
 public class ArtistDao {
 
-	public int getListCount(Connection conn) {
-		Statement stmt = null;
+	public int getListCount(Connection conn, String name) {
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		String query = "SELECT COUNT(*) FROM BUY_LIST WHERE ORDER_STATUS LIKE '환불%'";
+		String query = "SELECT COUNT (*) FROM BUY_LIST B JOIN PAINT P ON(P.PAINT_NO = B.PAINT_NO) JOIN MEMBER M ON(M.USER_NAME = P.ARTIST_NAME)"
+				+ "WHERE P.ARTIST_NAME = ? AND ORDER_STATUS LIKE '환불%'";
 		int listCount = 0;
 		
 		try {
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery(query);
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, name);
+			
+			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
 				listCount = rs.getInt(1);
@@ -36,7 +41,7 @@ public class ArtistDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(stmt);
+			close(pstmt);
 			close(rs);
 		}
 		
@@ -52,18 +57,17 @@ public class ArtistDao {
 		
 		String query = "SELECT *"
 				+ "FROM BUY_LIST B JOIN PAINT P ON (P.PAINT_NO = B.PAINT_NO) JOIN MEMBER M ON (M.USER_NAME = P.ARTIST_NAME)"
-				+ "WHERE B.ORDER_STATUS LIKE '환불%' OR B.ORDER_STATUS LIKE '반품%' AND B.PAINT_NO BETWEEN ? AND ? AND P.ARTIST_NAME = ?";
+				+ "WHERE P.ARTIST_NAME = ? AND B.ORDER_STATUS LIKE '환불%' OR B.ORDER_STATUS LIKE '반품%' AND B.PAINT_NO BETWEEN ? AND ?";
 	
 		
-		// 쿼리문 실행시 조건절에 넣을 변수를 (ROWNUM에 대한 조건 시 필요) 연산처리
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			pstmt.setString(3, artistName);
+			pstmt.setString(1, artistName);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -83,7 +87,7 @@ public class ArtistDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
+		}finally {
 			close(rset);
 			close(pstmt);
 		}
@@ -137,7 +141,7 @@ public class ArtistDao {
 		
 		ArrayList<Message> list = new ArrayList<>();
 		
-		String query = "SELECT * FROM MESSAGE M JOIN MEMBER ME ON(ME.USER_ID = M.USER_ID)WHERE ORDER_NO BETWEEN ? AND ? AND ARTIST_NAME =?";
+		String query = "SELECT * FROM MESSAGE M JOIN MEMBER ME ON(ME.USER_ID = M.USER_ID) WHERE ARTIST_NAME =? AND ORDER_NO BETWEEN ? AND ?";
 		
 		// 쿼리문 실행시 조건절에 넣을 변수를 (ROWNUM에 대한 조건 시 필요) 연산처리
 		int startRow = (currentPage - 1) * limit + 1;
@@ -145,9 +149,9 @@ public class ArtistDao {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			pstmt.setString(3, artistName);
+			pstmt.setString(1, artistName);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -211,16 +215,15 @@ public class ArtistDao {
 
 		return list;
 	}
-
+// 확인,,
 	public ArrayList<QnA_Q> selectQnAList(Connection conn, String artistName, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
+		SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
 		ArrayList<QnA_Q> qnalist = new ArrayList<>();
 		
-		String query = "SELECT * FROM PAINT_Q PQ JOIN PAINT P ON (P.PAINT_NO = PQ.PAINT_NO)"
-				+ "JOIN MEMBER ME ON(ME.USER_NAME = P.ARTIST_NAME)"
-				+ "WHERE PQ_NO BETWEEN ? AND ? AND ARTIST_NAME = ? ORDER BY ROWNUM DESC";
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, A.*  FROM (SELECT * FROM PAINT_Q Q JOIN PAINT P ON(Q.PAINT_NO = P.PAINT_NO) WHERE ARTIST_NAME =? ORDER BY PQ_DATE DESC) A) WHERE RNUM >= ? AND RNUM <=?";
 		
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
@@ -228,9 +231,9 @@ public class ArtistDao {
 		try {
 			pstmt = conn.prepareStatement(query);
 			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			pstmt.setString(3, artistName);
+			pstmt.setString(1, artistName);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -240,7 +243,7 @@ public class ArtistDao {
 						
 						rset.getInt("pq_no"),
 						rset.getString("pquestion"),
-						rset.getDate("pq_date"),
+						rset.getString("pq_date"),
 						rset.getInt("paint_no"),
 						rset.getString("user_id"),
 						rset.getString("pq_yn"),
@@ -267,18 +270,18 @@ public class ArtistDao {
 		return qnalist;
 	}
 
-	public ArrayList<Attachment> selectQpphoto(Connection conn, String user_id, int currentPage, int limit) {
+	public ArrayList<Attachment> selectQpphoto(Connection conn, String artistName, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		ArrayList<Attachment> list = new ArrayList<>();
 		
-		String query = "SELECT * FROM PAINT_PHOTO P JOIN MASTERPIECE MP ON ( P.PAINT_NO = MP.PAINT_NO) WHERE FILELEVEL=0 AND MP.USER_ID = ?";
+		String query = "SELECT * FROM PAINT_PHOTO PP JOIN PAINT P ON ( P.PAINT_NO = PP.PAINT_NO) WHERE FILELEVEL=0 AND P.ARTIST_NAME = ?";
 				
 
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, user_id);
+			pstmt.setString(1, artistName);
 
 			rset = pstmt.executeQuery();
 
@@ -483,7 +486,7 @@ public class ArtistDao {
 			if(rs.next()) {
 				listCount = rs.getInt(1);
 				
-				System.out.println("카운트 : " + listCount);
+				System.out.println("카드리스트 카운트 : " + listCount);
 			}
 			
 			
