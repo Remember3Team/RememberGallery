@@ -94,6 +94,17 @@ h1 {
 	margin: 0 auto;
 }
 
+.navi > li > ul{
+	display:none;
+}
+
+.navi > li:hover > ul{
+	display: block;
+} 
+
+
+
+
 ul li ul li:hover{
 	background-color:red;
 }
