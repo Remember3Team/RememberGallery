@@ -21,13 +21,19 @@
 
 </style>
 </head>
-<body Style ="width:100%; height:600px; background-color:beige;">
+<body Style ="width:100%; height:600px; background-color:black;">
 	<%@include file="../common/menubar.jsp" %>
-<h1 style= "color:black";> 실패 창</h1>
-<a href = "#">아이디 찾기</a>
-/
-<a href = "#">비밀번호 찾기</a>
+<h1 style= "color:red;text-align:center;"> 실패 창</h1>
+	<button onclick ="goHome();">돌아가기</button>
+	<script>
+		function goHome(){
+			location.href="<%=request.getContextPath()%>/index.jsp";
+		}
+	</script>
 
-	
+
+<!-- <a href = "#">비밀번호 찾기</a>
+
+ -->	
 </body>
 </html>

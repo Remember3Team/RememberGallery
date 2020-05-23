@@ -114,7 +114,7 @@ ul li ul li:hover{
 		<ul class="navi">
 			<li><a href="#">ABOUT</a></li>
 			<!-- <li><a href="<%= request.getContextPath() %>/views/product/product.jsp">STORE</a></li> -->
-			<li><a href="<%= request.getContextPath() %>/list.po">STORE</a></li>
+			<li><a href="<%= request.getContextPath() %>/list.po">STORE</a></li >
 			<li><a href="#">COMMUNITY</a>
 				<ul>
 					<li><a
@@ -132,8 +132,6 @@ ul li ul li:hover{
 				<ul>
 
 					<li><a href="<%= request.getContextPath() %>/Mo.li">마이페이지 소비자</a></li>
-
-					<li><a href="#">마이페이지 소비자</a></li>
 					<li><a href="#">My Page(?)</a></li>
 					<li><a href="#">장바구니</a></li>
 					<li><a href="#">Chat</a></li>
@@ -141,7 +139,6 @@ ul li ul li:hover{
 
 					<li><a href="#">마이페이지 관리자</a></li>
 					<li><a href="#">마이페이지 판매자</a></li>
-					<li><a href="<%=request.getContextPath()%>/mypage.me?userId=<%=loginUser.getUserId() %>">정보수정</a></li>
 
 					<li><a href="<%=request.getContextPath()%>/logout.me">로그아웃</a></li>
 
