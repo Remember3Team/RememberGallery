@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import board.amateur.model.service.AmateurService;
 import board.amateur.model.vo.Amateur;
+import board.amateur.model.vo.AmateurLike;
 import board.amateur.model.vo.FileManagement;
 import board.notice.model.vo.PageInfo;
+import member.model.vo.Member;
 
 /**
  * Servlet implementation class AmateurListServlet
@@ -35,7 +37,8 @@ public class AmateurListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AmateurService aService = new AmateurService();
-		
+		String user = ((Member) request.getSession().getAttribute("loginUser")).getUserId();
+
 		int listCount = aService.getListCount();
 		
 		int currentPage =0 ;		//현재 페이지를 저장할 변수
@@ -85,19 +88,13 @@ public class AmateurListServlet extends HttpServlet {
 		ArrayList<Amateur> list = aService.selectList(currentPage, limit);
 		Amateur getEventNo = new Amateur();
 		ArrayList<FileManagement> fileList = aService.selectList(getEventNo);
-		
-		for(int i = 0;i<list.size();i++) {
-			System.out.println("[servlet]게시글 출력 : "+list.get(i));
-			System.out.println("[servlet]파일 출력:"+fileList.get(i));
-		}
-		
+
 		//화면으로
 		RequestDispatcher view = null;
 			view = request.getRequestDispatcher("views/board/amateur/amateurBoard.jsp");
 			request.setAttribute("fileList", fileList);
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
-		
 		view.forward(request,response);
 		
 	

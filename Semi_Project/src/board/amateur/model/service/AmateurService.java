@@ -10,10 +10,12 @@ import java.util.ArrayList;
 
 import board.amateur.model.dao.AmateurDao;
 import board.amateur.model.vo.Amateur;
+import board.amateur.model.vo.AmateurLike;
 import board.amateur.model.vo.FileManagement;
 import board.amateur.model.vo.Reply;
 import product.model.dao.ProductDao;
 import product.model.vo.MasterpieceCount;
+import product.model.vo.masterpiece;
 
 public class AmateurService {
 
@@ -39,6 +41,11 @@ public class AmateurService {
 		
 		int listCount = new AmateurDao().getListCount(conn);
 		close(conn);
+		if(listCount>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		
 		return listCount;
 	}
@@ -134,54 +141,45 @@ public class AmateurService {
 		return rList;
 	}
 
-	public int insertPlus(String user, int event_no) {
+
+	//좋아요
+	public int insertHeart(String user, int event_no) {
 		Connection conn = getConnection();
+		AmateurDao aDao = new AmateurDao();
 		
-		int result = new AmateurDao().insertPlus(conn, user,event_no);
-		
-		System.out.println("[service]좋아요+1:"+result);
-		
-		if(result >0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
+		int result = aDao.insertHeart(conn,user,event_no);
 		close(conn);
-		
 		return result;
 	}
 
-	public int insertMinus(String user, int event_no) {
+	public int deleteHeart(String user, int event_no) {
 		Connection conn = getConnection();
+		AmateurDao aDao = new AmateurDao();
 		
-		int result = new AmateurDao().insertMinus(conn, user,event_no);
-		
-		System.out.println("[service]좋아요+1:"+result);
-		
-		if(result >0) {
-			commit(conn);
-		}else {
-			rollback(conn);
-		}
+		int result = aDao.deleteHeart(conn,user,event_no);
 		close(conn);
-		
 		return result;
 	}
 
-	public int selectTotalCount(int event_no) {
+	public int selectEventLike(int event_no) {
 		Connection conn = getConnection();
-		int count = new AmateurDao().selectTotalCount(conn,event_no);
+		int count = new AmateurDao().selectEventLike(conn,event_no);
 		
-		System.out.println("좋아요 갯수:"+count);
 		return count;
 	}
 
-	public MasterpieceCount selectHCount(int event_no) {
+	public AmateurLike selectLikeList(int event_no) {
 		Connection conn = getConnection();
-		MasterpieceCount mpc = new AmateurDao().selectHCount(conn,event_no);
 		
-		return mpc;
+		AmateurLike list = new AmateurDao().selectLikeList(conn, event_no);
+		System.out.println("count출력:"+list);
+		close(conn);
+		
+		return list;
 	}
+
+	
+
 
 
 

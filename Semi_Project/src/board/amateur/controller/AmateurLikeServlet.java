@@ -2,7 +2,9 @@ package board.amateur.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.amateur.model.service.AmateurService;
+import board.amateur.model.vo.Amateur;
 import member.model.vo.Member;
 
 /**
@@ -35,31 +38,20 @@ public class AmateurLikeServlet extends HttpServlet {
 		
 		AmateurService aService = new AmateurService();
 		
-		//event_no event heartYN
-		String user = ((Member) request.getSession().getAttribute("loginUser")).getUserId();
 		int event_no = Integer.valueOf(request.getParameter("event_no"));
+		String user = (((Member) request.getSession().getAttribute("loginUser")).getUserId());
 		String heartYN = request.getParameter("heartYN");
-		
-		System.out.println(user);
-		System.out.println(event_no);
-		System.out.println(heartYN);
-		
+
 		if(heartYN.equals("Y")) {
-			int plusHeart = aService.insertPlus(user,event_no);
-			System.out.println("[아마추어 Heart]+1:"+plusHeart);
+			int result = aService.insertHeart(user,event_no);
 		}else {
-			int minusHeart = aService.insertMinus(user,event_no);
-			System.out.println("[아마추어 Heart]-1:"+minusHeart);	
+			int result = aService.deleteHeart(user,event_no);
 		}
-		
-		int totalCount = 0;
-		totalCount = aService.selectTotalCount(event_no);
-		
-		System.out.println("[servlet]좋아요 갯수"+totalCount);
-		
+		int count = 0;
+		count = aService.selectEventLike(event_no);
 		
 		PrintWriter out = response.getWriter();
-		out.print(totalCount);
+		out.print(count);
 		out.flush();
 		out.close();
 	}

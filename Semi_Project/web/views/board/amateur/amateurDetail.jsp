@@ -4,7 +4,7 @@
 	Amateur a = (Amateur)request.getAttribute("amateur");
 	FileManagement fm = (FileManagement)request.getAttribute("fileList");
 	ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList");
-	MasterpieceCount heartCount = (MasterpieceCount)request.getAttribute("heartCount");
+	AmateurLike al = (AmateurLike)request.getAttribute("likeList");
 	System.out.println("[jsp] 출력 결과 : "+rList);
 %>
 <!DOCTYPE html>
@@ -64,12 +64,16 @@
       						<input id="paint_no" type="hidden" value="<%=a.getEvent_like()%>">
 							<div style="float:right;">
 				      		<div class="likeCount" style="float:left; margin-right:10px;">
-				      			<span class="countArea"><%=heartCount.getCount() %></span>
+				      			<span class="countArea"><%=al.getEvent_count() %></span>
 				      		</div>
 			      			</div>
       		
 				      		<%if(a.getUser_id() != null){ %>
-				      		<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/colorHeart.png">
+				      				<%if(a.getEvent_like().equals("Y")){ %>
+					      				<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/colorHeart.png">
+					      			<%}else{ %>
+					      				<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/emptyHeart.png">					      			
+					      			<%} %>
 				      		<%}else{%>
 				      		<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/emptyHeart.png">
 				      		<%} %>
