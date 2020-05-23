@@ -40,8 +40,8 @@ public class PMListServlet extends HttpServlet {
 		
 		Mypage_ArtistService aService = new Mypage_ArtistService();
 		
-		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getUserId());
-		
+		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getUserName());
+		System.out.println(bWriter);
 		
 		// 1_1. 게시판 리스트 갯수 구하기
 				int listCount = aService.getListCount(bWriter);
