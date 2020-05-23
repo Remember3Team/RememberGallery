@@ -263,4 +263,38 @@ public class ProductService {
 		return result;
 	}
 
+	public int insertorder(int paint_no, String orderid, String ordername, String orderphone, String orderEmail,
+			String orderadress, String receivename, String receivephone, String receiveaddress, String orderrule, String receivecontent) {
+		Connection conn = getConnection();
+		
+		int result = new ProductDao().insertbuylist(conn,paint_no,orderid);
+		int result1 =0;
+		
+		if(result>0) {
+		 result1 =new ProductDao().insertordertable(conn,paint_no,orderid,ordername,orderphone,orderEmail,orderadress,orderrule);
+		}else {
+			rollback(conn);
+		}
+		
+		int result2 =0;
+		
+		if(result1>0) {
+		result2 = new ProductDao().insertreceivetable(conn,orderid,paint_no,receivename,receivephone,receiveaddress,receivecontent);
+		}else {
+			rollback(conn);
+		}
+		
+		
+		
+		if(result2 >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result2;
+	}
+
 }

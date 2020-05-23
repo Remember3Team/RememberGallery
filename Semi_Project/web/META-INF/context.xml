@@ -19,9 +19,12 @@
 --><!-- The contents of this file will be loaded for each web application -->
 
 
-
-
 <Context workDir="C:\Users\User\Desktop\semi_project\RememberGallery\Semi_Project\web\WEB-INF\jspwork">
+
+
+
+
+
 
 
     <!-- Default set of monitored resources. If one of these changes, the    -->

@@ -5,6 +5,14 @@
 	ArrayList<Message> mlist = (ArrayList<Message>) request.getAttribute("mlist");
 	ArrayList<Attachment> alist = (ArrayList<Attachment>) request.getAttribute("alist");
 	Apply aphoto = (Apply) request.getAttribute("aphoto");
+	
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
 %>    
     
 <!DOCTYPE html>
@@ -14,8 +22,8 @@
 <title>감동 카드 확인하기</title>
  <!-- link rel="stylesheet" href="../css/style.css" -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="<%=request.getContextPath()%>/views/css/Style-refund.css">
    <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/bootstrap.css">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/views/css/Style-refund.css">
 <script src="<%=request.getContextPath() %>/views/js/jquery-3.4.1.min.js"></script>
 </head>
 <body>
@@ -30,6 +38,7 @@
             <div class="artist-img">
                 <!--Artist Image-->
 				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>" style="width:83px; height :83px;">
+				<%-- <%= request.getContextPath() %>/detail.po/<%= mlist.getPaint_no() %> --%>
            </div>
             <div class="artist-btn" style = "display: inline-block; vertical-align: middle;
             ">
@@ -133,6 +142,7 @@
     
     <script type="text/javascript">
     
+    // 전체 선택
     $(function(){
     	
         $("#check_all").click(function(){
@@ -196,25 +206,35 @@
     }
     
     </script>
-    
-    
-	 <ul class="pagination justify-content-center">
-    <li class="page-item disabled">
-      <span class="page-link">Previous</span>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item">
-      <span class="page-link">
-        ...
-      </span>
-    </li>
-    <li class="page-item active"><a class="page-link" href="#">4</a></li>
-    <li class="page-item"><a class="page-link" href="#">5</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#">Next</a>
-    </li>
-  </ul>
+   
+  
+  <div class = "p-parents">
+	<div class="pppp">
+			<%if (currentPage == 1) { %>
+            <a style = "color:#9c9c9c; "  disabled>Previous</a>
+            <%}else {%>
+            <a class = "page-a" href="<%=request.getContextPath() %>/list.ac?currentPage=<%=currentPage - 1 %>" >Previous</a>
+            <%} %>
+            <ol>
+            <%for(int p = startPage ; p<=endPage ; p++){ %>
+            <%if(currentPage == p){ %>
+              <li class = "page-list1">
+              	<button disabled class = "page-cur" ><%=p%></button>
+              </li>
+            <%} else { %>
+              <li class = "page-list2" onclick="location.href='<%=request.getContextPath() %>/list.ac?currentPage=<%=p%>'">
+              	<button class = "page-nocur"><%=p%></button>
+              </li>
+            <%} %>
+            <%} %>
+            </ol>
+            <%if (currentPage == maxPage) { %>
+            <a style = "color:#9c9c9c; "  disabled>Next</a>
+            <%} else { %>
+            <a class = "page-a" href="<%=request.getContextPath()%>/list.ac?currentPage=<%=currentPage + 1%>">Next</a>
+            <%} %>
+          </div>
+	</div>
     
 <%@include file="../common/footer.jsp" %>
 

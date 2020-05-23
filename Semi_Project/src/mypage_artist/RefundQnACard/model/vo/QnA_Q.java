@@ -10,6 +10,7 @@ public class QnA_Q implements Serializable {
 	 */
 	private static final long serialVersionUID = 1484156563491809052L;
 	
+	private int rownum;
 	private int pq_no;			// 질문 번호
 	private String pquestion;	// 질문 내용
 	private Date pq_date;		// 질문 날짜
