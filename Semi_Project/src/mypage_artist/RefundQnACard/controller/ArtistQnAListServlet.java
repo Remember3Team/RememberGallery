@@ -41,12 +41,16 @@ public class ArtistQnAListServlet extends HttpServlet {
 		//로그인세션
 				HttpSession session = request.getSession();
 				Member loginMember = (Member) session.getAttribute("loginUser");
-				System.out.println(loginMember);
-				
+				String artistId = loginMember.getUserId();
 				
 				ArtistService aService = new ArtistService();
 				
-				int listCount = aService.getListCount();
+				// 작가 이름 가져오기
+				Member m = aService.selectMember(artistId);
+				String artistName = m.getUserName();
+				
+			
+				int listCount = aService.getQnAListCount(artistName);
 				
 				// ---------- 페이징 처리 추가 ---------------
 				int currentPage;		// 현재 페이지를 저장할 변수
@@ -68,22 +72,15 @@ public class ArtistQnAListServlet extends HttpServlet {
 				limit = 10;
 				
 				// * maxPage - 총 페이지 수
-				// 목록 수가 123개이면 페이지 수는 13페이지가 됨
 				maxPage = (int)((double)listCount/limit + 0.9);
 				
 				// * startPage - 현재 페이지에 보여질 시작 페이지 수
-				//  아래쪽에 페이지 수가 10개씩 보여지게 할 경우
-				//  1, 11, 21, 31, ...
 				startPage = (((int)((double)currentPage/limit + 0.9))-1)*limit + 1;
 				
 				// * endPage - 현재 페이지에 보여질 마지막 페이지 수
-				//  아래쪽에 페이지 수가 10개씩 보여지게 할 경우
-				// 10, 20, 30, 40, ...
 				endPage = startPage + limit - 1;
 				
-				
 				// maxPage(총 페이지 수)가 endPage보다 작을 경우
-				// ex) maxPage => 13이고 endPage => 20이면
 				if(maxPage < endPage) {
 					endPage = maxPage;
 				}
@@ -93,22 +90,21 @@ public class ArtistQnAListServlet extends HttpServlet {
 				PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage,
 						                   startPage, endPage);
 				
-				// 1_2. qna 게시판 리스트 조회해오기
+				// qna 게시판 리스트 조회해오기
 				
-				ArrayList<QnA_Q> qnalist = aService.selectQnAList(loginMember.getUserId(), currentPage, limit);
+				ArrayList<QnA_Q> qnalist = aService.selectQnAList(artistName, currentPage, limit);
 				for(int i = 0 ; i < qnalist.size(); i++) {
 					System.out.println(qnalist.get(i));
 				}
 				
-				ArrayList<Attachment> alist = aService.selectQpList(loginMember.getUserId(), currentPage, limit);
+				ArrayList<Attachment> alist = aService.selectQpList(artistName, currentPage, limit);
 				
 				for(int i = 0 ; i <alist.size(); i++) {
 					System.out.println(alist.get(i));
 				}
 				
 				// 프로필 사진 불러오기
-				Apply aphoto = aService.selectPhoto(loginMember.getUserId());
-				
+				Apply aphoto = aService.selectPhoto(artistId);
 				System.out.println(aphoto);
 				
 				// 출력이 잘 나오는걸 확인하면 이제 화면단으로 넘겨주자
