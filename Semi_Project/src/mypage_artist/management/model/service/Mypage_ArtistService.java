@@ -10,15 +10,27 @@ import mypage_artist.management.model.vo.Mypage_artist;
 
 public class Mypage_ArtistService {
 
-	public int getListCount(String bWriter) {
+	public int getListCount_PM(String bWriter) {
 		Connection conn = getConnection();
 		
-		int listCount = new Mypage_ArtistDao().getListCount(conn, bWriter);
+		int listCount_PM = new Mypage_ArtistDao().getListCount_PM(conn, bWriter);
 		
 		close(conn);
 		
-		return listCount;
+		return listCount_PM;
 	}
+	
+	public int getListCount_OM(String bWriter) {
+Connection conn = getConnection();
+		
+		int listCount_OM = new Mypage_ArtistDao().getListCount_OM(conn, bWriter);
+		
+		close(conn);
+		
+		return listCount_OM;
+	}
+
+
 
 	public ArrayList<Mypage_artist> selectList_PM(int currentPage, int limit, String bWriter) {
 		Connection conn = getConnection();
@@ -132,8 +144,8 @@ public class Mypage_ArtistService {
 		return result2;
 	}
 
-}
 
+}
 
 
 
