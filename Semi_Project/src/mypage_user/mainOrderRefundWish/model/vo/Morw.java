@@ -20,6 +20,12 @@ public class Morw implements Serializable {
 	private int basketNo;
 	private int paintNo;
 	private String message;
+	//환불계좌 등록
+	private String refundReason;
+	private String accountName;
+	private String accountNo;
+	private String bank;
+	
 	
 	
 	public Morw() {
@@ -90,45 +96,44 @@ public class Morw implements Serializable {
 		this.paintName = paintName;
 		this.artistName = artistName;
 	}
-	
-	
-	
 
+	
 	
 
 
-	public String getMessage() {
-		return message;
-	}
-
-
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-
-
-	public int getPaintNo() {
-		return paintNo;
-	}
-
-
-
-	public void setPaintNo(int paintNo) {
+	public Morw(String orderNo, int paintNo, String userId,  String refundReason, String accountName, String accountNo,
+			String bank) {
+		super();
+		this.orderNo = orderNo;
 		this.paintNo = paintNo;
+		this.userId = userId;
+		this.refundReason = refundReason;
+		this.accountName = accountName;
+		this.accountNo = accountNo;
+		this.bank = bank;
 	}
 
 
 
-	public int getBasketNo() {
-		return basketNo;
-	}
-
-
-
-	public void setBasketNo(int basketNo) {
+	public Morw(String orderNo, String aFile, String paintName, int paintPrice, Date orderDate, String orderStatus,
+			String userId, String artistName, int basketNo, int paintNo, String message, String refundReason,
+			String accountName, String accountNo, String bank) {
+		super();
+		this.orderNo = orderNo;
+		this.aFile = aFile;
+		this.paintName = paintName;
+		this.paintPrice = paintPrice;
+		this.orderDate = orderDate;
+		this.orderStatus = orderStatus;
+		this.userId = userId;
+		this.artistName = artistName;
 		this.basketNo = basketNo;
+		this.paintNo = paintNo;
+		this.message = message;
+		this.refundReason = refundReason;
+		this.accountName = accountName;
+		this.accountNo = accountNo;
+		this.bank = bank;
 	}
 
 
@@ -229,6 +234,90 @@ public class Morw implements Serializable {
 
 
 
+	public int getBasketNo() {
+		return basketNo;
+	}
+
+
+
+	public void setBasketNo(int basketNo) {
+		this.basketNo = basketNo;
+	}
+
+
+
+	public int getPaintNo() {
+		return paintNo;
+	}
+
+
+
+	public void setPaintNo(int paintNo) {
+		this.paintNo = paintNo;
+	}
+
+
+
+	public String getMessage() {
+		return message;
+	}
+
+
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+
+
+	public String getRefundReason() {
+		return refundReason;
+	}
+
+
+
+	public void setRefundReason(String refundReason) {
+		this.refundReason = refundReason;
+	}
+
+
+
+	public String getAccountName() {
+		return accountName;
+	}
+
+
+
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
+	}
+
+
+
+	public String getAccountNo() {
+		return accountNo;
+	}
+
+
+
+	public void setAccountNo(String accountNo) {
+		this.accountNo = accountNo;
+	}
+
+
+
+	public String getBank() {
+		return bank;
+	}
+
+
+
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+
+
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -240,8 +329,19 @@ public class Morw implements Serializable {
 		return "Morw [orderNo=" + orderNo + ", aFile=" + aFile + ", paintName=" + paintName + ", paintPrice="
 				+ paintPrice + ", orderDate=" + orderDate + ", orderStatus=" + orderStatus + ", userId=" + userId
 				+ ", artistName=" + artistName + ", basketNo=" + basketNo + ", paintNo=" + paintNo + ", message="
-				+ message + "]";
+				+ message + ", refundReason=" + refundReason + ", accountName=" + accountName + ", accountNo="
+				+ accountNo + ", bank=" + bank + "]";
 	}
+	
+	
+	
+	
+	
+
+	
+
+
+	
 
 
 

@@ -37,6 +37,7 @@ public class AmateurListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AmateurService aService = new AmateurService();
+		
 		String user = ((Member) request.getSession().getAttribute("loginUser")).getUserId();
 
 		int listCount = aService.getListCount();

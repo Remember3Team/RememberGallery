@@ -41,7 +41,54 @@ public class MorwDao {
 		return listCount;
 	}
 	
-	public ArrayList<Morw> selectList(Connection conn,String user_id) {
+//	public ArrayList<Morw> selectList(Connection conn,String user_id) {
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		
+//		ArrayList<Morw> list = new ArrayList<>();
+//		
+//		String query ="SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS " + 
+//				"FROM ORDER_TABLE O " + 
+//				"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO) " + 
+//				"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO) " + 
+//				"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO) " + 
+//				"WHERE O.USER_ID=? ORDER BY O.ORDER_NO DESC";
+//		
+//		
+//		try {
+//			pstmt = conn.prepareStatement(query);
+//			pstmt.setString(1, user_id);
+//
+//			
+//			
+//			rset = pstmt.executeQuery();
+//			
+//			while(rset.next()) {
+//				Morw m = new Morw(rset.getString("order_no"),
+//									rset.getInt("paint_no"),
+//									rset.getString("afile"),
+//									rset.getString("paint_name"),
+//									rset.getString("ARTIST_NAME"),
+//									rset.getInt("paint_price"),
+//									rset.getDate("order_date"),
+//									rset.getString("order_status"));
+//				list.add(m);
+//			}
+//			
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(rset);
+//			close(pstmt);
+//		}
+//		
+//		return list;
+//	}
+
+
+	public ArrayList<Morw> selectList(Connection conn, String userId, String searchStatus, String term, String calendar,
+			String calendar2) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -52,12 +99,12 @@ public class MorwDao {
 				"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO) " + 
 				"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO) " + 
 				"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO) " + 
-				"WHERE O.USER_ID=?";
+				"WHERE O.USER_ID=? ORDER BY O.ORDER_NO DESC";
 		
-	
+		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, user_id);
+			pstmt.setString(1, userId);
 
 			
 			
@@ -74,7 +121,7 @@ public class MorwDao {
 									rset.getString("order_status"));
 				list.add(m);
 			}
-			System.out.println("dao단 list"+list);
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -85,7 +132,6 @@ public class MorwDao {
 		
 		return list;
 	}
-
 
 
 	//환불
@@ -214,7 +260,7 @@ public class MorwDao {
 											  rset.getInt("FILELEVEL"));
 				plist.add(p);
 			}
-			System.out.println("dao plist : " +plist);
+			
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
@@ -282,7 +328,60 @@ public class MorwDao {
 		
 	}
 
-	 
+	
 
+	public int insertRefund(Connection conn, Morw morw) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "INSERT INTO REFUND(ORDER_NO,PAINT_NO,USER_ID,REFUND_RSN,ACCOUNT_NAME,ACCOUNT_NO,BANK) VALUES(?,?,?,?,?,?,?)";
+		
+		
+		try {
+			pstmt=conn.prepareStatement(query);
+			
+			pstmt.setString(1,morw.getOrderNo());
+			pstmt.setInt(2, morw.getPaintNo());
+			pstmt.setString(3, morw.getUserId());
+			pstmt.setString(4, morw.getRefundReason());
+			pstmt.setString(5, morw.getAccountName());
+			pstmt.setString(6, morw.getAccountNo());
+			pstmt.setString(7, morw.getBank());
+			
+			result = pstmt.executeUpdate();
+			
+			System.out.println("Dao단 환불 result"+result);
+			
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}
+		
+		return result;
+	
+	}
+
+	public void updateStatus2(Connection conn, String orderNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "UPDATE BUY_LIST SET ORDER_STATUS = '환불신청' WHERE ORDER_NO =? ";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, orderNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+	}
+
+	
 
 }

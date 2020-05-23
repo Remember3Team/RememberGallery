@@ -77,29 +77,7 @@
 			                	<p><span>조회수</span><%=a.getHit() %>
 			                </div><!-- class card-body end -->	
 
-<!-- card footer -->
-					        <%--  <div class="card-footer">
-								<div style="float:right;" onclick="emptyheartCheck();" class="emptyheartCheck">			                				        	       		
-		      <%if(loginUser!=null){ %>		    	
-		      		<%for(int k = 0 ; k < likeList.size() ; k++ ){ %>
-			      		<% al = likeList.get(k);%>
-									<div style="float:right;">
-									<%if(a.getEvent_no()==totalLike.getEvent_no()){ %>
-										<div class="likeCount" style="float:left; margin-right:10px;">
-											<span class="countArea"><%totalLike.getEvent_count(); %></span>
-						     			</div>
-						     		<%} %>
-					 				</div>
-							<%if(a.getEvent_no()==al.getEvent_no()){ %>
-		        					<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/colorHeart.png">
-		 	 				 <%}%> <!--if a.getEvent_no == al.getEvent_no end -->
-     			    <%} %><!-- likeList for loop end -->		
-				
-				<%}else{%><!-- 로그인 데이터가 없을때 -->
-				    				<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/emptyHeart.png">
-    			<%} %>
-								</div>		              		    		
-			             		</div><!-- class card-footer end --> --%>
+
 				    	</div><!-- class card end -->
 				   	</div><!-- id goDetail end --> 
 			<%} %><!-- if a.getEvent_no end -->
@@ -134,37 +112,7 @@
 </body>
 <script>
 	$(function(){
-		<%-- $(".heartcheck").click(function(){
-		  	  var event_no = $(".card-body").children("<input>").val();
-		  	  var heart = $(".heartcheck").attr('src');
-		  	  var heartYN;
-
-		  	  if(heart=='<%=request.getContextPath()%>/views/img/colorHeart.png'){
-		  		  $(".heartcheck").attr('src','<%=request.getContextPath()%>/views/img/emptyHeart.png');
-		  		  heartYN = 'N';
-		  	  }else{
-		  		  $(".heartcheck").attr('src','<%=request.getContextPath()%>/views/img/colorHeart.png');
-		  		  heartYN = 'Y';
-		  	  }
-		  	  $.ajax({
-		  		url:"like.am",
-		  		type:"post",
-		  		data:{event_no:event_no,heartYN:heartYN},
-		 
-		  		success:function(data){
-		  			var $likeCount = $(".likeCount");
-		  			var $count = $("<span>").text(data);
-		  			
-		  			$likeCount.html($count);
-		  			
-		  		},
-		  		error:function(request,statur,error){
-		  			alert("로그인을 하셔야 합니다.");
-		  			 $(".heartcheck").attr('src','<%=request.getContextPath()%>/views/img/emptyHeart.png');
-		  		}
-		  		  
-		  	  })
-			})   --%>
+		
 		$(".card-title").click(function(){
 			var event_no = $(this).parent().children("input").val();
 			location.href="<%=request.getContextPath()%>/detail.am?event_no="+event_no;			
@@ -172,10 +120,9 @@
 		$("#insertAma").click(function(){
 			<% if(loginUser != null){ %>
 			    location.href="<%=request.getContextPath()%>/views/board/amateur/amateurInsert.jsp"		
-			<% }%>
-		<%-- 	<% else{ %>
+			<% }else{ %>
 				alert("로그인 해야만 게시글 상세보기가 가능합니다!");
-			<% } %> --%>
+			<% } %>
 		});
 	
 	})

@@ -4,8 +4,10 @@
 	Amateur a = (Amateur)request.getAttribute("amateur");
 	FileManagement fm = (FileManagement)request.getAttribute("fileList");
 	ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList");
-	AmateurLike al = (AmateurLike)request.getAttribute("likeList");
-	System.out.println("[jsp] 출력 결과 : "+rList);
+	AmateurLike al = (AmateurLike)request.getAttribute("count");
+	AmateurLike show = (AmateurLike)request.getAttribute("show");
+	
+	System.out.println("AmateurLike:"+al);
 %>
 <!DOCTYPE html>
 <html>
@@ -61,6 +63,7 @@
                   	<td> 
                   		<div style="float:right;" onclick="emptyheartCheck();" class="emptyheartCheck">
       						<input id="paint_no" type="hidden" value="<%=a.getEvent_like()%>">
+      						
 							<div style="float:right;">
 				      		<div class="likeCount" style="float:left; margin-right:10px;">
 				      			<span class="countArea"><%=al.getEvent_count() %></span>
@@ -68,7 +71,7 @@
 			      			</div>
       		
 				      		<%if(a.getUser_id() != null){ %>
-				      				<%if(a.getEvent_like().equals("Y")){ %>
+				      				<%if(show.getEvent_count()==1){ %>
 					      				<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/colorHeart.png">
 					      			<%}else{ %>
 					      				<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/emptyHeart.png">					      			

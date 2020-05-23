@@ -20,15 +20,29 @@ public class MorwService {
 		return listCount;
 	}
 
-	public ArrayList<Morw> selectList(String user_id) {
+//	public ArrayList<Morw> selectList(String user_id) {
+//		Connection conn = getConnection();
+//		
+//		ArrayList<Morw> list = new MorwDao().selectList(conn,user_id);
+//		//BoardDao를 가서 selectList메소드 구현하기
+//		
+//		
+//		close(conn);
+//		return list;
+//	}
+	
+	public ArrayList<Morw> selectList(String userId, String searchStatus, String term, String calendar,
+			String calendar2) {
+		
 		Connection conn = getConnection();
 		
-		ArrayList<Morw> list = new MorwDao().selectList(conn,user_id);
+		ArrayList<Morw> list = new MorwDao().selectList(conn,userId,searchStatus,term,calendar,calendar2);
 		//BoardDao를 가서 selectList메소드 구현하기
-		System.out.println("service단 list 출력"+list);
+		
 		
 		close(conn);
 		return list;
+		
 	}
 
 
@@ -62,7 +76,7 @@ public class MorwService {
 		Connection conn = getConnection();
 		ArrayList<Attachment> plist = new MorwDao().selectPlist(conn,userId);
 		
-		System.out.println(plist);
+		
 		close(conn);
 		return plist;
 	}
@@ -95,6 +109,44 @@ public class MorwService {
 		return result;
 		
 	}
+
+
+	public int insertRefund(Morw morw) {
+		Connection conn =getConnection();
+		
+		int result = new MorwDao().insertRefund(conn,morw);
+		
+		close(conn);
+		
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+		
+	}
+
+	public void updateStatus2(String orderNo) {
+		Connection conn =getConnection();
+		
+		new MorwDao().updateStatus2(conn,orderNo);
+		
+		close(conn);
+		
+	}
+
+	
+
+	
+	
+
+
+	
+
+	
 
 	
 }

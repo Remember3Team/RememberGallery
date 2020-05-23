@@ -384,14 +384,39 @@ public class AmateurDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		AmateurLike al = new AmateurLike();
-		FileManagement fm1 = new FileManagement();
 		
 		
 		String query = "SELECT COUNT(*) 좋아요 FROM EVENT_LIKE WHERE EVENT_NO=?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, event_no);
+			rset = pstmt.executeQuery();
 			
+			while(rset.next()) {
+				al = new AmateurLike(rset.getInt("좋아요"));
+			}
+			System.out.println("[dao] 좋아요 출력결과:"+al);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return al;
+	}
+
+	public AmateurLike selectLikeList(Connection conn, int event_no, String user) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		AmateurLike al = new AmateurLike();
+		
+		
+		String query = "SELECT COUNT(*) 좋아요 FROM EVENT_LIKE WHERE EVENT_NO=? AND USER_ID=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, event_no);
+			pstmt.setString(2, user);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {

@@ -168,7 +168,7 @@ public class AmateurService {
 		return count;
 	}
 
-	public AmateurLike selectLikeList(int event_no) {
+	public AmateurLike selectEventLikeO(int event_no) {
 		Connection conn = getConnection();
 		
 		AmateurLike list = new AmateurDao().selectLikeList(conn, event_no);
@@ -176,6 +176,16 @@ public class AmateurService {
 		close(conn);
 		
 		return list;
+	}
+
+	public AmateurLike showHeart(int event_no, String user) {
+		Connection conn = getConnection();
+		
+		AmateurLike show = new AmateurDao().selectLikeList(conn, event_no, user);
+		System.out.println("count출력:"+show);
+		close(conn);
+		
+		return show;
 	}
 
 	

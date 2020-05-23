@@ -70,7 +70,7 @@ function deleteBasket(){
 		var param = "basket_no="+encodeURIComponent(arrayList); 
 		$.ajax({
 			type: "POST",
-			url: "list.ar",
+			url: "Wishlist",
 			data: param,
 			success: function(ret){
 				// 현재 페이지 새로고침

@@ -57,25 +57,20 @@ public class OrderServlet extends HttpServlet {
 		
 		
 		//insert 작업을 위한 화면에서  전달한 message prameter 받기
-		int paintNo = Integer.valueOf(request.getParameter("paintNo"));
+		int paintNo = Integer.valueOf(request.getParameter("paint_no"));
+		String orderNo = request.getParameter("order_no");
 		String message = request.getParameter("message");
-		String paintName = request.getParameter("paintName");
-		String artistName = request.getParameter("artistName");
+		String paintName = request.getParameter("paint_name");
+		String artistName = request.getParameter("artist_name");
 		
 		System.out.println("나는 서블릿 단이다"+param+paintNo);
 		System.out.println("ㄴㅏ는 서블릿"+message+paintName+artistName);
 		
-//		ArrayList<Morw> mlist = new ArrayList<Morw>();
-//		mlist.add(new Morw(param,paintNo,loginMember.getUserId(),message,paintName,artistName));
-//		
-		
+
 		
 		//메세지 인서트 메소드 실행
 		int result = mService.insertMessage(new Morw(param,paintNo,loginMember.getUserId(),message,paintName,artistName));
 		
-		if(result>0) {
-			response.sendRedirect("<%=request.getContextPath() %>/views/mypage_user/mypage_order.jsp");
-		}
 		
 	}
 
