@@ -16,9 +16,9 @@
 	
 	
 	
-	9		style="background-color: rgb(224, 224, 224); margin-top: 10px;"
+			style="background-color: rgb(224, 224, 224); margin-top: 10px;"
 			onclick="location.href='<%=request.getContextPath()%>/views/mypage_artist/art-registration.jsp'">
-,
+
 	<input type="button" value="sammy"
 			style="background-color: rgb(224, 224, 224); margin-top: 10px;"
 			onclick="location.href='<%=request.getContextPath()%>/views/mypage_artist/art-apply.jsp'">

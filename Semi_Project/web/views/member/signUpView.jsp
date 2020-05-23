@@ -200,9 +200,19 @@ td {
 	
 	//수정하기
 	function updateMember(){
-		$("#updateForm").submit();
-		
-		window.alert("수정 성공");
+		if($("#userPwd").val().length>=6 && $("#userPwd2").val().length>=6){
+			$("#updateForm").submit();
+			window.alert("수정 성공");
+		}else{
+			if($("#userPwd").val()!="" && $("#userPwd2").val()!=""){
+					if($("#userPwd").val().length<6||$("#userPwd2").val().length<6){
+						alert("비밀번호는 6자 이상을 입력해야 합니다");
+						$('#userPwd2').val('');
+					}
+			}else{
+				alert("비밀번호을 다 입력해야 넘어갈 수 있습니다");
+			}
+		}
 	}
 	
 	//탈퇴하기

@@ -52,7 +52,7 @@ public class MemberDao {
 						rset.getString("DELETE_YN"), rset.getString("DELETE_DATE"), rset.getInt("CASH"), rset.getDate("ENROLL_DATE"));
 
 			}
-//			System.out.println(loginMember);		
+			System.out.println(loginMember);		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
