@@ -35,79 +35,74 @@ float : right;
 <script type="text/javascript" src="../js/bootstrap.js"></script>
 <script type="text/javascript">
 
+// var searchStatus='all';
+// var term = 'all';
 
 
-var searchStatus='all';
-var term = 'all';
 $("document").ready(function(){
 	$("#searchStatus").change(function(){
 		searchStatus = this.value;
+		console.log(searchStatus);
 	});
 	
 	$("input[name=term]:radio").click(function(){
-		console.log(this.value)
+		term = this.value;
+		console.log(term);
 	});
+	
 });
 
 function setStatus(obj){
 	term = obj.value;
 }
 
-
-
-//수령확인을 orderNo로 받아올때
-<%--function confirm2(gOrderNo, gPaintName, gArtistName, gPaintNo){
-	console.log(gOrderNo);
-	console.log(gPaintNo);
-	console.log(gPaintName);
-	console.log(gArtistName)
-
-		   var status = $("#order_status_"+gOrderNo).val();
-		   
-		   // input hidden태그에 보조 정보들 넣기
-		   $("#modal_order_no").val(gOrderNo);
-		   $("#modal_paint_no").val(gPaintNo);
-		   $("#modal_paint_name").val(gPaintName);
-		   $("#modal_artist_name").val(gArtistName);
-		   if(status == '배송완료'){
-			   if(confirm('수령하시겠습니까?')==true){
-				   //var param = "order_no="+encodeURIComponent(orderNo); //ajax 뒷단 통신. 컴퓨터가 알아먹기 위해 A=A다.
-					$.ajax({
-						type: "POST",
-						url: "Mo.li",
-						data: {order_no:gOrderNo},
-						success: function(ret){ //통신이 완료되었을때 안에거 실행
-							$("#order_status_"+gOrderNo).val("수령완료"); //우리는 리로드 해야만 백단 데이터를 가져옴 
-							$("#td_order_status_"+gOrderNo).html("수령완료");
-							 alert("수령확인 완료되었습니다!");
-							   $("#modal_order_no").val(gOrderNo);
-							   $("#confirm2button").css("background","white").css("color","black");
-							   $("#modal").fadeIn(500);
-						}
-					});
-				}
-		   }else if(status=='수령완료'){		
-					alert("이미 수령된 상품입니다!");
-		   }else{
-		      alert("수령은 배달완료 이후 가능합니다!");
-		   }
+function searchData(){
+	var searchStatus = $("#searchStatus").val();
+	var term = $("input[name=term]:radio:checked").val();
+	var calendar = $("#calendar").val();
+	var calendar2 = $("#calendar2").val();
+	
+	var data = {
+	    		'search_status' : searchStatus,
+	    		'term' : term,
+	    		'calendar' : calendar,
+	    		'calendar2' : calendar2
+	    	 };
+	$.ajax({
+		  type: "POST",
+		  url: "Mo.li",
+		  data: data,
+		  success: function(ret){
+		   	location.reload();
 		}
---%>
+		});
+	
+	
+}
 
 
+
+
+
+//수령확인 버튼
 function confirm2(gOrderNo, gPaintName, gArtistName, gPaintNo){
-	console.log(gOrderNo);
-	console.log(gPaintNo);
-	console.log(gPaintName);
-	console.log(gArtistName);
-
 		   var status = $("#order_status_"+gOrderNo).val();
 		   
+		   var order_no = gOrderNo;
+		   var paint_name = gPaintName;
+		   var artist_name = gArtistName;
+		   var paint_no = gPaintNo;
+		
+		   
 		   // input hidden태그에 보조 정보들 넣기
-		   $("#modal_order_no").val(gOrderNo);
-		   $("#modal_paint_no").val(gPaintNo);
-		   $("#modal_paint_name").val(gPaintName);
-		   $("#modal_artist_name").val(gArtistName);
+		   $("#modal_order_no").val(order_no);
+		   $("#modal_paint_name").val(paint_name );
+		   $("#modal_artist_name").val(artist_name);
+		   $("#modal_paint_no").val(paint_no);
+		   
+		   $("#modal_img").css('background-image', 'url(\''+$("#img_"+order_no).val()+'\')');
+		   $("#modal_title").html(paint_name+" 작가님에게<br/>메시지를 남겨보세요.");
+		   
 		   if(status == '배송완료'){
 	            if(confirm('수령하시겠습니까?')==true){
 	               var param = "order_no="+encodeURIComponent(gOrderNo); //ajax 뒷단 통신
@@ -132,75 +127,90 @@ function confirm2(gOrderNo, gPaintName, gArtistName, gPaintNo){
 	         }
 	      }
 
-//취소 환불버튼 누르고 orderNo로 받아올때
-$(document).ready(function () {
-  // Your code
-});
-
-function refundApply(orderNo){
-	 $("#modal_refund").fadeIn(500);
-	 
-	 $("#selectBank").change(function(){
-     	var selectBank = this.value;
-     	});
-	 var refundName = $("#refundName").val();
-	 var account = $("#account").val();
-	 var refundReason = $("#refundReason").val();
-	 
-	 console.log(refundName);
-	 console.log(selectBank);
-	 console.log(account);
-	 console.log(refundReason);
-}
-
-<%--function insertMessage(orderNo){
-	$("#modal").fadeIn(500);
-	var message = $("#message"+orderNo).val();
-	var param="order_no="+encodeURIComponent(orderNo)+"&message="+encodeURIComponent(message); //ajax 뒷단 통신. 컴퓨터가 알아먹기 위해 A=A다.
-		$.ajax({
-			type: "POST",
-			url: "Mo.li",
-			data: param,
-			success: function(ret){ //통신이 완료되었을때 안에거 실행
-				location.reload();
-			}
-		});
-}--%>
-
 function insertMessage(){
-	console.log(orderNo);
-	console.log(message);
-	console.log(paintNo);
-	console.log(paintName);
-	console.log(artistName);
+	
 	
 	   if(confirm('메세지를 보내시겠습니까?')==false)
 	    return false;
-
-	    var orderNo = $("#modal_order_no").val(gOrderNo);
 	    var message = $("#message").val();
-	    var paintNo = $("#modal_paint_no").val(gPaintNo);
-	    var paintName = $("#modal_paint_name").val(gPaintName);
-	    var artistName =  $("#modal_artist_name").val(gArtistName);
+	    var orderNo = $("#modal_order_no").val();
+	    var paintNo = $("#modal_paint_no").val();
+	    var paintName = $("#modal_paint_name").val();
+	    var artistName =  $("#modal_artist_name").val();
+	    var data = {
+	    		'message' : message,
+	    		'order_no' : orderNo,
+	    		'paint_no' : paintNo,
+	    		'paint_name' : paintName,
+	    		'artist_name' : artistName
+	    	 };
+	    	 
 	    
-	    <%--var param2 = "order_no="+encodeURIComponent(orderNo)+"&message="+encodeURIComponent(message);--%>
+	    //위에 벨류 문제없이 잘 받음 확인!!
+	
 	console.log("Ajax 시작전 ");
 	$.ajax({
 	  type: "POST",
 	  url: "Mo.litwo",
-	  data: {orderNo:orderNo, message:message, paintNo:paintNo, paintName:paintName, artistName:artistName},
+	  data: data,
 	  success: function(ret){
-	    location.reload();
-	},
-	  error:function(){
-		  alert("ajax불능");
-	  }
-	
+	   	location.reload();
+	}
 	});
 	}
+	
+
+function refundApply(orderNo,paintNo){
+	var order_no = orderNo;
+	var paint_no = paintNo;
+	$("#refund_order_no").val(order_no);
+	$("#refund_paint_no").val(order_no);
+	$("#modal_refund").fadeIn(500);
+
+}
+
+
+function submit(){
+	 var orderNo = $("#refund_order_no").val(); //괄호안에 아무것도 없으면 불러오는 것!
+	 var paintNo = $("#refund_paint_no").val();
+	 var selectBank = $("#selectBank").val();
+	 var refundName = $("#refundName").val();
+	 var account = $("#account").val();
+	 var refundReason = $("#refundReason").val();
+	 
+	 var status = $("#order_status_"+orderNo).val();
+	 console.log('test : '+status);
+		
+	 var data = {
+		//문자열로 넣어주면 키가됨!!!!!!!
+		'order_no' : orderNo,
+		'paint_no' : paintNo,
+		'select_bank' : selectBank,
+		'refund_name' : refundName,
+		'account' : account,
+		'refund_reason' : refundReason
+	 };
+	 
+	 console.log(data);
+	 
+	 $.ajax({
+		  type: "POST",
+		  url: "Mo.lithree",
+		  data: data,
+		  success: function(){
+				location.reload();
+		},
+		  error:function(e){
+			  console.log(e);
+		  }
+		
+		});
+	
+}
 
 
 </script>
+
 
 </head>
 <body>
@@ -218,7 +228,6 @@ function insertMessage(){
       <form action="">
             <div class="search-bar">
                 <div class="bar1">
-                    
                     <select id="searchStatus">
                     	<option value="all">전체보기</option>
                         <option value="입금전">입금전</option>
@@ -249,10 +258,10 @@ function insertMessage(){
                             </div> 
                 &nbsp;&nbsp;&nbsp;
                 <div class="bar3">
-                    <input type="date" name="refund-date1"> ~
-                    <input type="date" name="refund-date1">
+                    <input id="calendar" type="date" name="refund-date1"> ~
+                    <input id="calendar2" type="date" name="refund-date1">
                 </div>
-                <button type="submit" class="btn btn-dark" style="width:70px">조회</button>
+                <button onclick="javascript: searchData()" type="button" class="btn btn-dark" style="width:70px">조회</button>
             </div>
 
         </form>
@@ -300,15 +309,23 @@ function insertMessage(){
 							Attachment a = plist.get(j); %>
 						<% if(m.getPaintNo() == a.getPaint_no()) { %>
 					 <img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" width="150px" height="150px">
-					 <input type="hidden" id="img_<%=m.getOrderNo()%>" value="<%= a.getSavefileName() %>" />
+					 <input type="hidden" id="img_<%=m.getOrderNo()%>" value="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" />
+					 
 					 <%} %>
 					<%} %></td>
-			      			<td id="artistname"><label>작가 : </label><p><%=m.getArtistName()%></p><br>
-			      			<label>작품명 : </label><p><%=m.getPaintName()%></p></td>
+			      			<td id="artistname"><label>작가 : </label><%=m.getArtistName()%><br>
+			      			<label>작품명 : </label><%=m.getPaintName()%>
+			      				<input type="hidden" id="paint_name_<%=m.getOrderNo()%>" value="<%= m.getPaintName() %>" />
+			      			</td>
 			      			<td><%=m.getPaintPrice()%></td>
 			      			<td><%=m.getOrderDate()%></td>
 			      			<td id="td_order_status_<%=m.getOrderNo()%>"><%=m.getOrderStatus()%></td>
-			      			<td><a href="javascript: refundApply('<%=m.getOrderNo()%>')" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">반품/취소</a>
+			      			<td>
+			      			<%if("환불신청".equals(m.getOrderStatus())){ %>
+			      				<a href="javascript: alert('이미 신청 완료되었습니다.');" id="refundApplyButton_<%=gOrderNo %>" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true" style="background-color: #fff; color: black;">반품/취소</a>	
+			      			<%}else{ %>
+			      				<a href="javascript: refundApply('<%=m.getOrderNo()%>',<%=gPaintNo %>)" id="refundApplyButton_<%=gOrderNo %>" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">반품/취소</a>
+			      			<%} %>
 			      			<a href="javascript: confirm2('<%=gOrderNo %>','<%=gPaintName %>','<%=gArtistName %>',<%=gPaintNo %>)" id="confirm2button" class="btn btn-secondary btn-sm active" role="button" value="confirm2Status" >수령확인</a>
 			      			</td>
 			      			<td style="display:none"><%=m.getPaintNo() %></td>
@@ -329,13 +346,16 @@ function insertMessage(){
 	<%@include file="../common/footer.jsp" %>
 	<div id="modal" style="position: fixed; display:none; width: 100%; height: 100%; top: 0; left: 0; background-color: rgba(0, 0, 0, 0.7); z-index: 9999;">
       <div style="width: 400px; height: 400px; background-color: #fff; border-radius: 20px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
-      	<div style="position: absolute; top : 30px; left:40px;"><h5><b>작가님에게 메세지를 남겨 보세요!</b></h5></div>
+      	<div style="position: absolute; top : 30px; left:40px;"><h5><b id="modal_title">작가님에게 메세지를 남겨 보세요!</b></h5></div>
           <a href="javascript: $('#modal').fadeOut(500);" style="width: 15px; height: 15px; position: absolute; top: 15px; right: 20px; display: block;">
                    <img src="thumbnail_uploadFiles/modal.png" style="width: 100%;" /></a>
-          <textarea id="message" style="position:absolute; bottom :60px; left:40px; width:310px; height:110px;"></textarea>
-          <input type="hidden" id="modal_order_no"><button type="button" id="#" onclick="insertMessage()" style="position:absolute; left:170px; bottom:20px; border-radius:10px;"><b>전송</b></button>
-		  <input type="hidden" id="modal_paint_no"><!-- 안나오는 이유 체크 1 -->
-		  <input type="hidden" id="modal_paint_name"><!-- 안나오는 이유 체크 2 -->
+          <div id="modal_img" style="width: 310px; margin: 0 auto; height: 160px; margin-top: 97px; background-size: cover; background-repeat: no-repeat; background-position: center center;">
+          	
+          </div>
+          <textarea id="message" style="position:absolute; bottom :60px; width:310px; height:60px; left: 50%; transform: translateX(-50%);"></textarea>
+          <input type="hidden" id="modal_order_no"><button type="button" onclick="insertMessage()" style="position:absolute; left:170px; bottom:20px; border-radius:10px;"><b>전송</b></button>
+		  <input type="hidden" id="modal_paint_no">
+		  <input type="hidden" id="modal_paint_name">
 		  <input type="hidden" id="modal_artist_name">
       </div>
    </div>
@@ -360,8 +380,10 @@ function insertMessage(){
 		    <li><label style="margin:14px; width:100px;">환불사유</label><input type="text" id="refundReason" style="width:180px"></li>
           	</ul>
           </div>
-          <button type="button" id="" onclick="submit()" style="position:absolute; width:80px; left:115px; bottom:15px; border-radius:10px;"><b>등록</b></button>
-       	  <button type="button" id="" onclick="submit()" style="position:absolute; width:80px; right:115px; bottom:15px; border-radius:10px;"><b>취소</b></button>
+          <button type="button" onclick="submit()" style="position:absolute; width:80px; left:115px; bottom:15px; border-radius:10px;"><b>등록</b></button>
+       	  <button type="button" id="" style="position:absolute; width:80px; right:115px; bottom:15px; border-radius:10px;"><b>취소</b></button>
+       	  <input type="hidden" id="refund_order_no">
+       	  <input type="hidden" id="refund_paint_no">
       </div>
    </div>
 </body>

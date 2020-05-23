@@ -25,7 +25,7 @@ public class MorwService {
 		
 		ArrayList<Morw> list = new MorwDao().selectList(conn,user_id);
 		//BoardDao를 가서 selectList메소드 구현하기
-		System.out.println("service단 list 출력"+list);
+		
 		
 		close(conn);
 		return list;
@@ -62,7 +62,7 @@ public class MorwService {
 		Connection conn = getConnection();
 		ArrayList<Attachment> plist = new MorwDao().selectPlist(conn,userId);
 		
-		System.out.println(plist);
+		
 		close(conn);
 		return plist;
 	}
@@ -95,6 +95,41 @@ public class MorwService {
 		return result;
 		
 	}
+
+
+	public int insertRefund(Morw morw) {
+		Connection conn =getConnection();
+		
+		int result = new MorwDao().insertRefund(conn,morw);
+		
+		close(conn);
+		
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+		
+	}
+
+	public void updateStatus2(String orderNo) {
+		Connection conn =getConnection();
+		
+		new MorwDao().updateStatus2(conn,orderNo);
+		
+		close(conn);
+		
+	}
+
+	
+
+
+	
+
+	
 
 	
 }
