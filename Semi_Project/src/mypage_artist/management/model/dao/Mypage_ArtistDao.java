@@ -50,13 +50,11 @@ public class Mypage_ArtistDao {
 		ResultSet rset = null;
 		ArrayList<Mypage_artist> PM_list = new ArrayList<>();
 		
-		String query = "SELECT P.PAINT_NO, AFILE, P.PAINT_NAME, ARTIST_NAME, p.PAINT_PRICE FROM PAINT P\r\n" + 
-								"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
-								"JOIN BASKET ON (P.PAINT_NO = BASKET.PAINT_NO)\r\n" + 
-								"JOIN MEMBER ON (BASKET.USER_ID = MEMBER.USER_ID)\r\n" + 
-								"JOIN BUY_LIST BL ON (P.PAINT_NO = BL.PAINT_NO)\r\n" + 
-								"WHERE P.PAINT_NO BETWEEN ? AND ? AND  MEMBER.USER_ID = ? AND ORDER_STATUS ^= '판매완료'"
-								+ "AND FILELEVEL = 0";
+		String query = "SELECT P.PAINT_NO, AFILE, P.PAINT_NAME, ARTIST_NAME, p.PAINT_PRICE, FILELEVEL FROM PAINT P\r\n" + 
+				" JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
+				"left JOIN BUY_LIST BL ON (P.PAINT_NO = BL.PAINT_NO)\r\n" + 
+				"left JOIN MEMBER ON (BL.USER_ID = MEMBER.USER_ID)\r\n" + 
+				"WHERE p.paint_no  BETWEEN ? AND ? AND   p.ARTIST_NAME=? AND FILELEVEL=0";
 		
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
@@ -76,6 +74,7 @@ public class Mypage_ArtistDao {
 																			 rset.getString("artist_name"),
 																			 rset.getInt("paint_price"));
 				PM_list.add(myart);
+				
 			}
 			
 		} catch (SQLException e) {
@@ -84,7 +83,7 @@ public class Mypage_ArtistDao {
 			close(rset);
 			close(pstmt);
 		}
-		
+		System.out.println(PM_list);
 		return PM_list;
 	}
 

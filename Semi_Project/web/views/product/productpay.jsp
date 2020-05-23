@@ -188,7 +188,7 @@ function execDaumPostcode2() {
     </tr>
     <tr>
       <th scope="row">E-mail
-       <input type="email" id="email" placeholder="abc@abc.com" size="20px" style="margin-left: 62px;" ></th>8
+       <input type="email" id="email" placeholder="abc@abc.com" size="20px" style="margin-left: 62px;" ></th>
 
     </tr>
     <tr>
