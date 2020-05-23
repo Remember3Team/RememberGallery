@@ -5,6 +5,14 @@
 	ArrayList<QnA_Q> qnalist = (ArrayList<QnA_Q>) request.getAttribute("qnalist");
 	ArrayList<Attachment> alist = (ArrayList<Attachment>) request.getAttribute("alist");
 	Apply aphoto = (Apply) request.getAttribute("aphoto");
+	
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
 %>
 
 <!DOCTYPE html>
@@ -36,10 +44,9 @@
                 <button class="btn btn-outline-dark" style = "width:120px; display:block;margin-top:5px;" onclick="checkCard();">감동 카드</button>
                 <script>
                 	function checkCard() {
-                		location.href = "<%= request.getContextPath() %>/list.ac"
-                			
-                			
-                	}
+                		location.href = "<%= request.getContextPath() %>/list.ac" }
+                	
+         
                 </script>
             </div>
         </div>
@@ -115,8 +122,7 @@
                 %>
                 
                 <tr>
-                    <!-- <td><input type="checkbox"></td> -->
-                    <td><%=q.getPaint_no()%></td>
+                    <td class = "tdFirst"><%=q.getPaint_no()%></td>
                     <td>
                      <% for(int j=0; j<alist.size(); j++){ 
 							Attachment a = alist.get(j); %>
@@ -137,43 +143,58 @@
 					  답변 완료
 					          
                     <%} else {%>
-                    	<button class="btn btn-outline-dark" style = "width:100px">답변하기</button>
+                    	<button class="btn btn-outline-dark goanswer"  style = "width:100px">답변하기</button>
                     <%} %>
                     </td>
                     <!-- <td><button class="btn btn-outline-dark" style = "width:100px">답변하기</button></td> -->
                 </tr>
 			<%} %>
             </table>
+            
         </div>
+        <script>
+
+        
+        
+        $(function(){
+	 		$(".goanswer").click(function(){
+	 			
+	 			var paint_no = $(this).parent().parent().children().eq(0).text();
+	 			
+	 			console.log(paint_no);
+	 			
+	 			location.href="<%=request.getContextPath()%>/detail.po?paint_no="+paint_no;
+	 		});
+	 		
+	 	});
+    	
+        </script>
         
     </div>
-   <!--  <div style="width : 350px; margin : 0 auto;">
-        <div class="pagination">
-            <a href="#" class="disabled" aria-label="Go to previous page">Previous</a>
+
+		<div class = "p-parents">
+	<div class="pppp">
+			<%if (currentPage == 1) { %>
+            <a style = "color:#9c9c9c; "  disabled>Previous</a>
+            <%}else {%>
+            <a class = "page-a" href="<%=request.getContextPath() %>/list.qna?currentPage=<%=currentPage - 1 %>" >Previous</a>
+            <%} %>
             <ol>
-              <li class="current-page">
-                <a href="#" aria-label="Current page. Page 1">1</a>
-              </li>
-              <li>
-                <a href="#" aria-label="Go to 2 page">2</a>
-              </li>
-              <li>
-                <a href="#" aria-label="Go to 3 page">3</a>
-              </li>
-              <li>
-                <button type="button" disabled>...</button>
-              </li>
-              <li>
-                <a href="#" aria-label="Go to 7 page">7</a>
-              </li>
-              <li>
-                <a href="#" aria-label="Go to 8 page">8</a>
-              </li>
+            <%for(int p = startPage ; p<=endPage ; p++){ %>
+            <%if(currentPage == p){ %>
+              <li class = "page-list1"><button disabled class = "page-cur" ><%=p%></button></li>
+            <%} else { %>
+              <li class = "page-list2" onclick="location.href='<%=request.getContextPath() %>/list.qna?currentPage=<%=p%>'"><button class = "page-nocur"><%=p%></button></li>
+            <%} %>
+            <%} %>
             </ol>
-            <a href="#" aria-label="Go to next page">Next</a>
+            <%if (currentPage == maxPage) { %>
+            <a style = "color:#9c9c9c; "  disabled>Next</a>
+            <%} else { %>
+            <a class = "page-a" href="<%=request.getContextPath()%>/list.qna?currentPage=<%=currentPage + 1%>">Next</a>
+            <%} %>
           </div>
-        </div>
-     -->
+	</div>
 
 
 

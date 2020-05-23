@@ -39,11 +39,15 @@ public class ArtistRefundListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//로그인세션
 		HttpSession session = request.getSession();
-		Member loginMember = (Member) session.getAttribute("loginUser");
-		System.out.println(loginMember);
-		
+//		System.out.println(loginMember);
+		String artist = (((Member) request.getSession().getAttribute("loginUser")).getUserId());
 		
 		ArtistService aService = new ArtistService();
+		
+		// 작가 이름 가져오기
+		Member m = aService.selectMember(artist);
+		String name = m.getUserName();
+		
 		
 		int listCount = aService.getListCount();
 		
@@ -93,19 +97,19 @@ public class ArtistRefundListServlet extends HttpServlet {
 				                   startPage, endPage);
 		
 		// 1_2. 게시판 리스트 조회해오기
-		ArrayList<BuyList_a> list = aService.selectList(loginMember.getUserId(), currentPage, limit);
+		ArrayList<BuyList_a> list = aService.selectList(name, currentPage, limit);
 		for(int i = 0 ; i < list.size(); i++) {
 			System.out.println(list.get(i));
 		}
 		
-		ArrayList<Attachment> alist = aService.selectAList(loginMember.getUserId(), currentPage, limit);
+		ArrayList<Attachment> alist = aService.selectAList(name, currentPage, limit);
 		
 		for(int i = 0 ; i <alist.size(); i++) {
 			System.out.println(alist.get(i));
 		}
 		
 		// 프로필 사진 불러오기
-		Apply aphoto = aService.selectPhoto(loginMember.getUserId());
+		Apply aphoto = aService.selectPhoto(m.getUserId());
 		System.out.println(aphoto);
 		
 		// 출력이 잘 나오는걸 확인하면 이제 화면단으로 넘겨주자

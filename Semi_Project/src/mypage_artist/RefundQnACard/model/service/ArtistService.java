@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import artistapply.model.dao.ApplyDao;
 import artistapply.model.vo.Apply;
+import member.model.vo.Member;
 import mypage_artist.RefundQnACard.model.dao.ArtistDao;
 import mypage_artist.RefundQnACard.model.vo.BuyList_a;
 import mypage_artist.RefundQnACard.model.vo.Message;
@@ -27,10 +28,10 @@ public class ArtistService {
 	}
 
 	// 환불 리스트 받아오기
-	public ArrayList<BuyList_a> selectList(String user_id, int currentPage, int limit) {
+	public ArrayList<BuyList_a> selectList(String name, int currentPage, int limit) {
 		Connection conn = getConnection();
 
-		ArrayList<BuyList_a> list = new ArtistDao().selectList(conn, user_id, currentPage, limit);
+		ArrayList<BuyList_a> list = new ArtistDao().selectList(conn, name, currentPage, limit);
 		// BoardDao를 가서 selectList메소드 구현하기
 		
 		System.out.println("buylist_a list 출력 : " + list);
@@ -41,10 +42,10 @@ public class ArtistService {
 	}
 	
 	// 작가 아이디로 이미지 받아오기
-	public ArrayList<Attachment> selectAList(String user_id, int currentPage, int limit) {
+	public ArrayList<Attachment> selectAList(String name, int currentPage, int limit) {
 		Connection conn = getConnection();
 		
-		ArrayList<Attachment> list2 =new ArtistDao().selectphoto(conn, user_id, currentPage,limit);
+		ArrayList<Attachment> list2 =new ArtistDao().selectphoto(conn, name, currentPage,limit);
 		
 		System.out.println("list2 출력 : " + list2);
 		
@@ -55,10 +56,10 @@ public class ArtistService {
 
 
 	// 감동카드 리스트 받아오기 
-	public ArrayList<Message> selectCardList(String user_id, int currentPage, int limit) {
+	public ArrayList<Message> selectCardList(String artistName, int currentPage, int limit) {
 		
 		Connection conn = getConnection();
-		ArrayList<Message> list = new ArtistDao().selectCardList(conn, user_id, currentPage, limit);
+		ArrayList<Message> list = new ArtistDao().selectCardList(conn, artistName, currentPage, limit);
 		// BoardDao를 가서 selectList메소드 구현하기
 		
 		System.out.println("Message list 출력 : " + list);
@@ -69,9 +70,9 @@ public class ArtistService {
 	}
 
 	// 감동카드 이미지 받아오기
-	public ArrayList<Attachment> selectCAList(String user_id, int currentPage, int limit) {
+	public ArrayList<Attachment> selectCAList(String artistName, int currentPage, int limit) {
 		Connection conn = getConnection();
-		ArrayList<Attachment> list2 =new ArtistDao().selectCAphoto(conn, user_id, currentPage,limit);
+		ArrayList<Attachment> list2 =new ArtistDao().selectCAphoto(conn, artistName, currentPage,limit);
 		
 		System.out.println("list2 출력 : " + list2);
 		
@@ -81,9 +82,9 @@ public class ArtistService {
 	}
 
 	// qna 목록 조회하기
-	public ArrayList<QnA_Q> selectQnAList(String user_id, int currentPage, int limit) {
+	public ArrayList<QnA_Q> selectQnAList(String artistName, int currentPage, int limit) {
 		Connection conn = getConnection();
-		ArrayList<QnA_Q> qnalist = new ArtistDao().selectQnAList(conn, user_id, currentPage, limit);
+		ArrayList<QnA_Q> qnalist = new ArtistDao().selectQnAList(conn, artistName, currentPage, limit);
 		
 		close(conn);
 		
@@ -91,9 +92,9 @@ public class ArtistService {
 	}
 
 	// qna 사진 받아오기
-	public ArrayList<Attachment> selectQpList(String user_id, int currentPage, int limit) {
+	public ArrayList<Attachment> selectQpList(String artistName, int currentPage, int limit) {
 		Connection conn = getConnection();
-		ArrayList<Attachment> list2 =new ArtistDao().selectQpphoto(conn, user_id, currentPage,limit);
+		ArrayList<Attachment> list2 =new ArtistDao().selectQpphoto(conn, artistName, currentPage,limit);
 		
 		System.out.println("list2 출력 : " + list2);
 		
@@ -133,6 +134,36 @@ public class ArtistService {
 		
 		close(conn);
 		
+	}
+
+	public Member selectMember(String artist) {
+		Connection conn = getConnection();
+		
+		Member m = new ArtistDao().selectMember(conn, artist);
+		
+		close(conn);
+		
+		return m;
+	}
+
+	public int getQnAListCount(String artistName) {
+		Connection conn = getConnection();
+
+		int listCount = new ArtistDao().getQnAListCount(conn, artistName);
+
+		close(conn);
+
+		return listCount;
+	}
+
+	public int getCardListCount(String artistName) {
+		Connection conn = getConnection();
+
+		int listCount = new ArtistDao().getCardListCount(conn, artistName);
+
+		close(conn);
+
+		return listCount;
 	}
 
 }

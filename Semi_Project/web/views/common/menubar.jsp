@@ -8,11 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <title>메뉴바</title>
-<link rel="stylesheet"
-	href="<%=request.getContextPath() %>/views/css/style.css">
-<link
-	href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-	rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/style.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -120,7 +118,7 @@ ul li ul li:hover{
 					<li><a
 						href="<%= request.getContextPath() %>/list.am">아마추어
 							게시판</a></li>
-					<li><a href="#">자유게시판</a></li>
+					<li><a href="<%= request.getContextPath() %>/list.ee">자유게시판</a></li>
 				</ul></li>
 			<li><a href="#">NOTICE</a>
 				<ul>

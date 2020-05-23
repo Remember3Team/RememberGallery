@@ -1,5 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="board.free.model.vo.*, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import="board.free.model.vo.*,
+     board.notice.model.vo.*, board.amateur.model.vo.*, java.util.ArrayList" %>
+
+<%
+ArrayList<Free> list = ((ArrayList<Free>)request.getAttribute("list"));
+PageInfo pi = (PageInfo) request.getAttribute("pi");
+
+System.out.println("[Free게시판]jsp확인-List:"+list);
+
+int listCount = pi.getListCount();
+int currentPage = pi.getCurrentPage();
+int maxPage = pi.getMaxPage();
+int startPage = pi.getStartPage();
+int endPage = pi.getEndPage();
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,7 +59,7 @@
 				  		<%}else{ %>				   				
 					  			<%for(Free f:list){ %>
 					    		<tr>
-					    			<input type="hidden" value="<%=n.getFree_no() %>">
+					    			<input type="hidden" value="<%=f.getFree_no() %>">
 									<td><%=f.getFree_no() %></td>
 					      			<td><%=f.getFree_title() %></td>
 					      			<td><%=f.getUser_id() %></td>
@@ -57,7 +72,7 @@
 				</div><!--class col-sm-6 end -->
 			</div><!-- id noticeList end -->
 			
-		<!-- Pagination -->
+<%-- 		<!-- Pagination -->
 	  	<div style="text-align:center;">
 			<div class="col-mid-12">
 				 <ul class="pagination justify-content-center" style="margin:20px 0">
@@ -68,7 +83,7 @@
 	                     <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/list.no?currentPage=<%=maxPage%>">Next</a></li>
 	        	  </ul>
 			</div><!-- class col-mid-12 end --> 
-		</div><!-- Pagination end --> 
+		</div><!-- Pagination end -->  --%>
 	
 	
 		
@@ -83,8 +98,8 @@
 <script>
 	$(function(){
 		$("#listArea td").click(function(){
-			var noti_no = $(this).parent().children("input").val();
-			location.href="<%=request.getContextPath()%>/detail.no?noti_no="+noti_no;
+			var free_no = $(this).parent().children("input").val();
+			location.href="<%=request.getContextPath()%>/detail.ee?free_no="+free_no;
 			
 		})
 	})

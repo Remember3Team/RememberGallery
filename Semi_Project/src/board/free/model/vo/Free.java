@@ -15,6 +15,25 @@ public class Free {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Free(String user_id, String free_title, String free_content) {
+		super();
+		this.user_id = user_id;
+		this.free_title = free_title;
+		this.free_content = free_content;
+	}
+	
+
+	
+
+	public Free(String user_id, String free_title, String free_content, String free_picture) {
+		super();
+		this.user_id = user_id;
+		this.free_title = free_title;
+		this.free_content = free_content;
+		this.free_picture = free_picture;
+	}
+
 	public Free(int free_no, String user_id, Date free_date, String free_title, String free_content, int free_hit,
 			String free_picture) {
 		super();

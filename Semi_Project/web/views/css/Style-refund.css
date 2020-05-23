@@ -253,12 +253,12 @@
       /* 페이징 처리 */
       
       .p-parents {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  }
+  	display: flex;
+  	flex-direction: column;
+  	justify-content: center;
+  	align-items: center;
+ 	 margin: 0 auto;
+ 	 }
       
        .pppp {
         display: flex;
@@ -309,14 +309,46 @@
         list-style: none;
         justify-content: center;
         align-items: center;
-        margin-top: 17px;
+        margin-top: 16px;
         border-right: 1px solid;
         vertical-align: middle;
         list-style: none;
         width: 36px;
-        height: 35px;
+        height: 34px;
         text-decoration: none;
       }
+      
+  
+     
+     .page-list1 {
+     background-color:#c82c1f;
+     }
+     
+     .page-cur {
+     font-size : 14px;
+     background:none;
+   	 color: white;
+     padding : 0;
+     border-style : none;
+/*      font-weight : bold;
+ */     
+     }
+     
+     .page-nocur {
+     font-size: 14px;
+     background:none;
+   	 color: #c82c1f;
+     padding : 0;
+     border-style : none;
+     
+     }
+     
+     .page-a:hover {
+     color: black;
+     text-decoration:none;
+     }
+     
+ 
 
       /* .pppp ol, li {
         display: inline-block;

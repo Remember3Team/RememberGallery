@@ -76,6 +76,9 @@
 	table{
 		table-layout:fixed;
 	}
+	b{
+		margin-left:150px;
+	}
   </style>
   
 </head>
@@ -85,11 +88,15 @@
         <div id="search">
             
             <form action="<%=request.getContextPath()%>/worksearch.po" method="post">
+            
+            
             <table class="table table-borderless" >
-                <tr>
-          
-                    <td><b>작가 명</b><br><input type="text" class="form-control" id="aname" name="aname" style="width:200px"></td>
-                    <td><b>테마</b><br><select name="category" id="category" class="form-control" style="width:200px">
+               
+	
+				<tr>          
+                    <td><b>작가 명</b><br><input type="text" class="form-control" id="aname" name="aname" style="width:200px; margin-left:150px;"></td>
+                    <td><b>테마</b><br><select name="category" id="category" class="form-control" style="width:200px; margin-left:150px;">
+                    			<option value="" ></option>
                                 <option value="인물">인물</option>
                                 <option value="풍경">풍경</option> 
                                 <option value="정물">정물</option>
@@ -100,24 +107,25 @@
                     </select></td>
                     <td>
                     <div>
-                    <label> 가격: </label>
-                    <input type="range" name="price" min="0" max="10000000" step="100000" value="0" oninput="document.getElementById('value1').innerHTML=this.value;">
+                    <label > <b>가격: </b></label><br>
+                    <input type="range" name="price" min="0" max="100000000" step="5000000" value="0"
+                     oninput="document.getElementById('value1').innerHTML=this.value;" style="margin-left:150px;">
                     <span id="value1"></span>
                 </div>
                     </td>
                 </tr>
+                
+                
                 <tr>
                     <td></td>
-                    <td></td>
-                    <td><button type="submit" id="submit" class="btn btn-dark"  style="width:150px">검색</button></td>
+                    <td><button type="submit" id="submit" class="btn btn-dark"  style="width:150px; margin-left:150px;">검색</button></td>
                     <td></td>
                 </tr>
             </table>
         </form>
-        
-        
-        
         </div>
+        
+        
         <p class="h3">작품</p>
         <br clear="both">
            <% for(int i=0; i<plist.size(); i++){ 
@@ -132,18 +140,18 @@
 				<img class="rimage" src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" style="width: 300px; height: 300px;">		      
 					<div class="mname" align="center">
 						<!-- 이름 -->
-						<b><%=p.getPaint_name() %></b>
+						<p><%=p.getPaint_name() %></p>
 					</div>
 					<div class="mname" align="center">
 						<!-- 작가명-->
 						<p>작가명 :<%=p.getArtist_name() %></p>
 					</div>
-					
+					<br>
 						<!-- 상세정보보기로 이동 -->
-						<button type="button" class="btn btn-outline-dark" style="width:303px; heighht:20px;">상세보기</button><br><br>
+						<button type="button" class="btn btn-outline-dark detail_view" style="width:303px; heighht:20px;">상세보기</button><br><br>
 						
 						<!-- 구매페이지로이동-->					
-						<button class="btn btn-outline-secondary" style="width:303px; heighht:20px;">구매하기</button>
+						<button class="btn btn-outline-secondary buy_product" style="width:303px; heighht:20px;">구매하기</button>
 					
 			</div>
 			<% } %>
@@ -151,7 +159,7 @@
                   
                   <script>
                   $(function(){
-				 		$(".btn-outline-dark").click(function(){
+				 		$(".detail_view").click(function(){
 				 			var paint_no = $(this).parent().children("input").val();
 				 			
 				 			location.href="<%=request.getContextPath()%>/detail.po?paint_no="+paint_no;
@@ -160,7 +168,7 @@
 				 	});
                   
                   $(function(){
-                	  $(".btn-outline-secondary").click(function(){
+                	  $(".buy_product").click(function(){
                 		  var paint_no = $(this).parent().children("input").val();
                 		  
                 		  location.href="<%=request.getContextPath()%>/Buy.po?paint_no="+paint_no;
@@ -174,33 +182,33 @@
 		<!--  페이징 처리 시작! -->
       <div class="pageingArea" align="center">
       <!-- 맨 처음으로 (<<) -->
-      <button onclick="location.href='<%=request.getContextPath() %>/list.po?currentPage=1'"> << </button>
+      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/list.po?currentPage=1'"> << </button>
       
       <!-- 이전 페이지로(<) -->
       <%if(currentPage <= 1) {%>
-      <button disabled> < </button>
+      <button class="btn btn-outline-dark"  disabled> < </button>
       <%}else{ %>
-      <button onclick="location.href='<%=request.getContextPath() %>/list.po?currentPage=<%=currentPage-1 %>'"> < </button>
+      <button class="btn btn-outline-dark"  onclick="location.href='<%=request.getContextPath() %>/list.po?currentPage=<%=currentPage-1 %>'"> < </button>
        <%} %>
       <!-- 10개의 페이지 목록 -->
       <%for(int p = startPage ; p<=endPage;p++){ %>
      	 <%if(currentPage == p){ %>
-     	 	<button disabled><%=p %></button>
+     	 	<button class="btn btn-outline-dark"  disabled><%=p %></button>
      	 <%}else{ %>
-     	 	<button onclick="location.href='<%=request.getContextPath() %>/list.po?currentPage=<%=p %>'"><%=p %></button>
+     	 	<button class="btn btn-outline-dark"  onclick="location.href='<%=request.getContextPath() %>/list.po?currentPage=<%=p %>'"><%=p %></button>
      	 <%} %>
       <%} %>
 
       
       <!-- 다음 페이지로(>) -->
         <%if(currentPage == maxPage) {%>
-      <button disabled> > </button>
+      <button class="btn btn-outline-dark"  disabled> > </button>
       <%}else{ %>
-      <button onclick="location.href='<%=request.getContextPath() %>/list.po?currentPage=<%=currentPage+1 %>'"> > </button>
+      <button class="btn btn-outline-dark"  onclick="location.href='<%=request.getContextPath() %>/list.po?currentPage=<%=currentPage+1 %>'"> > </button>
       <%} %>
       
       <!-- 맨 끝으로(>>) -->
-      <button onclick="location.href='<%=request.getContextPath() %>/list.po?currentPage=<%= maxPage%>'"> >> </button>
+      <button class="btn btn-outline-dark"  onclick="location.href='<%=request.getContextPath() %>/list.po?currentPage=<%= maxPage%>'"> >> </button>
       
       </div>
 

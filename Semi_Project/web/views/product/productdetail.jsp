@@ -19,10 +19,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<!-- link rel="stylesheet" href="../css/style.css" -->
- <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/style.css">
  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
  <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/bootstrap.css">
+<!-- link rel="stylesheet" href="../css/style.css" -->
+ <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/style.css">
 <script src="<%=request.getContextPath() %>/views/js/jquery-3.4.1.min.js"></script>
  <!— Swiper JS —>
   <script src="<%=request.getContextPath() %>/views/js/swiper.min.js"></script>
@@ -31,6 +31,34 @@
 
 
 <style>
+
+h3 {
+font-size : 19px;
+margin-bottom : 50px;
+}
+
+.bodyhr{
+width : 90%;
+color : black;
+margin : 50px auto;
+text-align : center;
+border: 0.5px solid black;
+
+}
+
+.headline{
+  margin-top : 90px;
+  margin-left: 90px;
+  margin-bottom: 50px;
+}
+
+.headline hr {
+  background-color:#c82c1f;
+  width:25px;
+  border:2px solid red;
+  margin-bottom: 10px;
+}
+
 #sumnailimage {
    border: solid 1px;
    display: inline-block;
@@ -97,22 +125,20 @@ border: solid 1px;
 #writer {
    border: solid 1px;
    display: inline-block;
-   width: 369px;
-   height: 358px;
-   margin-left: 191px;
-   margin-right: 20px;
-   margin-top: 20px;
+   width: 200px;
+   height: 200px;
    float: left;
 }
 #data2 {
    display: inline-block;
-   width: 760px;
-   height: 358px;
+   width: 400px;
+   height: 200px;
    float: left;
-   margin-left: 10px;
+   margin-left: 30px;
    margin-right: 0px;
-   margin-top: 100px;
+   padding : 20px
 }
+
 
 
  ul,li{
@@ -120,7 +146,7 @@ border: solid 1px;
       }
   #slide{
       height:400px;
-      width: 700px;
+      width: 400px;
       position:relative;
       overflow:hidden;
      
@@ -130,7 +156,12 @@ border: solid 1px;
       height:200%;
       transition:1s;
       }
+      
+  #slide img{
+  	width : 100%;
+  }
   #slide li{
+  	  width : 400px;
       float: left;
       }
   #slide input{
@@ -160,38 +191,40 @@ border: solid 1px;
       margin-left:0%;
       }
     #pos2:checked~ul{
-      margin-left:-702px;
+      margin-left:-400px;
       }
     #pos3:checked~ul{
-      margin-left:-1404px;
+      margin-left:-802px;
       }
     #pos1:checked~.pos>label:nth-child(1){
-      background:rgb(255, 255, 255);
+      background:rgba(255, 255, 255, 0.400);
       }
     #pos2:checked~.pos>label:nth-child(2){
-      background:rgb(255, 255, 255);
+      background:rgba(255, 255, 255, 0.400);
       }
     #pos3:checked~.pos>label:nth-child(3){
-      background:rgb(255, 255, 255);
+      background:rgba(255, 255, 255, 0.400);
       }
 
       #imgInfo { width:100%; }
-      #imgInfo td { width:50%; font-size:20px; line-height:2; }
+      #imgInfo td { text-align: left; width:50%; font-size:14px; line-height:2; padding-left : 10px; }
       .btnArea { width:100%; margin:10px 0; }
 	  .btnArea:after { display:block; content:""; clear:both; }
 	 .btn{
-	 	width:550px;
+	 	display : block;
+	 	margin-bottom : 10px;
+	 	width:330px;
 	 	height:40px;
 	 }
 	 
 	  <!-- Demo styles -->
-  <style>
+
     html, body {
       position: relative;
       height: 100%;
     }
     body {
-      background: #eee;
+      background: white;
       font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
       font-size: 14px;
       color:#000;
@@ -215,26 +248,212 @@ border: solid 1px;
        	 z-index:100;
        	 
       }
+      
+    div.swiper-button-prev,
+	div.swiper-button-next {
+	color: #c82c1f; }
+	
+	/* div.swiper-pagination {
+	background: #c82c1f;
+	} */
+	
+	span.swiper-pagination-progressbar-fill {
+	background:#c82c1f;
+	}
 
-      /* Center slide text vertically */
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-box-pack: center;
-      -ms-flex-pack: center;
-      -webkit-justify-content: center;
-      justify-content: center;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      -webkit-align-items: center;
-      align-items: center;
-    }
+
+	/* 작가 소개 박스 */
+	.writerint-box {
+	justify-content: center;
+	display : flex;
+	margin: 0 auto;
+	}
+	
+	/* 댓글 창 */
+	
+	.QnAContent {
+	padding : 15px;
+	border-style: none;
+    border-radius: 5px;
+    background: rgb(241, 241, 241);
+    overflow: auto;
+    resize: none;
+	}
+	
+	.Acontents {
+	display : flex;
+	align-items: center;
+	}
+	
+	.AContent {
+	
+	justify-content: center;
+	width: 400px;
+	padding : 15px;
+	border-style: none;
+    border-radius: 5px;
+    background: rgb(241, 241, 241);
+    overflow: auto;
+    resize: none;
+	}
+	
+	.addQNA {
+	height:135px;
+	padding : 10px;
+    border-radius: 5px;
+    border : 1px solid black;
+    background: none;
+    font-size : 15px;
+	}
+	
+	.answerlist-box > td {
+	vertical-align : middle;
+	text-align: center;
+	}
+	
+	.answerlist-box > td > button {
+	padding : 10px;
+    border-radius: 5px;
+    border : 1px solid black;
+    background: none;
+    font-size : 15px;
+	}
+	
+	
+	#replySelectArea {
+		width : 80%;
+		margin : 0 auto;
+	}
+	
+	.Acontent_btn {
+	display : inline-block;
+	padding: 20px;
+	}
+	
+	.hideA, .insertA {
+	margin : 0 auto;
+	display : block;
+	padding : 10px;
+    border-radius: 5px;
+    border : 1px solid black;
+    background: none;
+    font-size : 15px;
+    margin-right : 10px;
+	}
+	
+	.question-box {
+    width: 100%;
+    vertical-align: middle;
+    display: flex;
+    background-color: rgb(241, 241, 241);
+    border-radius: 5px;
+    padding: 9px;
+    align-items: center;
+
+	}
+	
+	/* 페이징 처리 */
+      
+   /*    .p-parents {
+  	display: flex;
+  	flex-direction: column;
+  	justify-content: center;
+  	align-items: center;
+ 	 margin: 0 auto;
+ 	 }
+      
+       .pppp {
+        display: flex;
+        text-align: center;
+        margin : 50px auto;
+        background: rgb(255, 255, 255);
+        height: 36px;
+        border : 1px solid black;
+        border-radius: 5px;
+        justify-content: center;
+        align-items: center;
+        
+      }
+      
+      
+      .pppp > ol > li:first-child {
+       border-left : 1px solid black;
+      }
+
+      .pppp > a {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        padding: 7px 12px;
+        font-size: 13px;
+        font-weight: 500;
+        color:#9c9c9c;
+        text-decoration: none;
+      }
+
+      .pppp > ol {
+        display: inline-flex;
+        list-style: none;
+        justify-content: center;
+        align-items: center;
+        
+      }
+
+      .pppp > ol > li {
+        display: inline-flex;
+        list-style: none;
+        justify-content: center;
+        align-items: center;
+        margin-top: 16px;
+        border-right: 1px solid;
+        vertical-align: middle;
+        list-style: none;
+        width: 36px;
+        height: 34px;
+        text-decoration: none;
+      }
+      
+  
+     
+     .page-list1 {
+     background-color:#c82c1f;
+     }
+     
+     .page-cur {
+     font-size : 14px;
+     background:none;
+   	 color: white;
+     padding : 0;
+     border-style : none;
+   
+     }
+     
+     .page-nocur {
+     font-size: 14px;
+     background:none;
+   	 color: #c82c1f;
+     padding : 0;
+     border-style : none;
+     
+     }
+     
+     .page-a:hover {
+     color: black;
+     text-decoration:none;
+     }
+	 */
+	
+	
 	 
 </style>
 </head>
 <body>
    <%@include file="../common/menubar.jsp"%>
+   
+   <div class = headline>
+        <hr>
+        <h3 style="font-size: 20px;"> 작품 상세보기 </h3>
+    </div>
 <br>
 <table style = "margin : 0 auto;">
 <tr>
@@ -248,12 +467,12 @@ border: solid 1px;
   <%for(int i =0; i< alist.size();i++){
 	  Attachment a = alist.get(i);
 	  if(a.getFileLevel() == 0){%>
-    <li><img src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=a.getSavefileName()%>" width=700px; height=400px;></li>
+    <li><img src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=a.getSavefileName()%>" style = "width=102%; height: 400px; overflow:hidden;"></li>
     <%}}%>
      <%for(int i =0; i< alist.size();i++){
 	  Attachment a = alist.get(i);
 	  if(a.getFileLevel() == 1){%>
-    <li><img src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=a.getSavefileName()%>" width=700px; height=400px;></li>
+    <li><img src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=a.getSavefileName()%>" style = "width=102%; height: 400px; overflow:hidden;"></li>
         <%}}%>
   </ul>
   <p class="pos">
@@ -267,17 +486,22 @@ border: solid 1px;
    </td>
   <td style="box-sizing:border-box; padding: 0 0 0 50px;">
       <div>
-         <h3 align="left"><%=plist.getPaint_name() %></h3>
+         <h3 align="left" style = "margin-top : 5px; margin-bottom:0;"><%=plist.getPaint_name() %></h3>
       </div>
-      <hr style="margin: 1;" color="black" width="554px">
+      <hr style="margin: 1 auto;" color="black" width="330px">
+      
       <table id="imgInfo">
       	<tr>
-      		<td align="center">작가명 : <%= plist.getArtist_name()%></td>
-      		<td align="center">카테고리 : <%=plist.getCategory() %></td>
+      		<td>작가명 : <%= plist.getArtist_name()%></td>
       	</tr>
       	<tr>
-      		<td align="center">제작년도 : <%=plist.getCategory() %></td>
-      		<td align="center">사이즈 :<% for(int i =0;i < sizelist.size();i++) {
+      		<td>카테고리 : <%=plist.getCategory() %></td>
+      	</tr>
+      	<tr>
+      		<td>제작년도 : <%=plist.getCategory() %></td>
+      		
+      	<tr>
+      		<td>사이즈 :<% for(int i =0;i < sizelist.size();i++) {
 				product p = sizelist.get(i);
 				if(plist.getSize_no() == p.getSize_no() ){%>
 			
@@ -286,11 +510,11 @@ border: solid 1px;
 				<% }}%></td>
       	</tr>
       </table>  	 																																																																																	
-      <hr style="margin: 1;" color="black" width="554px">
+      <hr style="margin: 1 auto;" color="black" width="330px">
       <table id="imgInfo">
       <tr>
       <td>
-       <span style="text-align: center; width: 100px; font-size: 35px;"><%=plist.getPatint_price() %>원</span>
+       <span style="text-align: center; width: 100px; font-size: 20px;"><%=plist.getPatint_price() %>원</span>
       </td>
       <td>
   
@@ -355,9 +579,9 @@ border: solid 1px;
 
       <div class="btnArea">
       <input id="paint_no" type="hidden" value="<%=plist.getPaint_no()%>">
-	      <input type="button" class = "btn btn-outline-dark" value="바로 구매하기"><br clear="both"><br>
-	       <input type="button" class = "btn btn-outline-success"  value="장바구니 담기" onclick="장바구니"><br clear="both"><br>
-	      <inputtype="button" class = "btn btn-outline-danger"  value="Q & A" onclick="q&a"> Q & A<input type="hidden" value="" id="mid">
+	      <input type="button" class = "btn btn-outline-dark" value="바로 구매하기">
+	       <input type="button" class = "btn btn-outline-dark"  value="장바구니 담기" onclick="장바구니">
+	      <input type="button" class = "btn btn-outline-danger"  value="Q & A" onclick="q&a" style="margin-bottom:0;"><input type="hidden" value="" id="mid">
 	      <!-- <input type="hidden" value="${ movieDetail.movie_id }" id="movie_id"> -->
 	      <input type="hidden" value="" id="movie_id">
   
@@ -387,9 +611,7 @@ border: solid 1px;
 	</table>	
    <br clear="both">
    <br>
-   <hr style = "margin : 50px auto;" color="black" width="1300px">
-   <br clear="both">
-   
+   <hr class = "bodyhr">
    <h3 align="center">인테리어 시뮬레이션</h3>
      
   <!-- Swiper -->
@@ -429,34 +651,34 @@ border: solid 1px;
   </script>
    
    <br clear="both">
-   <hr style = "margin : 50px auto;" color="black" width="1300px">
+   <hr class = "bodyhr">
    <h3 align="center">작품 소개</h3>
-   <a style="text-align: left; width: 100px; margin-left:300px; font-size: 15px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;"><%=plist.getPaint_int() %></a>
+   <a style="display : block; text-align: center; margin : 0 auto; width: 70% ;font-size: 15px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;"><%=plist.getPaint_int() %></a>
    <br>
-   <hr style = "margin : 50px auto;" color="black" width="1300px">
+   <hr class = "bodyhr">
    <h3 align="center">작가 소개</h3>
-   
+   <div class = "writerint-box">
    <div id="writer">
-      <img src="<%=request.getContextPath()%>/views/interior/<%=apply.getArtist_pro() %>" style="width: 369px; height: 358px;">
+      <img src="<%=request.getContextPath()%>/views/interior/<%=apply.getArtist_pro() %>" style="width: 200px; height: 200px;">
    </div>
    
    <div id="data2">
-   <a style="text-align: left; width: 100px; margin-left:30px; font-size: 15px; text-decoration: none !important; border-bottom: dotted 0px !important; color: black !important;"><%=apply.getArtist_int() %></a>
+   <a class = "writerint"><%=apply.getArtist_int() %></a>
    </div>
-   <br clear="both">
-   <hr style = "margin : 50px auto;" color="black" width="1300px">
+   </div>
+   
+   
+   <hr class = "bodyhr">
   
    <h3 align="center">Q & A</h3>
-   <br>
    <div class="q&a">
-   <table style = "margin : 0 auto;">
-    <tr>
-		<td>Q & A 작성</td>
+   <table style = "margin : 0 auto; margin-bottom : 20px;">
+	<tr>
 		<td>
-		<textArea rows="5" cols="100" class="QnAContent"></textArea>
+		<textArea rows="5" cols="100" class="QnAContent" placeholder="질문을 작성하세요."></textArea>
 		</td>
-		<td>
-			<button class="addQNA" type="button active" class="btn btn-secondary" style="width:100px;">Q&A등록</button>
+		<td style= "padding: 15px;">
+			<button class="addQNA" type="button active" style="width:100px; ">질문 등록</button>
 		</td>
 		</tr>
    </table>
@@ -466,24 +688,25 @@ border: solid 1px;
 					<tr><td colspan="3">Q & A가 없습니다.</td></tr>				
 				<% }else { %>
 					<% for(int i=qna.size()-1; i>=0; i--){ %>
-						<tr>
-							<td width="100px"><%= qna.get(i).getUser_id() %></td>
-							<td width="400px"><%= qna.get(i).getPqusetion() %></td>
-							<td width="200px"><%= qna.get(i).getPq_date() %></td>
+						<tr class = "answerlist-box">
+							<td><%= qna.get(i).getUser_id() %></td>
+							<td width = "350px"><div class = "question-box"><%= qna.get(i).getPqusetion() %></div></td>
+							<td><%= qna.get(i).getPq_date() %></td>
 							<%if(qna.get(i).getPq_yn().equals("N")) {%>
 							<td>
 								<input class="qna_no" type="hidden" value="<%=qna.get(i).getPq_no()%>">
-								<button class="addA" type="button active" class="btn btn-secondary" style="width:100px;">답변하기</button>
+								<button class="addA" type="button active" style="width:100px; display: inline-block; margin: 0; font-size : 14px;">답변하기</button>
 								<div class="Acontents" style="display:none;">
 									<textArea rows="5" cols="100" class="AContent"></textArea>
-									<button class="hideA"  type="button active" class="btn btn-secondary" style="width:100px;">답변접기</button>
-									<button class="insertA" type="button active" class="btn btn-secondary" style="width:100px;">작성완료</button>
+									<div class="Acontent_btn">
+									<button class="hideA"  type="button active"  style="width:100px;  margin-bottom : 10px; font-size : 14px;">답변접기</button>
+									<button class="insertA" type="button active" style="width:100px;  margin: 0; font-size : 14px;">작성완료</button>
+									</div>
 								</div>
-								<div></div>
 							</td>
 							<%}else if(qna.get(i).getPq_yn().equals("Y")){%>
 							<td>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>답변완료</b>
+							<b>답변완료</b>
 							</td>
 							<%} %>
 						</tr>
@@ -491,9 +714,9 @@ border: solid 1px;
 							<%if(qna.get(i).getPq_no() == qna2.get(j).getPq_no()){%>
 							<div class="answertable">
 							<tr>
-							<td width ="100px">판매자</td>
-							<td width="400px"><%= qna.get(j).getPanswer()%></td>
-							<td width="200px"><%= qna.get(j).getPq_date() %></td>
+								<td>판매자</td>
+								<td style= "align : center;"><%= qna.get(j).getPanswer()%></td>
+								<td><%= qna.get(j).getPq_date() %></td>
 							</tr>
 							</div>
 							<%}} %>
@@ -505,7 +728,8 @@ border: solid 1px;
 		<script>
 		$(function(){
 			$(".hideA").click(function(){
-				$(this).parent(".Acontents").hide();
+				$(this).parents(".Acontents").hide();
+				$(this).parent().parent().parent().children(".addA").show();
 				
 			})
 		})
@@ -514,14 +738,15 @@ border: solid 1px;
 		$(function(){
 			$(".addA").click(function(){
 				$(this).parent().children(".Acontents").show();
+				$(this).hide();
 				
 			})
 		})
 		
 		$(function(){
 			$(".insertA").click(function(){ 
-				var qna_no = $(this).parent().parent().children(".qna_no").val();
-				var content = $(this).parent().children(".AContent").val();
+				var qna_no = $(this).parent().parent().parent().children(".qna_no").val();
+				var content = $(this).parent().parent().children(".AContent").val();
 				$.ajax({
 					url:"insertA.po",
 					type:"post",
@@ -583,6 +808,34 @@ border: solid 1px;
 		})
 		</script>
    <br clear="both">
+   
+   	<!-- 페이징 처리 시작 -->
+	
+<%-- <div class = "p-parents">
+	<div class="pppp">
+			<%if (currentPage == 1) { %>
+            <a style = "color:#9c9c9c; "  disabled>Previous</a>
+            <%}else {%>
+            <a class = "page-a" href="<%=request.getContextPath() %>/list.ar?currentPage=<%=currentPage - 1 %>" >Previous</a>
+            <%} %>
+            <ol>
+            <%for(int p = startPage ; p<=endPage ; p++){ %>
+            <%if(currentPage == p){ %>
+              <li class = "page-list1"><button disabled class = "page-cur" ><%=p%></button></li>
+            <%} else { %>
+              <li class = "page-list2" onclick="location.href='<%=request.getContextPath() %>/list.ar?currentPage=<%=p%>'"><button class = "page-nocur"><%=p%></button></li>
+            <%} %>
+            <%} %>
+            </ol>
+            <%if (currentPage == maxPage) { %>
+            <a style = "color:#9c9c9c; "  disabled>Next</a>
+            <%} else { %>
+            <a class = "page-a" href="<%=request.getContextPath()%>/list.ar?currentPage=<%=currentPage + 1%>">Next</a>
+            <%} %>
+          </div>
+	</div> --%>
+   
+   
    <%@include file="../common/footer.jsp"%>
 
 

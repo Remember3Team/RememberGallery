@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>아마추어 게시판</title>
  <link rel="stylesheet" href="../../css/style.css">
  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
  <link rel="stylesheet" href="../../css/bootstrap.css">
@@ -22,10 +22,7 @@
 	<!-- header -->
 
 <%@include file="../../common/menubar.jsp" %>
-<br clear="both">
-<br><br><br>
 
-	
 	<div class="container" id="InsertArea">	
 	   <div id="amateurHeader" class="jumbotron text-center">
 	   		<h1>아마추어 게시판 글 등록 페이지</h1>

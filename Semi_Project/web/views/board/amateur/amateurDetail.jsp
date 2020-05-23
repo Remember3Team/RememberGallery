@@ -21,12 +21,11 @@
 	#detailArea div{ margin:0 auto; margin-top:100px; width:80%;}
 </style>
 </head>
+
+
 <body>
 <!-- header -->
 <%@include file="../../common/menubar.jsp" %>
-
-
-<body>
  	 <div class="container"> 
          <div class="row" id="detailArea">
             <div class="cols-sm-6">

@@ -19,7 +19,7 @@
     <!-- Link Swiper's CSS -->
   <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/swiper.min.css">
 
- 
+ <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 
 </head>
@@ -43,6 +43,13 @@
 	margin-right: 0px;
 	margin-top: 0px;
 	background-color: rgb(224, 224, 224);
+}
+
+#add1, #add4{
+	width:100px;	
+}
+#add2, #add3, #add5, #add6{
+	width:400px;
 }
 </style>
 <body>
@@ -78,7 +85,93 @@
   
 </table>
 <br clear="both"><br>
+<script>
+function execDaumPostcode() {
+           new daum.Postcode({
+               oncomplete: function(data) {
 
+                   // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                   // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                   // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                   var addr = ''; // 주소 변수
+                   var extraAddr = ''; // 참고항목 변수
+
+                   //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                   if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                       addr = data.roadAddress;
+                   } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                       addr = data.jibunAddress;
+                   }
+
+                   // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                   if(data.userSelectedType === 'R'){
+                       // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                       // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                       if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                           extraAddr += data.bname;
+                       }
+                       // 건물명이 있고, 공동주택일 경우 추가한다.
+                       if(data.buildingName !== '' && data.apartment === 'Y'){
+                           extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                       }
+                   } else {
+                     
+                   }
+
+                   // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                   document.getElementById('add1').value = data.zonecode;
+                   document.getElementById("add2").value = addr;
+                   // 커서를 상세주소 필드로 이동한다.
+                   document.getElementById("add3").focus();
+               }
+           }).open();
+       }
+</script>
+
+<script>
+function execDaumPostcode2() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var addr = ''; // 주소 변수
+            var extraAddr = ''; // 참고항목 변수
+
+            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                addr = data.roadAddress;
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                addr = data.jibunAddress;
+            }
+
+            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+            if(data.userSelectedType === 'R'){
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+            } else {
+              
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('add4').value = data.zonecode;
+            document.getElementById("add5").value = addr;
+            // 커서를 상세주소 필드로 이동한다.
+            document.getElementById("add6").focus();
+        }
+    }).open();
+}
+</script>
 <div id="order">
 <form>
 <h3 align="left">주문하시는 분</h3>
@@ -100,17 +193,17 @@
     </tr>
     <tr>
       <th>
-       <input type="text" id="우편번호" placeholder="우편번호" size="10px" style="margin-left: 109px;" >
-       <button>주소 검색</button>
+       <input type="text" id="add1" class="form-control" placeholder="우편번호" size="10px" style="margin-left: 109px; float:left;" disabled>	
+       &nbsp;&nbsp;<button type="button" onclick="execDaumPostcode();" class="btn btn-outline-dark ">주소 검색</button>
        </th>
     </tr>
     <tr>
       <th scope="row">주소
-       <input type="text" id="기본주소" placeholder="기본주소" size="20px" style="margin-left: 74px;" ></th>
+       <input type="text" id="add2" class="form-control" placeholder="기본주소" size="20px" style="margin-left: 109px; " disabled></th>
     </tr>
      <tr>
       <th>
-       <input type="text" id="상세주소" placeholder="상세 주소" size="20px" style="margin-left: 109px;" >
+       <input type="text" id="add3" class="form-control" placeholder="상세 주소" size="20px" style="margin-left: 109px;" >
        </th>
     </tr>
 </table>
@@ -139,22 +232,22 @@
     </tr>
     <tr>
       <th>
-       <input type="text" id="우편번호" placeholder="우편번호" size="10px" style="margin-left: 109px;" >
-       <button>주소 검색</button>
+       <input type="text" id="add4" class="form-control" placeholder="우편번호" size="10px" style="margin-left: 109px; float:left;" disabled>
+       &nbsp;&nbsp;<button type="button" onclick="execDaumPostcode2();"  class="btn btn-outline-dark">주소 검색</button>
        </th>
     </tr>
     <tr>
       <th scope="row">주소
-       <input type="text" id="기본주소" placeholder="기본주소" size="20px" style="margin-left: 74px;" ></th>
+       <input type="text" id="add5" class="form-control" placeholder="기본주소" size="20px" style="margin-left: 109px;" disabled></th>
     </tr>
      <tr>
       <th>
-       <input type="text" id="상세주소" placeholder="상세 주소" size="20px" style="margin-left: 109px;" >
+       <input type="text" id="add6" class="form-control" placeholder="상세 주소" size="20px" style="margin-left: 109px;" >
        </th>
     </tr>
     <tr>
      <th scope="row">전하실 말씀 
-      <textarea cols="" style="margin-left: 20px;"></textarea>
+      <textarea style="margin-left: 20px; resize : none;" class="form-control col-sm-8" rows="6" ></textarea>
 </table>
 </form>
 <br celar="both">
@@ -187,8 +280,8 @@
 <br>
 
 <div style="margin-left:10px; width:300px">
-<button style="background-color: rgb(52, 152, 219);"> 주문하기</button> <br><br>
-<button style="background-color: rgb(52, 152, 219);"> 취소</button> 
+<button class="btn btn-dark btn-sm"> 주문하기</button> <br><br>
+<button class="btn btn-dark btn-sm"> 취소</button> 
 </div>
 
 
