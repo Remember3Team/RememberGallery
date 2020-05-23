@@ -41,13 +41,19 @@ public class ArtistCardListServlet extends HttpServlet {
 		
 				//로그인세션
 				HttpSession session = request.getSession();
-				Member loginMember = (Member) session.getAttribute("loginUser");
-				System.out.println(loginMember);
-				
+//				System.out.println(loginMember);
+//				Member loginMember = (Member) session.getAttribute("loginUser");
+				Member artist = (Member) session.getAttribute("loginUser");
+				String artistId = artist.getUserId();
 				
 				ArtistService aService = new ArtistService();
 				
-				int listCount = aService.getListCount();
+				// 작가 이름 가져오기
+				Member m = aService.selectMember(artistId);
+				String artistName = m.getUserName();
+				
+				
+				int listCount = aService.getCardListCount(artistName);
 				
 				// ---------- 페이징 처리 추가 ---------------
 				int currentPage;		// 현재 페이지를 저장할 변수
@@ -89,31 +95,26 @@ public class ArtistCardListServlet extends HttpServlet {
 					endPage = maxPage;
 				}
 				
-				// 위에서 계산한 모든 페이지 관련 변수들을 PageInfo 클래스의
-				// 객체에 담자.(PageInfo클래스를 만들자)
+				// 위에서 계산한 모든 페이지 관련 변수들을 PageInfo 클래스의 객체에 담자(PageInfo클래스를 만들자)
 				PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage,
 						                   startPage, endPage);
 				
-				// 1_2. 감동 메세지 게시판 리스트 조회해오기
-				ArrayList<Message> mlist = aService.selectCardList(loginMember.getUserId(), currentPage, limit);
+				// 감동 메세지 게시판 리스트 조회해오기
+				ArrayList<Message> mlist = aService.selectCardList(artistName, currentPage, limit);
 				for(int i = 0 ; i < mlist.size(); i++) {
 					System.out.println(mlist.get(i));
 				}
 				
-				ArrayList<Attachment> alist = aService.selectCAList(loginMember.getUserId(), currentPage, limit);
-				
+				ArrayList<Attachment> alist = aService.selectCAList(artistName, currentPage, limit);
 				for(int i = 0 ; i <alist.size(); i++) {
 					System.out.println(alist.get(i));
 				}
 				
-				
 				// 프로필 사진 불러오기
-				Apply aphoto = aService.selectPhoto(loginMember.getUserId());
-				
+				Apply aphoto = aService.selectPhoto(artistId);
 				System.out.println(aphoto);
 				
-				// 출력이 잘 나오는걸 확인하면 이제 화면단으로 넘겨주자
-				
+				// 화면단으로 넘겨주기
 				RequestDispatcher view = null;
 				if(!mlist.isEmpty()) {
 					view = request.getRequestDispatcher("views/mypage_artist/art-cardlist.jsp");

@@ -25,10 +25,10 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
 	rel="stylesheet">
-
 <link rel="stylesheet"
 	href="<%=request.getContextPath() %>/views/css/bootstrap.css">
-	<link rel="stylesheet"
+	
+<link rel="stylesheet"
 	href="<%=request.getContextPath()%>/views/css/Style-refund.css">
 <script
 	src="<%=request.getContextPath() %>/views/js/jquery-3.4.1.min.js"></script>
@@ -229,61 +229,30 @@
 	</div>
 
 	<!-- 페이징 처리 시작 -->
-	<%-- <div class="pagingArea" align="center">
 	
-		<div class = "pagingdiv">
-
-		<!-- 이전 페이지로(<) -->
-		<%if(currentPage == 1){ %>
-		<a class ="pagingBtn-2" disabled><</a>
-		<%}else{ %>
-		<a class ="pagingBtn-2" onclick="location.href='<%=request.getContextPath() %>/list.ar?currentPage=<%=currentPage - 1 %>'"> < </a>
-		<%} %>
-
-		<!-- 10개의 페이지 목록 -->
-		<%for(int p = startPage ; p<=endPage ; p++){ %>
-		<%if(currentPage == p){ %>
-		<a class ="pagingBtn-2" disabled><%=p %></a>
-		<%} else {%>
-		<a class ="pagingBtn-2" onclick="location.href='<%=request.getContextPath() %>/list.ar?currentPage=<%=p %>'"><%=p %></a>
-		<%} %>
-		<%} %>
-
-		<!-- 다음 페이지로(>) -->
-		<%if(currentPage == maxPage){ %>
-		<a class ="pagingBtn-2" disabled>></a>
-		<%}else{ %>
-		<a class ="pagingBtn-2"
-			onclick="location.href='<%=request.getContextPath() %>/list.ar?currentPage=<%=currentPage + 1 %>'">
-			></a>
-		<%} %>
-
-			</div>
-	</div> --%>
-	
-	<div class = "p-parents">
+<div class = "p-parents">
 	<div class="pppp">
 			<%if (currentPage == 1) { %>
-            <a disabled>Previous</a>
+            <a style = "color:#9c9c9c; "  disabled>Previous</a>
             <%}else {%>
-            <a onclick="location.href='<%=request.getContextPath() %>/list.ar?currentPage=<%=currentPage - 1 %>'" >Previous</a>
+            <a class = "page-a" href="<%=request.getContextPath() %>/list.ar?currentPage=<%=currentPage - 1 %>" >Previous</a>
             <%} %>
             <ol>
             <%for(int p = startPage ; p<=endPage ; p++){ %>
             <%if(currentPage == p){ %>
-              <li><a disabled><%=p%></a></li>
+              <li class = "page-list1"><button disabled class = "page-cur" ><%=p%></button></li>
             <%} else { %>
-              <li onclick="location.href='<%=request.getContextPath() %>/list.ar?currentPage=<%=p%>'"><a><%=p%></a></li>
+              <li class = "page-list2" onclick="location.href='<%=request.getContextPath() %>/list.ar?currentPage=<%=p%>'"><button class = "page-nocur"><%=p%></button></li>
             <%} %>
             <%} %>
             </ol>
             <%if (currentPage == maxPage) { %>
-            <a disabled>Next</a>
+            <a style = "color:#9c9c9c; "  disabled>Next</a>
             <%} else { %>
-            <a onclick="location.href='<%=request.getContextPath()%>/list.ar?currentPage=<%=currentPage + 1%>'">Next</a>
+            <a class = "page-a" href="<%=request.getContextPath()%>/list.ar?currentPage=<%=currentPage + 1%>">Next</a>
             <%} %>
           </div>
-</div>
+	</div>
 
 
 	<%@include file="../common/footer.jsp"%>
