@@ -56,6 +56,8 @@ public class InsertQnAServlet extends HttpServlet {
 		
 		ArrayList<Paint_QnA> qna = pService.selectQ(paint_no);
 		
+		ArrayList<Paint_QnA> qna2 = pService.selectP();
+		
 		JSONArray rListArray = new JSONArray();
 		JSONObject rListObj = null;
 		
