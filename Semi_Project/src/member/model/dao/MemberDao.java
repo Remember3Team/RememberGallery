@@ -52,7 +52,7 @@ public class MemberDao {
 						rset.getString("DELETE_YN"), rset.getString("DELETE_DATE"), rset.getInt("CASH"), rset.getDate("ENROLL_DATE"));
 
 			}
-//			System.out.println(loginMember);		
+			System.out.println(loginMember);		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -157,17 +157,17 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		int result = 0; 
 		System.out.println(member);
-		String query ="UPDATE MEMBER SET EMAIL=?,PHONE=?,ADDRESS=?,NICKNAME=? WHERE USER_ID=?";
+		String query ="UPDATE MEMBER SET USER_NAME=?, USER_PWD=?, EMAIL=?,PHONE=?,ADDRESS=?,NICKNAME=? WHERE USER_ID=?";
 		//이것도 DB 테이블에 순서 맞춰서~
 		try {
 			pstmt=conn.prepareStatement(query);
-			/* pstmt.setString(1, member.getUserName()); */
-			/* pstmt.setString(2, member.getUserPwd()); */
-			pstmt.setString(1, member.getEmail());
-			pstmt.setString(2, member.getPhone());
-			pstmt.setString(3, member.getAddress());
-			pstmt.setString(4, member.getNickname());
-			pstmt.setString(5, member.getUserId());
+			pstmt.setString(1, member.getUserName());
+			pstmt.setString(2, member.getUserPwd());
+			pstmt.setString(3, member.getEmail());
+			pstmt.setString(4, member.getPhone());
+			pstmt.setString(5, member.getAddress());
+			pstmt.setString(6, member.getNickname());
+			pstmt.setString(7, member.getUserId());
 			
 			result = pstmt.executeUpdate();
 			

@@ -579,8 +579,8 @@ border: solid 1px;
 
       <div class="btnArea">
       <input id="paint_no" type="hidden" value="<%=plist.getPaint_no()%>">
-	      <input type="button" class = "btn btn-outline-dark" value="바로 구매하기">
-	       <input type="button" class = "btn btn-outline-dark"  value="장바구니 담기" onclick="장바구니">
+	      <input type="button" class = "btn btn-outline-dark buypaint" value="바로 구매하기">
+	       <input type="button" class = "btn btn-outline-dark basket"  value="장바구니 담기">
 	      <input type="button" class = "btn btn-outline-danger"  value="Q & A" onclick="q&a" style="margin-bottom:0;"><input type="hidden" value="" id="mid">
 	      <!-- <input type="hidden" value="${ movieDetail.movie_id }" id="movie_id"> -->
 	      <input type="hidden" value="" id="movie_id">
@@ -588,7 +588,7 @@ border: solid 1px;
       </div>
        <script>
                   $(function(){
-				 		$(".btn-outline-dark").click(function(){
+				 		$(".buypaint").click(function(){
 				 			var paint_no = $(this).parent().children("#paint_no").val();
 				 			
 				 			location.href="<%=request.getContextPath()%>/Buy.po?paint_no="+paint_no;
@@ -597,7 +597,7 @@ border: solid 1px;
 				 	});
 				 	
                   $(function(){
-				 		$(".btn-outline-success").click(function(){
+				 		$(".basket").click(function(){
 				 			var paint_no = $(this).parent().children("#paint_no").val();
 				 			
 				 			location.href="<%=request.getContextPath()%>/basket.po?paint_no="+paint_no;
