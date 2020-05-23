@@ -13,16 +13,14 @@ import product.model.vo.product;
 
 public class Mypage_ArtistDao {
 
-	public int getListCount(Connection conn, String bWriter) {
+	public int getListCount_PM(Connection conn, String bWriter) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "SELECT COUNT(PAINT.PAINT_NO) FROM PAINT \r\n" + 
-				"JOIN BASKET ON (PAINT.PAINT_NO = BASKET.PAINT_NO)\r\n" + 
-				"JOIN MEMBER ON (BASKET.USER_ID = MEMBER.USER_ID)\r\n" + 		
-				"WHERE MEMBER.USER_ID = ? and buy_yn = 'n'";
+		String query = "select count(p.paint_no) from paint p\r\n" + 
+				"where artist_name = ?";
 		
-		int listCount = 0;
+		int listCount_PM = 0;
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, bWriter);
@@ -30,7 +28,7 @@ public class Mypage_ArtistDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				listCount = rset.getInt(1);
+				listCount_PM = rset.getInt(1);
 			}
 			
 		} catch (SQLException e) {
@@ -39,10 +37,38 @@ public class Mypage_ArtistDao {
 			close(pstmt);
 			close(rset);
 		}
-		System.out.println(listCount);
-		return listCount;
+		System.out.println(listCount_PM);
+		return listCount_PM;
 	}
 	
+	public int getListCount_OM(Connection conn, String bWriter) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select count(p.paint_no) from paint p\r\n" + 
+				"where artist_name = ?";
+		
+		int listCount_OM = 0;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, bWriter);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount_OM = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println(listCount_OM);
+		return listCount_OM;
+	}
+
 	
 
 	public ArrayList<Mypage_artist> selectList_PM(Connection conn, int currentPage, int limit, String bWriter) {
@@ -686,6 +712,9 @@ public class Mypage_ArtistDao {
 
 		return result2;
 	}
+
+
+
 
 
 }
