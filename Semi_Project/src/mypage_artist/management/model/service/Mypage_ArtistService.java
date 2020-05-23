@@ -30,7 +30,7 @@ Connection conn = getConnection();
 		return listCount_OM;
 	}
 
-}
+
 
 	public ArrayList<Mypage_artist> selectList_PM(int currentPage, int limit, String bWriter) {
 		Connection conn = getConnection();
@@ -145,7 +145,7 @@ Connection conn = getConnection();
 	}
 
 
-
+}
 
 
 

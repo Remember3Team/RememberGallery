@@ -39,7 +39,7 @@ public class PMListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Mypage_ArtistService aService = new Mypage_ArtistService();
-		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getUserName());
+		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getNickname());
 		System.out.println(bWriter);
 		
 		// 1_1. 게시판 리스트 갯수 구하기

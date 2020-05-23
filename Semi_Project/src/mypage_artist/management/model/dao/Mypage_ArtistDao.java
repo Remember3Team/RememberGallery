@@ -18,7 +18,8 @@ public class Mypage_ArtistDao {
 		ResultSet rset = null;
 		
 		String query = "select count(p.paint_no) from paint p\r\n" + 
-				"where artist_name = ?";
+				"join member m on (p.artist_name = m.user_name)\r\n" + 
+				"where nickname = ?";
 		
 		int listCount_PM = 0;
 		try {
