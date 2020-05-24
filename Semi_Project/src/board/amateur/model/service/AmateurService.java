@@ -146,8 +146,11 @@ public class AmateurService {
 	public int insertHeart(String user, int event_no) {
 		Connection conn = getConnection();
 		AmateurDao aDao = new AmateurDao();
-		
+		int check=1;
 		int result = aDao.insertHeart(conn,user,event_no);
+		if(result>0) {
+			int update = aDao.updateHeart(conn, event_no, check);
+		}
 		close(conn);
 		return result;
 	}
@@ -155,8 +158,11 @@ public class AmateurService {
 	public int deleteHeart(String user, int event_no) {
 		Connection conn = getConnection();
 		AmateurDao aDao = new AmateurDao();
-		
+		int check=0;
 		int result = aDao.deleteHeart(conn,user,event_no);
+		if(result>0) {
+			int update = aDao.updateHeart(conn, event_no, check);
+		}
 		close(conn);
 		return result;
 	}

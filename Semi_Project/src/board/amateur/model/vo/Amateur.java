@@ -16,31 +16,42 @@ public class Amateur implements Serializable{
 	private Date event_date;		//작성일
 	private String event;			//게시글
 	private int hit;				//조회수
-	private String event_like;		//좋아요 유무
-	
+	private int event_like;		//좋아요 유무
 	public Amateur() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
 	
-	public Amateur(int event_no, String user_id) {
+	
+	public Amateur(int event_no, String event_title, String event) {
 		super();
 		this.event_no = event_no;
-		this.user_id = user_id;
+		this.event_title = event_title;
+		this.event = event;
 	}
 
 
-	public Amateur(String event_title, String event, String user_id) {
+
+	public Amateur(String event_title, String event) {
 		super();
 		this.event_title = event_title;
 		this.event = event;
+	}
+ 
+ 
+
+	public Amateur(String event_title, String user_id, String event) {
+		super();
+		this.event_title = event_title;
 		this.user_id = user_id;
+		this.event = event;
 	}
 
 
+
 	public Amateur(int event_no, String event_title, String user_id, Date event_date, String event, int hit,
-			String event_like) {
+			int event_like) {
 		super();
 		this.event_no = event_no;
 		this.event_title = event_title;
@@ -86,22 +97,22 @@ public class Amateur implements Serializable{
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
-	public String getEvent_like() {
+	public int getEvent_like() {
 		return event_like;
 	}
-	public void setEvent_like(String event_like) {
+	public void setEvent_like(int event_like) {
 		this.event_like = event_like;
 	}
-	
-	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	@Override
 	public String toString() {
 		return "Amateur [event_no=" + event_no + ", event_title=" + event_title + ", user_id=" + user_id
 				+ ", event_date=" + event_date + ", event=" + event + ", hit=" + hit + ", event_like=" + event_like
 				+ "]";
 	}
-	
-	
-	
+		
 
+	
 }

@@ -7,37 +7,40 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
- <link rel="stylesheet" href="../../css/style.css">
- <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
- <link rel="stylesheet" href="../../css/bootstrap.css">
-<script src="../../js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="../../js/bootstrap.js"></script>    
+<title><%=n.getNoti_title() %></title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/bootstrap.css">
+	<script src="<%=request.getContextPath() %>/views/js/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/views/js/bootstrap.js"></script>    
+<link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
 <style>
 	#goNoticeBoard{ float:right; margin-right:100px; }
- 	#noticeDetail div{margin: 0 auto;}
-	#subnav{float:left; margin-left:20px;}
+ 	#noticeDetail div{margin: 0 auto; margin-top:30px; margin-bottom:100px;}
+	#noticeDetailList:after { display:block; content:""; clear:both; }
+	
+	.headLine{ float:left; width:30%; margin-top:90px; margin-left:90px; display:block; box-sizing:border-box;}
+	.headLine hr{ background-color:red; width:25px; border:2px solid red; margin-bottom:10px;}
+	.table{ display:inline-block;}
 </style>
 </head>
 <body>
 <%@include file="../../common/menubar.jsp" %>
-		<ul id="subnav" class="nav flex-column">
-		  <li class="nav-item">
-		    <a class="nav-link active" href="noticeBoard.jsp">공지사항</a>
-		  </li>
-		  <li class="nav-item">
-		    <a class="nav-link" href="../inquiry/inquiryBoard.jsp">1:1문의</a>
-		  </li>
-		</ul>
-	<div id="noticeDetail" class="row">
-		<div class="cols-sm-6">
+		
+	<!-- Notice 게시판 Logo -->			
+	<div class="headLine">
+		<hr style="display:inline-block;">
+		<h3 style="font-size:20px;">Notice</h3>
+	</div><!-- class headLine end -->
+<div id="noticeDetail" class="container">
 
-			<br>
-			<table class="table">
+
+	<div id="noticeDetailList" class="row" style="display:block; margin:center;">
+		<div class="cols-sm-6">
+			<table class="table" style="margin-left:150px">
 				<tr>
 					<td>제목</td>
 					<td colspan="6">
-						<span><%=n.getNoti_title()%></span>
+						<span><b><%=n.getNoti_title()%></b></span>
 						<input id="deleteNo" type="hidden" value="<%=n.getNoti_no()%>">
 					</td>
 				</tr>
@@ -51,22 +54,23 @@
 					<td colspan="6">내용</td>
 				</tr>
 					<td colspan="6">
-						<p>
+						<pre>
 							<%=n.getNotice() %>
-						</p>
+						</pre>
 					</td>
 			</table>
+			</div>
 		</div>
 	</div>
-	<button id="goNoticeBoard" type="button active" class="btn btn-secondary" 
-		onclick="location.href='<%=request.getContextPath()%>/views/board/notice/noticeBoard.jsp'">목록으로 가기</button>
-	<button id="goDeleteBoard" type="button active" class="btn btn-secondary" 
-		onclick="goDelete();">목록으로 가기</button>	
-	
+	<button id="goNoticeBoard" type="button active" class="btn btn-secondary" onclick="pageBack();">목록으로 가기</button>
 <br><br><br>
+
 <%@include file="../../common/footer.jsp" %>
 </body>
 <script>
+	function pageBack(){
+		history.go(-1)();
+	}
 	function goDelete(){
 		var deleteNo = document.getElementById("deleteNo").value;
 		location.href="<%=request.getContextPath()%>/delete.bo?deleteNo="+deleteNo;

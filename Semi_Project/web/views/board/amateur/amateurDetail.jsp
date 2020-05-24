@@ -62,11 +62,12 @@
                   	<td> 좋아요 </td>
                   	<td> 
                   		<div style="float:right;" onclick="emptyheartCheck();" class="emptyheartCheck">
-      						<input id="paint_no" type="hidden" value="<%=a.getEvent_like()%>">
+      						<input id="paint_no" type="hidden" value="<%=a.getEvent_no()%>">
+      						
       						
 							<div style="float:right;">
 				      		<div class="likeCount" style="float:left; margin-right:10px;">
-				      			<span class="countArea"><%=al.getEvent_count() %></span>
+				      			<span class="countArea"><%=a.getEvent_like() %></span>
 				      		</div>
 			      			</div>
       		

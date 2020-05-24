@@ -105,7 +105,7 @@ ul li ul li:hover{
 	<header id="menu">
 
 		<div id="logo">
-			<a href="<%= request.getContextPath() %>/index.jsp" class="logo">
+			<a href="<%= request.getContextPath() %>/amateur.master" class="logo">
 				<img src="<%= request.getContextPath() %>/views/img/logo-02.png">
 			</a>
 		</div>

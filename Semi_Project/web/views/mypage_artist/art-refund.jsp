@@ -251,8 +251,8 @@
             <%} else { %>
             <a class = "page-a" href="<%=request.getContextPath()%>/list.ar?currentPage=<%=currentPage + 1%>">Next</a>
             <%} %>
-          </div>
-	</div>
+   </div>
+</div>
 
 
 	<%@include file="../common/footer.jsp"%>

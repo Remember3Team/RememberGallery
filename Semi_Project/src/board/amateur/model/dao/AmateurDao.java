@@ -28,8 +28,8 @@ public class AmateurDao {
 			pstmt = conn.prepareStatement(query);
 
 			pstmt.setString(1, a.getEvent_title());
-			pstmt.setString(2, a.getUser_id());
-			pstmt.setString(3, a.getEvent());
+			pstmt.setString(2, a.getEvent());
+			pstmt.setString(3, a.getUser_id());
 			
 //			System.out.println("[dao] insert data _ 제목:"+a.getEvent_title());
 //			System.out.println("[dao] insert data _ 작성자:"+a.getUser_id());
@@ -120,7 +120,7 @@ public class AmateurDao {
 										rset.getDate("event_date"),
 										rset.getString("event"),
 										rset.getInt("hit"),
-										rset.getString("event_like"));
+										rset.getInt("event_like"));
 				list.add(a);		
 			}
 			System.out.println("[dao] 게시글 불러오기:"+list);
@@ -202,7 +202,7 @@ public class AmateurDao {
 								rset.getDate("EVENT_DATE"),
 								rset.getString("EVENT"),
 								rset.getInt("HIT"),
-								rset.getString("EVENT_LIKE"));
+								rset.getInt("EVENT_LIKE"));
 			}
 			
 		} catch (SQLException e) {
@@ -428,6 +428,37 @@ public class AmateurDao {
 		}
 		
 		return al;
+	}
+
+	public int updateHeart(Connection conn, int event_no, int check) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		if(check==1) {
+			String query = "UPDATE EVENT SET EVENT_LIKE =EVENT_LIKE+1 WHERE EVENT_NO=?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setInt(1, event_no);
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}			
+		}else {
+			String query = "UPDATE EVENT SET EVENT_LIKE =EVENT_LIKE-1 WHERE EVENT_NO=?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setInt(1, event_no);
+				
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}			
+		
+		}
+		return result;
 	}
 
 

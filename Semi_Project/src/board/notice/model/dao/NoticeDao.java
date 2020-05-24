@@ -79,7 +79,7 @@ public class NoticeDao {
 		
 		Notice n = new Notice();
 		ArrayList<Notice> list = new ArrayList<>();
-		list.add(n);
+//		list.add(n);
 		String query = "SELECT * FROM NOTICE_VIEW WHERE RNUM BETWEEN ? AND ?";
 		int startRow = (currentPage -1)*limit +1;
 		int endRow = startRow + limit -1;
