@@ -789,14 +789,37 @@ border: solid 1px;
 						$replyTable.html("");
 						for(var key in data){
 							var $tr = $("<tr>");
-							var $writerTd = $("<td>").text(data[key].user_id).css("width","100px");
-							var $contentTd =$("<td>").text(data[key].pqusetion).css("width","400px");
-							var $dateTd = $("<td>").text(data[key].pq_date).css("width","200px");
+							var $writerTd = $("<td>").text(data[key].user_id);
+							var $contentTd =$('<td width = "350px">').text(data[key].pqusetion);
+							var $dateTd = $("<td>").text(data[key].pq_date);
+							
+							var $replyButton = $('<button class="addA" type="button active" style="width:100px; display: inline-block; margin: 0; font-size : 14px;">답변하기</button>');
+							var $div =$('<div class="Acontents" style="display:none;" >');
+							var $textArea =$('<textArea rows="5" cols="100" class="AContent"></textArea>');
+							var $div2 =$('<div class="Acontent_btn">');
+							var $button1 = $('<button class="hideA"  type="button active"  style="width:100px;  margin-bottom : 10px; font-size : 14px;">답변접기</button>');
+							var $button2 = $('<button class="insertA" type="button active" style="width:100px;  margin: 0; font-size : 14px;">작성완료</button>');
+							
+
 							
 							$tr.append($writerTd);
 							$tr.append($contentTd);
 							$tr.append($dateTd);
+							$tr.append($replyButton);
 							$replyTable.append($tr);
+							
+							$div.append($textArea);
+							$replyTable.append($div);
+
+							$div2.append($button1);
+							$replyTable.append($div2);
+							
+							
+						
+							
+							
+						
+							
 						}
 						$("#QnAContent").val("");
 					},
