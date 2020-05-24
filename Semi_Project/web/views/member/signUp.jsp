@@ -7,9 +7,17 @@
 <title>Insert title here</title>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/views/css/Style-signUp.css">
+<!-- <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+ --><script src="../js/jquery-3.4.1.min.js"></script>
 
-<script src="../js/jquery-3.4.1.min.js"></script>
-
+<script>
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+        }
+    }).open();
+</script>
 <style>
 #idCheck {
 	text-align: center;
@@ -67,7 +75,7 @@ td {
 					<div class="info-box1">
 						<label class="labelfirst" id="name">이름<a
 							style="color: red; font-size: 15px;">*</a></label><input
-							class="nomal-text" type="text" name="userName" placeholder="NAME"
+							class="nomal-text" type="text" id="userName" name="userName" placeholder="NAME"
 							required>
 					</div>
 					<br>
@@ -81,8 +89,7 @@ td {
 						포함해서 4글자이상 입력하세요.</div>
 					<br> <br>
 					<div id="idCheck"
-						style="float: right; width: 100px; height: 20px; background-color: gray; text-align: center; color: white;"
-						>중복확인</div>
+						style="float: right; width: 100px; height: 20px; background-color: gray; text-align: center; color: white;">중복확인</div>
 					<br> <br>
 
 					<div class="info-box3">
@@ -109,54 +116,37 @@ td {
 
 					<div class="info-box5">
 						<label class="labelfirst">닉네임</label><input class="nomal-text"
-							type="text" name="nickName" placeholder="NICKNAME">
+							type="text" id="nickName" name="nickName" placeholder="NICKNAME">
 					</div>
 
 					<div class="info-box6">
 						<label class="labelfirst">휴대폰 번호</label>
 						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input
-							type="tel" id="Phone" name="phone" maxlength="11"
+							type="tel" id="phone" name="phone" maxlength="11"
 							autocomplete="off" placeholder="(-)없이 휴대폰 번호 기재"
 							style="height: 25px; width: 280px; float: right;">
 
 					</div>
 
 					<div class="info-box7">
-						<label class="labelfirst">주소<a
-							style="color: red; font-size: 15px;">*</a></label> <br>
-						
+					<!-- 	<div>
+							<label class="labelfirst">주소<a
+								style="color: red; font-size: 15px;">*</a></label>
+						</div> -->
+						<!-- <div>
+						<input type="text" id="sample6_postcode" placeholder="우편번호">
+						<input type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
+						<input type="text" id="sample6_address" placeholder="주소"><br>
+						<input type="text" id="sample6_detailAddress" placeholder="상세주소">
+						<input type="text" id="sample6_extraAddress" placeholder="참고항목">
+						</div> -->
 					</div>
-						<!-- <table>
-							<colgroup>
-								<col style="width: 20%">
-								<col>
-							</colgroup>
-							<tbody>
-								<tr>
-									<th style="font-size: 10px;">우편번호</th>
-									<td><input type="hidden" id="confmKey" name="confmKey"
-										value=""> <input type="text" id="zipNo" name="zipNo"
-										readonly style="width: 100px;"> <input type="button"
-										value="주소검색" onclick="goPopup();"></td>
-								</tr>
-								<tr>
-									<th style="font-size: 10px;">도로명주소</th>
-									<td><input type="text" id="roadAddrPart1"
-										style="width: 85%;"></td>
-								</tr>
-								<tr>
-									<th style="font-size: 10px;">상세주소</th>
-									<td><input type="text" id="addrDetail" style="width: 40%"
-										value=""> <input type="text" id="roadAddrPart2"
-										style="width: 40%;" value=""></td>
-								</tr>
-							</tbody>
-						</table> -->
+				
 
 					<div class="info-box7">
 						<label class="labelfirst">이메일<a
 							style="color: red; font-size: 15px;">*</a></label><input
-							class="nomal-text" type="email" name="email"
+							class="nomal-text" type="email"  id="email" name="email"
 							placeholder="@ 포함한 이메일 기재" required>
 					</div>
 					<br>
@@ -188,21 +178,74 @@ td {
 				<div class="submit-box" align="center">
 					<div id="goMain" onclick="goMain();">메인으로</div>
 					<!-- <div id="joinBtn" onclick="insertMember();"></div> -->
-					<input type="submit" value="가입하기"
-						style="width: 280px; height: 30px; color: white; background: #cc0000">
+					<input type="button" value="가입하기"
+						style="width: 280px; height: 30px; color: white; background: #cc0000" onclick="checkId()">
 
 				</div>
+				<input type="hidden" id="checkTest" value="0">
 				<!-- submit-box 끝 -->
 			</div>
 			<!-- section 끝-->
 		</form>
 	</div>
 	<!-- container 끝-->
-	
 
 
 	<script>
 	
+	//아이디 중복확인 버튼 check 때문에 서브밋 버튼을 버튼으로 만들고, function을 통해 서브밋을  하게됨.
+	//그렇게 되면 required 기능이 제공되지 않음
+	//required 기능을 하게 하기 위한 if~else문 적용
+	function checkId(){
+		
+		if($("#userName").val()==""){
+			alert("이름 좀 써");
+		}else{	// 이름은 썼느데
+			if($("#userId").val()==""){
+				alert("아이디 좀 써");				
+			}else{ // 아이디는 썼는데
+									
+					if($("#userPwd").val().length>=6 && $("#userPwd2").val().length>=6){
+						if($("#nickName").val()==""){
+							alert("닉네임을 써");
+						}else{
+							
+							if($("#phone").val()==""){
+								alert("번호를 입력하세요");
+							}else{
+								if($("#email").val()==""){
+									alert("이메일을 입력하세요.");
+								}else{// 이메일을 썼으면
+									if(!emailJ.test($("#email").val())){
+										alert("이메일 형식으로 써주세요.");
+									}else{ //정큐표현식에 맞으면
+										 //아이디 중복 확인
+										 if($("#checkTest").val() != "0"){
+											$("#joinForm").submit();
+										}else{
+											alert("중복확인 버튼을 체크해 주세요");
+										}
+									}
+								}
+								
+							}
+						}
+					}else{
+						if($("#userPwd").val()!="" && $("#userPwd2").val()!=""){
+								if($("#userPwd").val().length<6||$("#userPwd2").val().length<6){
+									alert("비밀번호는 6자 이상을 입력해야 합니다");
+									$('#userPwd2').val('');
+								}
+						}else{
+							alert("비밀번호을 다 입력해야 넘어갈 수 있습니다");
+						}
+					}	
+					
+					
+			}
+		}
+		
+	}
 
 	function goMain() {
 			location.href = "<%=request.getContextPath()%>/index.jsp";
@@ -216,30 +259,19 @@ td {
 	
 
 	
-/* 	
-$(function(){
-	//주소 api
-	function goPopup(){
-	// 주소검색을 수행할 팝업 페이지를 호출합니다.
-	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
-	var pop = window.open("/popup/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
-	
-	// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
-    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
-}
-
-function jusoCallBack(roadFullAddr){
-		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.	
-		document.form.userAddr.value = roadFullAddr;		
-}
-	
-	
-}); */
-	
 	//ajax
 
 	 	$(function(){
 	 		$("#idCheck").click(function(){
+	 			$("#idCheck").css("background-color","red");	
+	 		});
+	 		$("#userId").change(function(){
+	 			$("#checkTest").val(0);
+	 			$("#idCheck").css("background-color","gray");
+	 		});
+	 		
+	 		$("#idCheck").click(function(){
+	 			$("#checkTest").val(1);
 	 			var userId = $("#joinForm input[name = 'userId']");
 	 			
 	 			if(!userId || userId.val().length<4){
@@ -258,7 +290,6 @@ function jusoCallBack(roadFullAddr){
 								userId.focus();
 							} else {
 								alert("아이디가 사용가능합니다.");
-								userId.attr("readonly", "true");
 								idCheck = 1;
 							}
 						},
@@ -274,12 +305,9 @@ function jusoCallBack(roadFullAddr){
 
 		// jquery
 
-		//정규 표현식 
-		// 모든 공백 체크 정규식
-		var empJ = /\s/g;
-
 		//아이디 정규식
 		var idJ = /^[a-z0-9_]{4,20}$/;
+		var emailJ=/^[a-zA-Z0-9]+@[a-zA-Z0-9]+$/;
 		$(function() {
 			//idresult
 			$("#userId").change(
@@ -295,11 +323,6 @@ function jusoCallBack(roadFullAddr){
 							$(this).focus().css("background", "white");
 						}
 					});
-
-			//idcheck 중복확인
-			$(function() {
-				$()
-			})
 
 			//비밀번호 정규식 
 			var pwdJ = /^[a-z0-9_]{6,20}$/;
@@ -328,7 +351,6 @@ function jusoCallBack(roadFullAddr){
 			//pwdcheck
 			$("#userPwd2").change(function() {
 
-				
 				if ($('#userPwd').val() != $(this).val()) {
 					$('#pwdcheck').html('비밀번호 일치 x').css("color", 'red');
 					$('#userPwd2').val('');
@@ -348,6 +370,57 @@ function jusoCallBack(roadFullAddr){
 			});
 
 		}); // 아이디, 비번 체크
+		
+
+	/*주소 api*/
+  /*   function DaumPostcode()() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    document.getElementById("sample6_extraAddress").value = extraAddr;
+                
+                } else {
+                    document.getElementById("sample6_extraAddress").value = '';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample6_postcode').value = data.zonecode;
+                document.getElementById("sample6_address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("sample6_detailAddress").focus();
+            }
+        }).open();
+    } */
+
 	</script>
 
 	<%@include file="../common/footer.jsp"%>

@@ -62,7 +62,6 @@
       <th scope="col">수량</th>
       <th scope="col">판매가</th>
       <th scope="col">배송비</th>
-      <th scope="col">합계</th>
     </tr>
   </thead>
    
@@ -79,7 +78,6 @@
       <td><a>1</a></td>
       <td><a><%=po.getPatint_price() %></a></td>
       <td><a>무료배송</a></td>
-      <td><a>합계</a></td>
     </tr>
   </tbody>
   
@@ -173,97 +171,98 @@ function execDaumPostcode2() {
 }
 </script>
 <div id="order">
-<form>
+
+<form action="<%=request.getContextPath()%>/insert.po" method="post"><!-- form 태그 시작 -->
 <h3 align="left">주문하시는 분</h3>
+<input type="hidden" id="paint_no" value="<%=po.getPaint_no()%>" name="paint_no">
 <table class="table table-borderless">
     <tr>
       <th scope="col">이름* &nbsp; &nbsp;
-      <input type="text" id="name" placeholder="이름" size="10px" style="margin-left: 50px;" ></th>
+      <input type="text" id="name" placeholder="이름" size="10px" style="margin-left: 50px;" name="ordername"></th>
     </tr>
     <tr>
       <th scope="row">핸드폰 &nbsp;
-       <input type="text" id="name" placeholder="010-" size="10px" style="margin-left: 50px;" ></th>
+       <input type="text" id="name" placeholder="010-" size="10px" style="margin-left: 50px;" name="orderphone"></th>
 
 
     </tr>
     <tr>
       <th scope="row">E-mail
-       <input type="email" id="email" placeholder="abc@abc.com" size="20px" style="margin-left: 62px;" ></th>8
+
+       <input type="email" id="email" placeholder="abc@abc.com" size="20px" style="margin-left: 62px;" name="orderEmail"></th>
+
 
     </tr>
     <tr>
       <th>
-       <input type="text" id="add1" class="form-control" placeholder="우편번호" size="10px" style="margin-left: 109px; float:left;" disabled>	
+       <input type="text" id="add1" class="form-control" placeholder="우편번호" size="10px" style="margin-left: 109px; float:left;" name="orderadress1" readonly>	
        &nbsp;&nbsp;<button type="button" onclick="execDaumPostcode();" class="btn btn-outline-dark ">주소 검색</button>
        </th>
     </tr>
     <tr>
       <th scope="row">주소
-       <input type="text" id="add2" class="form-control" placeholder="기본주소" size="20px" style="margin-left: 109px; " disabled></th>
+       <input type="text" id="add2" class="form-control" placeholder="기본주소" size="20px" style="margin-left: 109px; " name="orderadress2" readonly></th>
     </tr>
      <tr>
       <th>
-       <input type="text" id="add3" class="form-control" placeholder="상세 주소" size="20px" style="margin-left: 109px;" >
+       <input type="text" id="add3" class="form-control" placeholder="상세 주소" size="20px" style="margin-left: 109px;" name="orderadress3">
        </th>
     </tr>
 </table>
 <h3 align="left">받으시는 분</h3>
+<script>
+ 
+</script>
 <table class="table table-borderless">
     <tr>
-      <th scope="col">배송지 선택* &nbsp; &nbsp;
-      <input type="radio" id="동일"style="margin-left: 50px;">주문자와 동일 
-      <button>배송지 목록</button> 
-      </th>
-    </tr>
-    <tr>
-      <th scope="row">배송지명
-       <input type="text" id="배송지명" size="10px" style="margin-left:41px;" ></th>
-    </tr>
-    <tr>
       <th scope="row">이름 &nbsp;&nbsp;
-       <input type="text" id="name" placeholder="이름" size="10px" style="margin-left: 62px;" ></th>
+       <input type="text" id="name" placeholder="이름" size="10px" style="margin-left: 62px;" name="receivename"></th>
 
     </tr>
      <tr>
       <th scope="row">핸드폰 &nbsp;
-       <input type="text" id="name" placeholder="010-" size="10px" style="margin-left: 50px;" ></th>
+       <input type="text" id="name" placeholder="010-" size="10px" style="margin-left: 50px;" name="receivephone"></th>
 
 
     </tr>
     <tr>
       <th>
-       <input type="text" id="add4" class="form-control" placeholder="우편번호" size="10px" style="margin-left: 109px; float:left;" disabled>
+       <input type="text" id="add4" class="form-control" placeholder="우편번호" size="10px" style="margin-left: 109px; float:left;" name="receiveaddress1" readonly>
        &nbsp;&nbsp;<button type="button" onclick="execDaumPostcode2();"  class="btn btn-outline-dark">주소 검색</button>
        </th>
     </tr>
     <tr>
       <th scope="row">주소
-       <input type="text" id="add5" class="form-control" placeholder="기본주소" size="20px" style="margin-left: 109px;" disabled></th>
+       <input type="text" id="add5" class="form-control" placeholder="기본주소" size="20px" style="margin-left: 109px;" name="receiveaddress2" readonly></th>
     </tr>
      <tr>
       <th>
-       <input type="text" id="add6" class="form-control" placeholder="상세 주소" size="20px" style="margin-left: 109px;" >
+       <input type="text" id="add6" class="form-control" placeholder="상세 주소" size="20px" style="margin-left: 109px;" name="receiveaddress3">
        </th>
     </tr>
     <tr>
-     <th scope="row">전하실 말씀 
-      <textarea style="margin-left: 20px; resize : none;" class="form-control col-sm-8" rows="6" ></textarea>
+     <th scope="row">전하실 말씀
+      <textarea style="margin-left: 20px; resize : none;" class="form-control col-sm-8" rows="6" name="receivecontent"></textarea>
 </table>
-</form>
+
 <br celar="both">
 </div>
 <div id="what">
 <h3 align="left" style="margin-top: 30px; margin-left: 10px">결제 정보</h3>
 <br>
 <div style="background: white; margin-left:10px; width:300px">
-<a>총 주문금액 (데이터값)</a>
+<a>총 주문 금액 : <%=po.getPatint_price() %>원</a>
 </div>
 
 <h3 align="left" style="margin-top: 30px; margin-left: 10px">결제 수단</h3>
 
-<div style="margin-left:10px; width:300px">
-<button style="background-color: white;"> 무통장 입금</button> 
-<button style="background-color: white;"> 신용 카드</button> 
+<div class="btn-group" data-toggle="buttons" style="margin-left:10px; width:300px;">
+<label class="btn btn-outline-dark">
+<input type="radio" name="orderrule" value="무통장입금" style="display:none;">무통장입금
+</label>
+<label class="btn btn-outline-dark">
+<input type="radio" name="orderrule" value="신용 카드" style="display:none;">신용 카드
+</label>
 </div>
 
 <h3 align="left" style="margin-top: 30px; margin-left: 10px">이용 약관 안내</h3>
@@ -280,10 +279,10 @@ function execDaumPostcode2() {
 <br>
 
 <div style="margin-left:10px; width:300px">
-<button class="btn btn-dark btn-sm"> 주문하기</button> <br><br>
-<button class="btn btn-dark btn-sm"> 취소</button> 
+<button type="submit" class="btn btn-dark btn-sm" style=" width:300px;"> 주문하기</button> <br><br>
+<button type="reset" class="btn btn-dark btn-sm" style=" width:300px;"> 취소</button> 
 </div>
-
+</form>
 
 </div>
 <br clear="both"><br>

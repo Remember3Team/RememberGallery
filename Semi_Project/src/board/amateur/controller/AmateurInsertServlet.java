@@ -18,6 +18,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import board.amateur.model.service.AmateurService;
 import board.amateur.model.vo.Amateur;
 import board.amateur.model.vo.FileManagement;
+import board.free.model.service.FreeService;
 import member.model.vo.Member;
 
 /**
@@ -63,13 +64,13 @@ public class AmateurInsertServlet extends HttpServlet {
 		
 		String event_title = multiRequest.getParameter("event_title");
 		String event = multiRequest.getParameter("event");
-		String user_nickname = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserName());
+		String user = String.valueOf(((Member)request.getSession().getAttribute("loginUser")).getUserName());
 
 		System.out.println("[servlet] insert 정보 출력_제목:"+event_title);
-		System.out.println("[servlet] insert 정보 출력_작성자:"+user_nickname);
+		System.out.println("[servlet] insert 정보 출력_작성자:"+user);
 		System.out.println("[servlet] insert 정보 출력_내용:"+event);
 		
-		Amateur a = new Amateur(event_title, event,user_nickname);
+		Amateur a = new Amateur(event_title, event,user);
 		
 		ArrayList<FileManagement> fileList = new ArrayList<>();
 		
