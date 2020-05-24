@@ -58,7 +58,9 @@
 							Attachment a = plist.get(j); %>
 						<% if(m.getPaintNo() == a.getPaint_no()) { %>
 					 <img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" width="150px" height="150px">
-					 <%} %>
+					 <%
+					 break;
+						} %>
 					<%} %></td>
 			      			<td>작가 : <%=m.getArtistName()%><br>
 			      			작품명 : <%=m.getPaintName()%></td>

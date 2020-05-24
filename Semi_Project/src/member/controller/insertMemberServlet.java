@@ -54,7 +54,7 @@ public class insertMemberServlet extends HttpServlet {
 			page = "views/member/signIn.jsp";
 			request.setAttribute("msg", "회원가입 성공!!");
 		} else {
-			page = "views/member/SignError.jsp";
+			page = "views/member/SignUp.jsp";
 			request.setAttribute("msg", "회원가입 실패");
 
 		}

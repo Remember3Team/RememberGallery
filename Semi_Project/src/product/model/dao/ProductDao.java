@@ -321,7 +321,7 @@ public class ProductDao {
 		}
 		
 		
-		else if(po.getArtist_name() == null && po.getCategory() == null) { //작가이름과 카테고리가 null일경우
+		else if(po.getArtist_name().isEmpty() && po.getCategory().isEmpty()) { //작가이름과 카테고리가 null일경우
 			
 			String query ="SELECT * FROM PAINT WHERE PAINT_PRICE BETWEEN 0 AND ? ";
 			

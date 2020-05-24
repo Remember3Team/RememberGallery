@@ -39,30 +39,17 @@ public class RefundListservlet extends HttpServlet {
 		//로그인세션
 		HttpSession session = request.getSession();
 		Member loginUser = (Member) session.getAttribute("loginUser");
-		System.out.println("loginUser 확인" + loginUser);
-		
 		
 		MorwService mService = new MorwService();
 		
-		System.out.println("서블릿 이동 확인쓰");
-		
 		ArrayList<Morw> list = mService.refundList(loginUser.getUserId());
-		System.out.println(list.size());
-		
 		
 		ArrayList<Attachment> plist = mService.selectPList(loginUser.getUserId());
 		
-		for(int i = 0; i<plist.size(); i++) {
-			System.out.println("서블렛 단의 plist" + plist.get(i));
-		}
-		
 		RequestDispatcher view = null;
-		
-		if(!list.isEmpty()) {
-			request.setAttribute("list", list);
-			request.setAttribute("plist", plist);
-			view = request.getRequestDispatcher("views/mypage_user/mypage_refund.jsp");
-		}
+		request.setAttribute("list", list);
+		request.setAttribute("plist", plist);
+		view = request.getRequestDispatcher("views/mypage_user/mypage_refund.jsp");
 		view.forward(request,response);
 	}
 
