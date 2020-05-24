@@ -106,7 +106,8 @@
                     <td><input type="checkbox"></td>
                     <td><%=ma.getOrder_no() %></td>
                     <td><%=ma.getAfile() %></td>
-                    <td><%=ma.getPaint_int() %></td>
+                    <td>작품명 : <%=ma.getPaint_name() %><br>
+                    	  작가명 : <%=ma.getArtist_name() %></td>
                     <td><%=ma.getOrder_date() %></td>
                     <td><%=ma.getShip_date() %></td>
                     <td><%=ma.getOrder_status() %></td>
