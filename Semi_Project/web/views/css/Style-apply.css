@@ -184,6 +184,7 @@ button {
 .image-box{
     width : 186px;
     margin-left : 10px;
+    positon : relative;
 }
 
 .imgPreview {
@@ -211,5 +212,25 @@ button {
  	border-radius: 0 5px 5px 0;
  	display: none;
 	
+}
+
+.x-box {
+	display:none;
+	justify-content : center;
+	position:absolute;
+	width : 16px;
+	height: 16px;
+	color : #999;
+	border : 2px solid #999;
+	border-radius : 50%;
+	margin-left: 61px;
+    margin-top: -57px;
+	
+}
+
+.x-box:hover {
+	
+	background:red;
+	border-color:red;
 }
 
