@@ -15,7 +15,7 @@
 	<input type="button" value="바로 구매하기"
 	
 	
-	
+	 
 			style="background-color: rgb(224, 224, 224); margin-top: 10px;"
 			onclick="location.href='<%=request.getContextPath()%>/views/mypage_artist/art-registration.jsp'">
 
