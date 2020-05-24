@@ -71,7 +71,7 @@ color:red;
 
 	<%@include file="../common/menubar.jsp"%>
 	<!-- section1 -->
-	<div class="loginArea"  style="background-color: #e9ecef; height: 600px;">
+	<div class="loginArea" id="login" style="background-color: #e9ecef; height: 600px;">
 		<%
 			if (loginUser == null) {
 		%>
