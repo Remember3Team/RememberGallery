@@ -244,7 +244,7 @@ border: solid 1px;
       .swiper-fiximg {
        	 position : absolute;
        	 top : 20%;
-       	 left : 35%;
+       	 left : 40%;
        	 z-index:100;
        	 
       }
@@ -581,12 +581,20 @@ border: solid 1px;
       <input id="paint_no" type="hidden" value="<%=plist.getPaint_no()%>">
 	      <input type="button" class = "btn btn-outline-dark buypaint" value="바로 구매하기">
 	       <input type="button" class = "btn btn-outline-dark basket"  value="장바구니 담기">
-	      <input type="button" class = "btn btn-outline-danger"  value="Q & A" onclick="q&a" style="margin-bottom:0;"><input type="hidden" value="" id="mid">
+	      <input type="button" class = "btn btn-outline-danger moveqna"  value="Q & A"  style="margin-bottom:0;"><input type="hidden" value="" id="mid">
 	      <!-- <input type="hidden" value="${ movieDetail.movie_id }" id="movie_id"> -->
 	      <input type="hidden" value="" id="movie_id">
   
       </div>
        <script>
+       $(function(){
+       		$(".moveqna").click(function (){
+          		 var offset = $("#qna").offset();
+     		      $('html, body').animate({scrollTop : offset.top}, 400);
+       	});
+       	});
+       
+       
                   $(function(){
 				 		$(".buypaint").click(function(){
 				 			var paint_no = $(this).parent().children("#paint_no").val();
@@ -619,7 +627,7 @@ border: solid 1px;
   <%for(int i =0; i< alist.size();i++){
 	  Attachment a = alist.get(i);
 	  if(a.getFileLevel() == 0){%>
-     	<img class = "swiper-fiximg" src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=a.getSavefileName()%>" width="30%">
+     	<img class = "swiper-fiximg" src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=a.getSavefileName()%>" width="20%">
     <%}}%>
     
  
@@ -671,7 +679,7 @@ border: solid 1px;
    <hr class = "bodyhr">
   
    <h3 align="center">Q & A</h3>
-   <div class="q&a">
+   <div class="qna" id="qna">
    <table style = "margin : 0 auto; margin-bottom : 20px;">
 	<tr>
 		<td>

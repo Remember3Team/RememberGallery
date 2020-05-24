@@ -53,9 +53,24 @@ public class worksearch extends HttpServlet {
 		
 		po =  new product(aname,category,price);
 
-		ArrayList<product> searchlist = new ArrayList<product>();
+		System.out.println(po);
 		
-		searchlist = pService.selectsearch(po);
+		
+		
+		ArrayList<product> searchlist = new ArrayList<product>();
+		if(aname == "" && category.equals("테마를 선택하세요")) {
+			searchlist = pService.selectsearch3(po);
+			
+		}
+		else if(category.equals("테마를 선택하세요")) {
+			searchlist = pService.selectsearch2(po);
+			
+		}else if( aname == "") {
+			searchlist = pService.selectsearch(po);
+		}else {
+			searchlist = pService.selectsearch4(po);
+		}
+		
 		
 		System.out.println(searchlist);
 		

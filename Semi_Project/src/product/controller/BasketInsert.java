@@ -52,14 +52,14 @@ public class BasketInsert extends HttpServlet {
 		result = pService.insertBasket(po,bWriter);
 		System.out.println(result);
 		
-		RequestDispatcher view = null;
+		
 		if(result>0) {
-			view = request.getRequestDispatcher("views/product/productdetail.jsp");
+			response.sendRedirect("list.po");
+
 		}else {
 			System.out.println("장바구니 실패");
 		}
-		view.forward(request, response);
-		
+	
 		
 		
 	}

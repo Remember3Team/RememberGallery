@@ -76,7 +76,7 @@ public class insertbuyproduct extends HttpServlet {
 		
 		
 		  if (result > 0){ 
-			  System.out.println("파일 등록 완료"); 
+			  response.sendRedirect("Mo.li");
 			  }
 		  else {
 		  System.out.println("실패");
