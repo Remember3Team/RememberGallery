@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import member.model.vo.Member;
+import mypage_user.mainOrderRefundWish.model.vo.Morw;
 import mypage_user.qna.model.service.QnaService;
 import mypage_user.qna.model.vo.Qna;
 
@@ -40,7 +41,7 @@ public class QnaServlet extends HttpServlet {
 		//로그인세션
 		HttpSession session = request.getSession();
 		Member loginMember = (Member) session.getAttribute("loginUser");
-		System.out.println(loginMember);
+		
 		
 		
 		//상품문의
@@ -49,15 +50,14 @@ public class QnaServlet extends HttpServlet {
 		ArrayList<Qna> list2 = qService.selectList2(loginMember.getUserId());
 		
 		
-		for(int i = 0; i<list.size(); i++) {
-			System.out.println(list.get(i));
-		}
 		
 		RequestDispatcher view = null;
 		
 		request.setAttribute("list",list);
 		request.setAttribute("list2", list2);
 		view = request.getRequestDispatcher("views/mypage_user/mypage_pna.jsp");
+		
+		
 		view.forward(request, response);
 		
 		

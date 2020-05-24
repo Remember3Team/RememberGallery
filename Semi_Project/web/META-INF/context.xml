@@ -17,6 +17,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 --><!-- The contents of this file will be loaded for each web application -->
+
 <Context workDir="/Users/samee/Desktop/kh_sammy/semi/workspace/RememberGallery/Semi_Project/web/WEB-INF/jspwork">
 
     <!-- Default set of monitored resources. If one of these changes, the    -->
