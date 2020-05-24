@@ -68,6 +68,16 @@ public class BuyProductServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+		
+		
+		ProductService pService = new ProductService();
+		
+		String paint_name = request.getParameter("paint_name");
+		int paint_no = Integer.valueOf(request.getParameter("paint_no"));
+		int paint_price = Integer.valueOf(request.getParameter("paint_price"));
+		
+
+		
 	}
 
 }

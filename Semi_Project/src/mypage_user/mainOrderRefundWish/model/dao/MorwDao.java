@@ -41,7 +41,54 @@ public class MorwDao {
 		return listCount;
 	}
 	
-	public ArrayList<Morw> selectList(Connection conn,String user_id) {
+//	public ArrayList<Morw> selectList(Connection conn,String user_id) {
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		
+//		ArrayList<Morw> list = new ArrayList<>();
+//		
+//		String query ="SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS " + 
+//				"FROM ORDER_TABLE O " + 
+//				"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO) " + 
+//				"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO) " + 
+//				"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO) " + 
+//				"WHERE O.USER_ID=? ORDER BY O.ORDER_NO DESC";
+//		
+//		
+//		try {
+//			pstmt = conn.prepareStatement(query);
+//			pstmt.setString(1, user_id);
+//
+//			
+//			
+//			rset = pstmt.executeQuery();
+//			
+//			while(rset.next()) {
+//				Morw m = new Morw(rset.getString("order_no"),
+//									rset.getInt("paint_no"),
+//									rset.getString("afile"),
+//									rset.getString("paint_name"),
+//									rset.getString("ARTIST_NAME"),
+//									rset.getInt("paint_price"),
+//									rset.getDate("order_date"),
+//									rset.getString("order_status"));
+//				list.add(m);
+//			}
+//			
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(rset);
+//			close(pstmt);
+//		}
+//		
+//		return list;
+//	}
+
+
+	public ArrayList<Morw> selectList(Connection conn, String userId, String searchStatus, String term, String calendar,
+			String calendar2) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -55,9 +102,12 @@ public class MorwDao {
 				"WHERE O.USER_ID=? ORDER BY O.ORDER_NO DESC";
 		
 		
+		
+		
+		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, user_id);
+			pstmt.setString(1, userId);
 
 			
 			
@@ -85,7 +135,6 @@ public class MorwDao {
 		
 		return list;
 	}
-
 
 
 	//환불
@@ -140,6 +189,7 @@ public class MorwDao {
 				"FROM PAINT P " + 
 				"JOIN BASKET B ON (P.PAINT_NO=B.PAINT_NO) " + 
 				"WHERE USER_ID=?";
+
 		
 		try {
 			pstmt=conn.prepareStatement(query);
@@ -336,9 +386,6 @@ public class MorwDao {
 		
 	}
 
-
-
 	
-
 
 }
