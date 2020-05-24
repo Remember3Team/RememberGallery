@@ -10,10 +10,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import board.amateur.model.vo.Amateur;
+import board.amateur.model.vo.AmateurLike;
 import board.amateur.model.vo.FileManagement;
 import board.amateur.model.vo.Reply;
+import product.model.vo.MasterpieceCount;
+import product.model.vo.masterpiece;
 public class AmateurDao {
 
+	//게시판에 글 쓰는 insert 쿼리문
 	public int insertBoard(Connection conn, Amateur a) {
 		PreparedStatement pstmt = null;
 		
@@ -27,10 +31,10 @@ public class AmateurDao {
 			pstmt.setString(2, a.getUser_id());
 			pstmt.setString(3, a.getEvent());
 			
-			System.out.println("[dao] insert data _ 제목:"+a.getEvent_title());
-			System.out.println("[dao] insert data _ 작성자:"+a.getUser_id());
-			System.out.println("[dao] insert data _ 내용:"+a.getEvent());
-			
+//			System.out.println("[dao] insert data _ 제목:"+a.getEvent_title());
+//			System.out.println("[dao] insert data _ 작성자:"+a.getUser_id());
+//			System.out.println("[dao] insert data _ 내용:"+a.getEvent());
+//			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -41,6 +45,7 @@ public class AmateurDao {
 		return result;
 	}
 
+	//게시판에 파일 올리는 insert 쿼리문
 	public int insertAmateurFile(Connection conn, ArrayList<FileManagement> fileList) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -67,6 +72,7 @@ public class AmateurDao {
 		return result;
 	}
 
+	//게시글 갯수 세는 select count(*) 쿼리문  : 페이징 처리에 사용
 	public int getListCount(Connection conn) {
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -89,13 +95,13 @@ public class AmateurDao {
 		return listCount;
 	}
 
+	//한 화면에 비춰질 게시글 목록 출력 쿼리문 BETWEEN ? AND ?
 	public ArrayList<Amateur> selectList(Connection conn, int currentPage, int limit) {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
+				
 		ArrayList<Amateur> list = new ArrayList<>();
-		
 		String query = "SELECT * FROM EVENT WHERE EVENT_NO BETWEEN ? AND ?";
 		
 		int startRow = (currentPage -1)*limit+1;
@@ -125,12 +131,15 @@ public class AmateurDao {
 		return list;
 	}
 
+	//사진 파일 리스트 전체 가져오기 : 화면단에서 게시글에 맞게 판별해줄 것이니 전체 불러오자
 	public ArrayList<FileManagement> selectList(Connection conn, Amateur getEventNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
+		FileManagement fm1 = new FileManagement();
 		ArrayList<FileManagement> list = new ArrayList<>();
 		
+//		list.add(fm1);
 		String query = "SELECT * FROM EVENT_FILE";
 		
 		try {
@@ -153,6 +162,7 @@ public class AmateurDao {
 		return list;
 	}
 
+	//조회수 count HIT = HIT+1
 	public int updateCount(Connection conn, int aid) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -171,6 +181,7 @@ public class AmateurDao {
 		return result;
 	}
 
+	//상세 게시글 조회(몇번째 게시글의 내용들을 불러오기)
 	public Amateur selectBoard(Connection conn, int aid) {
 
 		PreparedStatement pstmt = null;
@@ -204,6 +215,7 @@ public class AmateurDao {
 	
 	}
 
+	//상세 파일 조회(몇번째 게시글에 해당하는 파일 불러오기)
 	public FileManagement selectFile(Connection conn, int aid) {
 		PreparedStatement pstmt = null;
 		ResultSet rset= null;
@@ -231,6 +243,7 @@ public class AmateurDao {
 			return fm;
 	}
 
+	//게시글 상세 조회 시 출력될 전체 댓글
 	public ArrayList<Reply> selectReplyList(Connection conn, int event_no) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -264,15 +277,16 @@ public class AmateurDao {
 		return rList;
 	}
 
+	//댓글 등록 insert
 	public int insertReply(Connection conn, Reply r) {
 		PreparedStatement pstmt = null;
 		
 		int result = 0;
 		
-		System.out.println("AmateurDao"+r.getEvent_no());
-		System.out.println("AmateurDao"+r.getReply());
-		System.out.println("AmateurDao"+r.getUser_id());
-		
+//		System.out.println("AmateurDao"+r.getEvent_no());
+//		System.out.println("AmateurDao"+r.getReply());
+//		System.out.println("AmateurDao"+r.getUser_id());
+//		
 		String query = "INSERT INTO EVENT_REPLY VALUES(REPLY_SEQ.NEXTVAL,?,?,SYSDATE,?)";
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -290,5 +304,106 @@ public class AmateurDao {
 		System.out.println("[댓글 insert]Amateur Dao:"+result);
 		return result;
 	}
+
+
+	public int insertHeart(Connection conn, String user, int event_no) {
+		PreparedStatement pstmt = null;
+
+		int result = 0;
+
+		String query = "INSERT INTO EVENT_LIKE VALUES(?,?)";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, event_no);
+			pstmt.setString(2, user);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		System.out.println("[EVENT_LIKE]에 INSERT성공:"+result);
+		
+		return result;
+	}
+
+	public int deleteHeart(Connection conn, String user, int event_no) {
+		PreparedStatement pstmt = null;
+
+		int result = 0;
+
+		String query = "DELETE FROM EVENT_LIKE WHERE USER_ID=? AND EVENT_NO =?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, user);
+			pstmt.setInt(2, event_no);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		System.out.println("[EVENT_LIKE]에 DELETE성공:"+result);
+		
+		return result;
+	}
+
+	public int selectEventLike(Connection conn, int event_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count =0;
+		String query="SELECT COUNT(*)좋아요수 FROM EVENT_LIKE WHERE EVENT_NO = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, event_no);
+			
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				count = rset.getInt("좋아요수");
+			}
+			
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+		System.out.println("[EVENT_LIKE]에서 좋아요 갯수 가져오기:"+count);
+		return count;
+	}
+
+	public AmateurLike selectLikeList(Connection conn,int event_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		AmateurLike al = new AmateurLike();
+		FileManagement fm1 = new FileManagement();
+		
+		
+		String query = "SELECT COUNT(*) 좋아요 FROM EVENT_LIKE WHERE EVENT_NO=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				al = new AmateurLike(rset.getInt("좋아요"));
+			}
+			System.out.println("[dao] 좋아요 출력결과:"+al);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return al;
+	}
+
 
 }

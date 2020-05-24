@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8" import="member.model.vo.Member"%>
 
 <%
-	Member mem = (Member) request.getAttribute("member");
+	Member mem = (Member) session.getAttribute("loginUser");
 
 String userId = mem.getUserId();
 String userPwd = mem.getUserPwd() != null ? mem.getUserPwd() : "";
@@ -19,6 +19,8 @@ String nickname = mem.getNickname() != null ? mem.getNickname() : "";
 <title>Insert title here</title>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/views/css/Style-signUpView.css">
+	  <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/Style-mypagehead.css">
+	
 
 <script src="../js/jquery-3.4.1.min.js"></script>
 
@@ -70,6 +72,8 @@ td {
 
 <body>
 	<%@include file="../common/menubar.jsp"%>
+	<%@include file="../common/mypagehead2.jsp" %>
+	
 
 	<div class="container">
 		<form id="updateForm" action="<%=request.getContextPath()%>/update.me"
@@ -173,12 +177,12 @@ td {
 				<br> <br> <br> <br>
 				<div class="submit-box" align="center">
 					<!-- <div id="joinBtn" onclick="insertMember();">가입하기</div> -->
-					<div id="updateBtn" onclick="updateMember();" style=>수정하기</div>
+					<div id="updateBtn" onclick="updateMember();" style="cursor: pointer;">수정하기</div>
 					<br>
-					<div id="goMain" onclick="goMain();">메인으로</div>
+					<div id="goMain" onclick="goMain();"style="cursor:pointer;">메인으로</div>
 					<br>
 					<br>
-					<div id="deleteBtn" onclick="deleteMember();" style="background:gray; ">
+					<div id="deleteBtn" onclick="deleteMember();" style="background:gray;cursor: pointer; ">
 						<a href="#" style="color:white;">탈퇴하기</a>
 					</div>
 				</div>
@@ -196,8 +200,19 @@ td {
 	
 	//수정하기
 	function updateMember(){
-		$("#updateForm").submit();
-		window.alert("수정 성공");
+		if($("#userPwd").val().length>=6 && $("#userPwd2").val().length>=6){
+			$("#updateForm").submit();
+			window.alert("수정 성공");
+		}else{
+			if($("#userPwd").val()!="" && $("#userPwd2").val()!=""){
+					if($("#userPwd").val().length<6||$("#userPwd2").val().length<6){
+						alert("비밀번호는 6자 이상을 입력해야 합니다");
+						$('#userPwd2').val('');
+					}
+			}else{
+				alert("비밀번호을 다 입력해야 넘어갈 수 있습니다");
+			}
+		}
 	}
 	
 	//탈퇴하기

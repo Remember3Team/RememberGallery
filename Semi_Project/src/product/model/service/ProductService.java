@@ -49,8 +49,7 @@ public class ProductService {
 //		int result3 = pDao.insertmasterpiece(conn,p);
 //		int result4 = pDao.insertTag(conn,irr);
 		
-
-		if(result1>0 && result2> 0) {
+		if(result1>0 && result2> 0 /*&& result3 >0*/) {
 	         commit(conn);
 	      }else {
 	         rollback(conn);

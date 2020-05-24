@@ -10,8 +10,12 @@ import java.util.ArrayList;
 
 import board.amateur.model.dao.AmateurDao;
 import board.amateur.model.vo.Amateur;
+import board.amateur.model.vo.AmateurLike;
 import board.amateur.model.vo.FileManagement;
 import board.amateur.model.vo.Reply;
+import product.model.dao.ProductDao;
+import product.model.vo.MasterpieceCount;
+import product.model.vo.masterpiece;
 
 public class AmateurService {
 
@@ -37,6 +41,11 @@ public class AmateurService {
 		
 		int listCount = new AmateurDao().getListCount(conn);
 		close(conn);
+		if(listCount>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		
 		return listCount;
 	}
@@ -131,6 +140,46 @@ public class AmateurService {
 		close(conn);
 		return rList;
 	}
+
+
+	//좋아요
+	public int insertHeart(String user, int event_no) {
+		Connection conn = getConnection();
+		AmateurDao aDao = new AmateurDao();
+		
+		int result = aDao.insertHeart(conn,user,event_no);
+		close(conn);
+		return result;
+	}
+
+	public int deleteHeart(String user, int event_no) {
+		Connection conn = getConnection();
+		AmateurDao aDao = new AmateurDao();
+		
+		int result = aDao.deleteHeart(conn,user,event_no);
+		close(conn);
+		return result;
+	}
+
+	public int selectEventLike(int event_no) {
+		Connection conn = getConnection();
+		int count = new AmateurDao().selectEventLike(conn,event_no);
+		
+		return count;
+	}
+
+	public AmateurLike selectLikeList(int event_no) {
+		Connection conn = getConnection();
+		
+		AmateurLike list = new AmateurDao().selectLikeList(conn, event_no);
+		System.out.println("count출력:"+list);
+		close(conn);
+		
+		return list;
+	}
+
+	
+
 
 
 
