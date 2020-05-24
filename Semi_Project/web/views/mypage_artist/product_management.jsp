@@ -93,7 +93,6 @@
         <div class = "refund-table">
             <div class="table-headline">
                 <div><span>상품관리</span></div>
-                <div class="button"><button class="btn btn-outline-dark" style = "width:100px">선택삭제</button></div>
                 <div class="button"><button class="btn btn-outline-dark" style = "width:100px" onclick="registration();">상품등록</button></div>
                 </div>
                 <script>
@@ -104,23 +103,20 @@
                 
             <table style="width:100%" name="refund-list">
                 <tr>
-                    <th><input type="checkbox"></th>
                     <th>상품 번호</th>
                     <th>이미지</th>
                     <th>상품 정보</th>
                     <th>금액</th>
-                    <th>수정 및 삭제</th>
+                    <th>수정</th>
                 </tr>
                 <% for(Mypage_artist ma : PM_list){ %>
                 <tr>
-                    <td><input type="checkbox"></td>
                     <td><%=ma.getPaint_no() %></td>
                     <td><img src="<%=request.getContextPath() %>/views/img/2.jsp"></td>
                     <td>작품명 : <%=ma.getPaint_name() %><br>
                     	  작가명 : <%=ma.getArtist_name() %></td>
                     <td><%=ma.getPaint_price() %></td>
                     <td><button class="btn btn-outline-dark" id="detail_order" style = "width:100px">내용수정</button>
-                    	&nbsp;<button class="btn btn-outline-dark" id="detail_order" style = "width:100px">삭제</button>
                     </td>
                 </tr>
 				<%} %>
@@ -136,14 +132,14 @@
       
       <!-- 이전 페이지로(<) -->
       <%if(currentPage <= 1) {%>
-      <button class="btn btn-outline-dark" disabled> < </button>
+      <button class="btn btn-secondary" disabled> < </button>
       <%}else{ %>
       <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/PM.list?currentPage=<%=currentPage-1 %>'"> < </button>
        <%} %>
       <!-- 10개의 페이지 목록 -->
       <%for(int p = startPage ; p<=endPage;p++){ %>
      	 <%if(currentPage == p){ %>
-     	 	<button class="btn btn-outline-dark" disabled><%=p %></button>
+     	 	<button class="btn btn-secondary" disabled><%=p %></button>
      	 <%}else{ %>
      	 	<button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/PM.list?currentPage=<%=p %>'"><%=p %></button>
      	 <%} %>
@@ -153,7 +149,7 @@
       
       <!-- 다음 페이지로(>) -->
         <%if(currentPage == maxPage) {%>
-      <button class="btn btn-outline-dark" disabled> > </button>
+      <button class="btn btn-secondary" disabled> > </button>
       <%}else{ %>
       <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/PM.list?currentPage=<%=currentPage+1 %>'"> > </button>
       <%} %>

@@ -75,7 +75,7 @@ td {
 					<div class="info-box1">
 						<label class="labelfirst" id="name">이름<a
 							style="color: red; font-size: 15px;">*</a></label><input
-							class="nomal-text" type="text" name="userName" placeholder="NAME"
+							class="nomal-text" type="text" id="userName" name="userName" placeholder="NAME"
 							required>
 					</div>
 					<br>
@@ -116,23 +116,23 @@ td {
 
 					<div class="info-box5">
 						<label class="labelfirst">닉네임</label><input class="nomal-text"
-							type="text" name="nickName" placeholder="NICKNAME">
+							type="text" id="nickName" name="nickName" placeholder="NICKNAME">
 					</div>
 
 					<div class="info-box6">
 						<label class="labelfirst">휴대폰 번호</label>
 						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <input
-							type="tel" id="Phone" name="phone" maxlength="11"
+							type="tel" id="phone" name="phone" maxlength="11"
 							autocomplete="off" placeholder="(-)없이 휴대폰 번호 기재"
 							style="height: 25px; width: 280px; float: right;">
 
 					</div>
 
 					<div class="info-box7">
-						<div>
+					<!-- 	<div>
 							<label class="labelfirst">주소<a
 								style="color: red; font-size: 15px;">*</a></label>
-						</div>
+						</div> -->
 						<!-- <div>
 						<input type="text" id="sample6_postcode" placeholder="우편번호">
 						<input type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
@@ -146,7 +146,7 @@ td {
 					<div class="info-box7">
 						<label class="labelfirst">이메일<a
 							style="color: red; font-size: 15px;">*</a></label><input
-							class="nomal-text" type="email" name="email"
+							class="nomal-text" type="email"  id="email" name="email"
 							placeholder="@ 포함한 이메일 기재" required>
 					</div>
 					<br>
@@ -178,10 +178,11 @@ td {
 				<div class="submit-box" align="center">
 					<div id="goMain" onclick="goMain();">메인으로</div>
 					<!-- <div id="joinBtn" onclick="insertMember();"></div> -->
-					<input type="submit" value="가입하기"
-						style="width: 280px; height: 30px; color: white; background: #cc0000">
+					<input type="button" value="가입하기"
+						style="width: 280px; height: 30px; color: white; background: #cc0000" onclick="checkId()">
 
 				</div>
+				<input type="hidden" id="checkTest" value="0">
 				<!-- submit-box 끝 -->
 			</div>
 			<!-- section 끝-->
@@ -189,10 +190,60 @@ td {
 	</div>
 	<!-- container 끝-->
 
-
-
-	<script>
+<script>
 	
+	//아이디 중복확인 버튼 check 때문에 서브밋 버튼을 버튼으로 만들고, function을 통해 서브밋을  하게됨.
+	//그렇게 되면 required 기능이 제공되지 않음
+	//required 기능을 하게 하기 위한 if~else문 적용
+	function checkId(){
+		
+		if($("#userName").val()==""){
+			alert("이름을 안쓰다니...");
+		}else{	// 이름은 썼느데
+			if($("#userId").val()==""){
+				alert("중요한 아이디를 안쓰다니!");				
+			}else{ // 아이디는 썼는데						
+					if($("#userPwd").val().length>=6 && $("#userPwd2").val().length>=6){
+						if($("#nickName").val()==""){
+							alert("닉네임은 써도 되고 안써도 되지만 안쓰면 안넘어가요 ㅎㅎ");
+						}else{
+							
+							if($("#phone").val()==""){
+								alert("번호를 입력하세요");
+							}else{
+								if($("#email").val()==""){
+									alert("이메일을 입력하세요.");
+								}else{// 이메일을 썼으면
+									if(!emailJ.test($("#email").val())){
+										alert("이메일 형식으로 써주세요.");
+									}else{ //정큐표현식에 맞으면
+										 //아이디 중복 확인
+										 if($("#checkTest").val() != "0"){
+											$("#joinForm").submit();
+										}else{
+											alert("중복확인 버튼을 체크해 주세요");
+										}
+									}
+								}
+								
+							}
+						}
+					}else{
+						if($("#userPwd").val()!="" && $("#userPwd2").val()!=""){
+								if($("#userPwd").val().length<6||$("#userPwd2").val().length<6){
+									alert("비밀번호는 6자 이상을 입력해야 합니다");
+									$('#userPwd2').val('');
+								}
+						}else{
+							alert("비밀번호을 다 입력해야 넘어갈 수 있습니다");
+						}
+					}	
+					
+					
+			}
+		}
+		
+	}
 
 	function goMain() {
 			location.href = "<%=request.getContextPath()%>/index.jsp";
@@ -210,6 +261,15 @@ td {
 
 	 	$(function(){
 	 		$("#idCheck").click(function(){
+	 			$("#idCheck").css("background-color","red");	
+	 		});
+	 		$("#userId").change(function(){
+	 			$("#checkTest").val(0);
+	 			$("#idCheck").css("background-color","gray");
+	 		});
+	 		
+	 		$("#idCheck").click(function(){
+	 			$("#checkTest").val(1);
 	 			var userId = $("#joinForm input[name = 'userId']");
 	 			
 	 			if(!userId || userId.val().length<4){
@@ -228,7 +288,6 @@ td {
 								userId.focus();
 							} else {
 								alert("아이디가 사용가능합니다.");
-								userId.attr("readonly", "true");
 								idCheck = 1;
 							}
 						},
@@ -244,12 +303,9 @@ td {
 
 		// jquery
 
-		//정규 표현식 
-		// 모든 공백 체크 정규식
-		var empJ = /\s/g;
-
 		//아이디 정규식
 		var idJ = /^[a-z0-9_]{4,20}$/;
+		var emailJ=/^[a-zA-Z0-9]+@[a-zA-Z0-9]+$/;
 		$(function() {
 			//idresult
 			$("#userId").change(

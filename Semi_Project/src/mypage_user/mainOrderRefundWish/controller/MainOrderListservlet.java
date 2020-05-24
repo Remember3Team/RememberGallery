@@ -47,12 +47,23 @@ public class MainOrderListservlet extends HttpServlet {
 		String calendar = request.getParameter("calendar");
 		String calendar2 = request.getParameter("calendar2");
 		
+<<<<<<< HEAD
+=======
+		
+		String statusSQL = "WHERE B.ORDER_NO="+searchStatus;
+		String termSQL = "WHERE B.ORDER_DATE<"+term;
+		String calSQL = "WHERE B.ORDER_DATE BETWEEN"+calendar+"AND"+calendar2;
+		
+>>>>>>> refs/remotes/origin/master
 		
 		MorwService mService = new MorwService();
 		
 //		ArrayList<Morw> list = mService.selectList(loginMember.getUserId());
 		ArrayList<Morw> list = mService.selectList(loginMember.getUserId(),searchStatus,term,calendar,calendar2);
+<<<<<<< HEAD
 		
+=======
+>>>>>>> refs/remotes/origin/master
 		ArrayList<Attachment> plist = mService.selectPList(loginMember.getUserId());
 		
 		

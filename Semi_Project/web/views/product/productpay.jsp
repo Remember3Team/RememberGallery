@@ -195,13 +195,13 @@ function execDaumPostcode2() {
     </tr>
     <tr>
       <th>
-       <input type="text" id="add1" class="form-control" placeholder="우편번호" size="10px" style="margin-left: 109px; float:left;" name="orderadress1">	
+       <input type="text" id="add1" class="form-control" placeholder="우편번호" size="10px" style="margin-left: 109px; float:left;" name="orderadress1" readonly>	
        &nbsp;&nbsp;<button type="button" onclick="execDaumPostcode();" class="btn btn-outline-dark ">주소 검색</button>
        </th>
     </tr>
     <tr>
       <th scope="row">주소
-       <input type="text" id="add2" class="form-control" placeholder="기본주소" size="20px" style="margin-left: 109px; " name="orderadress2"></th>
+       <input type="text" id="add2" class="form-control" placeholder="기본주소" size="20px" style="margin-left: 109px; " name="orderadress2" readonly></th>
     </tr>
      <tr>
       <th>
@@ -227,13 +227,13 @@ function execDaumPostcode2() {
     </tr>
     <tr>
       <th>
-       <input type="text" id="add4" class="form-control" placeholder="우편번호" size="10px" style="margin-left: 109px; float:left;" name="receiveaddress1" >
+       <input type="text" id="add4" class="form-control" placeholder="우편번호" size="10px" style="margin-left: 109px; float:left;" name="receiveaddress1" readonly>
        &nbsp;&nbsp;<button type="button" onclick="execDaumPostcode2();"  class="btn btn-outline-dark">주소 검색</button>
        </th>
     </tr>
     <tr>
       <th scope="row">주소
-       <input type="text" id="add5" class="form-control" placeholder="기본주소" size="20px" style="margin-left: 109px;" name="receiveaddress2"></th>
+       <input type="text" id="add5" class="form-control" placeholder="기본주소" size="20px" style="margin-left: 109px;" name="receiveaddress2" readonly></th>
     </tr>
      <tr>
       <th>

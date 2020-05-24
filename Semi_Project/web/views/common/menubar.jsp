@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="member.model.vo.Member"%>
 <%
-	Member loginUser = (Member) session.getAttribute("loginUser");
+	Member loginUser = (Member)session.getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html>
@@ -94,6 +94,17 @@ h1 {
 	margin: 0 auto;
 }
 
+.navi > li > ul{
+	display:none;
+}
+
+.navi > li:hover > ul{
+	display: block;
+} 
+
+
+
+
 ul li ul li:hover{
 	background-color:red;
 }
@@ -123,8 +134,8 @@ ul li ul li:hover{
 					<li><a href="<%=request.getContextPath()%>/list.no">공지사항</a></li>
 					<li><a href="<%=request.getContextPath()%>/list.in">1:1문의</a></li>
 				</ul></li>
-			<%if(loginUser != null){ %>
-			<li><a href="#">TEST</a> 
+<%-- 		 <%if(loginUser != null){ %> 
+			<li><a href="#" id="test">TEST</a> 
 				<ul>
 
 					<li><a href="<%= request.getContextPath() %>/Mo.li">마이페이지 소비자</a></li>
@@ -140,23 +151,53 @@ ul li ul li:hover{
 
 			</ul>
 			</li>
+			
+			<%} %>  --%>
 					<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 222222222222-->
 		 <!-- <input type="hidden" id = "checkLogin">  -->
 				<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 22222222222222222-->
-			<%} %>
+			
 		</ul>
-		<!--icon :: 색상변경 또는 없애버리고 메뉴바 만들기-->
-		<div id="loginWrap">
-			<a href="<%= request.getContextPath() %>/views/member/signIn.jsp" class="icon" onclick="login_btn();"><img
-				src="<%=request.getContextPath()%>/views/img/login2.png"></a>
+		<div id="loginWrap" >
+			
+			<ul class="navi" style="margin-right:40px;">
+			 <%if(loginUser != null){ %> 
+			<li style="width: 80px;height:20px;"> <img
+				src="<%=request.getContextPath()%>/views/img/login1.png" style="width:30px; "></a>
+				<ul style="width:150px; padding-right:30px;" >
 
+					<li><a href="<%=request.getContextPath() %>/Mo.li">마이페이지 소비자</a></li>
+					<li><a href="#">장바구니</a></li>
+					<li><a href="#">Chat</a></li>
+					<li><a href="#">1:1문의</a></li>
+
+					<li><a href="#">마이페이지 관리자</a></li>
+					<li><a href="#">마이페이지 판매자</a></li>
+
+					<li><a href="<%=request.getContextPath()%>/logout.me">로그아웃</a></li>
+
+			</ul>
+			</li>
+			
+			<% }else{ %>
+			<a href="<%= request.getContextPath() %>/views/member/signIn.jsp" class="icon1" onclick="login_btn();"><img
+				src="<%=request.getContextPath()%>/views/img/login2.png"  style="width:30px; paading-bottom:10px;"></a>
+			<% } %> 
+			</ul>
 			<!--마이페이지로 넘어가는부분 잠시 수정 -->
-			<a href="#" class="icon"><img
-				src="<%= request.getContextPath() %>/views/img/search2.png"></a>
+			<%-- <a href="#" class="icon2"><img
+				src="<%= request.getContextPath() %>/views/img/search2.png"></a> --%>
 		</div> <!-- loginWrap 끝 -->
-
+	
+		<!--icon :: 색상변경 또는 없애버리고 메뉴바 만들기-->
 
 	</header>	
+	
+	
+	<script>
+
+	</script>
+	
 	
 	
 <!--  로그인 팝업창 보류 --><!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 3333333333333-->

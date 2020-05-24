@@ -102,6 +102,12 @@ public class MorwDao {
 				"WHERE O.USER_ID=? ORDER BY O.ORDER_NO DESC";
 		
 		
+<<<<<<< HEAD
+=======
+		
+		
+		
+>>>>>>> refs/remotes/origin/master
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, userId);
@@ -186,6 +192,7 @@ public class MorwDao {
 				"FROM PAINT P " + 
 				"JOIN BASKET B ON (P.PAINT_NO=B.PAINT_NO) " + 
 				"WHERE USER_ID=?";
+
 		
 		try {
 			pstmt=conn.prepareStatement(query);
