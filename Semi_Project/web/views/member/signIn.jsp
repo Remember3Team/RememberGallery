@@ -71,12 +71,12 @@ color:red;
 
 	<%@include file="../common/menubar.jsp"%>
 	<!-- section1 -->
-	<div class="loginArea" style="background-color: #e9ecef; height: 600px;">
+	<div class="loginArea"  style="background-color: #e9ecef; height: 600px;">
 		<%
 			if (loginUser == null) {
 		%>
 		<form method="get" action="<%=request.getContextPath()%>/login.me"
-			onsubmit="return validate();">
+			onsubmit="return validate();" >
 			<br> <br> <br> <br> <br>
 			<h1 align="center" style="color:#cc0000;">로그인</h1>
 			<br> <br>

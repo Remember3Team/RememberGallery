@@ -190,8 +190,7 @@ td {
 	</div>
 	<!-- container 끝-->
 
-
-	<script>
+<script>
 	
 	//아이디 중복확인 버튼 check 때문에 서브밋 버튼을 버튼으로 만들고, function을 통해 서브밋을  하게됨.
 	//그렇게 되면 required 기능이 제공되지 않음
@@ -199,15 +198,14 @@ td {
 	function checkId(){
 		
 		if($("#userName").val()==""){
-			alert("이름 좀 써");
+			alert("이름을 안쓰다니...");
 		}else{	// 이름은 썼느데
 			if($("#userId").val()==""){
-				alert("아이디 좀 써");				
-			}else{ // 아이디는 썼는데
-									
+				alert("중요한 아이디를 안쓰다니!");				
+			}else{ // 아이디는 썼는데						
 					if($("#userPwd").val().length>=6 && $("#userPwd2").val().length>=6){
 						if($("#nickName").val()==""){
-							alert("닉네임을 써");
+							alert("닉네임은 써도 되고 안써도 되지만 안쓰면 안넘어가요 ㅎㅎ");
 						}else{
 							
 							if($("#phone").val()==""){
