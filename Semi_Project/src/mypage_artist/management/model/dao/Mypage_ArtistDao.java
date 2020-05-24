@@ -47,12 +47,12 @@ public class Mypage_ArtistDao {
 		ResultSet rset = null;
 		
 		String query = "select count(p.paint_no) from paint p\r\n" + 
-				"where artist_name = ?";
+				"join buy_list bl on (p.paint_no = bl.paint_no)\r\n" + 
+				"where pay_status is not null;";
 		
 		int listCount_OM = 0;
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, bWriter);
 			
 			rset = pstmt.executeQuery();
 			
@@ -166,14 +166,14 @@ public class Mypage_ArtistDao {
 		ResultSet rset = null;
 		ArrayList<Mypage_artist> OM_list = new ArrayList<>();
 		
-		String query = "SELECT ORDER_NO, AFILE, PAINT_NAME, ARTIST_NAME, PAINT_PRICE, ORDER_STATUS FROM BUY_LIST BL\r\n" + 
+		String query = "SELECT ORDER_NO, AFILE, PAINT_NAME, ARTIST_NAME, PAINT_PRICE, ORDER_STATUS FROM BUY_LIST BL \r\n" + 
 				"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
 				"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
-				"WHERE  ORDER_NO BETWEEN ? AND ? AND  USER_ID = ? AND FILELEVEL = 0";
+				"where ORDER_NO BETWEEN ? AND ? AND  filelevel=0 and artist_name=?";
 		
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
-		
+		 
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, startRow);
@@ -198,7 +198,7 @@ public class Mypage_ArtistDao {
 			close(rset);
 			close(pstmt);
 		}
-		
+		System.out.println(OM_list);
 		return OM_list;
 	}
 
