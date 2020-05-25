@@ -20,23 +20,22 @@ public class MorwService {
 		return listCount;
 	}
 
-//	public ArrayList<Morw> selectList(String user_id) {
-//		Connection conn = getConnection();
-//		
-//		ArrayList<Morw> list = new MorwDao().selectList(conn,user_id);
-//		//BoardDao를 가서 selectList메소드 구현하기
-//		
-//		
-//		close(conn);
-//		return list;
-//	}
+	public ArrayList<Morw> selectList(String user_id) {
+		Connection conn = getConnection();
+		
+		ArrayList<Morw> list = new MorwDao().selectList(conn,user_id);
+		//BoardDao를 가서 selectList메소드 구현하기
+		
+		
+		close(conn);
+		return list;
+	}
 	
-	public ArrayList<Morw> selectList(String userId, String searchStatus, String term, String calendar,
-			String calendar2) {
+	public ArrayList<Morw> selectList(String userId, String searchStatus) {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Morw> list = new MorwDao().selectList(conn,userId,searchStatus,term,calendar,calendar2);
+		ArrayList<Morw> list = new MorwDao().selectList(conn,userId,searchStatus);
 		//BoardDao를 가서 selectList메소드 구현하기
 		
 		

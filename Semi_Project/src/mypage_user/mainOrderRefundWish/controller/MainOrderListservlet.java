@@ -37,26 +37,20 @@ public class MainOrderListservlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String menu = request.getParameter("menu");
-		
+		System.out.println("서블릿 왔니?");
 		//로그인세션
 		HttpSession session = request.getSession();
 		Member loginMember = (Member) session.getAttribute("loginUser");
 		
-		String searchStatus = request.getParameter("search_status");
-		String term = request.getParameter("term");
-		String calendar = request.getParameter("calendar");
-		String calendar2 = request.getParameter("calendar2");
-		
-		
-		String statusSQL = "WHERE B.ORDER_NO="+searchStatus;
-		String termSQL = "WHERE B.ORDER_DATE<"+term;
-		String calSQL = "WHERE B.ORDER_DATE BETWEEN"+calendar+"AND"+calendar2;
-		
+//		String searchStatus = request.getParameter("searchStatus");
+//		System.out.println("배송상태 내놓라고"+searchStatus);
+
+	
 		
 		MorwService mService = new MorwService();
 		
-//		ArrayList<Morw> list = mService.selectList(loginMember.getUserId());
-		ArrayList<Morw> list = mService.selectList(loginMember.getUserId(),searchStatus,term,calendar,calendar2);
+		ArrayList<Morw> list = mService.selectList(loginMember.getUserId());
+//		ArrayList<Morw> list = mService.selectList(loginMember.getUserId(),searchStatus);
 		ArrayList<Attachment> plist = mService.selectPList(loginMember.getUserId());
 		
 		

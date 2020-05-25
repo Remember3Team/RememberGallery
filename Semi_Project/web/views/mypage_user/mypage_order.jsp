@@ -41,8 +41,9 @@ float : right;
 
 $("document").ready(function(){
 	$("#searchStatus").change(function(){
-		searchStatus = this.value;
-		console.log(searchStatus);
+		var searchStatus = this.value;
+		 $("#searchStatus").val(searchStatus);
+// 		console.log(searchStatus);
 	});
 	
 	$("input[name=term]:radio").click(function(){
@@ -56,29 +57,30 @@ function setStatus(obj){
 	term = obj.value;
 }
 
-function searchData(){
-	var searchStatus = $("#searchStatus").val();
-	var term = $("input[name=term]:radio:checked").val();
-	var calendar = $("#calendar").val();
-	var calendar2 = $("#calendar2").val();
+// function searchData(){
 	
-	var data = {
-	    		'search_status' : searchStatus,
-	    		'term' : term,
-	    		'calendar' : calendar,
-	    		'calendar2' : calendar2
-	    	 };
-	$.ajax({
-		  type: "POST",
-		  url: "Mo.li",
-		  data: data,
-		  success: function(ret){
-		   	location.reload();
-		}
-		});
+// 	$("#searchStatus").change(function(){
+// 		var searchStatus = this.value;
+// 		 $("#searchStatus").val(searchStatus);
+// 		console.log(searchStatus);
+// 	});
+// 	var searchStatus = $("#searchStatus").val();
+	
+// 	console.log(searchStatus);
+// // 	var term = $("input[name=term]:radio:checked").val();
+// // 	var calendar = $("#calendar").val();
+// // 	var calendar2 = $("#calendar2").val();
+	
+// // 	var data = {
+// // 	    		'search_status' : searchStatus,
+// // 	    		'term' : term,
+// // 	    		'calendar' : calendar,
+// // 	    		'calendar2' : calendar2
+// // 	    	 };
+<%-- 	 location.href="<%=request.getContextPath()%>/Mo.li?menu=order"; --%>
 	
 	
-}
+// }
 
 
 
@@ -225,10 +227,10 @@ function submit(){
     
       
       <div class="container">
-      <form action="">
+      <form method="post" action="<%=request.getContextPath()%>/Mo.li">
             <div class="search-bar">
                 <div class="bar1">
-                    <select id="searchStatus">
+                    <select id="searchStatus" name="searchStatus">
                     	<option value="all">전체보기</option>
                         <option value="입금전">입금전</option>
                         <option value="배송준비중">배송준비중</option>
@@ -258,12 +260,11 @@ function submit(){
                             </div> 
                 &nbsp;&nbsp;&nbsp;
                 <div class="bar3">
-                    <input id="calendar" type="date" name="refund-date1"> ~
-                    <input id="calendar2" type="date" name="refund-date1">
+                    <input id="calendar" type="date" name="calendar"> ~
+                    <input id="calendar2" type="date" name="calendar2">
                 </div>
-                <button onclick="javascript: searchData()" type="button" class="btn btn-dark" style="width:70px">조회</button>
+                <button type="submit" class="btn btn-dark" style="width:70px">조회</button>
             </div>
-
         </form>
      
     
@@ -310,6 +311,7 @@ function submit(){
 						<% if(m.getPaintNo() == a.getPaint_no()) { %>
 					 <img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" width="150px" height="150px">
 					 <input type="hidden" id="img_<%=m.getOrderNo()%>" value="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" />
+					 
 					 
 					 <%} %>
 					<%} %></td>
