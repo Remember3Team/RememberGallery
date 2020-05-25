@@ -46,7 +46,7 @@ public class SearchListServlet extends HttpServlet {
 		String calendar1 = request.getParameter("calendar1");
 		String calendar2 = request.getParameter("calendar2");
 		
-		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getUserId());
+		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getUserName());
 		
 		
 		System.out.println(order_status);
@@ -56,7 +56,7 @@ public class SearchListServlet extends HttpServlet {
 		System.out.println(bWriter);
 		
 		// 1_1. 게시판 리스트 갯수 구하기
-		int listCount = ma.getListCount(bWriter);
+		int listCount = ma.getListCount_OM(bWriter);
 		System.out.println(listCount);
 		
 		// 페이지 수 처리용 변수 선언

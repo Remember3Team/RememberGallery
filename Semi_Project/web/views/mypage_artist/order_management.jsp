@@ -55,7 +55,7 @@
                 <div class="bar1">
                     <input type="text" name="order_status" list="order_list" placeholder=" 주문 처리 상태">
                     <datalist id="order_list">
-			            <option value="입금전(입금대기)"></option>
+			            <option value="입금전"></option>
 			            <option value="배송준비중"></option>
 			            <option value="배송완료"></option>
 			            <option value="환불신청"></option>
@@ -92,7 +92,6 @@
             <div class="table-headline">
                 <div><span>주문관리</span></div>
                 <div class="button"><button class="btn btn-outline-dark" style = "width:120px">입금확인</button></div>
-                <div class="button"><button class="btn btn-outline-dark" style = "width:120px">취소처리</button></div>
             </div>
             <table style="width:100%" name="refund-list">
                 <tr>
