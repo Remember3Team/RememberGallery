@@ -1,15 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>제휴 신청</title>
  <!-- link rel="stylesheet" href="../css/style.css" -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-<script type="text/javascript" src="../js/bootstrap.js"></script> 
-  <link rel="stylesheet" href="../css/Style-apply.css">
+
+
+ <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/views/css/Style-apply.css">
 <script src="<%=request.getContextPath() %>/views/js/jquery-3.4.1.min.js"></script>
+
+
+
 </head>
 <body>
 <%@include file="../common/menubar.jsp" %>
@@ -77,7 +82,8 @@
                         <input type="file" id="a-file" name="a-file"><br>
                     </div>
                 </div>
-                <button type=submit>제출하기</button>
+                <button type="submit" name="goSubmit" style = "margin-left : 5px;">제출하기</button>
+                <button type="button" id="goMain">취소</button>
             </div>
             
         </form>
@@ -85,6 +91,13 @@
     </div>
     
     <script>
+    
+    	
+    	// 메인으로 가기
+    	
+    	$("#goMain").on('click', function() {
+    		location.href="<%=request.getContextPath()%>/index.jsp";
+    	});
     
     
     	// 프로필 이미지 프리뷰

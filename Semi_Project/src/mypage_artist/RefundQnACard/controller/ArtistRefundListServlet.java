@@ -39,7 +39,6 @@ public class ArtistRefundListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//로그인세션
 		HttpSession session = request.getSession();
-//		System.out.println(loginMember);
 		String artist = (((Member) request.getSession().getAttribute("loginUser")).getUserId());
 		
 		ArtistService aService = new ArtistService();

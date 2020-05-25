@@ -77,8 +77,8 @@ html {
 
 	<div class = "box-body">
 	<div class = "feature-box">
-	<h1 align="center" style = "color: black; padding : 0;"><%= message %></h1>
-	<button class = "goback-btn" onclick="goBack();" >뒤로 가기</button>
+		<h1 align="center" style = "color: black; padding : 0;"><%= message %></h1>
+		<button class = "goback-btn" onclick="goBack();" >뒤로 가기</button>
 	</div>
 	</div>
 	
