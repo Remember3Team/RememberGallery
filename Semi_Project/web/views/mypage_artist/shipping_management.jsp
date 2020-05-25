@@ -111,32 +111,43 @@
                     <td><%=ma.getOrder_date() %></td>
                     <td><%=ma.getShip_date() %></td>
                     <td><%=ma.getOrder_status() %></td>
-                    <td><button class="btn btn-outline-dark" id="detail_order" style = "width:150px"
-                    		onclick="location.href='<%= request.getContextPath() %>/DO.view'">주문 상세보기</button></td>
+                    <td>
+                     <input class="order_no" type="hidden" value="<%=ma.getOrder_no() %>">
+                    <button class="btn btn-outline-dark order" id="detail_order" style = "width:150px">주문 상세보기</button></td>
                 </tr>
 				<%} %>
             </table>
         </div>
         
     </div>
-   <br clear="both"><br>
+    <script>
+				$(function(){
+	                   $(".order").click(function(){
+	                      var order_no = $(this).parent().children(".order_no").val();
+	                      
+	                      location.href="<%=request.getContextPath()%>/DO.view?order_no="+order_no;
+	                   });
+	                   
+	                });
+				</script>
+  <br clear="both"><br>
 		<!--  페이징 처리 시작! -->
       <div class="pageingArea" align="center">
       <!-- 맨 처음으로 (<<) -->
-      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/PM.list?currentPage=1'"> << </button>
+      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/SM.list?currentPage=1'"> << </button>
       
       <!-- 이전 페이지로(<) -->
       <%if(currentPage <= 1) {%>
-      <button class="btn btn-outline-dark" disabled> < </button>
+      <button class="btn btn-secondary" disabled> < </button>
       <%}else{ %>
-      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/PM.list?currentPage=<%=currentPage-1 %>'"> < </button>
+      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/SM.list?currentPage=<%=currentPage-1 %>'"> < </button>
        <%} %>
       <!-- 10개의 페이지 목록 -->
       <%for(int p = startPage ; p<=endPage;p++){ %>
      	 <%if(currentPage == p){ %>
-     	 	<button class="btn btn-outline-dark" disabled><%=p %></button>
+     	 	<button class="btn btn-secondary" disabled><%=p %></button>
      	 <%}else{ %>
-     	 	<button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/PM.list?currentPage=<%=p %>'"><%=p %></button>
+     	 	<button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/SM.list?currentPage=<%=p %>'"><%=p %></button>
      	 <%} %>
       <%} %>
 
@@ -144,13 +155,13 @@
       
       <!-- 다음 페이지로(>) -->
         <%if(currentPage == maxPage) {%>
-      <button class="btn btn-outline-dark" disabled> > </button>
+      <button class="btn btn-secondary" disabled> > </button>
       <%}else{ %>
-      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/PM.list?currentPage=<%=currentPage+1 %>'"> > </button>
+      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/SM.list?currentPage=<%=currentPage+1 %>'"> > </button>
       <%} %>
       
       <!-- 맨 끝으로(>>) -->
-      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/PM.list?currentPage=<%= maxPage%>'"> >> </button>
+      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/SM.list?currentPage=<%= maxPage%>'"> >> </button>
       
       </div>
 

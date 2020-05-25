@@ -38,7 +38,7 @@ public class Mypage_ArtistDao {
 			close(pstmt);
 			close(rset);
 		}
-		System.out.println(listCount_PM);
+		System.out.println("상품관리p"+listCount_PM);
 		return listCount_PM;
 	}
 	
@@ -48,7 +48,7 @@ public class Mypage_ArtistDao {
 		
 		String query = "select count(p.paint_no) from paint p\r\n" + 
 				"join buy_list bl on (p.paint_no = bl.paint_no)\r\n" + 
-				"where pay_status is not null;";
+				"where pay_status is not null";
 		
 		int listCount_OM = 0;
 		try {
@@ -66,7 +66,7 @@ public class Mypage_ArtistDao {
 			close(pstmt);
 			close(rset);
 		}
-		System.out.println(listCount_OM);
+		System.out.println("주문관리p"+listCount_OM);
 		return listCount_OM;
 	}
 
@@ -76,7 +76,7 @@ public class Mypage_ArtistDao {
 		
 		String query = "select count(p.paint_no) from paint p\r\n" + 
 				"join buy_list bl on (p.paint_no = bl.paint_no)\r\n" + 
-				"where pay_status is not null;";
+				"where pay_status is not null";
 		
 		int listCount_SM = 0;
 		try {
@@ -593,7 +593,7 @@ public class Mypage_ArtistDao {
 		String query = "SELECT ORDER_NO, AFILE, PAINT_NAME, ARTIST_NAME, PAINT_PRICE, ORDER_STATUS FROM BUY_LIST BL \r\n" + 
 				"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
 				"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
-				"WHERE USER_ID = ? AND ORDER_NO = ? AND FILELEVEL = 0";
+				"where artist_name=? and filelevel=0 and order_no=?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -618,7 +618,7 @@ public class Mypage_ArtistDao {
 			close(rset);
 			close(pstmt);
 		}
-		
+		System.out.println("plist="+DOV_plist);
 		return DOV_plist;
 	}
 
@@ -630,7 +630,8 @@ public class Mypage_ArtistDao {
 		ArrayList<Mypage_artist> DOV_dlist = new ArrayList<>();
 		
 		String query = "SELECT ORDER_NAME, PAY_TYPE, ORDER_PHONE FROM ORDER_TABLE\r\n" + 
-				"WHERE USER_ID= ? AND ORDER_NO = ?";
+				"join paint on (order_table.paint_no = paint.paint_no)\r\n" + 
+				"WHERE artist_name= ? and order_no = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -652,7 +653,7 @@ public class Mypage_ArtistDao {
 			close(rset);
 			close(pstmt);
 		}
-		
+		System.out.println("dlist="+DOV_dlist);
 		return DOV_dlist;
 	}
 
@@ -663,8 +664,9 @@ public class Mypage_ArtistDao {
 		ResultSet rset = null;
 		ArrayList<Mypage_artist> DOV_slist = new ArrayList<>();
 		
-		String query = "SELECT REC_NAME, REC_LIST, REC_MESSAGE FROM RECEIPT_TABLE\r\n" + 
-				"WHERE USER_ID=? AND ORDER_NO = ?";
+		String query = "SELECT REC_NAME, REC_ADD, REC_MESSAGE FROM RECEIPT_TABLE\r\n" + 
+				"join paint on (receipt_table.paint_no = paint.paint_no)\r\n" + 
+				"WHERE artist_name= ? and order_no=?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -676,7 +678,7 @@ public class Mypage_ArtistDao {
 			while(rset.next()) {
 				Mypage_artist myart = new Mypage_artist(0,
 																			rset.getString("rec_name"),
-																			 rset.getString("rec_list"),
+																			 rset.getString("REC_ADD"),
 																			 rset.getString("rec_message"));
 				DOV_slist.add(myart);
 			}
@@ -687,7 +689,7 @@ public class Mypage_ArtistDao {
 			close(rset);
 			close(pstmt);
 		}
-		
+		System.out.println("slist=" + DOV_slist);
 		return DOV_slist;
 	}
 
