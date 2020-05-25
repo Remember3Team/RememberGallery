@@ -498,7 +498,7 @@ border: solid 1px;
       		<td>카테고리 : <%=plist.getCategory() %></td>
       	</tr>
       	<tr>
-      		<td>제작년도 : <%=plist.getCategory() %></td>
+      		<td>제작년도 : <%=plist.getPaint_mdate()%></td>
       		
       	<tr>
       		<td>사이즈 :<% for(int i =0;i < sizelist.size();i++) {
