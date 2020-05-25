@@ -39,11 +39,12 @@
         </div>
         <!--part1 end-->
    <div class="container">
+   	  <div>
+   	  	<span><h3> 이 달의 마스터피스 - 아마추어 </h3></span>
+   	  </div>
       <div class="row">
 			<%if(list.isEmpty()){%>
-          		<span style="font-size:20px; margin:0 auto; margin-top:140px; margin-bottom:240px;">
-          			    게시글이 존재하지 않습니다.
-          		</span>
+          		
      		<%}else{ %>
 				<%for(int i=0;i<list.size();i++){ %>
 	        		<% a = list.get(i); %>
@@ -60,12 +61,9 @@
 					        <%} %><!--fileList for loop end --> 			
 							<div class="card-body">		              		
 			              		<input id="event_no" type="hidden" value="<%=a.getEvent_no() %>">
-			              		<h4 class="card-title"><a href="#"><%=a.getEvent_title() %></a></h4>
+			              		<h4 class="card-title"><a href="#"><p style="color:black"><%=a.getEvent_title() %></p></a></h4>
 			                	<h5><%=a.getUser_id() %></h5>
-
 			                </div><!-- class card-body end -->	
-
-
 				    	</div><!-- class card end -->
 				   	</div><!-- id goDetail end --> 
 			<%} %><!-- if a.getEvent_no end -->
