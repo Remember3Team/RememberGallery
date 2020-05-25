@@ -993,5 +993,36 @@ public class ProductDao {
 		return list;
 	}
 
+	public product selectpaint(Connection conn, int paint_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		product p = new product();
+	
+		String query ="SELECT * FROM PAINT WHERE PAINT_NO=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, paint_no);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				 p = new product(rset.getInt("PAINT_NO"), 
+						rset.getString("PAINT_NAME"),
+						rset.getInt("PAINT_PRICE"),
+						rset.getInt("SIZE_NO"),
+						rset.getString("ARTIST_NAME"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return p;
+	}
+
 
 }

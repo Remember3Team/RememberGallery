@@ -16,6 +16,7 @@ import org.json.simple.JSONObject;
 import member.model.vo.Member;
 import product.model.service.ProductService;
 import product.model.vo.Paint_QnA;
+import product.model.vo.product;
 
 /**
  * Servlet implementation class InsertAServlet
@@ -39,16 +40,20 @@ public class InsertAServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		ProductService pService =new ProductService();
 		System.out.println("잘왔어?");
-		String writer = (((Member) request.getSession().getAttribute("loginUser")).getUserId());//로그인한사람.
+		//String writer = (((Member) request.getSession().getAttribute("loginUser")).getUserId());//로그인한사람.
 		int qna_no = Integer.parseInt(request.getParameter("qna_no"));							//qna번호
 		String content = request.getParameter("content");
+		int paint_no = Integer.parseInt(request.getParameter("paint_no"));	
 		
-		System.out.println(writer);
+		//System.out.println(writer);
 		System.out.println(qna_no);
 		System.out.println(content);
 		int result =0;
 		int result2 =0;
-		if(writer.equals("admin")) {
+		
+		product p = pService.selectpaint(paint_no);
+		Member m = (Member) request.getSession().getAttribute("loginUser");
+		if(m.getUserName().equals(p.getArtist_name())) {
 			result = pService.insertAnwser(qna_no,content);
 			result2 = pService.updateQ(qna_no);
 		}

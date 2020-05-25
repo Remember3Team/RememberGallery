@@ -325,6 +325,16 @@ public class ProductService {
 		return result2;
 	}
 
+	public product selectpaint(int paint_no) {
+		Connection conn = getConnection();
+
+		product p = new product();
+		p = new ProductDao().selectpaint(conn,paint_no);
+
+		close(conn);
+		return p;
+	}
+
 	
 
 
