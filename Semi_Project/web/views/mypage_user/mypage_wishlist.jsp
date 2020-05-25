@@ -103,7 +103,7 @@ function totalPrice(){
    
 }
 
-function productBuy(paintNo){
+function productBuy(paintNo,buyYN){
    
    if(confirm("주문하시겠습니까?")==false)
    return false;   
@@ -115,6 +115,7 @@ function productBuy(paintNo){
     $("#buy_paint_no").val(paint_no1);
 
    var paint_no = $("#buy_paint_no").val();
+   
    
    location.href="<%=request.getContextPath()%>/Buy.po?paint_no="+paint_no;
    
@@ -163,6 +164,7 @@ function productBuy(paintNo){
                     <th>상품정보</th>
                     <th>금액</th>
                     <th>주문</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -175,15 +177,16 @@ function productBuy(paintNo){
                          <td><% for(int j=0; j<plist.size(); j++){ 
                      Attachment a = plist.get(j); %>
                   <% if(m.getPaintNo() == a.getPaint_no()) { %>
-                <img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" width="150px" height="150px">
+                <img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%=a.getSavefileName() %>" width="150px" height="150px">
                 <%} %>
                <%} %></td>
                         <td>작가 : <%=m.getArtistName()%><br>
-                        작품명 : <%=m.getPaintName()%></td>
+                        	작품명 : <%=m.getPaintName()%></td>
                         <td><%=nf.format(m.getPaintPrice())%>
                            <input type="hidden" name="price" value="<%=m.getPaintPrice() %>" />
                         </td>
                         <td type="hidden"><a href="javascript: productBuy('<%=m.getPaintNo() %>')" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">주문하기</a></td>
+                      	<td type="hidden"><%=m.getBuyYN()%></td>
                       <form >
                       <input type="hidden" id="buy_paint_no">
                       </form>

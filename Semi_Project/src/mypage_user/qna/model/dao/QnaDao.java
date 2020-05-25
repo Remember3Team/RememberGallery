@@ -16,10 +16,11 @@ public class QnaDao {
 		
 		ArrayList<Qna> list = new ArrayList<>();
 		
-		String query = "SELECT O.ORDER_NO,PA.PAINT_NAME,P.PQUESTION,P.PQ_DATE,P.PQ_YN " + 
-				"FROM PAINT_Q P " + 
-				"JOIN ORDER_TABLE O ON (P.PAINT_NO= O.PAINT_NO) " + 
-				"JOIN PAINT PA ON (P.PAINT_NO=PA.PAINT_NO) where O.user_id=?";
+		String query = "SELECT PA.PAINT_NO,PA.PAINT_NAME,P.PQUESTION,P.PQ_DATE,P.PQ_YN \r\n" + 
+				"FROM PAINT_Q P \r\n" + 
+				"LEFT JOIN PAINT PA ON (P.PAINT_NO=PA.PAINT_NO) \r\n" + 
+				"LEFT JOIN MEMBER M ON (P.USER_ID= M.USER_ID)\r\n" + 
+				"WHERE M.USER_ID =?";
 		
 		
 		try {
@@ -29,7 +30,7 @@ public class QnaDao {
 			rset=pstmt.executeQuery();
 			
 			while(rset.next()) {
-				Qna qna = new Qna(rset.getString("order_no"),
+				Qna qna = new Qna(rset.getInt("paint_no"),
 								  rset.getString("paint_name"),
 								  rset.getString("pquestion"),
 								  rset.getDate("pq_date"),

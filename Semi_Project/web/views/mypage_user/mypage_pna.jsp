@@ -45,7 +45,7 @@
             <table style="width:100%" name="qna-list">
                 <thead>
                 <tr>
-                    <th>주문 번호</th>
+                    <th>상품 번호</th>
                     <th>상품명</th>
                     <th>문의</th>
                     <th>작성일</th>
@@ -57,7 +57,7 @@
                       <%if(!list.isEmpty()){ %>
 			  			<%for(Qna qna:list){ %>
 			    		<tr>
-			    			<td><%=qna.getOrderNo() %></td>
+			    			<td><%=qna.getPaintNo() %></td>
 			      			<td><%=qna.getPaintName()%></td>
 			      			<td><%=qna.getpQuestion()%></td>
 			      			<td><%=qna.getpQdate()%></td>

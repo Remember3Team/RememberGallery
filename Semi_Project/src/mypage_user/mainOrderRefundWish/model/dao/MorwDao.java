@@ -193,10 +193,10 @@ public class MorwDao {
 		
 		ArrayList<Morw> list = new ArrayList<>();
 		
-		String query = "SELECT B.BASKET_NO,P.PAINT_NO,P.PAINT_NAME,P.ARTIST_NAME,P.PAINT_PRICE " + 
+		String query = "SELECT B.BASKET_NO,P.PAINT_NO,P.PAINT_NAME,P.ARTIST_NAME,P.PAINT_PRICE,BUY_YN " + 
 				"FROM PAINT P " + 
 				"JOIN BASKET B ON (P.PAINT_NO=B.PAINT_NO) " + 
-				"WHERE USER_ID=?";
+				"WHERE USER_ID=? AND BUY_YN='N'";
 
 		
 		try {
@@ -209,12 +209,12 @@ public class MorwDao {
 								  rset.getInt("PAINT_NO"),
 								  rset.getString("PAINT_NAME"),
 								  rset.getString("ARTIST_NAME"),
-								  rset.getInt("PAINT_PRICE"));
+								  rset.getInt("PAINT_PRICE"),
+								  rset.getString("BUY_YN"));
 				
 				System.out.println("아티스트네임"+rset.getString("ARTIST_NAME"));
 				
 				list.add(m);
-				System.out.println("wishlist dao단 출력"+list);
 				
 			}
 			
@@ -226,6 +226,7 @@ public class MorwDao {
 			close(rset);
 		}
 		
+		System.out.println("wishlist dao단 출력"+list);
 		
 		return list;
 	}
@@ -256,12 +257,12 @@ public class MorwDao {
 		
 		ArrayList<Attachment> plist = new ArrayList<>();
 		
-		String query = "SELECT * FROM PAINT_PHOTO P JOIN BUY_LIST B ON (P.PAINT_NO = B.PAINT_NO) WHERE FILELEVEL=0 AND B.USER_ID = ?";
+		String query = "SELECT * FROM PAINT_PHOTO WHERE FILELEVEL=0";
 		
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, userId);
+//			pstmt.setString(1, userId);
 			
 			rset = pstmt.executeQuery();
 			
