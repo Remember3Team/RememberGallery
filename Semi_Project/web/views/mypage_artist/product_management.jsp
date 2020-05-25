@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "mypage_artist.management.model.vo.*, artistapply.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import = "mypage_artist.management.model.vo.*, artistapply.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList
+    , product.model.vo.*"%>
     <%
     	ArrayList<Mypage_artist> PM_list = (ArrayList<Mypage_artist>)request.getAttribute("PM_list");
+    	ArrayList<Attachment> alist = (ArrayList<Attachment>)request.getAttribute("alist");
     	PageInfo pi = (PageInfo)request.getAttribute("pi");
     	/* Apply aphoto = (Apply) request.getAttribute("aphoto"); */
     	
@@ -111,8 +113,8 @@
                 </tr>
                 <% for(Mypage_artist ma : PM_list){ %>
                 <tr>
-                    <td><%=ma.getPaint_no() %></td>
-                    <td><img src="<%=request.getContextPath() %>/views/img/2.jsp"></td>
+                    <td><%=ma.getPaint_no() %></td><% for(Attachment a : alist) {    if(ma.getPaint_no() == a.getPaint_no()){%>
+                    <td><img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>"></td><%}} %>
                     <td>작품명 : <%=ma.getPaint_name() %><br>
                     	  작가명 : <%=ma.getArtist_name() %></td>
                     <td><%=ma.getPaint_price() %></td>

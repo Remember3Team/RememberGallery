@@ -15,7 +15,8 @@ import board.notice.model.vo.PageInfo;
 import mypage_artist.RefundQnACard.model.service.ArtistService;
 import mypage_artist.management.model.service.Mypage_ArtistService;
 import mypage_artist.management.model.vo.Mypage_artist;
-
+import product.model.service.ProductService;
+import product.model.vo.Attachment;
 import member.model.vo.Member;
 
 /**
@@ -97,7 +98,8 @@ public class PMListServlet extends HttpServlet {
 				for(int i = 0 ; i < PM_list.size(); i++) {
 					System.out.println(PM_list.get(i));
 				}
-				
+				ProductService pService = new ProductService();
+				ArrayList<Attachment> alist = pService.selectAList(currentPage, limit);
 				// 프로필 사진 불러오기
 //				ArtistService aService1 = new ArtistService();
 //				
@@ -111,6 +113,7 @@ public class PMListServlet extends HttpServlet {
 				if(!PM_list.isEmpty()) {
 					view = request.getRequestDispatcher("views/mypage_artist/product_management.jsp");
 					request.setAttribute("PM_list", PM_list);
+					request.setAttribute("alist", alist);
 					request.setAttribute("pi", pi);
 				}else {
 //					view = request.getRequestDispatcher("views/common/errorPage.jsp");
