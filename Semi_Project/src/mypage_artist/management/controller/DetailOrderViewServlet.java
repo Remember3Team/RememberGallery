@@ -36,7 +36,7 @@ public class DetailOrderViewServlet extends HttpServlet {
 		
 		Mypage_ArtistService aService = new Mypage_ArtistService();
 		
-		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getUserId());
+		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getUserName());
 		int order_no = Integer.valueOf(request.getParameter("order_no"));
 		
 		System.out.println("주문번호" +order_no);

@@ -42,13 +42,15 @@
            </div>
             <div class="artist-btn" style = "display: inline-block; vertical-align: middle;
             ">
-                <button class="btn btn-outline-dark" style = "width:120px; display:block; margin-bottom:5px;" onclick="checkCard();">정보 수정</button>
+                <button class="btn btn-outline-dark" style = "width:120px; display:block; margin-bottom:5px;" onclick="updateInfo();">정보 수정</button>
                 <button class="btn btn-outline-dark" style = "width:120px; display:block;margin-top:5px;" onclick="checkCard();">감동 카드</button>
                 <script>
                 	function checkCard() {
-                		location.href = "<%= request.getContextPath() %>/list.ac"
-                			
-                			
+                		location.href = "<%= request.getContextPath() %>/list.ac"		
+                	}
+                	
+                	function updateInfo() {
+                		location.href = "<%=request.getContextPath()%>/mypage.me?userId=<%=loginUser.getUserId() %>"
                 	}
                 </script>
             </div>
@@ -105,7 +107,7 @@
                 <!-- <div><span>카드 내역</span></div> -->
                 <div class="button"><button class="btn btn-outline-dark" style = "width:120px;margin-bottom: 15px;" onclick="deleteCard()" >선택 삭제</button></div>
             </div>
-            <table style="width:100%" name="card-list">
+            <table style="width:100%; font-size:14px" name="card-list">
                 <tr>
                     <th><input type="checkbox" id = "check_all"></th>
                     <th style = "text-align : center;">상품 번호</th>
@@ -132,7 +134,8 @@
 					</td>
                     <td>작품명 : <%=m.getPaint_name()%></td>
                     <td><%=m.getUser_name()%></td>
-                    <td><%=m.getMessage()%></td>
+                    <td><textarea class = "question-area" readonly="readonly" style ="border-style:none; border-radius : 5px;
+       				padding : 10px; width : 320px; background:#f8f9fc; resize:none;"><%=m.getMessage()%></textarea></td>
                 </tr>
 			<%} %>
             </table>

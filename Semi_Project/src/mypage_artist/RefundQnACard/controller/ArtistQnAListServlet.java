@@ -46,11 +46,11 @@ public class ArtistQnAListServlet extends HttpServlet {
 				ArtistService aService = new ArtistService();
 				
 				// 작가 이름 가져오기
-				Member m = aService.selectMember(artistId);
-				String artistName = m.getUserName();
+				String name = (((Member) request.getSession().getAttribute("loginUser")).getUserName());
+				System.out.println(name);
 				
 			
-				int listCount = aService.getQnAListCount(artistName);
+				int listCount = aService.getQnAListCount(name);
 				
 				// ---------- 페이징 처리 추가 ---------------
 				int currentPage;		// 현재 페이지를 저장할 변수
@@ -69,7 +69,7 @@ public class ArtistQnAListServlet extends HttpServlet {
 				}
 				
 				// * limit - 한 페이지에 보여질 목록 갯수
-				limit = 10;
+				limit = 5;
 				
 				// * maxPage - 총 페이지 수
 				maxPage = (int)((double)listCount/limit + 0.9);
@@ -80,7 +80,7 @@ public class ArtistQnAListServlet extends HttpServlet {
 				// * endPage - 현재 페이지에 보여질 마지막 페이지 수
 				endPage = startPage + limit - 1;
 				
-				// maxPage(총 페이지 수)가 endPage보다 작을 경우
+				// maxPage(총 페이지 수)가 endPage 보다 작을 경우
 				if(maxPage < endPage) {
 					endPage = maxPage;
 				}
@@ -92,12 +92,12 @@ public class ArtistQnAListServlet extends HttpServlet {
 				
 				// qna 게시판 리스트 조회해오기
 				
-				ArrayList<QnA_Q> qnalist = aService.selectQnAList(artistName, currentPage, limit);
+				ArrayList<QnA_Q> qnalist = aService.selectQnAList(name, currentPage, limit);
 				for(int i = 0 ; i < qnalist.size(); i++) {
 					System.out.println(qnalist.get(i));
 				}
 				
-				ArrayList<Attachment> alist = aService.selectQpList(artistName, currentPage, limit);
+				ArrayList<Attachment> alist = aService.selectQpList(name, currentPage, limit);
 				
 				for(int i = 0 ; i <alist.size(); i++) {
 					System.out.println(alist.get(i));
@@ -117,7 +117,8 @@ public class ArtistQnAListServlet extends HttpServlet {
 					request.setAttribute("pi", pi);
 					request.setAttribute("aphoto", aphoto);
 				}else {
-					System.out.println("조회 실패");
+					view = request.getRequestDispatcher("views/common/errorPage.jsp");
+				    request.setAttribute("msg","문의 받은 내역이 없습니다.");
 				}
 				
 				view.forward(request, response);

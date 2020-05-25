@@ -29,7 +29,7 @@ public class Mypage_artist implements Serializable{
 	private String order_phone;		//입금자연락처
 	
 	private String rec_name;				//수령인
-	private String rec_list;				//배송지
+	private String rec_add;				//배송지
 	private String rec_message;		//판매자에게 전할 말
 	
 	private Date ship_date	;				//배송일
@@ -42,10 +42,10 @@ public class Mypage_artist implements Serializable{
 		this.user_id = user_id;
 	}
 	
-	public Mypage_artist(int paint_no, String rec_name, String rec_list, String rec_message) {
+	public Mypage_artist(int paint_no, String rec_name, String rec_add, String rec_message) {
 		super();
 		this.rec_name = rec_name;
-		this.rec_list = rec_list;
+		this.rec_add = rec_add;
 		this.rec_message = rec_message;
 	}
 
@@ -54,6 +54,19 @@ public class Mypage_artist implements Serializable{
 		this.order_name = order_name;
 		this.pay_type = pay_type;
 		this.order_phone = order_phone;
+	}
+
+	
+	public Mypage_artist(int order_no, String afile, String paint_name, String artist_name,   Date order_date,
+			Date ship_date, String order_status) {
+		super();
+		this.paint_name = paint_name;
+		this.artist_name = artist_name;
+		this.afile = afile;
+		this.order_no = order_no;
+		this.order_date = order_date;
+		this.ship_date = ship_date;
+		this.order_status = order_status;
 	}
 
 	public Mypage_artist(int paint_no, String afile, String paint_name, String artist_name, int paint_price ) {
@@ -96,7 +109,7 @@ public class Mypage_artist implements Serializable{
 
 	public Mypage_artist(int paint_no, String paint_name, int patint_price, String category, String artist_name,
 			String paint_int, String paint_mdate, String user_id, int afile_no, String afile, int order_no,
-			String order_name, String pay_type, String order_phone, String rec_name, String rec_list,
+			String order_name, String pay_type, String order_phone, String rec_name, String rec_add,
 			String rec_message, Date ship_date, String order_status) {
 		super();
 		this.paint_no = paint_no;
@@ -114,7 +127,7 @@ public class Mypage_artist implements Serializable{
 		this.pay_type = pay_type;
 		this.order_phone = order_phone;
 		this.rec_name = rec_name;
-		this.rec_list = rec_list;
+		this.rec_add = rec_add;
 		this.rec_message = rec_message;
 		this.ship_date = ship_date;
 		this.order_status = order_status;
@@ -218,11 +231,11 @@ public class Mypage_artist implements Serializable{
 	public void setRec_name(String rec_name) {
 		this.rec_name = rec_name;
 	}
-	public String getRec_list() {
-		return rec_list;
+	public String getRec_add() {
+		return rec_add;
 	}
-	public void setRec_list(String rec_list) {
-		this.rec_list = rec_list;
+	public void setRec_add(String rec_add) {
+		this.rec_add = rec_add;
 	}
 	public String getRec_message() {
 		return rec_message;
@@ -248,7 +261,7 @@ public class Mypage_artist implements Serializable{
 				+ ", category=" + category + ", artist_name=" + artist_name + ", paint_int=" + paint_int
 				+ ", paint_mdate=" + paint_mdate + ", user_id=" + user_id + ", afile_no=" + afile_no + ", afile="
 				+ afile + ", order_no=" + order_no + ", order_name=" + order_name + ", pay_type=" + pay_type
-				+ ", order_phone=" + order_phone + ", rec_name=" + rec_name + ", rec_list=" + rec_list
+				+ ", order_phone=" + order_phone + ", rec_name=" + rec_name + ", rec_add=" + rec_add
 				+ ", rec_message=" + rec_message + ", ship_date=" + ship_date + ", order_status=" + order_status + "]";
 	}
 	

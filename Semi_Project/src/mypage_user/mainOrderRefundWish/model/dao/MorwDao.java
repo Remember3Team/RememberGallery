@@ -93,6 +93,15 @@ public class MorwDao {
 		
 		ArrayList<Morw> list = new ArrayList<>();
 		
+<<<<<<< HEAD
+=======
+		String query ="SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS " + 
+				"FROM ORDER_TABLE O " + 
+				"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO) " + 
+				"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO) " + 
+				"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO) " + 
+				"WHERE O.USER_ID=? AND PP.FILELEVEL = 0 ORDER BY O.ORDER_NO DESC";
+>>>>>>> refs/remotes/origin/master
 		
 		String whereSql = "";
 		if(whereSql.equals(searchStatus)){

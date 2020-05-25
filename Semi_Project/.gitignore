@@ -1,4 +1,8 @@
 .classpath
 context.xml
 /classes/
+<<<<<<< HEAD
 .settings/
+=======
+.settings/
+>>>>>>> refs/remotes/origin/master

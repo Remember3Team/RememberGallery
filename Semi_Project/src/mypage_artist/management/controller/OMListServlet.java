@@ -92,9 +92,9 @@ public class OMListServlet extends HttpServlet {
 				
 				// 1_2. 게시판 리스트 조회해오기
 				ArrayList<Mypage_artist> OM_list = aService.selectList_OM(currentPage, limit, bWriter);
-//				for(int i = 0 ; i < list.size(); i++) {
-//					System.out.println(list.get(i));
-//				}
+				for(int i = 0 ; i < OM_list.size(); i++) {
+					System.out.println(OM_list.get(i));
+				}
 				
 				// 프로필 사진 불러오기
 //				ArtistService aService1 = new ArtistService();
