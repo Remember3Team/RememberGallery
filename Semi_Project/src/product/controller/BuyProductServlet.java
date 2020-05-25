@@ -37,7 +37,7 @@ public class BuyProductServlet extends HttpServlet {
 		
 		ProductService pService = new ProductService();
 		
-		int paint_no = Integer.valueOf(request.getParameter("paint_no"));
+		int paint_no = Integer.valueOf(request.getParameter("paint_no"));//paint_no 가져옴.
 		System.out.println(paint_no);
 		
 		product po = new product();
@@ -48,6 +48,7 @@ public class BuyProductServlet extends HttpServlet {
 		at = pService.selectAttachment(paint_no);
 		System.out.println(at);
 		
+
 		RequestDispatcher view = null;
 		
 		if(po !=null) {

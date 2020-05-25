@@ -16,16 +16,17 @@ public class product {
 	
 	private int afile_no;		//첨부사진번호
 	private String afile;		//첨부파일
-	private String filepath; 	//
+	private String filepath; 	//사진경로
 	
 	private String tag_name; 	//테그명
 	private String pId;			//판매자 아이디
+	
 	
 	public product() {
 		
 	}
 
-	
+
 	public product(String paint_name, int patint_price) {
 		super();
 		this.paint_name = paint_name;
