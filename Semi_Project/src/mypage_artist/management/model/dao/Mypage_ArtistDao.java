@@ -348,16 +348,15 @@ public class Mypage_ArtistDao {
 			ArrayList<Mypage_artist> search_list = new ArrayList<>();
 			Mypage_artist myart  =new Mypage_artist();
 			
-			if(order_status.isEmpty() && term.isEmpty() && (calendar1.isEmpty() || calendar2.isEmpty())) {
-				String query = "SELECT * FROM BUY_LIST BL \r\n" + 
+			if(order_status.isEmpty() && term == null && (calendar1.isEmpty() || calendar2.isEmpty())) {
+				String query = "SELECT order_no, afile, paint_name, artist_name, paint_price, order_status FROM BUY_LIST BL\r\n" + 
 						"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
 						"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
-						"WHERE USER_ID = ? AND ORDER_STATUS = ?";
+						"WHERE artist_name = ? and filelevel = 0";
 				
 				try {
 					pstmt = conn.prepareStatement(query);
 					pstmt.setString(1, bWriter);
-					pstmt.setString(2, order_status);
 					
 					rset = pstmt.executeQuery();
 					
@@ -411,10 +410,10 @@ public class Mypage_ArtistDao {
 				}
 			}
 			else if(order_status.isEmpty() && (calendar1.isEmpty() || calendar2.isEmpty())) {
-				String query = "SELECT * FROM BUY_LIST BL \r\n" + 
+				String query = "SELECT order_no, afile, paint_name, artist_name, paint_price, order_status FROM BUY_LIST BL\r\n" + 
 						"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
 						"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
-						"WHERE USER_ID = ? AND ORDER_DATE  BETWEEN (SYSDATE -?) AND (SYSDATE)";
+						"WHERE artist_name = ? and order_date between (sysdate - ?) and (sysdate) and filelevel = 0";
 				
 				try {
 					pstmt = conn.prepareStatement(query);
@@ -443,10 +442,10 @@ public class Mypage_ArtistDao {
 				
 			}
 			else if(order_status.isEmpty() && term.isEmpty()) {
-				String query = "SELECT * FROM BUY_LIST BL \r\n" + 
+				String query = "SELECT order_no, afile, paint_name, artist_name, paint_price, order_status FROM BUY_LIST BL\r\n" + 
 						"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
 						"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
-						"WHERE USER_ID = ? AND ORDER_DATE  BETWEEN ? AND ?";
+						"WHERE artist_name = ? and order_date between ? and ? and filelevel = 0";
 				
 				try {
 					pstmt = conn.prepareStatement(query);
@@ -476,10 +475,10 @@ public class Mypage_ArtistDao {
 				
 			}
 			else if(calendar1.isEmpty() || calendar2.isEmpty()) {
-				String query ="SELECT * FROM BUY_LIST BL \r\n" + 
+				String query ="SELECT order_no, afile, paint_name, artist_name, paint_price, order_status FROM BUY_LIST BL\r\n" + 
 						"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
 						"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
-						"WHERE USER_ID = ? AND ORDER_STATUS = ? AND ORDER_DATE  BETWEEN (SYSDATE -?) AND (SYSDATE)";
+						"WHERE artist_name = ? and order_status = ? and order_date between (sysdate - ?) and (sysdate) and filelevel = 0";
 				
 				try {
 					pstmt = conn.prepareStatement(query);
@@ -509,10 +508,10 @@ public class Mypage_ArtistDao {
 				
 			}
 			else if(order_status.isEmpty()) {
-				String query = "SELECT *  FROM BUY_LIST BL \r\n" + 
+				String query = "SELECT order_no, afile, paint_name, artist_name, paint_price, order_status FROM BUY_LIST BL\r\n" + 
 						"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
 						"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
-						"WHERE USER_ID = ? AND ORDER_DATE  BETWEEN ? AND ?";
+						"WHERE artist_name = ? and order_date between ? and ? and filelevel = 0";
 				
 				try {
 					pstmt = conn.prepareStatement(query);
@@ -542,10 +541,10 @@ public class Mypage_ArtistDao {
 				
 				
 			}else if(term.isEmpty()) {
-				String query = "SELECT * FROM BUY_LIST BL \r\n" + 
+				String query = "SELECT order_no, afile, paint_name, artist_name, paint_price, order_status FROM BUY_LIST BL\r\n" + 
 						"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
 						"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
-						"WHERE USER_ID = ? AND ORDER_STATUS = ? AND ORDER_DATE  BETWEEN ? AND ?";
+						"WHERE artist_name = ? and order_status=? and order_date between ? and ? and filelevel = 0";
 				
 				try {
 					pstmt = conn.prepareStatement(query);
@@ -574,10 +573,10 @@ public class Mypage_ArtistDao {
 					close(pstmt);
 				}
 			}else {
-				String query = "SELECT * FROM BUY_LIST BL \r\n" + 
+				String query = "SELECT order_no, afile, paint_name, artist_name, paint_price, order_status FROM BUY_LIST BL\r\n" + 
 						"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
 						"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
-						"WHERE USER_ID = ? AND ORDER_STATUS = ? AND ORDER_DATE  BETWEEN ? AND ?";
+						"WHERE artist_name = ? and order_status=? and order_date between ? and ? and filelevel = 0";
 				
 				try {
 					pstmt = conn.prepareStatement(query);
