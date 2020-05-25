@@ -1,6 +1,7 @@
 package mypage_user.mainOrderRefundWish.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +14,16 @@ import mypage_user.mainOrderRefundWish.model.service.MorwService;
 import mypage_user.mainOrderRefundWish.model.vo.Morw;
 
 /**
- * Servlet implementation class OrderServlet
+ * Servlet implementation class RefundApplyServlet
  */
-@WebServlet("/Mo.litwo")
-public class OrderServlet extends HttpServlet {
+@WebServlet("/Mo.lithree")
+public class RefundApplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OrderServlet() {
+    public RefundApplyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,8 +32,8 @@ public class OrderServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/* doGet(request, response); */
-		
+		 
+	
 	}
 
 	/**
@@ -41,35 +42,26 @@ public class OrderServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		System.out.println("!!!!!!!!!!!!!!!!!!AJAX 서블릿!!!!!!!!!!!!!!!!!!!!!");
 		
-		//화면에서 전달한 order_no parmeter 받기
-		String param = request.getParameter("order_no");
+		HttpSession session = request.getSession(); 
+		Member loginMember = (Member)session.getAttribute("loginUser");
 		
+		String orderNo = request.getParameter("order_no");
+		int paintNo = Integer.valueOf(request.getParameter("paint_no"));
+		String refundName = request.getParameter("refund_name");
+		String selectBank= request.getParameter("select_bank");
+		String account = request.getParameter("account");
+		String refundReason = request.getParameter("refund_reason");
 		
+	
+		 
 		MorwService mService = new MorwService();
 		
-		//상태 업데이트 메소드 실행
-		mService.updateStatus(param);
-		
-		HttpSession session = request.getSession();
-		Member loginMember = (Member) session.getAttribute("loginUser");
-		
-		
-		//insert 작업을 위한 화면에서  전달한 message prameter 받기
-		int paintNo = Integer.valueOf(request.getParameter("paint_no"));
-		String orderNo = request.getParameter("order_no");
-		String message = request.getParameter("message");
-		String paintName = request.getParameter("paint_name");
-		String artistName = request.getParameter("artist_name");
-		
-		System.out.println("나는 서블릿 단이다"+param+paintNo);
-		System.out.println("ㄴㅏ는 서블릿"+message+paintName+artistName);
-		
-
-		
-		//메세지 인서트 메소드 실행
-		int result = mService.insertMessage(new Morw(param,paintNo,loginMember.getUserId(),message,paintName,artistName));
+		//환불신청으로 orderstauts 바꾸는 메소드
+		mService.updateStatus2(orderNo);
+		 
+		//환불 인서트 업데이트 메소드 실행
+		 int result = mService.insertRefund(new Morw(orderNo,paintNo,loginMember.getUserId(),refundReason,refundName,account,selectBank));
 		
 		
 	}

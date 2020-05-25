@@ -24,11 +24,11 @@
 
 <script type="text/javascript">
 
-$("document").ready(function(){
-	$("#input[name=check]:checkbox").click(function(){
-		totalPrice();
-	});
-});
+// $("document").ready(function(){
+// 	$("#input[name=check]:checkbox").click(function(){
+// 		totalPrice();
+// 	});
+// });
 
 // BASKET_NO 를 일정한 형식으로 담을 변수
 var arrayList = '';
@@ -70,7 +70,7 @@ function deleteBasket(){
 		var param = "basket_no="+encodeURIComponent(arrayList); 
 		$.ajax({
 			type: "POST",
-			url: "list.ar",
+			url: "Wishlist",
 			data: param,
 			success: function(ret){
 				// 현재 페이지 새로고침
@@ -103,6 +103,47 @@ function totalPrice(){
 	
 }
 
+function productBuy(paintName,paintNo,paintPrice){
+
+
+	//문제없이 매개변수받아서 찍음
+	var paint_name = paintName;
+	var paint_no = paintNo;
+	var paint_price = paintPrice;
+		
+ 	$("#buy_paint_name").val(paint_name);
+ 	$("#buy_paint_no").val(paint_no);
+ 	$("#buy_paint_price").val(paint_price);
+	
+	var b_paint_name = $("#buy_paint_name").val();
+	var b_paint_no = $("#buy_paint_no").val();
+	var b_paint_price = $("#buy_paint_price").val();
+	
+	
+// 	//값 잘들어가서 콘솔에서 b_paint_name이하 잘찍어냄
+	
+	 var data = {
+				//문자열로 넣어주면 키가됨!!!!!!!
+				'paint_name' : b_paint_name,
+				'paint_no' : b_paint_no,
+				'paint_price' :  b_paint_price};
+	
+// 	console.log(data);
+	 $.ajax({
+		  type: "POST",
+		  url: "Buy.po",
+		  data: data,
+		  success: function(){
+				
+		},
+		  error:function(e){
+			  alert("ajax 실패");
+		  }
+		
+		});
+	
+	
+}
 
 
 </script>
@@ -136,6 +177,7 @@ function totalPrice(){
                 	<th>그림</th>
                     <th>상품정보</th>
                     <th>금액</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -156,6 +198,10 @@ function totalPrice(){
 			      			<td><%=nf.format(m.getPaintPrice())%>
 			      				<input type="hidden" name="price" value="<%=m.getPaintPrice() %>" />
 			      			</td>
+			      			<td><a href="javascript: productBuy('<%=m.getPaintName()%>','<%=m.getPaintNo() %>','<%=m.getPaintPrice() %>')" id="productBuy" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true">주문하기</a></td>
+			    			<input type="hidden" id="buy_paint_name">
+			    			<input type="hidden" id="buy_paint_no">
+			    			<input type="hidden" id="buy_paint_price">
 			    		</tr>
 			    		<%} %>
 			    	<%} else{%>
@@ -173,9 +219,9 @@ function totalPrice(){
       <br>
       <br>
       <button type="submit" class="btn btn-dark" style="width:100px"><a href="<%= request.getContextPath() %>/views/product/product.jsp">쇼핑 계속하기</a></button>
-      <button type="submit" class="btn btn-dark" style="width:100px" onclick="javascript: deleteBasket();">선택상품 삭제</button>
-      <button type="submit" class="btn btn-dark" style="width:100px; float:right;">선택상품 주문</button>
-      <button type="submit" class="btn btn-dark" style="width:100px; float:right; margin-right: 4px;">전체상품 주문</button>
+      <button type="submit" class="btn btn-dark" style="width:100px; float:right;"onclick="javascript: deleteBasket();">선택상품 삭제</button>
+<!--       <button type="submit" class="btn btn-dark" style="width:100px; float:right;">선택상품 주문</button> -->
+<!--       <button type="submit" class="btn btn-dark" style="width:100px; float:right; margin-right: 4px;">전체상품 주문</button> -->
     </div>
 	<br>
 	<br>

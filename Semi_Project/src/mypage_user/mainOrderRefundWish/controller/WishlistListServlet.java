@@ -61,6 +61,12 @@ public class WishlistListServlet extends HttpServlet {
 			request.setAttribute("list", list);
 			request.setAttribute("plist", plist);
 			view = request.getRequestDispatcher("views/mypage_user/mypage_wishlist.jsp");
+		}else {
+			list = new ArrayList<Morw>();
+			plist = new ArrayList<Attachment>();
+			request.setAttribute("list", list);
+			request.setAttribute("plist", plist);
+			view = request.getRequestDispatcher("views/mypage_user/mypage_wishlist.jsp");
 		}
 		view.forward(request,response);
 	}

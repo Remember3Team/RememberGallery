@@ -280,10 +280,21 @@ function execDaumPostcode2() {
 
 <div style="margin-left:10px; width:300px">
 <button type="submit" class="btn btn-dark btn-sm" style=" width:300px;"> 주문하기</button> <br><br>
-<button type="reset" class="btn btn-dark btn-sm" style=" width:300px;"> 취소</button> 
+<button type="button" class="btn btn-dark btn-sm buycancel" style=" width:300px;"> 취소</button> 
 </div>
 </form>
-
+<script>
+$(function(){
+		$(".buycancel").click(function(){
+			
+			location.href="<%=request.getContextPath()%>/index.jsp";
+				
+		});
+		
+	});
+	
+	
+</script>
 </div>
 <br clear="both"><br>
 <%@include file="../common/footer.jsp" %>

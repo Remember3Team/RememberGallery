@@ -41,23 +41,25 @@ public class MainOrderListservlet extends HttpServlet {
 		//로그인세션
 		HttpSession session = request.getSession();
 		Member loginMember = (Member) session.getAttribute("loginUser");
-		System.out.println(loginMember);
+		
+		String searchStatus = request.getParameter("search_status");
+		String term = request.getParameter("term");
+		String calendar = request.getParameter("calendar");
+		String calendar2 = request.getParameter("calendar2");
+		
+		
+		String statusSQL = "WHERE B.ORDER_NO="+searchStatus;
+		String termSQL = "WHERE B.ORDER_DATE<"+term;
+		String calSQL = "WHERE B.ORDER_DATE BETWEEN"+calendar+"AND"+calendar2;
+		
 		
 		MorwService mService = new MorwService();
 		
-		System.out.println("서블릿 이동 확인");
-		
-		ArrayList<Morw> list = mService.selectList(loginMember.getUserId());
-		
-		for(int i = 0; i<list.size(); i++) {
-			System.out.println("서블렛단의 list" +list.get(i));
-		}
-		
+//		ArrayList<Morw> list = mService.selectList(loginMember.getUserId());
+		ArrayList<Morw> list = mService.selectList(loginMember.getUserId(),searchStatus,term,calendar,calendar2);
 		ArrayList<Attachment> plist = mService.selectPList(loginMember.getUserId());
 		
-		for(int i = 0; i<plist.size(); i++) {
-			System.out.println("서블렛 단의 plist" + plist.get(i));
-		}
+		
 		//System.out.println("testsssss");
 		RequestDispatcher view = null;
 		
@@ -87,41 +89,23 @@ public class MainOrderListservlet extends HttpServlet {
 		// TODO Auto-generated method stub
         doGet(request, response); 
 		
-		 System.out.println("!!!!!!!!!!!!!!!!!!AJAX 서블릿!!!!!!!!!!!!!!!!!!!!!");
 		 
 		 //화면에서 전달한 order_no parmeter 받기 
 		 String param = request.getParameter("order_no");
 		 
-		  MorwService mService = new MorwService();
+		 
+		 
+		 MorwService mService = new MorwService();
 		 
 		 //상태 업데이트 메소드 실행
 		 mService.updateStatus(param);
+		 
+		 
+		
+ 		
+		
+		
 		  
-//		 HttpSession session = request.getSession(); Member loginMember = (Member)
-//		 session.getAttribute("loginUser");
-//		 
-//		 //insert 작업을 위한 화면에서 전달한 message prameter 받기
-//		 int paintNo =Integer.valueOf(request.getParameter("paintNo")); 
-//		 String message = request.getParameter("message"); 
-//		 String paintName =request.getParameter("paintName"); 
-//		 String artistName =request.getParameter("artistName");
-//		  
-//		 System.out.println("나는 서블릿 단이다"+param+paintNo);
-//		 System.out.println("ㄴㅏ는 서블릿"+message+paintName+artistName);
-//		  
-//		 ArrayList<Morw> mlist = new ArrayList<Morw>(); 
-//		 mlist.add(new Morw(param,paintNo,loginMember.getUserId(),message,paintName,artistName)); //
-//		 
-//		 //메세지 인서트 메소드 실행 
-//		 int result = mService.insertMessage(new Morw(param,paintNo,loginMember.getUserId(),message,paintName,artistName));
-//		 
-//		 if(result>0) { response.
-//		 sendRedirect("<%=request.getContextPath() %>/views/mypage_user/mypage_order.jsp"
-//		 ); 
-//		 }
-		
-
-		
 		
 	}
 
