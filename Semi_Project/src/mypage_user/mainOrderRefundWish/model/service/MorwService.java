@@ -4,12 +4,14 @@ import static common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import mypage_artist.management.model.dao.Mypage_ArtistDao;
 import mypage_user.mainOrderRefundWish.model.dao.MorwDao;
 import mypage_user.mainOrderRefundWish.model.vo.Morw;
 import product.model.vo.Attachment;
 
 public class MorwService {
 
+	
 	public int getListCount() {
 		Connection conn = getConnection();
 		
@@ -30,19 +32,19 @@ public class MorwService {
 		close(conn);
 		return list;
 	}
-	
-	public ArrayList<Morw> selectList(String userId, String searchStatus) {
-		
-		Connection conn = getConnection();
-		
-		ArrayList<Morw> list = new MorwDao().selectList(conn,userId,searchStatus);
-		//BoardDao를 가서 selectList메소드 구현하기
-		
-		
-		close(conn);
-		return list;
-		
-	}
+//	
+//	public ArrayList<Morw> selectList(String userId, String searchStatus) {
+//		
+//		Connection conn = getConnection();
+//		
+//		ArrayList<Morw> list = new MorwDao().selectList(conn,userId,searchStatus);
+//		//BoardDao를 가서 selectList메소드 구현하기
+//		
+//		
+//		close(conn);
+//		return list;
+//		
+//	}
 
 
 	public ArrayList<Morw> refundList(String user_id) {
@@ -137,15 +139,15 @@ public class MorwService {
 		
 	}
 
+	public int countSelectList(String userId) {
 	
+		Connection conn = getConnection();
+		
+		int listCount = new MorwDao().countSelectList(conn,userId );
+		
+		close(conn);
+		
+		return listCount;
 
-	
-	
-
-
-	
-
-	
-
-	
+	}
 }

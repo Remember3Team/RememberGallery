@@ -41,110 +41,108 @@ public class MorwDao {
 		return listCount;
 	}
 	
-//	public ArrayList<Morw> selectList(Connection conn,String user_id) {
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		
-//		ArrayList<Morw> list = new ArrayList<>();
-//		
-//		String query ="SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS " + 
-//				"FROM ORDER_TABLE O " + 
-//				"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO) " + 
-//				"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO) " + 
-//				"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO) " + 
-//				"WHERE O.USER_ID=? ORDER BY O.ORDER_NO DESC";
-//		
-//		
-//		try {
-//			pstmt = conn.prepareStatement(query);
-//			pstmt.setString(1, user_id);
-//
-//			
-//			
-//			rset = pstmt.executeQuery();
-//			
-//			while(rset.next()) {
-//				Morw m = new Morw(rset.getString("order_no"),
-//									rset.getInt("paint_no"),
-//									rset.getString("afile"),
-//									rset.getString("paint_name"),
-//									rset.getString("ARTIST_NAME"),
-//									rset.getInt("paint_price"),
-//									rset.getDate("order_date"),
-//									rset.getString("order_status"));
-//				list.add(m);
-//			}
-//			
-//			
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			close(rset);
-//			close(pstmt);
-//		}
-//		
-//		return list;
-//	}
-
-
-	public ArrayList<Morw> selectList(Connection conn, String userId, String searchStatus) {
+	public ArrayList<Morw> selectList(Connection conn,String user_id) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		ArrayList<Morw> list = new ArrayList<>();
 		
-<<<<<<< HEAD
-=======
 		String query ="SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS " + 
 				"FROM ORDER_TABLE O " + 
 				"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO) " + 
 				"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO) " + 
 				"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO) " + 
-				"WHERE O.USER_ID=? AND PP.FILELEVEL = 0 ORDER BY O.ORDER_NO DESC";
->>>>>>> refs/remotes/origin/master
+				"WHERE O.USER_ID=? ORDER BY O.ORDER_NO DESC";
 		
-		String whereSql = "";
-		if(whereSql.equals(searchStatus)){
-		whereSql += " AND ORDER_STATUS='"+searchStatus+"' ";
 		
-		}
-		
-			// 조건없이 순수 조회일 떄
-			String query ="SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS " + 
-					"FROM ORDER_TABLE O " + 
-					"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO) " + 
-					"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO) " + 
-					"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO) " + 
-					"WHERE O.USER_ID=?"+whereSql+" ORDER BY O.ORDER_NO DESC";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, user_id);
+
 			
-			try {
-				pstmt = conn.prepareStatement(query);
-				pstmt.setString(1, userId);
-				rset = pstmt.executeQuery();
-				
-				while(rset.next()) {
-					Morw m = new Morw(rset.getString("order_no"),
-							rset.getInt("paint_no"),
-							rset.getString("afile"),
-							rset.getString("paint_name"),
-							rset.getString("ARTIST_NAME"),
-							rset.getInt("paint_price"),
-							rset.getDate("order_date"),
-							rset.getString("order_status"));
-					list.add(m);
-				}
-				
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				close(rset);
-				close(pstmt);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Morw m = new Morw(rset.getString("order_no"),
+									rset.getInt("paint_no"),
+									rset.getString("afile"),
+									rset.getString("paint_name"),
+									rset.getString("ARTIST_NAME"),
+									rset.getInt("paint_price"),
+									rset.getDate("order_date"),
+									rset.getString("order_status"));
+				list.add(m);
 			}
 			
-			return list;
 			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
+
+
+//	public ArrayList<Morw> selectList(Connection conn, String userId, String searchStatus) {
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		
+//		ArrayList<Morw> list = new ArrayList<>();
+//
+//		String query ="SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS " + 
+//				"FROM ORDER_TABLE O " + 
+//				"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO) " + 
+//				"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO) " + 
+//				"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO) " + 
+//				"WHERE O.USER_ID=? AND PP.FILELEVEL = 0 ORDER BY O.ORDER_NO DESC";
+//
+//		
+//		String whereSql = "";
+//		if(whereSql.equals(searchStatus)){
+//		whereSql += " AND ORDER_STATUS='"+searchStatus+"' ";
+//		
+//		}
+//		
+//			// 조건없이 순수 조회일 떄
+//			String query ="SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS " + 
+//					"FROM ORDER_TABLE O " + 
+//					"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO) " + 
+//					"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO) " + 
+//					"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO) " + 
+//					"WHERE O.USER_ID=?"+whereSql+" ORDER BY O.ORDER_NO DESC";
+//			
+//			try {
+//				pstmt = conn.prepareStatement(query);
+//				pstmt.setString(1, userId);
+//				rset = pstmt.executeQuery();
+//				
+//				while(rset.next()) {
+//					Morw m = new Morw(rset.getString("order_no"),
+//							rset.getInt("paint_no"),
+//							rset.getString("afile"),
+//							rset.getString("paint_name"),
+//							rset.getString("ARTIST_NAME"),
+//							rset.getInt("paint_price"),
+//							rset.getDate("order_date"),
+//							rset.getString("order_status"));
+//					list.add(m);
+//				}
+//				
+//				
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			} finally {
+//				close(rset);
+//				close(pstmt);
+//			}
+//			
+//			return list;
+//			
+//	}
 
 
 	//환불
@@ -394,6 +392,40 @@ public class MorwDao {
 		}
 		
 		
+	}
+
+	public int countSelectList(Connection conn, String userId) {
+	
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "SELECT count(O.ORDER_NO)\r\n" + 
+				"FROM ORDER_TABLE O \r\n" + 
+				"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO)\r\n" + 
+				"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO) \r\n" + 
+				"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO) \r\n" + 
+				"WHERE O.USER_ID=?";
+		
+		int listCount = 0;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println("페이지네이션 가져와p"+listCount);
+		return listCount;
+
 	}
 
 	
