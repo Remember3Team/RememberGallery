@@ -859,7 +859,7 @@ public class ProductDao {
 		ResultSet rset = null;
 		int result =0;
 		
-		String query = "INSERT INTO BUY_LIST VALUES(SEQ_ORD.NEXTVAL,?,?,DEFAULT,NULL,DEFAULT,NULL,SYSDATE)";
+		String query = "INSERT INTO BUY_LIST VALUES(SEQ_ORD.NEXTVAL,?,?,DEFAULT,DEFAULT,DEFAULT,NULL,SYSDATE)";
 		try {
 			pstmt = conn.prepareStatement(query);
 			
