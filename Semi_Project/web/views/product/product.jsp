@@ -96,7 +96,7 @@
 				<tr>          
                     <td><b>작가 명</b><br><input type="text" class="form-control" id="aname" name="aname" style="width:200px; margin-left:150px;"></td>
                     <td><b>테마</b><br><select name="category" id="category" class="form-control" style="width:200px; margin-left:150px;">
-                    			<option value="" ></option>
+                    			<option value="테마를 선택하세요">테마를 선택하세요</option>
                                 <option value="인물">인물</option>
                                 <option value="풍경">풍경</option> 
                                 <option value="정물">정물</option>
