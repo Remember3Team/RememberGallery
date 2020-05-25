@@ -1024,5 +1024,28 @@ public class ProductDao {
 		return p;
 	}
 
+	public int updateBasket(Connection conn, int paint_no, String orderid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result= 0;
+		String query = "UPDATE BASKET SET BUY_YN='Y' WHERE  PAINT_NO=? AND USER_ID=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, paint_no);
+			pstmt.setString(2, orderid);
+			
+			result = pstmt.executeUpdate(); 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return result;
+	}
+
 
 }
