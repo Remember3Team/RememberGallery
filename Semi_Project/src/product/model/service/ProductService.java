@@ -76,6 +76,34 @@ public class ProductService {
 		close(conn);
 		return list;
 	}
+	public ArrayList<product> selectsearch2(product po) {
+		Connection conn = getConnection();
+
+		ArrayList<product> list = new ArrayList<product>();
+		list = new ProductDao().selectsearch2(conn,po);
+
+		close(conn);
+		return list;
+	}
+	public ArrayList<product> selectsearch3(product po) {
+		Connection conn = getConnection();
+
+		ArrayList<product> list = new ArrayList<product>();
+		list = new ProductDao().selectsearch3(conn,po);
+
+		close(conn);
+		return list;
+	}
+	public ArrayList<product> selectsearch4(product po) {
+		Connection conn = getConnection();
+
+		ArrayList<product> list = new ArrayList<product>();
+		list = new ProductDao().selectsearch4(conn,po);
+
+		close(conn);
+		return list;
+	}
+
 
 	public ArrayList<product> selectSearchTag(String[] tagname) {
 		Connection conn = getConnection();
@@ -104,6 +132,7 @@ public class ProductService {
 		close(conn);
 		return plist;
 	}
+	
 
 	public ArrayList<Attachment> selectAttachment(int paint_no) {
 		Connection conn = getConnection();
@@ -295,5 +324,12 @@ public class ProductService {
 		
 		return result2;
 	}
+
+	
+
+
+	
+
+
 
 }

@@ -37,12 +37,12 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		
 		Mypage_ArtistService aService = new Mypage_ArtistService();
 		
-		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getUserId());
+		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getUserName());
 		
 		
 		// 1_1. 게시판 리스트 갯수 구하기
-				int listCount = aService.getListCount(bWriter);
-				System.out.println(listCount);
+				int listCount_SM = aService.getListCount_SM(bWriter);
+				System.out.println(listCount_SM);
 		// 페이지 수 처리용 변수 선언
 				int currentPage;		// 현재 페이지를 저장할 변수
 				int limit;					// 한 페이지에 보여질 게시글 수
@@ -66,7 +66,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 				
 				// * maxPage - 총 페이지 수
 				// 목록 수가 123개이면 페이지 수는 13페이지가 됨
-				maxPage = (int)((double)listCount/limit + 0.9);
+				maxPage = (int)((double)listCount_SM/limit + 0.9);
 				
 				// * startPage - 현재 페이지에 보여질 시작 페이지 수
 				//  아래쪽에 페이지 수가 10개씩 보여지게 할 경우
@@ -87,7 +87,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 				
 				// 위에서 계산한 모든 페이지 관련 변수들을 PageInfo 클래스의
 				// 객체에 담자.(PageInfo클래스를 만들자)
-				PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage,
+				PageInfo pi = new PageInfo(currentPage, listCount_SM, limit, maxPage,
 						                   startPage, endPage);
 				
 				// 1_2. 게시판 리스트 조회해오기

@@ -13,7 +13,7 @@ public class QnA_Q implements Serializable {
 	private int rownum;
 	private int pq_no;			// 질문 번호
 	private String pquestion;	// 질문 내용
-	private Date pq_date;		// 질문 날짜
+	private String pq_date;		// 질문 날짜
 	private int paint_no;		// 작품 번호
 	private String user_id;		// 작성자 아이디
 	private String pq_yn;		// 처리 상태
@@ -27,7 +27,7 @@ public class QnA_Q implements Serializable {
 
 
 
-	public QnA_Q(int pq_no, String pquestion, Date pq_date, int paint_no, String user_id, String pq_yn,
+	public QnA_Q(int pq_no, String pquestion, String pq_date, int paint_no, String user_id, String pq_yn,
 			String paint_name) {
 		super();
 		this.pq_no = pq_no;
@@ -37,6 +37,18 @@ public class QnA_Q implements Serializable {
 		this.user_id = user_id;
 		this.pq_yn = pq_yn;
 		this.paint_name = paint_name;
+	}
+
+
+
+	public int getRownum() {
+		return rownum;
+	}
+
+
+
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
 	}
 
 
@@ -65,13 +77,13 @@ public class QnA_Q implements Serializable {
 
 
 
-	public Date getPq_date() {
+	public String getPq_date() {
 		return pq_date;
 	}
 
 
 
-	public void setPq_date(Date pq_date) {
+	public void setPq_date(String pq_date) {
 		this.pq_date = pq_date;
 	}
 
@@ -133,11 +145,11 @@ public class QnA_Q implements Serializable {
 
 	@Override
 	public String toString() {
-		return "QnA_Q [pq_no=" + pq_no + ", pquestion=" + pquestion + ", pq_date=" + pq_date + ", paint_no=" + paint_no
-				+ ", user_id=" + user_id + ", pq_yn=" + pq_yn + ", paint_name=" + paint_name + "]";
+		return "QnA_Q [rownum=" + rownum + ", pq_no=" + pq_no + ", pquestion=" + pquestion + ", pq_date=" + pq_date
+				+ ", paint_no=" + paint_no + ", user_id=" + user_id + ", pq_yn=" + pq_yn + ", paint_name=" + paint_name
+				+ "]";
 	}
-
 	
-
+	
 
 }

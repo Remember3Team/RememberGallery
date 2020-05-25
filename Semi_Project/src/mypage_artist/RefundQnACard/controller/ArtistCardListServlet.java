@@ -49,11 +49,11 @@ public class ArtistCardListServlet extends HttpServlet {
 				ArtistService aService = new ArtistService();
 				
 				// 작가 이름 가져오기
-				Member m = aService.selectMember(artistId);
-				String artistName = m.getUserName();
+				String name = (((Member) request.getSession().getAttribute("loginUser")).getUserName());
+				System.out.println(name);
 				
 				
-				int listCount = aService.getCardListCount(artistName);
+				int listCount = aService.getCardListCount(name);
 				
 				// ---------- 페이징 처리 추가 ---------------
 				int currentPage;		// 현재 페이지를 저장할 변수
@@ -72,7 +72,7 @@ public class ArtistCardListServlet extends HttpServlet {
 				}
 				
 				// * limit - 한 페이지에 보여질 목록 갯수
-				limit = 10;
+				limit = 5;
 				
 				// * maxPage - 총 페이지 수
 				// 목록 수가 123개이면 페이지 수는 13페이지가 됨
@@ -100,19 +100,19 @@ public class ArtistCardListServlet extends HttpServlet {
 						                   startPage, endPage);
 				
 				// 감동 메세지 게시판 리스트 조회해오기
-				ArrayList<Message> mlist = aService.selectCardList(artistName, currentPage, limit);
+				ArrayList<Message> mlist = aService.selectCardList(name, currentPage, limit);
 				for(int i = 0 ; i < mlist.size(); i++) {
 					System.out.println(mlist.get(i));
 				}
 				
-				ArrayList<Attachment> alist = aService.selectCAList(artistName, currentPage, limit);
+				ArrayList<Attachment> alist = aService.selectCAList(name, currentPage, limit);
 				for(int i = 0 ; i <alist.size(); i++) {
 					System.out.println(alist.get(i));
 				}
 				
 				// 프로필 사진 불러오기
 				Apply aphoto = aService.selectPhoto(artistId);
-				System.out.println(aphoto);
+				System.out.println("프로필 사진 : " + aphoto);
 				
 				// 화면단으로 넘겨주기
 				RequestDispatcher view = null;
@@ -123,7 +123,8 @@ public class ArtistCardListServlet extends HttpServlet {
 					request.setAttribute("pi", pi);
 					request.setAttribute("aphoto", aphoto);
 				}else {
-					System.out.println("조회 실패");
+					view = request.getRequestDispatcher("views/common/errorPage.jsp");
+				    request.setAttribute("msg","받은 카드가 없습니다.");
 				}
 				
 				view.forward(request, response);
