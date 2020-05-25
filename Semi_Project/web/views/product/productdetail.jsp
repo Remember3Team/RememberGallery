@@ -801,6 +801,7 @@ border: solid 1px;
 							var $contentTd =$('<td width = "350px" class = "question-box">').text(data[key].pqusetion);
 							var $dateTd = $("<td>").text(data[key].pq_date);
 						
+							
 							$replyTable.append($tr);
 							$tr.append($writerTd);
 							$tr.append($contentTd);
