@@ -51,7 +51,7 @@
 				style="display: inline-block; vertical-align: middle;">
 				<button class="btn btn-outline-dark"
 					style="width: 120px; display: block; margin-bottom: 5px;"
-					onclick="checkCard();">정보 수정</button>
+					onclick="updateInfo();">정보 수정</button>
 				<button class="btn btn-outline-dark"
 					style="width: 120px; display: block; margin-top: 5px;"
 					onclick="checkCard();">감동 카드</button>
@@ -62,7 +62,12 @@
                 		location.href = "<%= request.getContextPath() %>/list.ac"
                 			
                 	}
-                </script>
+                	
+                	function updateInfo() {
+                		location.href = "<%=request.getContextPath()%>/mypage.me?userId=<%=loginUser.getUserId() %>"
+                		
+                	}
+            </script>
 		</div>
 	</div>
 	<%@include file="../common/mypagehead.jsp"%>
@@ -108,11 +113,8 @@
 		</form>
 		<div class="refund-table">
 			<div class="table-headline">
-				<div>
-					<span>반품 / 환불 목록</span>
-				</div>
 				<button class="btn btn-outline-dark"
-					style="width: 120px; float: right;" onclick="refund(this);">환불
+					style="width: 120px; float: right; margin-bottom : 15px" onclick="refund(this);">환불
 					완료</button>
 			</div>
 
@@ -187,8 +189,7 @@
 
 			<table style="width: 100%" name="refund-list">
 				<tr>
-					<th style="text-align: center;"><input type="checkbox"
-						id="check_all"></th>
+					<th style="text-align: center;"><input type="checkbox" id="check_all"></th>
 					<th style="text-align: center;">주문 번호</th>
 					<th style="text-align: center;">이미지</th>
 					<th style="text-align: center;">상품 정보</th>
@@ -208,11 +209,12 @@
 						value="<%=b.getOrder_no() %>"></td>
 					<td><%=b.getOrder_no() %></td>
 					<td>
-						<% for(int j=0; j<alist.size(); j++){ 
-							Attachment a = alist.get(j); %> <% if(b.getPaint_no() == a.getPaint_no()) { %>
-						<img
-						src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>"
-						width="150px" height="150px"> <%} %> <%} %>
+						<% for(int j=0; j<alist.size(); j++){
+							Attachment a = alist.get(j); %>
+						<% if(b.getPaint_no() == a.getPaint_no()) { %>
+						<img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" width="150px" height="150px">
+						 <%} %>
+						<%} %>
 					</td>
 					<td>작품명 : <%=b.getPaint_name()%><br>작가명 : <%=b.getArtist_name()%>
 					</td>
@@ -233,7 +235,7 @@
 <div class = "p-parents">
 	<div class="pppp">
 			<%if (currentPage == 1) { %>
-            <a style = "color:#9c9c9c; "  disabled>Previous</a>
+            <a style = "color:#9c9c9c;" disabled>Previous</a>
             <%}else {%>
             <a class = "page-a" href="<%=request.getContextPath() %>/list.ar?currentPage=<%=currentPage - 1 %>" >Previous</a>
             <%} %>

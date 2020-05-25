@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+  
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,6 +27,13 @@
             <a href="#"><img src=""></a>    
             </div> <!--slide end-->      
         </div>
+        
+        <button class="btn btn-outline-dark" style=" width : 120px; height : 50px; margin-top: 10px;"
+			onclick= "location.href='<%=request.getContextPath()%>/view.ap'">sammy</button>
+		
+		
+			
+			
         <!--part1 end-->
 
         <div class="part2">
