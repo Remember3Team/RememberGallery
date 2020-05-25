@@ -1,10 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="mypage_user.mainOrderRefundWish.model.vo.*,product.model.vo.*, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import="mypage_user.mainOrderRefundWish.model.vo.*,product.model.vo.*, board.notice.model.vo.PageInfo,java.util.ArrayList"%>
     
 <%
 	
 	ArrayList<Morw> list = ((ArrayList<Morw>)request.getAttribute("list"));
 	ArrayList<Attachment> plist = (ArrayList<Attachment>) request.getAttribute("plist");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+    int currentPage = pi.getCurrentPage();
+    int maxPage = pi.getMaxPage();
+    int startPage = pi.getStartPage();
+    int endPage = pi.getEndPage();
 	 
 %>
 <!DOCTYPE html>
@@ -341,6 +348,46 @@ function submit(){
    
       <br>
       <br>
+      <br clear="both"><br>
+      <!--  페이징 처리 시작! -->
+      <div class="pageingArea" align="center">
+      <!-- 맨 처음으로 (<<) -->
+      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/Mo.li?currentPage=1'"> << </button>
+      
+      <!-- 이전 페이지로(<) -->
+      <%if(currentPage <= 1) {%>
+      <button class="btn btn-secondary" disabled> < </button>
+      <%}else{ %>
+      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/Mo.li?currentPage=<%=currentPage-1 %>'"> < </button>
+       <%} %>
+      <!-- 10개의 페이지 목록 -->
+      <%for(int p = startPage ; p<=endPage;p++){ %>
+     	 <%if(currentPage == p){ %>
+     	 	<button class="btn btn-secondary" disabled><%=p %></button>
+     	 <%}else{ %>
+     	 	<button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/Mo.li?currentPage=<%=p %>'"><%=p %></button>
+     	 <%} %>
+      <%} %>
+
+
+      
+      <!-- 다음 페이지로(>) -->
+        <%if(currentPage == maxPage) {%>
+      <button class="btn btn-secondary" disabled> > </button>
+      <%}else{ %>
+      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/PM.list?currentPage=<%=currentPage+1 %>'"> > </button>
+      <%} %>
+      
+      <!-- 맨 끝으로(>>) -->
+      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/PM.list?currentPage=<%= maxPage%>'"> >> </button>
+      
+      </div>
+      <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     </div> 
     
     

@@ -47,12 +47,12 @@ public class MorwDao {
 		
 		ArrayList<Morw> list = new ArrayList<>();
 		
-		String query ="SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS " + 
-				"FROM ORDER_TABLE O " + 
-				"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO) " + 
-				"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO) " + 
-				"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO) " + 
-				"WHERE O.USER_ID=? ORDER BY O.ORDER_NO DESC";
+		String query ="SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS \r\n" + 
+				"FROM ORDER_TABLE O\r\n" + 
+				"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO)\r\n" + 
+				"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO) \r\n" + 
+				"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO) \r\n" + 
+				"WHERE O.USER_ID=? AND PP.Filelevel='0' ORDER BY O.ORDER_NO DESC;";
 		
 		
 		try {
@@ -427,6 +427,38 @@ public class MorwDao {
 		System.out.println("페이지네이션 가져와p"+listCount);
 		return listCount;
 
+	}
+
+	public int countSelectList2(Connection conn, String userId) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "SELECT count(B.ORDER_NO)\r\n" + 
+				"FROM BUY_LIST B \r\n" + 
+				"JOIN PAINT_PHOTO PP ON (B.PAINT_NO=PP.PAINT_NO) \r\n" + 
+				"JOIN PAINT P ON(B.PAINT_NO=P.PAINT_NO) \r\n" + 
+				"WHERE B.ORDER_STATUS LIKE '환불%' AND B.USER_ID='?";
+		
+		int listCount = 0;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println("페이지네이션 가져와p"+listCount);
+		return listCount;
 	}
 
 	

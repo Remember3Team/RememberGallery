@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="mypage_user.qna.model.vo.*, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import="mypage_user.qna.model.vo.*,java.util.ArrayList"%>
     
 <%
 	ArrayList<Qna> list = ((ArrayList<Qna>)request.getAttribute("list"));
 	ArrayList<Qna> list2 = ((ArrayList<Qna>)request.getAttribute("list2"));
+
 %>
 	 
     
@@ -94,6 +95,11 @@
 				</tbody>
             </table>
         </div>
+     
+    <br>
+    <br>
+    <br>
+    <br>
     </div>
       <script>
       $(function(){

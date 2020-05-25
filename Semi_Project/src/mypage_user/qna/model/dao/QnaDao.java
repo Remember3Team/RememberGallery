@@ -1,5 +1,7 @@
 package mypage_user.qna.model.dao;
 
+import static common.JDBCTemplate.close;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -78,6 +80,8 @@ public class QnaDao {
 		
 		return list2;
 	}
+
+	
 	
 	
 

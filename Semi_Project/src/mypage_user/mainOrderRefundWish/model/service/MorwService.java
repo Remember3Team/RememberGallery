@@ -150,4 +150,14 @@ public class MorwService {
 		return listCount;
 
 	}
+
+	public int countSelectList2(String userId) {
+		Connection conn = getConnection();
+		
+		int listCount = new MorwDao().countSelectList2(conn,userId );
+		
+		close(conn);
+		
+		return listCount;
+	}
 }

@@ -49,6 +49,7 @@ public class MainOrderListservlet extends HttpServlet {
 		//페이지 네이션
 		// 1_1. 게시판 리스트 갯수 구하기
 		int listCount = mService.countSelectList(loginMember.getUserId());
+	
 		
 		System.out.println(listCount);
 		// 페이지 수 처리용 변수 선언
