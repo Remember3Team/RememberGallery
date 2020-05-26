@@ -36,7 +36,7 @@ public class BuyProductServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		ProductService pService = new ProductService();
-		
+	
 		int paint_no = Integer.valueOf(request.getParameter("paint_no"));
 		System.out.println(paint_no);
 		
@@ -67,16 +67,7 @@ public class BuyProductServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
-		
-		
-		ProductService pService = new ProductService();
-		
-		String paint_name = request.getParameter("paint_name");
-		int paint_no = Integer.valueOf(request.getParameter("paint_no"));
-		int paint_price = Integer.valueOf(request.getParameter("paint_price"));
-		
-
+//		doGet(request, response);
 		
 	}
 
