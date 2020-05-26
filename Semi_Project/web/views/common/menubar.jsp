@@ -113,10 +113,10 @@ ul li ul li:hover{
 </head>
 <body>
 
-	<header id="menu">
 
+	<header id="menu">
 		<div id="logo">
-			<a href="<%= request.getContextPath() %>/index.jsp" class="logo">
+			<a href="<%= request.getContextPath() %>/amateur.master" class="logo">
 				<img src="<%= request.getContextPath() %>/views/img/logo-02.png">
 			</a>
 		</div>
@@ -126,9 +126,7 @@ ul li ul li:hover{
 			<li><a href="<%= request.getContextPath() %>/list.po">STORE</a></li >
 			<li><a href="#">COMMUNITY</a>
 				<ul>
-					<li><a
-						href="<%= request.getContextPath() %>/list.am">아마추어
-							게시판</a></li>
+					<li><a href="<%= request.getContextPath() %>/list.am">아마추어 게시판</a></li>
 					<li><a href="<%= request.getContextPath() %>/list.ee">자유게시판</a></li>
 				</ul></li>
 			<li><a href="#">NOTICE</a>
@@ -162,7 +160,7 @@ ul li ul li:hover{
 		</ul>
 		<div id="loginWrap" >
 			
-			<ul class="navi" style="margin-right:40px;!important">
+			<ul class="navi" style="margin-right:40px;">
 			 <%if(loginUser != null){ %> 
 			<li style="width: 80px;height:20px; !important"> <img
 				src="<%=request.getContextPath()%>/views/img/login1.png" style="width:30px; margin-bottom:50px; margin-left:30px;"></a>

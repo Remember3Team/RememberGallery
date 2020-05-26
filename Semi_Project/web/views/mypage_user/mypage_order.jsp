@@ -1,10 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="mypage_user.mainOrderRefundWish.model.vo.*,product.model.vo.*, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import="mypage_user.mainOrderRefundWish.model.vo.*,product.model.vo.*, board.notice.model.vo.PageInfo,java.util.ArrayList"%>
     
 <%
 	
 	ArrayList<Morw> list = ((ArrayList<Morw>)request.getAttribute("list"));
 	ArrayList<Attachment> plist = (ArrayList<Attachment>) request.getAttribute("plist");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+    int currentPage = pi.getCurrentPage();
+    int maxPage = pi.getMaxPage();
+    int startPage = pi.getStartPage();
+    int endPage = pi.getEndPage();
 	 
 %>
 <!DOCTYPE html>
@@ -41,8 +48,9 @@ float : right;
 
 $("document").ready(function(){
 	$("#searchStatus").change(function(){
-		searchStatus = this.value;
-		console.log(searchStatus);
+		var searchStatus = this.value;
+		 $("#searchStatus").val(searchStatus);
+// 		console.log(searchStatus);
 	});
 	
 	$("input[name=term]:radio").click(function(){
@@ -56,29 +64,30 @@ function setStatus(obj){
 	term = obj.value;
 }
 
-function searchData(){
-	var searchStatus = $("#searchStatus").val();
-	var term = $("input[name=term]:radio:checked").val();
-	var calendar = $("#calendar").val();
-	var calendar2 = $("#calendar2").val();
+// function searchData(){
 	
-	var data = {
-	    		'search_status' : searchStatus,
-	    		'term' : term,
-	    		'calendar' : calendar,
-	    		'calendar2' : calendar2
-	    	 };
-	$.ajax({
-		  type: "POST",
-		  url: "Mo.li",
-		  data: data,
-		  success: function(ret){
-		   	location.reload();
-		}
-		});
+// 	$("#searchStatus").change(function(){
+// 		var searchStatus = this.value;
+// 		 $("#searchStatus").val(searchStatus);
+// 		console.log(searchStatus);
+// 	});
+// 	var searchStatus = $("#searchStatus").val();
+	
+// 	console.log(searchStatus);
+// 	var term = $("input[name=term]:radio:checked").val();
+// 	var calendar = $("#calendar").val();
+// 	var calendar2 = $("#calendar2").val();
+	
+// 	var data = {
+// 	    		'search_status' : searchStatus,
+// 	    		'term' : term,
+// 	    		'calendar' : calendar,
+// 	    		'calendar2' : calendar2
+// 	    	 };
+<%--  	 location.href="<%=request.getContextPath()%>/Mo.li?menu=order";  --%>
 	
 	
-}
+//  }
 
 
 
@@ -225,45 +234,44 @@ function submit(){
     
       
       <div class="container">
-      <form action="">
+      <form method="post" action="<%=request.getContextPath()%>/SearchServlet">
             <div class="search-bar">
                 <div class="bar1">
-                    <select id="searchStatus">
-                    	<option value="all">전체보기</option>
-                        <option value="입금전">입금전</option>
+                    <input type="text"  name="searchStatus" list="order_list" placeholder="주문 처리 상태">
+                    <datalist id="order_list">   
+                        <option value="입금 전">입금전</option>
                         <option value="배송준비중">배송준비중</option>
                         <option value="배송중">배송중</option>
                         <option value="배송완료">배송완료</option>
                         <option value="수령완료">수령완료</option>
                         <option value="환불신청">환불신청</option>
                         <option value="환불완료">환불완료</option>
-                    </select>
+                    </datalist>
                 </div>
                 <div class="btn-group" data-toggle="buttons">
                                 <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="today">오늘
+                                    <input type="radio" name="term" value="0">오늘
                                 </label>
                                 <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="week">1주일
+                                    <input type="radio" name="term" value="7">1주일
                                 </label>
                                 <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="month" >1개월
+                                    <input type="radio" name="term" value="30" >1개월
                                 </label>
                                 <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="three_months" >3개월
+                                    <input type="radio" name="term" value="90" >3개월
                                 </label>
                                 <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="six_months" >6개월
+                                    <input type="radio" name="term" value="180" >6개월
                                 </label>
                             </div> 
                 &nbsp;&nbsp;&nbsp;
                 <div class="bar3">
-                    <input id="calendar" type="date" name="refund-date1"> ~
-                    <input id="calendar2" type="date" name="refund-date1">
+                    <input id="calendar1" type="date" name="calendar1"> ~
+                    <input id="calendar2" type="date" name="calendar2">
                 </div>
-                <button onclick="javascript: searchData()" type="button" class="btn btn-dark" style="width:70px">조회</button>
+                <button type="submit" class="btn btn-dark" style="width:70px">조회</button>
             </div>
-
         </form>
      
     
@@ -311,6 +319,7 @@ function submit(){
 					 <img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" width="150px" height="150px">
 					 <input type="hidden" id="img_<%=m.getOrderNo()%>" value="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" />
 					 
+					 
 					 <%} %>
 					<%} %></td>
 			      			<td id="artistname"><label>작가 : </label><%=m.getArtistName()%><br>
@@ -339,6 +348,46 @@ function submit(){
    
       <br>
       <br>
+      <br clear="both"><br>
+      <!--  페이징 처리 시작! -->
+      <div class="pageingArea" align="center">
+      <!-- 맨 처음으로 (<<) -->
+      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/Mo.li?currentPage=1'"> << </button>
+      
+      <!-- 이전 페이지로(<) -->
+      <%if(currentPage <= 1) {%>
+      <button class="btn btn-secondary" disabled> < </button>
+      <%}else{ %>
+      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/Mo.li?currentPage=<%=currentPage-1 %>'"> < </button>
+       <%} %>
+      <!-- 10개의 페이지 목록 -->
+      <%for(int p = startPage ; p<=endPage;p++){ %>
+     	 <%if(currentPage == p){ %>
+     	 	<button class="btn btn-secondary" disabled><%=p %></button>
+     	 <%}else{ %>
+     	 	<button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/Mo.li?currentPage=<%=p %>'"><%=p %></button>
+     	 <%} %>
+      <%} %>
+
+
+      
+      <!-- 다음 페이지로(>) -->
+        <%if(currentPage == maxPage) {%>
+      <button class="btn btn-secondary" disabled> > </button>
+      <%}else{ %>
+      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/PM.list?currentPage=<%=currentPage+1 %>'"> > </button>
+      <%} %>
+      
+      <!-- 맨 끝으로(>>) -->
+      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/PM.list?currentPage=<%= maxPage%>'"> >> </button>
+      
+      </div>
+      <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     </div> 
     
     

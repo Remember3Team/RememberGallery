@@ -16,6 +16,13 @@ public class FileManagement implements Serializable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public FileManagement(int event_no, String event_file) {
+		super();
+		this.event_no = event_no;
+		this.event_file = event_file;
+	}
+
 	public FileManagement(int event_no, String event_file, String event_path) {
 		super();
 		this.event_no = event_no;

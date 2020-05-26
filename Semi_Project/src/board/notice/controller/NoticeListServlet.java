@@ -53,15 +53,11 @@ public class NoticeListServlet extends HttpServlet {
 		
 		//화면으로
 		RequestDispatcher view = null;
-		if(!list.isEmpty()) {
 			view = request.getRequestDispatcher("views/board/notice/noticeBoard.jsp");
 			
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
-		}else {
-			System.out.println("게시글 조회 실패");
-			view = request.getRequestDispatcher("views/board/notice/noticeBoard.jsp");
-		}
+		
 		view.forward(request,response);
 	}
 

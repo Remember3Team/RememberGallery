@@ -14,6 +14,10 @@
 <style>
 #InsertArea{  margin-bottom:200px;}
 #amateurHeader{ background:white; }
+.container{ position : relative; margin-top:10px;}
+.headLine{ /*float:left;*/ width:30%; margin-top:90px; margin-left:90px; margin-bottom:50px; display:block; box-sizing:border-box;}
+.headLine hr{ background-color:red; width:25px; border:2px solid red; margin-bottom:10px;}
+
 </style>
 
 </head>
@@ -23,11 +27,14 @@
 
 <%@include file="../../common/menubar.jsp" %>
 
+	<div class="headLine">
+		<hr style="display:inline-block;">
+		<h3 style="font-size:20px;">Amateur</h3>
+	</div><!-- class headLine end -->
+
+
 	<div class="container" id="InsertArea">	
-	   <div id="amateurHeader" class="jumbotron text-center">
-	   		<h1>아마추어 게시판 글 등록 페이지</h1>
-	   		<p>당신도 아티스트가 될 수 있습니다.</p>
-	   </div>   
+	  
        <form action="<%=request.getContextPath()%>/insert.am" method="post" encType="multipart/form-data">
            <div class="form-group">
             	<label for="noti_title">Title</label>

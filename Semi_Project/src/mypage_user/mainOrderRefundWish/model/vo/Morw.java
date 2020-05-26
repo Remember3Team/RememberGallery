@@ -25,7 +25,7 @@ public class Morw implements Serializable {
 	private String accountName;
 	private String accountNo;
 	private String bank;
-	
+	private String buyYN;
 	
 	
 	public Morw() {
@@ -65,13 +65,14 @@ public class Morw implements Serializable {
 	
 
 	//위시리스트
-	public Morw(int basketNo, int paintNo, String paintName, String artistName,int paintPrice) {
+	public Morw(int basketNo, int paintNo, String paintName, String artistName,int paintPrice, String buyYN) {
 		super();
 		this.basketNo = basketNo;
 		this.paintNo = paintNo;
 		this.paintName = paintName;
 		this.artistName = artistName;
 		this.paintPrice = paintPrice;
+		this.buyYN = buyYN;
 	}
 	
 	
@@ -134,6 +135,19 @@ public class Morw implements Serializable {
 		this.accountName = accountName;
 		this.accountNo = accountNo;
 		this.bank = bank;
+	}
+
+
+	
+
+	public String getBuyYN() {
+		return buyYN;
+	}
+
+
+
+	public void setBuyYN(String buyYN) {
+		this.buyYN = buyYN;
 	}
 
 
@@ -330,11 +344,11 @@ public class Morw implements Serializable {
 				+ paintPrice + ", orderDate=" + orderDate + ", orderStatus=" + orderStatus + ", userId=" + userId
 				+ ", artistName=" + artistName + ", basketNo=" + basketNo + ", paintNo=" + paintNo + ", message="
 				+ message + ", refundReason=" + refundReason + ", accountName=" + accountName + ", accountNo="
-				+ accountNo + ", bank=" + bank + "]";
+				+ accountNo + ", bank=" + bank + ", buyYN=" + buyYN + "]";
 	}
-	
-	
-	
+
+
+
 	
 	
 

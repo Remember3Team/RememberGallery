@@ -30,6 +30,7 @@
 
 					<div id="slider-wrap" style = "position:relative; margin:-18px auto;">
 						<ul id="slider" >
+						
 							<li>
 								<div>
 									<!-- <h3>Slide #2</h3>-->
@@ -37,6 +38,7 @@
 								</div> <a href="<%=request.getContextPath()%>/views/mypage_artist/art-apply.jsp">
 								<img src="<%=request.getContextPath()%>/views/img/slide6.jpg"></a>
 							</li>
+							
 							
 							
 							<li>
@@ -50,7 +52,10 @@
 							</li>
 
 
+
+
 							<li>
+							
 								<div>
 								<!-- 	<h3>Slide #3</h3>-->
 									<span>Sammy2</span> 

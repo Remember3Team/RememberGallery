@@ -80,7 +80,6 @@ header#menu{
 
 .navi > li:hover {
     border-bottom: 2px solid rgb(255, 0, 0);
-    !important
 }
 
 .navi > li > a {
@@ -115,12 +114,10 @@ header#menu{
 
 .navi > li:hover > ul > li {
     opacity: 1;
-    !important
 }
 
 .navi > li:hover > ul > li > a {
     opacity: 1;
-    !important
 }
 
 .navi > li > ul > li > a {
@@ -132,7 +129,7 @@ header#menu{
 .navi > li > ul > li:hover > a {
     color :white;
     font-weight: bold;
-    !important
+    
 }
 
 .navi li { 

@@ -16,7 +16,7 @@ int endPage = pi.getEndPage();
 <html>
 <head>
 <meta charset="UTF-8">
-<title>1:1문 - RememberArt</title>
+<title>1:1문의</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/style.css">
  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
  <link rel="stylesheet" href="<%=request.getContextPath() %>/views/css/bootstrap.css">
@@ -25,8 +25,18 @@ int endPage = pi.getEndPage();
 </head>
 <style>
 	#centerDiv{margin-top:70px;}
-	.headLine{ /*float:left;*/ width:30%; /*margin-top:90px; margin-left:90px; margin-bottom:50px;*/ display:block; box-sizing:border-box;}
+	.headLine{ float:left; width:30%; margin-top:90px; margin-left:90px; margin-bottom:50px; display:block; box-sizing:border-box;}
 	.headLine hr{ background-color:red; width:25px; border:2px solid red; margin-bottom:10px;}
+	.p-parents { display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto; }
+    .pppp { display: flex; text-align: center; margin : 50px auto; background: rgb(255, 255, 255); height: 36px; border : 1px solid black; border-radius: 5px; justify-content: center; align-items: center; }
+    .pppp > ol > li:first-child { border-left : 1px solid black; }
+    .pppp > a { display: inline-flex; justify-content: center; align-items: center; padding: 7px 12px; font-size: 13px; font-weight: 500; color:#9c9c9c; text-decoration: none; }
+	.pppp > ol { display: inline-flex; list-style: none; justify-content: center; align-items: center; }
+    .pppp > ol > li { display: inline-flex; list-style: none; justify-content: center; align-items: center; margin-top: 16px; border-right: 1px solid; vertical-align: middle; list-style: none; width: 36px; height: 34px; text-decoration: none; }
+  	.page-list1 { background-color:#c82c1f; }
+    .page-cur { font-size : 14px; background:none; color: white; padding : 0; border-style : none; }
+    .page-nocur { font-size: 14px; background:none; color: #c82c1f; padding : 0; border-style : none; }
+    .page-a:hover { color: black; text-decoration:none; }
 </style>
 <body>
 <%@include file="../../common/menubar.jsp" %>
@@ -36,10 +46,11 @@ int endPage = pi.getEndPage();
 		<hr style="display:inline-block;">
 		<h3 style="font-size:20px;">1:1문의</h3>
 </div><!-- class headLine end -->
+<br clear="both">
 
 <div id="centerDiv" class="container" >
 <!-- 사용자에게는 보이고 관리자에게 보이지 않는 페이지 div id addQuestionArea -->			
- <div id="addQuestionArea">
+ <div id="addQuestionArea" class="form-group">
   <div class="form-row">
     <div class="form-group col-md-3">
       	<select id="Category" class="form-control">
@@ -59,9 +70,8 @@ int endPage = pi.getEndPage();
   		<textarea class="form-control" id="question" name="question" rows="5" placeholder="문의 내용을 입력해주세요"></textarea>
     </div>
     <div class="form-group col-md-1">
-	    <button id="addQuestion" class="btn btn-primary" style="height:130px">문의하기</button>  		
+	    <button id="addQuestion" class="btn btn-danger" style="height:130px">문의하기</button>  		
     </div>
-    
   </div>
   </div><!-- div id addQuestionArea end -->
   
@@ -98,7 +108,7 @@ int endPage = pi.getEndPage();
       <td class="text-center"><%=in.getQuestion_title() %></td>
       <td class="text-center"><%=in.getUser_id() %></td>
       <%if(loginUser.getUserId().equals("admin") && in.getQ_yn().equals("N")){ %>
-      	<td class="text-center"><button id="inputAnswer" class="btn btn-primary" data-toggle="modal" data-target="#intro">답변하기</button>
+      	<td class="text-center"><button id="inputAnswer" class="btn btn-danger" data-toggle="modal" data-target="#intro">답변하기</button>
       <%}else{ %>
       	<td class="text-center"><%=in.getQ_yn() %></td>
       <%} %>
@@ -117,7 +127,8 @@ int endPage = pi.getEndPage();
  <%} %>
   </tbody>
 </table> 
-       
+      
+<!-- 모달  --> 
         <div class="modal fade" id="intro" role="dialog" aria-labelledby="introHeader" aria-hidden="true" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -137,21 +148,32 @@ int endPage = pi.getEndPage();
             </div>
         </div>
 
-    </body>
+<br clear="both">
 
-  	<!-- Pagination -->
-	  	<div style="text-align:center;">
-			<div class="col-mid-12">
-				 <ul class="pagination justify-content-center" style="margin:20px 0">
-	    	    	     <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/list.in?currentPage=1">Previous</a></li>
-	  					<%for(int p = startPage; p<=endPage; p++){ %>
-	  					 	<li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/list.in?currentPage=<%=p%>"><%=p%></a></li>
-	  					<%} %>
-	                     <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/list.in?currentPage=<%=maxPage%>">Next</a></li>
-	        	  </ul>
-			</div><!-- class col-mid-12 end --> 
-		</div><!-- Pagination end --> 
-		
+		<!-- Pagination -->
+	<div class = "p-parents" style="margin:0 auto; margin-top:80px;">
+		<div class="pppp">
+				<%if (currentPage == 1) { %>
+	            <a style = "color:#9c9c9c; "  disabled>Previous</a>
+	            <%}else {%>
+	            <a class = "page-a" href="<%=request.getContextPath() %>/list.ar?currentPage=<%=currentPage - 1 %>" >Previous</a>
+	            <%} %>
+	            <ol>
+	            <%for(int p = startPage ; p<=endPage ; p++){ %>
+	            <%if(currentPage == p){ %>
+	              <li class = "page-list1"><button disabled class = "page-cur" ><%=p%></button></li>
+	            <%} else { %>
+	              <li class = "page-list2" onclick="location.href='<%=request.getContextPath() %>/list.ar?currentPage=<%=p%>'"><button class = "page-nocur"><%=p%></button></li>
+	            <%} %>
+	            <%} %>
+	            </ol>
+	            <%if (currentPage == maxPage) { %>
+	            <a style = "color:#9c9c9c; "  disabled>Next</a>
+	            <%} else { %>
+	            <a class = "page-a" href="<%=request.getContextPath()%>/list.ar?currentPage=<%=currentPage + 1%>">Next</a>
+	            <%} %>
+	   </div>
+	</div>
 </div>
 
 <%@include file="../../common/footer.jsp" %>
@@ -183,12 +205,17 @@ int endPage = pi.getEndPage();
  						var $question_titleTd=$("<td>").text(data[key].question_title).addClass('text-center');
  						var $questionTd=$("<td>").text(data[key].question).addClass('text-center');
  						var $questionYnTd=$("<td>").text(data[key].q_yn).addClass('text-center');
+ 						var $questionFileTd=$("<td>").text(data[key].q_file).addClass('text-center');
  						
  						
  						$tr.append($categoryTd);
  						$tr.append($question_titleTd);
  						$tr.append($writerTd);
  						$tr.append($questionYnTd);
+
+ 						$tr.append($questionTd);
+ 						$tr.append($questionFileTd);
+
  						
  						$inquiryTable.append($tr);
  					}

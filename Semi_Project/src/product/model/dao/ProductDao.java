@@ -182,7 +182,7 @@ public class ProductDao {
 
 		ArrayList<Attachment> list = new ArrayList<>();
 
-		String query = "SELECT * FROM PAINT_PHOTO WHERE FILELEVEL=0 AND PAINT_NO BETWEEN ? AND ?";
+		String query = "SELECT * FROM PAINT_PHOTO WHERE FILELEVEL=0 AND PAINT_NO BETWEEN ? AND ? ORDER BY 1";
 
 		// 쿼리문 실행시 조건절에 넣을 변수를 (ROWNUM에 대한 조건 시 필요) 연산 처리
 		int startRow = (currentPage - 1) * limit + 1;

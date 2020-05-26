@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "mypage_artist.management.model.vo.*, artistapply.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList"%>
     <%
-    	ArrayList<Mypage_artist> search_list = (ArrayList<Mypage_artist>)request.getAttribute("search_list");
+       ArrayList<Mypage_artist> search_list = (ArrayList<Mypage_artist>)request.getAttribute("search_list");
     %>
 <!DOCTYPE html>
 <html>
@@ -27,7 +27,7 @@
         <div class="headline-subbox">
             <div class="artist-img">
                 <!--Artist Image-->
-				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>" style= "width:150px; height=150px;">        </div>
+            <img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>" style= "width:150px; height=150px;">        </div>
             <div class="artist-button">
                 <button style="margin-bottom: 3px;">정보수정</button>
                 <button>감동카드 확인</button>
@@ -46,11 +46,11 @@
                 <div class="bar1">
                     <input type="text" name="order_status" list="order_list" placeholder=" 주문 처리 상태">
                     <datalist id="order_list">
-			            <option value="입금전"></option>
-			            <option value="배송준비중"></option>
-			            <option value="배송완료"></option>
-			            <option value="환불신청"></option>
-			            <option value="환불완료"></option>
+                     <option value="입금전"></option>
+                     <option value="배송준비중"></option>
+                     <option value="배송완료"></option>
+                     <option value="환불신청"></option>
+                     <option value="환불완료"></option>
                     </datalist>
                 </div>
                 <div class="btn-group" data-toggle="buttons" >
@@ -86,7 +86,6 @@
             </div>
             <table style="width:100%" name="refund-list">
                 <tr>
-                    <th><input type="checkbox"></th>
                     <th>주문 번호</th>
                     <th>이미지</th>
                     <th>상품 정보</th>
@@ -97,32 +96,31 @@
                 <% for(Mypage_artist ma : search_list){ %>
                 <tr>
                
-                    <td><input type="checkbox"></td>
                     <td class = "orderNo"><%=ma.getOrder_no() %></td>
                     <td><%=ma.getAfile() %></td>
                     <td>작품명 : <%=ma.getPaint_name() %><br>
-                    	  작가명 : <%=ma.getArtist_name() %></td>
+                                                     작가명 : <%=ma.getArtist_name() %></td>
                     <td><%=ma.getPaint_price() %></td>
                     <td><%=ma.getOrder_status() %></td>
                     <td>
                      <input class="order_no" type="hidden" value="<%=ma.getOrder_no() %>">
                     <button class="btn btn-outline-dark order" id="detail_order" style = "width:150px">주문 상세보기</button></td>
                 </tr>
-				<%} %>
-				
+            <%} %>
+            
             </table>
         </div>
     </div>
     <script>
-				$(function(){
-	                   $(".order").click(function(){
-	                      var order_no = $(this).parent().children(".order_no").val();
-	                      
-	                      location.href="<%=request.getContextPath()%>/DO.view?order_no="+order_no;
-	                   });
-	                   
-	                });
-				</script>
+            $(function(){
+                      $(".order").click(function(){
+                         var order_no = $(this).parent().children(".order_no").val();
+                         
+                         location.href="<%=request.getContextPath()%>/DO.view?order_no="+order_no;
+                      });
+                      
+                   });
+            </script>
    <br clear="both"><br>
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br>

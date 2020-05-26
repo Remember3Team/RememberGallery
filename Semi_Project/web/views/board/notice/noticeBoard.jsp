@@ -34,6 +34,16 @@
  	#noticeCorner .col-sm-6 { box-sizing:border-box; float:left; width:70%; margin:0; padding:0; }
  	#noticeList:after { display:block; content:""; clear:both; }
  	#noticeList { width:1800px; margin: 20px auto 0; }
+ 	.p-parents { display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto; }
+    .pppp { display: flex; text-align: center; margin : 50px auto; background: rgb(255, 255, 255); height: 36px; border : 1px solid black; border-radius: 5px; justify-content: center; align-items: center; }
+    .pppp > ol > li:first-child { border-left : 1px solid black; }
+    .pppp > a { display: inline-flex; justify-content: center; align-items: center; padding: 7px 12px; font-size: 13px; font-weight: 500; color:#9c9c9c; text-decoration: none; }
+	.pppp > ol { display: inline-flex; list-style: none; justify-content: center; align-items: center; }
+    .pppp > ol > li { display: inline-flex; list-style: none; justify-content: center; align-items: center; margin-top: 16px; border-right: 1px solid; vertical-align: middle; list-style: none; width: 36px; height: 34px; text-decoration: none; }
+  	.page-list1 { background-color:#c82c1f; }
+    .page-cur { font-size : 14px; background:none; color: white; padding : 0; border-style : none; }
+    .page-nocur { font-size: 14px; background:none; color: #c82c1f; padding : 0; border-style : none; }
+    .page-a:hover { color: black; text-decoration:none; }
  </style>
 </head>
 <body>
@@ -50,31 +60,35 @@
 				<h3 style="font-size:20px;">Notice</h3>
 			</div><!-- class headLine end -->
 			
-				 <div class="col-sm-6" style="display:block;">
-					<table class="table table-hover" id="listArea">
+				 <div class="col-sm-6" style="text-align:center !important; display:block; margin-top:140px; margin-bottom:200px;">
+					<table class="table table-hover" id="listArea" style="text-align:center;">
 				  		<thead>
 				    		<tr>
-				      			<th>게시글 번호</th>
-				      			<th>내용</th>
-				      			<th>작성자</th>
-				      			<th>작성일</th>
+				      			<th class="text-center">게시글 번호</th>
+				      			<th class="text-center">내용</th>
+				      			<th class="text-center">작성자</th>
+				      			<th class="text-center">작성일</th>
 				    		</tr>
 				  		</thead>
 				  		<tbody>
 				  		<%if(list.isEmpty()){ %>
 				  			<tr>
-				  				<td>게시글이 존재하지 않습니다.</td>
-				  			</tr>
+								<td class="text-center" colspan="4" style=" margin:0 auto; margin-top:140px; margin-bottom:240px; width:100%">
+          			    						게시글이 존재하지 않습니다.
+          						</td>
+   				  			</tr>
 				  		<%}else{ %>				   				
 					  			<%for(Notice n:list){ %>
-					    		<tr>
-					    			<input type="hidden" value="<%=n.getNoti_no() %>">
-									<td><%=n.getNoti_no() %></td>
-					      			<td><%=n.getNoti_title() %></td>
-					      			<td>관리자</td>
-					      			<td><%=n.getNoti_date() %></td>
-					    		</tr>
+					    			<%if(n.getNoti_no()!=0){ %>
+							    		<tr>
+							    			<input type="hidden" value="<%=n.getNoti_no() %>">
+											<td class="text-center"><%=n.getNoti_no() %></td>
+							      			<td class="text-center"><%=n.getNoti_title() %></td>
+							      			<td class="text-center">관리자</td>
+							      			<td class="text-center"><%=n.getNoti_date() %></td>
+							    		</tr>
 					    		<%}%>
+					    	<%} %>
 				    	<%} %>
 				  		</tbody>
 					</table><!-- class table end -->
@@ -82,18 +96,29 @@
 			</div><!-- id noticeList end -->
 			
 		<!-- Pagination -->
-	  	<div style="text-align:center;">
-			<div class="col-mid-12">
-				 <ul class="pagination justify-content-center" style="margin:20px 0">
-	    	    	     <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/list.no?currentPage=1">Previous</a></li>
-	  					<%for(int p = startPage; p<=endPage; p++){ %>
-	  					 	<li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/list.no?currentPage=<%=p%>"><%=p%></a></li>
-	  					<%} %>
-	                     <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/list.no?currentPage=<%=maxPage%>">Next</a></li>
-	        	  </ul>
-			</div><!-- class col-mid-12 end --> 
-		</div><!-- Pagination end --> 
-	
+	<div class = "p-parents" style="margin-right:0px;">
+	<div class="pppp" style="margin-left:1000px">
+			<%if (currentPage == 1) { %>
+            <a style = "color:#9c9c9c; "  disabled>Previous</a>
+            <%}else {%>
+            <a class = "page-a" href="<%=request.getContextPath() %>/list.no?currentPage=<%=currentPage - 1 %>" >Previous</a>
+            <%} %>
+            <ol>
+            <%for(int p = startPage ; p<=endPage ; p++){ %>
+            <%if(currentPage == p){ %>
+              <li class = "page-list1"><button disabled class = "page-cur" ><%=p%></button></li>
+            <%} else { %>
+              <li class = "page-list2" onclick="location.href='<%=request.getContextPath() %>/list.no?currentPage=<%=p%>'"><button class = "page-nocur"><%=p%></button></li>
+            <%} %>
+            <%} %>
+            </ol>
+            <%if (currentPage == maxPage) { %>
+            <a style = "color:#9c9c9c; "  disabled>Next</a>
+            <%} else { %>
+            <a class = "page-a" href="<%=request.getContextPath()%>/list.no?currentPage=<%=currentPage + 1%>">Next</a>
+            <%} %>
+   </div>
+</div>
 	
 		
 	<!-- 게시글 작성  -->	
