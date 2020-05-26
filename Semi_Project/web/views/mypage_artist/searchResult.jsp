@@ -46,7 +46,7 @@
                 <div class="bar1">
                     <input type="text" name="order_status" list="order_list" placeholder=" 주문 처리 상태">
                     <datalist id="order_list">
-			            <option value="입금전(입금대기)"></option>
+			            <option value="입금전"></option>
 			            <option value="배송준비중"></option>
 			            <option value="배송완료"></option>
 			            <option value="환불신청"></option>
@@ -83,11 +83,9 @@
             <div class="table-headline">
                 <div><span>주문관리</span></div>
                 <div class="button"><button class="btn btn-outline-dark" style = "width:120px">입금확인</button></div>
-                <div class="button"><button class="btn btn-outline-dark" style = "width:120px">취소처리</button></div>
             </div>
             <table style="width:100%" name="refund-list">
                 <tr>
-                    <th><input type="checkbox"></th>
                     <th>주문 번호</th>
                     <th>이미지</th>
                     <th>상품 정보</th>
@@ -95,10 +93,9 @@
                     <th>처리 상태</th>
                     <th>주문 정보 확인</th>
                 </tr>
-                <% for(Mypage_artist ma : OM_list){ %>
+                <% for(Mypage_artist ma : search_list){ %>
                 <tr>
                
-                    <td><input type="checkbox"></td>
                     <td class = "orderNo"><%=ma.getOrder_no() %></td>
                     <td><%=ma.getAfile() %></td>
                     <td>작품명 : <%=ma.getPaint_name() %><br>
@@ -125,39 +122,6 @@
 	                });
 				</script>
    <br clear="both"><br>
-		<!--  페이징 처리 시작! -->
-      <div class="pageingArea" align="center">
-      <!-- 맨 처음으로 (<<) -->
-      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/PM.list?currentPage=1'"> << </button>
-      
-      <!-- 이전 페이지로(<) -->
-      <%if(currentPage <= 1) {%>
-      <button class="btn btn-outline-dark" disabled> < </button>
-      <%}else{ %>
-      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/PM.list?currentPage=<%=currentPage-1 %>'"> < </button>
-       <%} %>
-      <!-- 10개의 페이지 목록 -->
-      <%for(int p = startPage ; p<=endPage;p++){ %>
-     	 <%if(currentPage == p){ %>
-     	 	<button class="btn btn-outline-dark" disabled><%=p %></button>
-     	 <%}else{ %>
-     	 	<button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/PM.list?currentPage=<%=p %>'"><%=p %></button>
-     	 <%} %>
-      <%} %>
-
-
-      
-      <!-- 다음 페이지로(>) -->
-        <%if(currentPage == maxPage) {%>
-      <button class="btn btn-outline-dark" disabled> > </button>
-      <%}else{ %>
-      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/PM.list?currentPage=<%=currentPage+1 %>'"> > </button>
-      <%} %>
-      
-      <!-- 맨 끝으로(>>) -->
-      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/PM.list?currentPage=<%= maxPage%>'"> >> </button>
-      
-      </div>
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br>

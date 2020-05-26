@@ -13,18 +13,20 @@ import javax.servlet.http.HttpServletResponse;
 import member.model.vo.Member;
 import mypage_artist.management.model.service.Mypage_ArtistService;
 import mypage_artist.management.model.vo.Mypage_artist;
+import product.model.service.ProductService;
+import product.model.vo.Attachment;
 
 /**
- * Servlet implementation class DetailOrderViewServlet
+ * Servlet implementation class SearchListServlet_PM
  */
-@WebServlet("/DO.view")
-public class DetailOrderViewServlet extends HttpServlet {
+@WebServlet("/Search.PM")
+public class SearchListServlet_PM extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DetailOrderViewServlet() {
+    public SearchListServlet_PM() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,36 +35,31 @@ public class DetailOrderViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		request.setCharacterEncoding("utf-8");
 		
-		Mypage_ArtistService aService = new Mypage_ArtistService();
+		Mypage_ArtistService ma = new Mypage_ArtistService();
 		
+		String category = request.getParameter("category");
+		System.out.println("하"+category);
 		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getUserName());
-		int order_no = Integer.valueOf(request.getParameter("order_no"));
 		
-		System.out.println("주문번호" +order_no);
+		ArrayList<Mypage_artist> search_list_PM = new ArrayList<>();
 		
-		ArrayList<Mypage_artist> DOV_plist = aService.selectList_DOV_P(bWriter, order_no);
-		ArrayList<Mypage_artist> DOV_dlist = aService.selectList_DOV_D(bWriter, order_no);
-		ArrayList<Mypage_artist> DOV_slist = aService.selectList_DOV_S(bWriter, order_no);
-//		for(int i = 0 ; i < list.size(); i++) {
-//			System.out.println(list.get(i));
-//		}
+		search_list_PM = ma.listSearch_PM(category, bWriter);
+		System.out.println(search_list_PM);
 		
-		// 프로필 사진 불러오기
-//		ArtistService aService1 = new ArtistService();
-//		
-//		Apply aphoto = aService1.selectPhoto(bWriter);
-//		System.out.println(aphoto);
+		ArrayList<Attachment> alist = new ArrayList<Attachment>();
+		ProductService pService = new ProductService();
 		
-		
-		// 출력이 잘 나오는걸 확인하면 이제 화면단으로 넘겨주자
+		alist = pService.selectAllalist();
 		
 		RequestDispatcher view = null;
-		if(!DOV_plist.isEmpty() && !DOV_dlist.isEmpty()) {
-			view = request.getRequestDispatcher("views/mypage_artist/detail_order_view.jsp");
-			request.setAttribute("DOV_plist", DOV_plist);
-			request.setAttribute("DOV_dlist", DOV_dlist);
-			request.setAttribute("DOV_slist", DOV_slist);
+		if(!search_list_PM.isEmpty()) {
+			view = request.getRequestDispatcher("views/mypage_artist/searchResult_PM.jsp");
+			request.setAttribute("search_list_PM", search_list_PM);
+			request.setAttribute("alist",alist);
+			
 		}else {
 //			view = request.getRequestDispatcher("views/common/errorPage.jsp");
 //			request.setAttribute("msg","게시판 리스트 조회 실패!");

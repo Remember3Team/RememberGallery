@@ -145,7 +145,7 @@
                     <% for(Mypage_artist ma : DOV_slist){ %>
                     <tr>
                         <td><%=ma.getRec_name() %></td>
-                        <td><%=ma.getRec_list() %></td>
+                        <td><%=ma.getRec_add() %></td>
                         <td><%=ma.getRec_message() %></td>
                     </tr>
                     <%} %>

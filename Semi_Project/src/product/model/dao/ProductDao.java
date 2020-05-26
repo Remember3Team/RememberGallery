@@ -859,7 +859,7 @@ public class ProductDao {
 		ResultSet rset = null;
 		int result =0;
 		
-		String query = "INSERT INTO BUY_LIST VALUES(SEQ_ORD.NEXTVAL,?,?,DEFAULT,NULL,DEFAULT,NULL,SYSDATE)";
+		String query = "INSERT INTO BUY_LIST VALUES(SEQ_ORD.NEXTVAL,?,?,DEFAULT,DEFAULT,DEFAULT,NULL,SYSDATE)";
 		try {
 			pstmt = conn.prepareStatement(query);
 			
@@ -991,6 +991,60 @@ public class ProductDao {
 	
 
 		return list;
+	}
+
+	public product selectpaint(Connection conn, int paint_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		product p = new product();
+	
+		String query ="SELECT * FROM PAINT WHERE PAINT_NO=?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, paint_no);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				 p = new product(rset.getInt("PAINT_NO"), 
+						rset.getString("PAINT_NAME"),
+						rset.getInt("PAINT_PRICE"),
+						rset.getInt("SIZE_NO"),
+						rset.getString("ARTIST_NAME"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return p;
+	}
+
+	public int updateBasket(Connection conn, int paint_no, String orderid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result= 0;
+		String query = "UPDATE BASKET SET BUY_YN='Y' WHERE  PAINT_NO=? AND USER_ID=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, paint_no);
+			pstmt.setString(2, orderid);
+			
+			result = pstmt.executeUpdate(); 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return result;
 	}
 
 

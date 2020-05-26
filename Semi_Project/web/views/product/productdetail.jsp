@@ -498,7 +498,7 @@ border: solid 1px;
       		<td>카테고리 : <%=plist.getCategory() %></td>
       	</tr>
       	<tr>
-      		<td>제작년도 : <%=plist.getCategory() %></td>
+      		<td>제작년도 : <%=plist.getPaint_mdate()%></td>
       		
       	<tr>
       		<td>사이즈 :<% for(int i =0;i < sizelist.size();i++) {
@@ -801,6 +801,7 @@ border: solid 1px;
 							var $contentTd =$('<td width = "350px" class = "question-box">').text(data[key].pqusetion);
 							var $dateTd = $("<td>").text(data[key].pq_date);
 						
+							
 							$replyTable.append($tr);
 							$tr.append($writerTd);
 							$tr.append($contentTd);
