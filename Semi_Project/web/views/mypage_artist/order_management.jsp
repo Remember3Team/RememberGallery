@@ -113,9 +113,13 @@
                     <td><%=ma.getPaint_price() %></td>
                     <td><%=ma.getOrder_status() %></td>
                     <td>
-                     <input class="order_no" type="hidden" value="<%=ma.getOrder_no() %>">
-                    <button class="btn btn-outline-dark order" id="detail_order" style = "width:150px">주문 상세보기</button></td>
-                    <td> <button class="btn btn-outline-dark" id="deposit" style = "width:100px">입금 확인</button></td>
+                    	 <input class="order_no" type="hidden" value="<%=ma.getOrder_no() %>">
+                    	 <button class="btn btn-outline-dark order" id="detail_order" style = "width:150px">주문 상세보기</button>
+                    </td>
+                    <td> 
+                         <input class="order_no" type="hidden" value="<%=ma.getOrder_no() %>">
+                   		 <button class="btn btn-outline-dark depositcheck" id="deposit" style = "width:100px">입금 확인</button>
+                    </td>
                 </tr>
 				<%} %>
 				
@@ -131,6 +135,15 @@
 	                   });
 	                   
 	                });
+				//입금 확인 버튼을 눌렀을 경우
+				
+				$(function(){
+					$(".depositcheck").click(function(){
+						   var order_no = $(this).parent().children(".order_no").val();
+						
+						location.href="<%=request.getContextPath()%>/updatedeposit.ud?order_no="+order_no;
+					})
+				})
 				</script>
   <br clear="both"><br>
 		<!--  페이징 처리 시작! -->

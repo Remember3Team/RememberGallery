@@ -763,6 +763,8 @@ border: solid 1px;
 				var paint_no = $(this).parent().children("input").val();
 				$(this).parent().parent(".Acontents").hide();
 				$(this).parent().parent().parent().children(".addA").hide();
+				$(this).parent().parent().parent("td").attr("rowspan","2");
+				$(this).parent().parent().parent("td").css('font-weight','700').text("답변완료");
 				
 				$.ajax({
 					url:"insertA.po",
@@ -781,13 +783,13 @@ border: solid 1px;
 							var $dateTd = $("<td>").text(data.pa_date);
 							var $td =$("<td>").text(" ");
 							var $td2 =$("<td>").text(" ");
-							
-							
+						
+	
 							$replyTable.append($test1);
 							$replyTable.append($contentTd);
 							$contentTd.append($contentTd2);
 							$replyTable.append($dateTd);
-							$replyTable.append($td);
+							//$replyTable.append($td);
 							//$replyTable.append($tr);
 							$replyTable.css("display","table-row");
 					},
