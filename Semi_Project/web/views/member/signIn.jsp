@@ -48,7 +48,7 @@ color:red;
 }
 </style>
 
-<body>
+<body style="background-color: #e9ecef; ">
 	<script>
 		/*로그인 입력 안했을 시 => alter창 또는 팝업창 띄운 후, error 페이지로 연결*/
 		function validate() {
@@ -71,7 +71,7 @@ color:red;
 
 	<%@include file="../common/menubar.jsp"%>
 	<!-- section1 -->
-	<div class="loginArea" id="login" style="background-color: #e9ecef; height: 600px;">
+	<div class="loginArea" id="login" style="height: 580px;">
 		<%
 			if (loginUser == null) {
 		%>
@@ -112,8 +112,8 @@ color:red;
 		<%
 			} else {
 		%>
-
-		<%-- <div id="userInfo"
+		<%-- 	
+		 <div id="userInfo"
 			style="background-color: white; margin: 0 auto; float: right;">
 			<label><%=loginUser.getUserName()%>님의 방문을 환영합니다.</label>
 			<div class="btns" align="center">
@@ -131,10 +131,10 @@ color:red;
 	<!-- loginArea 끝 -->
 	<script>
 		function memberJoin(){
-			location.href="<%=request.getContextPath()%>/views/member/signUp.jsp";
+			location.href="<%=request.getContextPath()%>/views/member/signUp.jsp;"
 			}
 		function logout(){
-			location.href="<%=request.getContextPath()%>/logout.me";
+			location.href="<%=request.getContextPath()%>/logout.me;"
 		}
 
 		$(function userInfo() {
