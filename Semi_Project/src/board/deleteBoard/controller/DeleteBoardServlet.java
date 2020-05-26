@@ -33,14 +33,12 @@ public class DeleteBoardServlet extends HttpServlet {
 		int deleteNo = Integer.valueOf(request.getParameter("deleteNo"));
 		int deleteAm = Integer.valueOf(request.getParameter("deleteAm"));
 		
-		int deleteResultN = dService.deleteBoard(deleteNo);
-		int deleteResultA = dService.deleteBoard(deleteAm);
+		int deleteResultN = dService.deleteBoard(deleteNo,1);
 		
-		if(deleteResultN>0||deleteResultA>0) {
+		if(deleteResultN>0) {
 			System.out.println("데이터가 성공적으로 삭제되었습니다.");
 			response.sendRedirect("list.no");
 		}
-
 		
 	}
 
