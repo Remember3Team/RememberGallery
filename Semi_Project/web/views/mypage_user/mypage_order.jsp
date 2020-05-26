@@ -173,11 +173,7 @@ function refundApply(orderNo,paintNo){
 	var order_no = orderNo;
 	var paint_no = paintNo;
 	$("#refund_order_no").val(order_no);
-<<<<<<< HEAD
-	$("#refund_paint_no").val(order_no);
-=======
 	$("#refund_paint_no").val(paint_no);
->>>>>>> refs/remotes/origin/master
 	$("#modal_refund").fadeIn(500);
 
 }
