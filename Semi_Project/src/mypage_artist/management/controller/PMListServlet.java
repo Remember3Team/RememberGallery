@@ -41,6 +41,7 @@ public class PMListServlet extends HttpServlet {
 		
 		Mypage_ArtistService aService = new Mypage_ArtistService();
 		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getNickname());
+		String Writer = (((Member) request.getSession().getAttribute("loginUser")).getUserId());
 		System.out.println(bWriter);
 		
 		// 1_1. 게시판 리스트 갯수 구하기
@@ -101,10 +102,10 @@ public class PMListServlet extends HttpServlet {
 				ProductService pService = new ProductService();
 				ArrayList<Attachment> alist = pService.selectAList(currentPage, limit);
 				// 프로필 사진 불러오기
-//				ArtistService aService1 = new ArtistService();
-//				
-//				Apply aphoto = aService1.selectPhoto(bWriter);
-//				System.out.println(aphoto);
+				ArtistService aService1 = new ArtistService();
+				
+				Apply aphoto = aService1.selectPhoto(Writer);
+				System.out.println(aphoto);
 				
 				
 				// 출력이 잘 나오는걸 확인하면 이제 화면단으로 넘겨주자
@@ -115,9 +116,11 @@ public class PMListServlet extends HttpServlet {
 					request.setAttribute("PM_list", PM_list);
 					request.setAttribute("alist", alist);
 					request.setAttribute("pi", pi);
+					request.setAttribute("aphoto", aphoto);
 				}else {
 					view = request.getRequestDispatcher("views/common/errorPage.jsp");
 					request.setAttribute("msg","게시판 조회 실패");
+
 				}
 				
 				view.forward(request, response);

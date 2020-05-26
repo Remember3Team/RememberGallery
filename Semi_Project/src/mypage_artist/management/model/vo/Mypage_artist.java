@@ -57,6 +57,17 @@ public class Mypage_artist implements Serializable{
 	}
 
 	
+	public Mypage_artist(int order_no,String afile, String paint_name, String artist_name,  Date order_date,
+			Date ship_date) {
+		super();
+		this.paint_name = paint_name;
+		this.artist_name = artist_name;
+		this.afile = afile;
+		this.order_no = order_no;
+		this.order_date = order_date;
+		this.ship_date = ship_date;
+	}
+
 	public Mypage_artist(int order_no, String afile, String paint_name, String artist_name,   Date order_date,
 			Date ship_date, String order_status) {
 		super();

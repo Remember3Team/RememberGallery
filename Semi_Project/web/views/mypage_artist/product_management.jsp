@@ -30,7 +30,7 @@
 
 <body>
 <%@include file="../common/menubar.jsp" %>
- <div class="headline">
+<div class="headline">
         <div class="headline-text">
             <hr>
             <h3 style="font-size: 20px;"> 작가 마이페이지</h3>
@@ -38,7 +38,7 @@
         <div class="headline-subbox">
             <div class="artist-img">
                 <!--Artist Image-->
-				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>" style= "width:150px; height=150px;">        </div>
+				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>" style= "width:150px; height:150px;">        </div>
             <div class="artist-button">
                 <button style="margin-bottom: 3px;">정보수정</button>
                 <button>감동카드 확인</button>
@@ -87,7 +87,7 @@
                     <th>이미지</th>
                     <th>상품 정보</th>
                     <th>금액</th>
-                    <th>수정</th>
+                    <th>삭제</th>
                 </tr>
                 <% for(Mypage_artist ma : PM_list){ %>
                 <tr>
@@ -96,13 +96,22 @@
                     <td>작품명 : <%=ma.getPaint_name() %><br>
                     	  작가명 : <%=ma.getArtist_name() %></td>
                     <td><%=ma.getPaint_price() %></td>
-                    <td><button class="btn btn-outline-dark" id="detail_order" style = "width:100px">내용수정</button>
+                    <td>
+                    <input class="paint_no" type="hidden" value="<%=ma.getPaint_no() %>">
+                    <button class="btn btn-outline-dark delete" id="detail_order" style = "width:100px" onclick="delete();">삭제</button>
                     </td>
                 </tr>
 				<%} %>
             </table>
         </div>
-        
+        <script>
+        	$(function(){
+        		$(".delete").click(function(){
+        			var paint_no = $(this).parent().children(".paint_no").val();
+        			location.href="<%=request.getContextPath()%>/delete.p?paint_no="+paint_no;
+        		})
+        	})
+        </script>
     </div>
  		<br clear="both"><br>
 		<!--  페이징 처리 시작! -->

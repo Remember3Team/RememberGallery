@@ -93,7 +93,6 @@
         <div class = "refund-table">
             <div class="table-headline">
                 <div><span>주문관리</span></div>
-                <div class="button"><button class="btn btn-outline-dark" style = "width:120px">입금확인</button></div>
             </div>
             <table style="width:100%" name="refund-list">
                 <tr>
@@ -103,6 +102,7 @@
                     <th>금액</th>
                     <th>처리 상태</th>
                     <th>주문 정보 확인</th>
+                    <th>입금 확인</th>
                 </tr>
                 <% for(Mypage_artist ma : OM_list){ %>
                 <tr>
@@ -115,6 +115,7 @@
                     <td>
                      <input class="order_no" type="hidden" value="<%=ma.getOrder_no() %>">
                     <button class="btn btn-outline-dark order" id="detail_order" style = "width:150px">주문 상세보기</button></td>
+                    <td> <button class="btn btn-outline-dark" id="deposit" style = "width:100px">입금 확인</button></td>
                 </tr>
 				<%} %>
 				
