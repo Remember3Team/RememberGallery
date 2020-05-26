@@ -56,25 +56,26 @@ public class InsertAServlet extends HttpServlet {
 		if(m.getUserName().equals(p.getArtist_name())) {
 			result = pService.insertAnwser(qna_no,content);
 			result2 = pService.updateQ(qna_no);
-		}
-		System.out.println(result);
-		System.out.println(result2);
-		Paint_QnA qna2 = pService.selectP2(qna_no);
-	
-		
-	
+			System.out.println(result);
+			System.out.println(result2);
+			Paint_QnA qna2 = pService.selectP2(qna_no);
+			
+			
+			
 			JSONObject rListObj = new JSONObject();
-		
+			
 			//rListObj.put("pq_no", qna2.getPq_no());
 			rListObj.put("panswer", qna2.getPanswer());
 			rListObj.put("pa_date", qna2.getPq_date());
+			response.setContentType("application/json; charset=utf-8");
+			
+			PrintWriter out = response.getWriter();
+			out.print(rListObj);
+			out.flush();
+			out.close();
+		}else {
 		
-		response.setContentType("application/json; charset=utf-8");
-		
-		PrintWriter out = response.getWriter();
-		out.print(rListObj);
-		out.flush();
-		out.close();
+		}
 		
 		
 	}
