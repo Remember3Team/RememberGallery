@@ -81,7 +81,7 @@
 			<div class="search-bar">
 				<div class="bar1">
 					<input type="text" name="order-status" list="status-list"
-						placeholder=" 주문 처리 상태">
+						placeholder="주문 처리 상태">
 					<datalist id="status-list">
 						<option value="환불신청"></option>
 						<option value="환불완료"></option>

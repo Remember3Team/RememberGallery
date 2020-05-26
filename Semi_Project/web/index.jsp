@@ -19,11 +19,7 @@
 <body>
 
 	<%@include file="views/common/menubar.jsp" %>
-<<<<<<< HEAD
-	<%@include file="views/main/main.jsp" %>
-	<input type="button" value="바로 구매하기"
-	
-=======
+
 
 <section> <!-- 메인 슬라이드 -->
 		<div id="contents">
