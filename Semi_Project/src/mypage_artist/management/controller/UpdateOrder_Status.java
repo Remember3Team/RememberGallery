@@ -2,7 +2,6 @@ package mypage_artist.management.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,18 +10,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import member.model.vo.Member;
 import mypage_artist.management.model.service.Mypage_ArtistService;
+import mypage_artist.management.model.vo.Mypage_artist;
 
 /**
- * Servlet implementation class DeleteProductServlet
+ * Servlet implementation class UpdateOrder_Status
  */
-@WebServlet("/delete.p")
-public class DeleteProductServlet extends HttpServlet {
+@WebServlet("/updatedeposit.ud")
+public class UpdateOrder_Status extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteProductServlet() {
+    public UpdateOrder_Status() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,25 +31,22 @@ public class DeleteProductServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		Mypage_ArtistService ma = new Mypage_ArtistService();
+		Mypage_ArtistService aService = new Mypage_ArtistService();
 		
-		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getUserName());
-		int paint_no = Integer.valueOf(request.getParameter("paint_no"));
+		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getUserId());
+		int order_no = Integer.valueOf(request.getParameter("order_no"));
 		
-		int deleteResult = ma.deleteProduct(bWriter, paint_no);
+		System.out.println("주문번호" +order_no);
+		System.out.println(bWriter);
 		
-		int deleteBResult = ma.deleteBasket(bWriter, paint_no);
+		int result = aService.updateOrder_status(order_no);
 		
-		RequestDispatcher view = null;
-		
-		if(deleteResult > 0) {
-			view = request.getRequestDispatcher("views/mypage_artist/product_management.jsp");	
+		if(result >0) {
+			response.sendRedirect("OM.list");
 		}else {
-			view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			request.setAttribute("msg","작품 삭제 실패");
+			System.out.println("입금확인 실패");
 		}
-		view.forward(request, response);
+		
 	}
 
 	/**

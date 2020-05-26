@@ -14,19 +14,18 @@ import board.notice.model.vo.PageInfo;
 import member.model.vo.Member;
 import mypage_artist.management.model.service.Mypage_ArtistService;
 import mypage_artist.management.model.vo.Mypage_artist;
-import oracle.sql.DATE;
 
 /**
- * Servlet implementation class SearchListServlet
+ * Servlet implementation class SearchListServlet_SM
  */
-@WebServlet("/Search.MP")
-public class SearchListServlet extends HttpServlet {
+@WebServlet("/Search.SM")
+public class SearchListServlet_SM extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchListServlet() {
+    public SearchListServlet_SM() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,7 +40,7 @@ public class SearchListServlet extends HttpServlet {
 		
 		Mypage_ArtistService ma = new Mypage_ArtistService();
 		
-		String order_status = request.getParameter("order_status");
+		String shipping_status = request.getParameter("shipping_status");
 		String term = request.getParameter("term");
 		String calendar1 = request.getParameter("calendar1");
 		String calendar2 = request.getParameter("calendar2");
@@ -49,7 +48,7 @@ public class SearchListServlet extends HttpServlet {
 		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getUserName());
 		
 		
-		System.out.println(order_status);
+		System.out.println(shipping_status);
 		System.out.println(term);
 		System.out.println(calendar1);
 		System.out.println(calendar2);
@@ -106,15 +105,15 @@ public class SearchListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage,
 				                   startPage, endPage);
 		
-		ArrayList<Mypage_artist> search_list = new ArrayList<>();
+		ArrayList<Mypage_artist> search_list_SM = new ArrayList<>();
 		
-		search_list = ma.listSearch(order_status, term, calendar1, calendar2, bWriter);
-		System.out.println(search_list);
+		search_list_SM = ma.listSearch_SM(shipping_status, term, calendar1, calendar2, bWriter);
+		System.out.println(search_list_SM);
 		
 		RequestDispatcher view = null;
-		if(!search_list.isEmpty()) {
-			view = request.getRequestDispatcher("views/mypage_artist/searchResult.jsp");
-			request.setAttribute("search_list", search_list);
+		if(!search_list_SM.isEmpty()) {
+			view = request.getRequestDispatcher("views/mypage_artist/searchResult_SM.jsp");
+			request.setAttribute("search_list_SM", search_list_SM);
 		}else {
 			view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			request.setAttribute("msg","검색 결과가 없습니다");

@@ -72,7 +72,8 @@ public class ProductDao {
 						rset.getString("PAINT_NAME"),
 				rset.getInt("PAINT_PRICE"),
 				rset.getInt("SIZE_NO"),
-				rset.getString("ARTIST_NAME"));
+				rset.getString("ARTIST_NAME"),
+				rset.getString("AUC_YN"));
 				list.add(p);
 			}
 
@@ -1047,5 +1048,32 @@ public class ProductDao {
 		return result;
 	}
 
+	public Paint_QnA selectP(Connection conn, int qna_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Paint_QnA qna = new Paint_QnA();
+		
+		String query = "SELECT * FROM PAINT_A WHERE PQ_NO = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, qna_no);
+			
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				 qna = new Paint_QnA(rset.getInt("PQ_NO"), 
+						rset.getString("PANSWER"),
+						rset.getString("PA_DATE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println(qna);
+		return qna;
+	}
 
 }
