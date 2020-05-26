@@ -42,8 +42,7 @@ public class MainOrderListservlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member loginMember = (Member) session.getAttribute("loginUser");
 		
-//		String searchStatus = request.getParameter("searchStatus");
-//		System.out.println("배송상태 내놓라고"+searchStatus);
+
 
 		MorwService mService = new MorwService();
 		//페이지 네이션

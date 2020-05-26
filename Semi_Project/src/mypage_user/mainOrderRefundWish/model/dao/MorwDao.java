@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import mypage_artist.management.model.vo.Mypage_artist;
 import mypage_user.mainOrderRefundWish.model.vo.Morw;
 import product.model.vo.Attachment;
 
@@ -52,7 +53,7 @@ public class MorwDao {
 				"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO)\r\n" + 
 				"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO) \r\n" + 
 				"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO) \r\n" + 
-				"WHERE O.USER_ID=? AND PP.Filelevel='0' ORDER BY O.ORDER_NO DESC;";
+				"WHERE O.USER_ID=? AND PP.Filelevel='0' ORDER BY O.ORDER_NO DESC";
 		
 		
 		try {
@@ -156,7 +157,7 @@ public class MorwDao {
 				"FROM BUY_LIST B " + 
 				"JOIN PAINT_PHOTO PP ON (B.PAINT_NO=PP.PAINT_NO) " + 
 				"JOIN PAINT P ON(B.PAINT_NO=P.PAINT_NO) " + 
-				"WHERE B.ORDER_STATUS LIKE '환불%' AND B.USER_ID=?";
+				"WHERE B.ORDER_STATUS LIKE '환불%' AND PP.Filelevel='0'AND B.USER_ID=?";
 		
 		try {
 			pstmt=conn.prepareStatement(query);
@@ -187,16 +188,18 @@ public class MorwDao {
 		return list;
 	}
 
+	//장바구니
 	public ArrayList<Morw> wishlistList(Connection conn, String user_id) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		ArrayList<Morw> list = new ArrayList<>();
 		
-		String query = "SELECT B.BASKET_NO,P.PAINT_NO,P.PAINT_NAME,P.ARTIST_NAME,P.PAINT_PRICE,BUY_YN " + 
-				"FROM PAINT P " + 
-				"JOIN BASKET B ON (P.PAINT_NO=B.PAINT_NO) " + 
-				"WHERE USER_ID=? AND BUY_YN='N'";
+		String query = "SELECT B.BASKET_NO,P.PAINT_NO,P.PAINT_NAME,P.ARTIST_NAME,P.PAINT_PRICE,BUY_YN \r\n" + 
+				"FROM PAINT P \r\n" + 
+				"JOIN BASKET B ON (P.PAINT_NO=B.PAINT_NO)\r\n" + 
+				"JOIN PAINT_PHOTO PP ON (P.PAINT_NO=PP.PAINT_NO)\r\n" + 
+				"WHERE USER_ID=? AND PP.Filelevel='0' AND BUY_YN='N';";
 
 		
 		try {
@@ -310,9 +313,6 @@ public class MorwDao {
 	public int insertMessage(Connection conn, Morw morw) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
-		
-		
 		
 		String query = "INSERT INTO MESSAGE(ORDER_NO,PAINT_NO,USER_ID,MESSAGE,PAINT_NAME,ARTIST_NAME) VALUES(?,?,?,?,?,?)";
 		
@@ -459,6 +459,327 @@ public class MorwDao {
 		}
 		System.out.println("페이지네이션 가져와p"+listCount);
 		return listCount;
+	}
+
+	public ArrayList<Morw> listSearch(Connection conn, String order_status, String term, String calendar1,
+			String calendar2, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Morw> search_list = new ArrayList<>();
+		Morw m  =new Morw();
+		
+		//세개 모두 null 일때 >> 아무것도 옵션을 주지 않았을때
+		if(order_status.isEmpty() && term == null && (calendar1.isEmpty()||calendar2.isEmpty())) {
+			String query ="SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS\r\n" + 
+					"FROM ORDER_TABLE O\r\n" + 
+					"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO)\r\n" + 
+					"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO)\r\n" + 
+					"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO)\r\n" + 
+					"WHERE O.USER_ID=?  AND PP.Filelevel='0'";
+					
+			try {
+				pstmt =conn.prepareStatement(query);
+				pstmt.setString(1, userId);
+
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					m = new Morw(rset.getString("order_no"),
+							rset.getInt("paint_no"),
+							rset.getString("afile"),
+							rset.getString("paint_name"),
+							rset.getString("ARTIST_NAME"),
+							rset.getInt("paint_price"),
+							rset.getDate("order_date"),
+							rset.getString("order_status"));
+						search_list.add(m);
+				}
+				System.out.println(search_list);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+		// status만 눌렀을 때 == term, cal은 null	== done
+		}else if(term == null && (calendar1.isEmpty() || calendar2.isEmpty())) {
+			String query = "SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS \r\n" + 
+					"FROM ORDER_TABLE O\r\n" + 
+					"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO)\r\n" + 
+					"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO)\r\n" + 
+					"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO)\r\n" + 
+					"WHERE O.USER_ID=? AND ORDER_STATUS=? AND PP.Filelevel='0'";
+			
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1,userId);
+				pstmt.setString(2, order_status);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					m = new Morw(rset.getString("order_no"),
+							rset.getInt("paint_no"),
+							rset.getString("afile"),
+							rset.getString("paint_name"),
+							rset.getString("ARTIST_NAME"),
+							rset.getInt("paint_price"),
+							rset.getDate("order_date"),
+							rset.getString("order_status"));
+						search_list.add(m);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+		
+			//term만 눌렀을때 == orderstatus,cal 은 null
+		}else if(order_status.isEmpty() && (calendar1.isEmpty() || calendar2.isEmpty())) {
+			String query = "SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS \r\n" + 
+					"FROM ORDER_TABLE O\r\n" + 
+					"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO)\r\n" + 
+					"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO)\r\n" + 
+					"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO)\r\n" + 
+					"WHERE O.USER_ID=? AND ORDER_DATE BETWEEN (SYSDATE - ?) AND SYSDATE AND PP.Filelevel='0'";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1,userId);
+				pstmt.setString(2, term);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					m = new Morw(rset.getString("order_no"),
+							rset.getInt("paint_no"),
+							rset.getString("afile"),
+							rset.getString("paint_name"),
+							rset.getString("ARTIST_NAME"),
+							rset.getInt("paint_price"),
+							rset.getDate("order_date"),
+							rset.getString("order_status"));
+						search_list.add(m);
+				}
+				System.out.println(search_list);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}	
+		}
+		//cal만 클릭했을 때 == status, term == null
+		else if(order_status.isEmpty() && term==null) {
+			String query = "SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS\r\n" + 
+					"FROM ORDER_TABLE O\r\n" + 
+					"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO)\r\n" + 
+					"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO) \r\n" + 
+					"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO)\r\n" + 
+					"WHERE O.USER_ID=? And ORDER_DATE BETWEEN ? And ? AND PP.Filelevel='0'";
+			
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1,userId);
+				pstmt.setString(2, calendar1);
+				pstmt.setString(3, calendar2);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					m = new Morw(rset.getString("order_no"),
+							rset.getInt("paint_no"),
+							rset.getString("afile"),
+							rset.getString("paint_name"),
+							rset.getString("ARTIST_NAME"),
+							rset.getInt("paint_price"),
+							rset.getDate("order_date"),
+							rset.getString("order_status"));
+						search_list.add(m);
+				}
+				
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+		//status, term 두개 클릭 했을 때 == cal == null
+		}else if(calendar1.isEmpty() || calendar2.isEmpty()) {
+			String query ="SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS \r\n" + 
+					"FROM ORDER_TABLE O\r\n" + 
+					"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO)\r\n" + 
+					"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO)\r\n" + 
+					"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO)\r\n" + 
+					"WHERE O.USER_ID=? AND ORDER_STATUS=? AND ORDER_DATE BETWEEN (SYSDATE - ?) AND SYSDATE AND PP.Filelevel='0'";
+		
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, userId);
+				pstmt.setString(2, order_status);
+				pstmt.setString(3, term);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					m = new Morw(rset.getString("order_no"),
+							rset.getInt("paint_no"),
+							rset.getString("afile"),
+							rset.getString("paint_name"),
+							rset.getString("ARTIST_NAME"),
+							rset.getInt("paint_price"),
+							rset.getDate("order_date"),
+							rset.getString("order_status"));
+						search_list.add(m);
+				}
+				
+				System.out.println(search_list);
+				
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+				
+			}
+		
+		//term, cal 두개 클릭했을 때 == status== null
+		}else if(order_status.isEmpty()) {
+			String query ="SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS\r\n" + 
+					"FROM ORDER_TABLE O\r\n" + 
+					"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO)\r\n" + 
+					"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO) \r\n" + 
+					"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO)\r\n" + 
+					"WHERE O.USER_ID=? and ORDER_DATE BETWEEN ? AND ? AND PP.Filelevel='0'";
+					
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, userId);
+				pstmt.setString(2, calendar1);
+				pstmt.setString(3, calendar2);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					m = new Morw(rset.getString("order_no"),
+							rset.getInt("paint_no"),
+							rset.getString("afile"),
+							rset.getString("paint_name"),
+							rset.getString("ARTIST_NAME"),
+							rset.getInt("paint_price"),
+							rset.getDate("order_date"),
+							rset.getString("order_status"));
+						search_list.add(m);
+				}
+				
+				System.out.println(search_list);
+				
+				
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+		//staus, cal만 클릭할 떼 == term == null	
+		}else if(term==null) {
+			String query ="SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS\r\n" + 
+					"FROM ORDER_TABLE O\r\n" + 
+					"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO)\r\n" + 
+					"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO) \r\n" + 
+					"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO)\r\n" + 
+					"WHERE O.USER_ID=? AND ORDER_STATUS=? AND ORDER_DATE BETWEEN ? AND ? AND PP.FILELEVEL='0'";
+			
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, userId);
+				pstmt.setString(2, order_status);
+				pstmt.setString(3, calendar1);
+				pstmt.setString(4, calendar2);
+
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					m = new Morw(rset.getString("order_no"),
+							rset.getInt("paint_no"),
+							rset.getString("afile"),
+							rset.getString("paint_name"),
+							rset.getString("ARTIST_NAME"),
+							rset.getInt("paint_price"),
+							rset.getDate("order_date"),
+							rset.getString("order_status"));
+						search_list.add(m);
+				}
+				
+				System.out.println(search_list);
+				
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+		
+			
+			//다 선택했을 때 ==done
+		}else {
+			String query ="SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS\r\n" + 
+					"FROM ORDER_TABLE O\r\n" + 
+					"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO)\r\n" + 
+					"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO) \r\n" + 
+					"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO)\r\n" + 
+					"WHERE O.USER_ID=? AND ORDER_STATUS=? AND ORDER_DATE BETWEEN ? AND ? AND PP.FILELEVEL='0'";
+			
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, userId);
+				pstmt.setString(2, order_status);
+				pstmt.setString(3, calendar1);
+				pstmt.setString(4, calendar2);
+
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					m = new Morw(rset.getString("order_no"),
+							rset.getInt("paint_no"),
+							rset.getString("afile"),
+							rset.getString("paint_name"),
+							rset.getString("ARTIST_NAME"),
+							rset.getInt("paint_price"),
+							rset.getDate("order_date"),
+							rset.getString("order_status"));
+						search_list.add(m);
+				}
+				
+				System.out.println(search_list);
+				
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+		}
+		System.out.println("써치결과"+search_list);
+		
+		return search_list;
 	}
 
 	

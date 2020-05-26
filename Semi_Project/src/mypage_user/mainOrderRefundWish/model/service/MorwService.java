@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import mypage_artist.management.model.dao.Mypage_ArtistDao;
+import mypage_artist.management.model.vo.Mypage_artist;
 import mypage_user.mainOrderRefundWish.model.dao.MorwDao;
 import mypage_user.mainOrderRefundWish.model.vo.Morw;
 import product.model.vo.Attachment;
@@ -160,4 +161,17 @@ public class MorwService {
 		
 		return listCount;
 	}
+
+	public ArrayList<Morw> searchList(String order_status, String term, String calendar1, String calendar2,
+			String userId) {
+		Connection conn = getConnection();
+		
+		ArrayList<Morw> search_list = new MorwDao().listSearch(conn, order_status, term, calendar1, calendar2, userId);
+		
+		close(conn);
+		System.out.println(search_list);
+		return search_list;
+	}
+
+	
 }

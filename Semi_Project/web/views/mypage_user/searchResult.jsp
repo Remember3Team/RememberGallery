@@ -1,18 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="mypage_user.mainOrderRefundWish.model.vo.*,product.model.vo.*, board.notice.model.vo.PageInfo,java.util.ArrayList"%>
+    pageEncoding="UTF-8" import="mypage_user.mainOrderRefundWish.model.vo.*,product.model.vo.*,java.util.ArrayList"%>
     
 <%
 	
-	ArrayList<Morw> list = ((ArrayList<Morw>)request.getAttribute("list"));
+	ArrayList<Morw> search_list = ((ArrayList<Morw>)request.getAttribute("search_list"));
 	ArrayList<Attachment> plist = (ArrayList<Attachment>) request.getAttribute("plist");
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
-	int listCount = pi.getListCount();
-    int currentPage = pi.getCurrentPage();
-    int maxPage = pi.getMaxPage();
-    int startPage = pi.getStartPage();
-    int endPage = pi.getEndPage();
-	 
 %>
 <!DOCTYPE html>
 <html>
@@ -63,32 +56,6 @@ $("document").ready(function(){
 function setStatus(obj){
 	term = obj.value;
 }
-
-// function searchData(){
-	
-// 	$("#searchStatus").change(function(){
-// 		var searchStatus = this.value;
-// 		 $("#searchStatus").val(searchStatus);
-// 		console.log(searchStatus);
-// 	});
-// 	var searchStatus = $("#searchStatus").val();
-	
-// 	console.log(searchStatus);
-// 	var term = $("input[name=term]:radio:checked").val();
-// 	var calendar = $("#calendar").val();
-// 	var calendar2 = $("#calendar2").val();
-	
-// 	var data = {
-// 	    		'search_status' : searchStatus,
-// 	    		'term' : term,
-// 	    		'calendar' : calendar,
-// 	    		'calendar2' : calendar2
-// 	    	 };
-<%--  	 location.href="<%=request.getContextPath()%>/Mo.li?menu=order";  --%>
-	
-	
-//  }
-
 
 
 
@@ -235,7 +202,7 @@ function submit(){
       
       <div class="container">
       <form method="post" action="<%=request.getContextPath()%>/SearchServlet">
-            <div class="search-bar">
+             <div class="search-bar">
                 <div class="bar1">
                     <input type="text"  name="searchStatus" list="order_list" placeholder="주문 처리 상태">
                     <datalist id="order_list">   
@@ -264,7 +231,7 @@ function submit(){
                                 <label class="btn btn-outline-dark">
                                     <input type="radio" name="term" value="180" >6개월
                                 </label>
-                            </div> 
+                            </div>
                 &nbsp;&nbsp;&nbsp;
                 <div class="bar3">
                     <input id="calendar1" type="date" name="calendar1"> ~
@@ -303,9 +270,9 @@ function submit(){
                 </tr>
                 </thead>
                 <tbody>
-                <%if(!list.isEmpty()){ %>
-			  			<%for(int i =0 ; i <list.size();i++){ 
-			  			Morw m = list.get(i);
+                <%if(!search_list.isEmpty()){ %>
+			  			<%for(int i =0 ; i <search_list.size();i++){ 
+			  			Morw m = search_list.get(i);
 			  			String gOrderStatus = m.getOrderStatus();
 			  			String gOrderNo = m.getOrderNo();
 			  			String gPaintName = m.getPaintName();
@@ -348,47 +315,7 @@ function submit(){
    
       <br>
       <br>
-      <br clear="both"><br>
-      <!--  페이징 처리 시작! -->
-      <div class="pageingArea" align="center">
-      <!-- 맨 처음으로 (<<) -->
-      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/Mo.li?currentPage=1'"> << </button>
-      
-      <!-- 이전 페이지로(<) -->
-      <%if(currentPage <= 1) {%>
-      <button class="btn btn-secondary" disabled> < </button>
-      <%}else{ %>
-      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/Mo.li?currentPage=<%=currentPage-1 %>'"> < </button>
-       <%} %>
-      <!-- 10개의 페이지 목록 -->
-      <%for(int p = startPage ; p<=endPage;p++){ %>
-     	 <%if(currentPage == p){ %>
-     	 	<button class="btn btn-secondary" disabled><%=p %></button>
-     	 <%}else{ %>
-     	 	<button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/Mo.li?currentPage=<%=p %>'"><%=p %></button>
-     	 <%} %>
-      <%} %>
-
-
-      
-      <!-- 다음 페이지로(>) -->
-        <%if(currentPage == maxPage) {%>
-      <button class="btn btn-secondary" disabled> > </button>
-      <%}else{ %>
-      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/PM.list?currentPage=<%=currentPage+1 %>'"> > </button>
-      <%} %>
-      
-      <!-- 맨 끝으로(>>) -->
-      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/PM.list?currentPage=<%= maxPage%>'"> >> </button>
-      
-      </div>
-      <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    </div> 
+   
     
     
 	
