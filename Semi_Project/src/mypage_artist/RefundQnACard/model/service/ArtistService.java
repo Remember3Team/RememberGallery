@@ -17,10 +17,10 @@ import product.model.vo.Attachment;
 
 public class ArtistService {
 
-	public int getListCount() {
+	public int getListCount(String name) {
 		Connection conn = getConnection();
 
-		int listCount = new ArtistDao().getListCount(conn);
+		int listCount = new ArtistDao().getListCount(conn, name);
 
 		close(conn);
 

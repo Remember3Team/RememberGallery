@@ -172,7 +172,7 @@ ul li ul li:hover{
 					<li><a href="#">1:1문의</a></li>
 
 					<li><a href="#">마이페이지 관리자</a></li>
-					<li><a href="#">마이페이지 판매자</a></li>
+					<li><a href="<%= request.getContextPath() %>/PM.list">마이페이지 판매자</a></li>
 
 					<li><a href="<%=request.getContextPath()%>/logout.me">로그아웃</a></li>
 

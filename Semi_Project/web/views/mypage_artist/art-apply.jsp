@@ -1,15 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>제휴 신청</title>
  <!-- link rel="stylesheet" href="../css/style.css" -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/Style-apply.css">
-<script src="../js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="../js/bootstrap.js"></script> 
+
+
+ <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/views/css/Style-apply.css">
+<script src="<%=request.getContextPath() %>/views/js/jquery-3.4.1.min.js"></script>
+
+
+
 </head>
 <body>
 <%@include file="../common/menubar.jsp" %>
@@ -27,11 +32,14 @@
                     <div class="introduce-area">
                         <label class="label-first" for="introduce">자기 소개</label>
                         <textarea class="textarea-introduce" name="introduce"></textarea>
-                    </div><div class="image-box">
-                        <a style="font-size: 80%; margin-bottom: 10px; display: inline-block;">사진 업로드</a>
-                        <label for="file1"> 사진 업로드</label>
-                        <input type="file" multiple="multiple" name="file1" id="file1">
+                    </div>
+                    <div class="image-box">
+                        <a style="font-size: 80%; margin-bottom: 10px; display: inline-block; margin: 10px 0;">사진 업로드</a>
+                        <div class = "imgPreview"><img class= "artistImg" width ="135px"><span class = "x-box" onclick="deletePhoto();"></span></div>
+                        <label for="file1" id ="uploadPhoto1" onchange="uploadPhoto(this);"> 사진 업로드</label>
+                        <input type="file" name="file1" id="file1" onchange="uploadPhoto(this);">
                         <!-- <input class="upload-name" value="파일선택"> -->
+
                     </div>
                 </div>
                 <br>
@@ -64,20 +72,90 @@
                     </div>
                 </div>
                 <div class="etc-box">
-                    <label class="label-first" for="etc" >기타 이력</label>
+                    <label class="label-first" for="etc" style = "margin-top : 30px;" >기타 이력</label>
                     <div class="etc-area">
                         <textarea class="textarea-etc" name="etc"></textarea>
                     </div>
                     <div class="file-box">
-                        <label for="file2">파일 첨부하기</label>
-                        <input type="file" multiple="multiple" name = "file2" id="file2">
+                        <label class = "putFile" for="a-file">파일 첨부하기</label>
+                        <input class="upload-file" value="파일선택">
+                        <input type="file" id="a-file" name="a-file"><br>
                     </div>
                 </div>
-                <button type=submit>제출하기</button>
+                <button type="submit" name="goSubmit" style = "margin-left : 5px;">제출하기</button>
+                <button type="button" id="goMain">취소</button>
             </div>
             
         </form>
+
     </div>
+    
+    <script>
+    
+    	
+    	// 메인으로 가기
+    	
+    	$("#goMain").on('click', function() {
+    		location.href="<%=request.getContextPath()%>/index.jsp";
+    	});
+    
+    
+    	// 프로필 이미지 프리뷰
+    	
+    	function uploadPhoto(value){
+    		
+			if(value.files && value.files[0]) {
+				
+				var reader = new FileReader();
+			
+				reader.onload = function(e) {
+					$(".artistImg").attr("src", e.target.result);
+				}
+			
+				reader.readAsDataURL(value.files[0]);
+			}
+		
+			$("#uploadPhoto1").hide();
+			$(".imgPreview").attr("style","display:flex");
+			$(".x-box").attr("style","display:flex");
+		}
+    	
+    	// 프리뷰 지우기
+    	
+    	function deletePhoto() {
+    		
+			$(".imgPreview").attr("style","display:none"); // 사진 감싸는 박스
+			
+			$(".x-box").attr("style","display:none"); // 취소 버튼
+			
+			$("#uploadPhoto1").show();	// 사진 업로드 버튼
+    		
+    	}
+    	
+    
+    	// 파일 이름 불러오기
+    	
+        $(document).ready(function(){
+        	
+        	var fileTarget = $('.file-box #a-file');
+        	
+        	fileTarget.on('change', function(){
+        		if(window.FileReader){
+        			var filename = $(this)[0].files[0].name;
+        		} else { 
+        			var filename = $(this).val().split('/').pop().split('\\').pop();
+        		}
+        		
+        		$(this).siblings('.upload-file').val(filename);
+        		
+        		$(".upload-file").attr("style", "display:inline-block");
+        		
+        	});
+        	
+        });
+
+        </script>
+    
 <%@include file="../common/footer.jsp" %>
 </body>
 </html>

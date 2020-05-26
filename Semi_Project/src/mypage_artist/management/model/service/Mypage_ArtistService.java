@@ -21,7 +21,7 @@ public class Mypage_ArtistService {
 	}
 	
 	public int getListCount_OM(String bWriter) {
-Connection conn = getConnection();
+		Connection conn = getConnection();
 		
 		int listCount_OM = new Mypage_ArtistDao().getListCount_OM(conn, bWriter);
 		
@@ -30,7 +30,15 @@ Connection conn = getConnection();
 		return listCount_OM;
 	}
 
-
+	public int getListCount_SM(String bWriter) {
+		Connection conn = getConnection();
+		
+		int listCount_SM = new Mypage_ArtistDao().getListCount_SM(conn, bWriter);
+		
+		close(conn);
+		
+		return listCount_SM;
+	}
 
 	public ArrayList<Mypage_artist> selectList_PM(int currentPage, int limit, String bWriter) {
 		Connection conn = getConnection();
@@ -96,6 +104,16 @@ Connection conn = getConnection();
 		System.out.println(search_list);
 		return search_list;
 	}
+	public ArrayList<Mypage_artist> listSearch_PM(String category, 
+			String bWriter) {
+		Connection conn = getConnection();
+		
+		ArrayList<Mypage_artist> search_list_PM = new Mypage_ArtistDao().listSearch_PM(conn, category, bWriter);
+		
+		close(conn);
+		System.out.println(search_list_PM);
+		return search_list_PM;
+	}
 
 	public ArrayList<Mypage_artist> selectList_DOV_P(String bWriter, int order_no) {
 		Connection conn = getConnection();
@@ -143,6 +161,10 @@ Connection conn = getConnection();
 		
 		return result2;
 	}
+
+
+
+	
 
 
 }

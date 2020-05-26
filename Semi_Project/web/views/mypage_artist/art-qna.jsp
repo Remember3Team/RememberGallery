@@ -6,6 +6,7 @@
 	ArrayList<Attachment> alist = (ArrayList<Attachment>) request.getAttribute("alist");
 	Apply aphoto = (Apply) request.getAttribute("aphoto");
 	
+	
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
 	int listCount = pi.getListCount();
@@ -40,11 +41,16 @@
            </div>
             <div class="artist-btn" style = "display: inline-block; vertical-align: middle;
             ">
-                <button class="btn btn-outline-dark" style = "width:120px; display:block; margin-bottom:5px;" onclick="checkCard();">정보 수정</button>
+                <button class="btn btn-outline-dark" style = "width:120px; display:block; margin-bottom:5px;" onclick="updateInfo();">정보 수정</button>
                 <button class="btn btn-outline-dark" style = "width:120px; display:block;margin-top:5px;" onclick="checkCard();">감동 카드</button>
                 <script>
                 	function checkCard() {
-                		location.href = "<%= request.getContextPath() %>/list.ac" }
+                		location.href = "<%= request.getContextPath() %>/list.ac"
+                	}
+                	
+                	function updateInfo() {
+                		location.href = "<%=request.getContextPath()%>/mypage.me?userId=<%=loginUser.getUserId() %>"
+                	}
                 	
          
                 </script>
@@ -105,7 +111,7 @@
                 <!-- <div><span>문의 내역</span></div> -->
 <!--                 <div class="button"><button class="btn btn-outline-dark" style = "width:120px">선택 삭제</button></div> -->
             </div>
-            <table style="width:100%" name="question-list">
+            <table style="width:100%; font-size : 14px;" name="question-list">
                 <tr>
                     <!-- <th style = "text-align : center;"><input type="checkbox"></th> -->
                     <th style = "text-align : center;">상품 번호</th>
@@ -128,13 +134,18 @@
 							Attachment a = alist.get(j); %>
 							
 						<% if(q.getPaint_no() == a.getPaint_no()) { %>
-					<img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" width="150px" height="150px">
+						<div class = "artPhoto-box" style = "width :100px; height:100px; overflow:hidden;">
+					<img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" style = "width : 120px;">
+					 </div>
 					 <%} %>
 					<%} %>
                     </td>
                     <td>작품명 : <%=q.getPaint_name()%></td>
                     <td><%=q.getPq_date()%></td>
-                    <td><%=q.getPquestion()%></td>
+                    <td>
+                    <textarea class = "question-area" readonly="readonly" style ="border-style:none; border-radius : 5px;
+       				padding : 10px; width : 320px; background:#f8f9fc; resize:none;"><%=q.getPquestion()%>
+       				</textarea></td>
                     <td><%=q.getUser_id() %></td>
                     <td>
                     <%
@@ -143,7 +154,7 @@
 					  답변 완료
 					          
                     <%} else {%>
-                    	<button class="btn btn-outline-dark goanswer"  style = "width:100px">답변하기</button>
+                    	<button class="btn btn-outline-dark goanswer"  style = "width:100px; font-size:14px;">답변하기</button>
                     <%} %>
                     </td>
                     <!-- <td><button class="btn btn-outline-dark" style = "width:100px">답변하기</button></td> -->

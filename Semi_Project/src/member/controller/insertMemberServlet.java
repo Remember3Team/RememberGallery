@@ -41,9 +41,21 @@ public class insertMemberServlet extends HttpServlet {
 		String userPwd = request.getParameter("userPwd");
 		String nickName = request.getParameter("nickName");
 		String phone = request.getParameter("phone");
-		String address = request.getParameter("address");
+	
+		
+		String var1=request.getParameter("sample6_postcode");
+		String var2=request.getParameter("sample6_address");
+		String var3=request.getParameter("sample6_detailAddress");
+		String var4=request.getParameter("sample6_extraAddress");
+		
+		String address = "";
+		address +=var1;
+		address +=var2;
+		address +=var3;
+		address +=var4;
+		
+		
 		String email = request.getParameter("email");
-
 		Member member = new Member(userId, userName,userPwd , nickName, phone, address, email);
 		int result = new MemberService().insertMember(member);
 

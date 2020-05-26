@@ -2,6 +2,8 @@ package product.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -74,6 +76,10 @@ public class insertbuyproduct extends HttpServlet {
 		int result = new ProductService().insertorder(paint_no,orderid,ordername, orderphone, orderEmail, orderadress,
 														receivename,receivephone,receiveaddress,orderrule,receivecontent);
 		
+		
+		// 자신의 장바구니를 조회 해봐. paint_no, user_id -> buy_yn -> y 변경 
+		
+		int result2 = pService.updateBasket(paint_no,orderid);
 		
 		  if (result > 0){ 
 			  response.sendRedirect("Mo.li");

@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "mypage_artist.management.model.vo.*, artistapply.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import = "mypage_artist.management.model.vo.*, artistapply.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList
+    , product.model.vo.*"%>
     <%
     	ArrayList<Mypage_artist> PM_list = (ArrayList<Mypage_artist>)request.getAttribute("PM_list");
+    	ArrayList<Mypage_artist> search_list_PM = (ArrayList<Mypage_artist>)request.getAttribute("search_list_PM");
+    	ArrayList<Attachment> alist = (ArrayList<Attachment>)request.getAttribute("alist");
     	PageInfo pi = (PageInfo)request.getAttribute("pi");
     	/* Apply aphoto = (Apply) request.getAttribute("aphoto"); */
     	
@@ -50,10 +53,10 @@
     </div>
 
     <div class="container">
-        <form action="">
+        <form action="<%=request.getContextPath()%>/Search.PM" method="post">
             <div class="search-bar">
                 <div class="bar1">
-                    <input type="text" name="order-status" list="genre" placeholder="테마">
+                    <input type="text" name="category" list="genre" placeholder="테마">
                     <datalist name="genre" id="genre">
                                 <option value="인물">인물</option>
                                 <option value="풍경">풍경</option>
@@ -64,28 +67,7 @@
                                 <option value="오브제">오브제</option>
                             </datalist>  
                 </div>
-                <div class="btn-group" data-toggle="buttons">
-                                <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="today">오늘
-                                </label>
-                                <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="week">1주일
-                                </label>
-                                <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="month" >1개월
-                                </label>
-                                <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="three_months" >3개월
-                                </label>
-                                <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="six_months" >6개월
-                                </label>
-                            </div> 
-                &nbsp;&nbsp;&nbsp;
-                <div class="bar3">
-                    <input type="date" name="refund-date1"> 
-                    <input type="date" name="refund-date1">
-                </div>
+              
                 <button type="submit" class="btn btn-dark" style="width:70px">조회</button>
             </div>
 
@@ -111,8 +93,8 @@
                 </tr>
                 <% for(Mypage_artist ma : PM_list){ %>
                 <tr>
-                    <td><%=ma.getPaint_no() %></td>
-                    <td><img src="<%=request.getContextPath() %>/views/img/2.jsp"></td>
+                    <td><%=ma.getPaint_no() %></td><% for(Attachment a : alist) {    if(ma.getPaint_no() == a.getPaint_no()){%>
+                    <td><img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>"></td><%}} %>
                     <td>작품명 : <%=ma.getPaint_name() %><br>
                     	  작가명 : <%=ma.getArtist_name() %></td>
                     <td><%=ma.getPaint_price() %></td>
