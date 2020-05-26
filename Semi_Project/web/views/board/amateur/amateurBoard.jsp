@@ -14,6 +14,10 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
+	
+	System.out.println("list:"+list);
+	System.out.println("flist:"+fileList);
+	
 		
 %>    
 

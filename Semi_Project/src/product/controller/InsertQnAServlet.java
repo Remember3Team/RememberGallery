@@ -56,6 +56,8 @@ public class InsertQnAServlet extends HttpServlet {
 		
 		ArrayList<Paint_QnA> qna = pService.selectQ(paint_no);
 		
+		//ArrayList<Paint_QnA> qna2 = pService.selectP();
+		System.out.println(qna);
 		JSONArray rListArray = new JSONArray();
 		JSONObject rListObj = null;
 		
@@ -65,7 +67,7 @@ public class InsertQnAServlet extends HttpServlet {
 
 			rListObj.put("pq_no", user.getPq_no());
 			rListObj.put("pqusetion", user.getPqusetion());
-			rListObj.put("pq_date", user.getPa_date());
+			rListObj.put("pq_date", user.getPq_date());
 			rListObj.put("paint_no", user.getPaint_no());
 			rListObj.put("user_id", user.getUser_id());
 			rListObj.put("pq_yn", user.getPq_yn());

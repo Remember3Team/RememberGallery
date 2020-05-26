@@ -101,21 +101,21 @@
 			<%if (currentPage == 1) { %>
             <a style = "color:#9c9c9c; "  disabled>Previous</a>
             <%}else {%>
-            <a class = "page-a" href="<%=request.getContextPath() %>/list.ar?currentPage=<%=currentPage - 1 %>" >Previous</a>
+            <a class = "page-a" href="<%=request.getContextPath() %>/list.no?currentPage=<%=currentPage - 1 %>" >Previous</a>
             <%} %>
             <ol>
             <%for(int p = startPage ; p<=endPage ; p++){ %>
             <%if(currentPage == p){ %>
               <li class = "page-list1"><button disabled class = "page-cur" ><%=p%></button></li>
             <%} else { %>
-              <li class = "page-list2" onclick="location.href='<%=request.getContextPath() %>/list.ar?currentPage=<%=p%>'"><button class = "page-nocur"><%=p%></button></li>
+              <li class = "page-list2" onclick="location.href='<%=request.getContextPath() %>/list.no?currentPage=<%=p%>'"><button class = "page-nocur"><%=p%></button></li>
             <%} %>
             <%} %>
             </ol>
             <%if (currentPage == maxPage) { %>
             <a style = "color:#9c9c9c; "  disabled>Next</a>
             <%} else { %>
-            <a class = "page-a" href="<%=request.getContextPath()%>/list.ar?currentPage=<%=currentPage + 1%>">Next</a>
+            <a class = "page-a" href="<%=request.getContextPath()%>/list.no?currentPage=<%=currentPage + 1%>">Next</a>
             <%} %>
    </div>
 </div>

@@ -15,6 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
 <style>
 	#goNoticeBoard{ float:right; margin-right:100px; }
+	#deleteContent{ float:right; margin-right:3px;}
  	#noticeDetail div{margin: 0 auto; margin-top:30px; margin-bottom:100px;}
 	#noticeDetailList:after { display:block; content:""; clear:both; }
 	
@@ -34,7 +35,7 @@
 <div id="noticeDetail" class="container">
 
 
-	<div id="noticeDetailList" class="row" style="display:block; margin:center;">
+	<div id="noticeDetailList" class="row" style="display:block; margin:center; width:100%">
 		<div class="cols-sm-6">
 			<table class="table" style="margin-left:150px">
 				<tr>
@@ -53,16 +54,19 @@
 				<tr>
 					<td colspan="6">내용</td>
 				</tr>
+				<tr>
 					<td colspan="6">
 						<pre>
 							<%=n.getNotice() %>
 						</pre>
 					</td>
+				</tr>
 			</table>
 			</div>
 		</div>
 	</div>
-	<button id="goNoticeBoard" type="button active" class="btn btn-secondary" onclick="pageBack();">목록으로 가기</button>
+	<button id="goNoticeBoard" type="button active" class="btn btn-secondary" onclick="pageBack();">목록</button>
+	<button id="deleteContent" type="button active" class="btn btn-secondary" onclick="goDelete();">삭제</button>
 <br><br><br>
 
 <%@include file="../../common/footer.jsp" %>
@@ -73,7 +77,12 @@
 	}
 	function goDelete(){
 		var deleteNo = document.getElementById("deleteNo").value;
-		location.href="<%=request.getContextPath()%>/delete.bo?deleteNo="+deleteNo;
+		var result = confirm("정말 삭제하시겠습니까?");
+		if(result){
+			location.href="<%=request.getContextPath()%>/delete.bo?deleteNo="+deleteNo;			
+		}else{
+			
+		}
 	}
 </script>
 </html>

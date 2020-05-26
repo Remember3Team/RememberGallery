@@ -84,9 +84,12 @@ public class productdetail extends HttpServlet {
 		
 		qna = pService.selectQ(paint_no);
 		
+		System.out.println(qna);
+		
 		ArrayList<Paint_QnA> qna2 = new ArrayList<Paint_QnA>();
 		
 		qna2 = pService.selectP();
+		System.out.println(qna2);
 		
 		//QNA Q A 받아옴
 		

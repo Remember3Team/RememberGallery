@@ -93,7 +93,7 @@ public class NoticeDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				n = new Notice(rset.getInt("RNUM"),
+				n = new Notice(rset.getInt("NOTI_NO"),
 									  rset.getString("NOTI_TITLE"),
 									  rset.getString("NOTI_CATE"),
 									  rset.getDate("NOTI_DATE"),
@@ -116,7 +116,7 @@ public class NoticeDao {
 		ResultSet rset = null;
 		Notice n = null;
 		
-		String query = "SELECT * FROM NOTICE_VIEW WHERE RNUM=?";
+		String query = "SELECT * FROM NOTICE_VIEW WHERE NOTI_NO=?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -124,7 +124,7 @@ public class NoticeDao {
 			
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				n = new Notice(rset.getInt("RNUM"),
+				n = new Notice(rset.getInt("NOTI_NO"),
 							   rset.getString("noti_title"),
 							   rset.getString("noti_cate"),
 							   rset.getDate("noti_date"),

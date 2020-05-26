@@ -244,7 +244,7 @@ border: solid 1px;
       .swiper-fiximg {
        	 position : absolute;
        	 top : 20%;
-       	 left : 35%;
+       	 left : 40%;
        	 z-index:100;
        	 
       }
@@ -467,12 +467,12 @@ border: solid 1px;
   <%for(int i =0; i< alist.size();i++){
 	  Attachment a = alist.get(i);
 	  if(a.getFileLevel() == 0){%>
-    <li><img src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=a.getSavefileName()%>" style = "width=102%; height: 400px; overflow:hidden;"></li>
+    <li><img src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=a.getSavefileName()%>" style = "width:102%; height: 400px; overflow:hidden;"></li>
     <%}}%>
      <%for(int i =0; i< alist.size();i++){
 	  Attachment a = alist.get(i);
 	  if(a.getFileLevel() == 1){%>
-    <li><img src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=a.getSavefileName()%>" style = "width=102%; height: 400px; overflow:hidden;"></li>
+    <li><img src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=a.getSavefileName()%>" style = "width:102%; height: 400px; overflow:hidden;"></li>
         <%}}%>
   </ul>
   <p class="pos">
@@ -581,12 +581,20 @@ border: solid 1px;
       <input id="paint_no" type="hidden" value="<%=plist.getPaint_no()%>">
 	      <input type="button" class = "btn btn-outline-dark buypaint" value="바로 구매하기">
 	       <input type="button" class = "btn btn-outline-dark basket"  value="장바구니 담기">
-	      <input type="button" class = "btn btn-outline-danger"  value="Q & A" onclick="q&a" style="margin-bottom:0;"><input type="hidden" value="" id="mid">
+	      <input type="button" class = "btn btn-outline-danger moveqna"  value="Q & A"  style="margin-bottom:0;"><input type="hidden" value="" id="mid">
 	      <!-- <input type="hidden" value="${ movieDetail.movie_id }" id="movie_id"> -->
 	      <input type="hidden" value="" id="movie_id">
   
       </div>
        <script>
+       $(function(){
+       		$(".moveqna").click(function (){
+          		 var offset = $("#qna").offset();
+     		      $('html, body').animate({scrollTop : offset.top}, 400);
+       	});
+       	});
+       
+       
                   $(function(){
 				 		$(".buypaint").click(function(){
 				 			var paint_no = $(this).parent().children("#paint_no").val();
@@ -619,7 +627,7 @@ border: solid 1px;
   <%for(int i =0; i< alist.size();i++){
 	  Attachment a = alist.get(i);
 	  if(a.getFileLevel() == 0){%>
-     	<img class = "swiper-fiximg" src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=a.getSavefileName()%>" width="30%">
+     	<img class = "swiper-fiximg" src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=a.getSavefileName()%>" width="20%">
     <%}}%>
     
  
@@ -671,7 +679,7 @@ border: solid 1px;
    <hr class = "bodyhr">
   
    <h3 align="center">Q & A</h3>
-   <div class="q&a">
+   <div class="qna" id="qna">
    <table style = "margin : 0 auto; margin-bottom : 20px;">
 	<tr>
 		<td>
@@ -687,10 +695,10 @@ border: solid 1px;
 				<% if(qna.isEmpty()) { %>
 					<tr><td colspan="3">Q & A가 없습니다.</td></tr>				
 				<% }else { %>
-					<% for(int i=qna.size()-1; i>=0; i--){ %>
+					<% for(int i= qna.size()-1; i>=0; i--){ %>
 						<tr class = "answerlist-box">
 							<td><%= qna.get(i).getUser_id() %></td>
-							<td width = "350px"><div class = "question-box"><%= qna.get(i).getPqusetion() %></div></td>
+							<td width = "350px" class = "question-box"><%= qna.get(i).getPqusetion() %></td>
 							<td><%= qna.get(i).getPq_date() %></td>
 							<%if(qna.get(i).getPq_yn().equals("N")) {%>
 							<td>
@@ -699,6 +707,7 @@ border: solid 1px;
 								<div class="Acontents" style="display:none;">
 									<textArea rows="5" cols="100" class="AContent"></textArea>
 									<div class="Acontent_btn">
+									<input id="paint_no" type="hidden" value="<%=plist.getPaint_no()%>"><br>
 									<button class="hideA"  type="button active"  style="width:100px;  margin-bottom : 10px; font-size : 14px;">답변접기</button>
 									<button class="insertA" type="button active" style="width:100px;  margin: 0; font-size : 14px;">작성완료</button>
 									</div>
@@ -710,15 +719,13 @@ border: solid 1px;
 							</td>
 							<%} %>
 						</tr>
-							<%for(int j=qna2.size()-1; j>0; j--){ %>
+							<%for(int j=0; j <= qna2.size()-1; j++){ %>
 							<%if(qna.get(i).getPq_no() == qna2.get(j).getPq_no()){%>
-							<div class="answertable">
-							<tr>
-								<td>판매자</td>
-								<td style= "align : center;"><%= qna.get(j).getPanswer()%></td>
-								<td><%= qna.get(j).getPq_date() %></td>
+							<tr style="vertical-align : middle; text-align: center;">
+								<td>답변:</td>
+								<td width = "350px" class = "question-box"><%= qna2.get(j).getPanswer()%></td>
+								<td><%= qna2.get(j).getPa_date() %></td>
 							</tr>
-							</div>
 							<%}} %>
 					<% } %>
 				<% } %>
@@ -747,10 +754,11 @@ border: solid 1px;
 			$(".insertA").click(function(){ 
 				var qna_no = $(this).parent().parent().parent().children(".qna_no").val();
 				var content = $(this).parent().parent().children(".AContent").val();
+				var paint_no = $(this).parent().children("input").val();
 				$.ajax({
 					url:"insertA.po",
 					type:"post",
-					data:{qna_no:qna_no,content:content},
+					data:{qna_no:qna_no,content:content,paint_no:paint_no},
 					
 					success:function(data){
 						$replyTable = $("answertable");
@@ -789,14 +797,19 @@ border: solid 1px;
 						$replyTable.html("");
 						for(var key in data){
 							var $tr = $("<tr>");
-							var $writerTd = $("<td>").text(data[key].user_id).css("width","100px");
-							var $contentTd =$("<td>").text(data[key].pqusetion).css("width","400px");
-							var $dateTd = $("<td>").text(data[key].pq_date).css("width","200px");
-							
+							var $writerTd = $("<td>").text(data[key].user_id);
+							var $contentTd =$('<td width = "350px" class = "question-box">').text(data[key].pqusetion);
+							var $dateTd = $("<td>").text(data[key].pq_date);
+						
+							$replyTable.append($tr);
 							$tr.append($writerTd);
 							$tr.append($contentTd);
 							$tr.append($dateTd);
-							$replyTable.append($tr);
+							
+					
+						
+													
+							
 						}
 						$("#QnAContent").val("");
 					},

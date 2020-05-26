@@ -50,7 +50,7 @@ int endPage = pi.getEndPage();
 
 <div id="centerDiv" class="container" >
 <!-- 사용자에게는 보이고 관리자에게 보이지 않는 페이지 div id addQuestionArea -->			
- <div id="addQuestionArea">
+ <div id="addQuestionArea" class="form-group">
   <div class="form-row">
     <div class="form-group col-md-3">
       	<select id="Category" class="form-control">
@@ -70,9 +70,8 @@ int endPage = pi.getEndPage();
   		<textarea class="form-control" id="question" name="question" rows="5" placeholder="문의 내용을 입력해주세요"></textarea>
     </div>
     <div class="form-group col-md-1">
-	    <button id="addQuestion" class="btn btn-danger" style="height:130px">문의&nbsp;&nbsp;&nbsp;하기</button>  		
+	    <button id="addQuestion" class="btn btn-danger" style="height:130px">문의하기</button>  		
     </div>
-    
   </div>
   </div><!-- div id addQuestionArea end -->
   
@@ -206,12 +205,17 @@ int endPage = pi.getEndPage();
  						var $question_titleTd=$("<td>").text(data[key].question_title).addClass('text-center');
  						var $questionTd=$("<td>").text(data[key].question).addClass('text-center');
  						var $questionYnTd=$("<td>").text(data[key].q_yn).addClass('text-center');
+ 						var $questionFileTd=$("<td>").text(data[key].q_file).addClass('text-center');
  						
  						
  						$tr.append($categoryTd);
  						$tr.append($question_titleTd);
  						$tr.append($writerTd);
  						$tr.append($questionYnTd);
+
+ 						$tr.append($questionTd);
+ 						$tr.append($questionFileTd);
+
  						
  						$inquiryTable.append($tr);
  					}

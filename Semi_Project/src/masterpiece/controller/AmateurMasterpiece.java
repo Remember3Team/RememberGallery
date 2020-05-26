@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import board.amateur.model.vo.Amateur;
 import board.amateur.model.vo.FileManagement;
 import masterpiece.model.service.AmateurMPService;
+import product.model.vo.Attachment;
+import product.model.vo.product;
 
 /**
  * Servlet implementation class AmateurMasterpiece
@@ -34,15 +36,21 @@ public class AmateurMasterpiece extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		AmateurMPService amService = new AmateurMPService();
+		
 		int firstPaint = 1;
 		int lastPaint = 6;
 		ArrayList<Amateur> masterList = amService.showMasterpiece(firstPaint, lastPaint);
 		ArrayList<FileManagement> masterFileList = amService.showMasterpiece();
 		
+		ArrayList<product> proMasterList = amService.showProMasterpiece(firstPaint, lastPaint);
+		ArrayList<Attachment> proMasterFileList = amService.showProMasterpiece();
 		
 		
 		request.setAttribute("masterList", masterList);
 		request.setAttribute("masterFileList", masterFileList);
+		request.setAttribute("masterProList", proMasterList);
+		request.setAttribute("masterProFileList", proMasterFileList);
+		
 	
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 		

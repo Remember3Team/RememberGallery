@@ -24,11 +24,11 @@ public class Amateur implements Serializable{
 	
 	
 	
-	public Amateur(int event_no, String event_title, String event) {
+	public Amateur(int event_no, String event_title, String user_id) {
 		super();
 		this.event_no = event_no;
 		this.event_title = event_title;
-		this.event = event;
+		this.user_id = user_id;
 	}
 
 

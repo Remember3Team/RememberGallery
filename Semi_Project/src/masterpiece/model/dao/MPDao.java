@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import board.amateur.model.vo.Amateur;
 import board.amateur.model.vo.FileManagement;
+import product.model.vo.Attachment;
+import product.model.vo.product;
 
 public class MPDao {
 
@@ -27,9 +29,10 @@ public class MPDao {
 			while(rset.next()) {
 				a = new Amateur(rset.getInt("event_no"),
 								rset.getString("event_title"),
-								rset.getString("event"));
+								rset.getString("user_id"));
 				amateurMasterpiece.add(a);
 			}
+			System.out.println(amateurMasterpiece);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -57,6 +60,54 @@ public class MPDao {
 			e.printStackTrace();
 		}
 		return amateurMasterpieceFile;
+	}
+
+	public ArrayList<product> showProMasterpiece(Connection conn, int firstPaint, int lastPaint) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		product p = null;
+		ArrayList<product> ProMasterpiece = new ArrayList<>();
+		
+		String query = "SELECT * FROM MASTERPIECE_PAINT WHERE R BETWEEN ? AND ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, firstPaint);
+			pstmt.setInt(2, lastPaint);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				p = new product(rset.getInt("paint_no"),
+								rset.getString("paint_name"),
+								rset.getString("artist_name"));
+				ProMasterpiece.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ProMasterpiece;
+	}
+
+	public ArrayList<Attachment> showProMasterpieceFile(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Attachment a = null;
+		ArrayList<Attachment> ProMasterpieceFile = new ArrayList<>();
+		
+		String query = "SELECT * FROM PAINT_PHOTO WHERE FILELEVEL=0";
+		try {
+			pstmt = conn.prepareStatement(query);
+
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				a = new Attachment(rset.getInt("paint_no"),
+									   rset.getString("afile"));
+				ProMasterpieceFile.add(a);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ProMasterpieceFile;
 	}
 
 }
