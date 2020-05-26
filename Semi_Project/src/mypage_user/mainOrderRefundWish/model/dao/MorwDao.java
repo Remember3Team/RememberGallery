@@ -199,7 +199,7 @@ public class MorwDao {
 				"FROM PAINT P \r\n" + 
 				"JOIN BASKET B ON (P.PAINT_NO=B.PAINT_NO)\r\n" + 
 				"JOIN PAINT_PHOTO PP ON (P.PAINT_NO=PP.PAINT_NO)\r\n" + 
-				"WHERE USER_ID=? AND PP.Filelevel='0' AND BUY_YN='N';";
+				"WHERE USER_ID=? AND PP.Filelevel='0' AND BUY_YN='N'";
 
 		
 		try {

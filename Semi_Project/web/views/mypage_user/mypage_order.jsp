@@ -239,7 +239,7 @@ function submit(){
                 <div class="bar1">
                     <input type="text"  name="searchStatus" list="order_list" placeholder="주문 처리 상태">
                     <datalist id="order_list">   
-                        <option value="입금전">입금전</option>
+                        <option value="입금 전">입금전</option>
                         <option value="배송준비중">배송준비중</option>
                         <option value="배송중">배송중</option>
                         <option value="배송완료">배송완료</option>
