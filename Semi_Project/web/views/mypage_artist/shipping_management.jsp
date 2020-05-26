@@ -88,29 +88,24 @@
         <div class = "refund-table">
             <div class="table-headline">
                 <div><span>반품 / 환불 목록</span></div>
-                <div class="button"><button class="btn btn-outline-dark" style = "width:120px">배송 완료</button></div>
             </div>
             <table style="width:100%" name="refund-list">
                 <tr>
-                    <th><input type="checkbox"></th>
                     <th>주문 번호</th>
                     <th>이미지</th>
                     <th>상품 정보</th>
                     <th>주문날짜</th>
                     <th>배송 완료일</th>
-                    <th>배송상태</th>
-                    <th>수정 및 삭제</th>
+                    <th>주문정보</th>
                 </tr>
                 <% for(Mypage_artist ma : SM_list){ %>
                 <tr>
-                    <td><input type="checkbox"></td>
                     <td><%=ma.getOrder_no() %></td>
                     <td><%=ma.getAfile() %></td>
                     <td>작품명 : <%=ma.getPaint_name() %><br>
                     	  작가명 : <%=ma.getArtist_name() %></td>
                     <td><%=ma.getOrder_date() %></td>
                     <td><%=ma.getShip_date() %></td>
-                    <td><%=ma.getOrder_status() %></td>
                     <td>
                      <input class="order_no" type="hidden" value="<%=ma.getOrder_no() %>">
                     <button class="btn btn-outline-dark order" id="detail_order" style = "width:150px">주문 상세보기</button></td>

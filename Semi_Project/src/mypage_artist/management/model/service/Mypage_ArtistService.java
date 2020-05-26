@@ -104,6 +104,16 @@ public class Mypage_ArtistService {
 		System.out.println(search_list);
 		return search_list;
 	}
+	public ArrayList<Mypage_artist> listSearch_PM(String category, 
+			String bWriter) {
+		Connection conn = getConnection();
+		
+		ArrayList<Mypage_artist> search_list_PM = new Mypage_ArtistDao().listSearch_PM(conn, category, bWriter);
+		
+		close(conn);
+		System.out.println(search_list_PM);
+		return search_list_PM;
+	}
 
 	public ArrayList<Mypage_artist> selectList_DOV_P(String bWriter, int order_no) {
 		Connection conn = getConnection();
@@ -151,6 +161,8 @@ public class Mypage_ArtistService {
 		
 		return result2;
 	}
+
+
 
 	
 
