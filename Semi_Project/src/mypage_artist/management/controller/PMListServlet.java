@@ -111,11 +111,13 @@ public class PMListServlet extends HttpServlet {
 				
 				RequestDispatcher view = null;
 				if(!PM_list.isEmpty()) {
+					System.out.println("if");
 					view = request.getRequestDispatcher("views/mypage_artist/product_management.jsp");
 					request.setAttribute("PM_list", PM_list);
 					request.setAttribute("alist", alist);
 					request.setAttribute("pi", pi);
 				}else {
+					System.out.println("else");
 //					view = request.getRequestDispatcher("views/common/errorPage.jsp");
 //					request.setAttribute("msg","게시판 리스트 조회 실패!");
 					System.out.println("게시판 조회 실패");

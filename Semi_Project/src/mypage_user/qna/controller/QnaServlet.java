@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import board.notice.model.vo.PageInfo;
 import member.model.vo.Member;
 import mypage_user.mainOrderRefundWish.model.vo.Morw;
 import mypage_user.qna.model.service.QnaService;
@@ -41,6 +42,7 @@ public class QnaServlet extends HttpServlet {
 		//로그인세션
 		HttpSession session = request.getSession();
 		Member loginMember = (Member) session.getAttribute("loginUser");
+		
 		
 		
 		

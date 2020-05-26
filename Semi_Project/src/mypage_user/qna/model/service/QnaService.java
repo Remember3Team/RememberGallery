@@ -1,10 +1,9 @@
 package mypage_user.qna.model.service;
 
-import static common.JDBCTemplate.getConnection;
-
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import mypage_user.mainOrderRefundWish.model.dao.MorwDao;
 import mypage_user.qna.model.dao.QnaDao;
 import mypage_user.qna.model.vo.Qna;
 
@@ -36,6 +35,7 @@ public class QnaService {
 		
 		return list2;
 	}
+
 
 	
 
