@@ -56,31 +56,28 @@ public class InsertAServlet extends HttpServlet {
 		if(m.getUserName().equals(p.getArtist_name())) {
 			result = pService.insertAnwser(qna_no,content);
 			result2 = pService.updateQ(qna_no);
+			System.out.println(result);
+			System.out.println(result2);
+			Paint_QnA qna2 = pService.selectP2(qna_no);
+			
+			
+			
+			JSONObject rListObj = new JSONObject();
+			
+			//rListObj.put("pq_no", qna2.getPq_no());
+			rListObj.put("panswer", qna2.getPanswer());
+			rListObj.put("pa_date", qna2.getPq_date());
+			response.setContentType("application/json; charset=utf-8");
+			
+			PrintWriter out = response.getWriter();
+			out.print(rListObj);
+			out.flush();
+			out.close();
+		}else {
+		
 		}
-		System.out.println(result);
-		System.out.println(result2);
-		ArrayList<Paint_QnA> qna = pService.selectP();
 		
-		JSONArray rListArray = new JSONArray();
-		JSONObject rListObj = null;
 		
-		for(Paint_QnA a : qna) {
-			rListObj = new JSONObject();
-			
-			
-			rListObj.put("pq_no", a.getPq_no());
-			rListObj.put("panswer", a.getPanswer());
-			rListObj.put("pa_date", a.getPq_date());
-			
-			rListArray.add(rListObj);
-		}
-		
-		response.setContentType("application/json; charset=utf-8");
-		
-		PrintWriter out = response.getWriter();
-		out.print(rListArray);
-		out.flush();
-		out.close();
 	}
 
 	/**

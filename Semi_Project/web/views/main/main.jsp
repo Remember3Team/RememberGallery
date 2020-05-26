@@ -46,14 +46,14 @@
 <body>
    <section>
        <div id ="contents" >
-	        <div class="part1">
+	   <!--      <div class="part1">
 	            <div class="slide">
 	                <h1 align="center">REMEMBER ART</h1>
 	            <a href="#"><img src="views/img/slide1.jpg" style="height: auto;"> </a>
 	            <a href="#"><img src=""></a>
 	            <a href="#"><img src=""></a>    
-	            </div> <!--slide end-->      
-	        </div>
+	            </div> slide end      
+	        </div> -->
         	<!--part1 end-->
    <div class="container">
    		<div class="PaintMasterpiece-title">
