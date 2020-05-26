@@ -1084,6 +1084,28 @@ public class Mypage_ArtistDao {
 		return 0;
 	}
 
+	public int updateOrder_status(Connection conn, int order_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = "UPDATE BUY_LIST SET ORDER_STATUS ='배송중' WHERE ORDER_NO=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, order_no);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		System.out.println("dao에서의 결과"+result);
+		return result;
+	}
+
 
 
 	
