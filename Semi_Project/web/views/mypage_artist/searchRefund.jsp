@@ -3,17 +3,10 @@
 	import="mypage_artist.RefundQnACard.model.vo.*, artistapply.model.vo.*, product.model.vo.*, java.util.ArrayList"%>
 
 <%
-    	ArrayList<BuyList_a> list = (ArrayList<BuyList_a>) request.getAttribute("list");
+    	ArrayList<BuyList_a> list = (ArrayList<BuyList_a>) request.getAttribute("search_list");
     	ArrayList<Attachment> alist = (ArrayList<Attachment>) request.getAttribute("alist");
     	Apply aphoto = (Apply) request.getAttribute("aphoto");
-    	
-    	PageInfo pi = (PageInfo)request.getAttribute("pi");
-    	
-    	int listCount = pi.getListCount();
-    	int currentPage = pi.getCurrentPage();
-    	int maxPage = pi.getMaxPage();
-    	int startPage = pi.getStartPage();
-    	int endPage = pi.getEndPage();
+
     %>
 
 <!DOCTYPE html>
@@ -235,7 +228,7 @@
 
 	<!-- 페이징 처리 시작 -->
 	
-<div class = "p-parents">
+<%-- <div class = "p-parents">
 	<div class="pppp">
 			<%if (currentPage == 1) { %>
             <a style = "color:#9c9c9c;" disabled>Previous</a>
@@ -257,7 +250,7 @@
             <a class = "page-a" href="<%=request.getContextPath()%>/list.ar?currentPage=<%=currentPage + 1%>">Next</a>
             <%} %>
    </div>
-</div>
+</div> --%>
 
 
 	<%@include file="../common/footer.jsp"%>

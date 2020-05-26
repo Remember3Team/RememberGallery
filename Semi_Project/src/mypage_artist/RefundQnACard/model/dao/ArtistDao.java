@@ -16,6 +16,7 @@ import member.model.vo.Member;
 import mypage_artist.RefundQnACard.model.vo.BuyList_a;
 import mypage_artist.RefundQnACard.model.vo.Message;
 import mypage_artist.RefundQnACard.model.vo.QnA_Q;
+import mypage_artist.management.model.vo.Mypage_artist;
 import product.model.vo.Attachment;
 
 public class ArtistDao {
@@ -575,6 +576,330 @@ public class ArtistDao {
 		}
 
 		return career;
+	}
+
+	public ArrayList<BuyList_a> alistSearch(Connection conn, String order_status, String term, String calendar1,
+			String calendar2, String loginName) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<BuyList_a> alist = new ArrayList<>();
+		
+		
+		if(order_status == null && term == null && (calendar1.isEmpty() || calendar2.isEmpty())) {
+			String query = "SELECT *"
+					+ "FROM BUY_LIST B "
+					+ "JOIN PAINT P ON (P.PAINT_NO = B.PAINT_NO) "
+					+ "JOIN MEMBER M ON (M.USER_NAME = P.ARTIST_NAME)"
+					+ "WHERE P.ARTIST_NAME = ? AND B.ORDER_STATUS LIKE '환불%' OR B.ORDER_STATUS LIKE '반품%'"; //쿼리문 변경
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, loginName);
+				
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					BuyList_a ba = new BuyList_a(
+							rset.getString("order_no"),
+							rset.getString("user_id"),
+							rset.getString("order_status"),
+							rset.getInt("paint_no"),
+							rset.getString("paint_price"),
+							rset.getString("artist_name"),
+							rset.getString("paint_name"));
+							
+							alist.add(ba);
+							
+							
+				}
+				System.out.println(alist);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+		}
+		else if(term == null && (calendar1.isEmpty() || calendar2.isEmpty())) {
+			String query = "SELECT *"
+					+ "FROM BUY_LIST B "
+					+ "JOIN PAINT P ON (P.PAINT_NO = B.PAINT_NO) "
+					+ "JOIN MEMBER M ON (M.USER_NAME = P.ARTIST_NAME)"
+					+ "WHERE P.ARTIST_NAME = ? AND B.ORDER_STATUS =?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, loginName);
+				pstmt.setString(2, order_status);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					BuyList_a ba = new BuyList_a(
+							rset.getString("order_no"),
+							rset.getString("user_id"),
+							rset.getString("order_status"),
+							rset.getInt("paint_no"),
+							rset.getString("paint_price"),
+							rset.getString("artist_name"),
+							rset.getString("paint_name"));
+							
+							alist.add(ba);
+							
+							
+				}
+				System.out.println(alist);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+		}
+		else if(order_status == null && (calendar1.isEmpty() || calendar2.isEmpty())) {
+			String query = "SELECT *"
+					+ "FROM BUY_LIST B "
+					+ "JOIN PAINT P ON (P.PAINT_NO = B.PAINT_NO) "
+					+ "JOIN MEMBER M ON (M.USER_NAME = P.ARTIST_NAME)"
+					+ "WHERE P.ARTIST_NAME = ? AND B.ORDER_STATUS LIKE '환불%' OR B.ORDER_STATUS LIKE '반품%'" + 
+					"and order_date between (sysdate - ?) and (sysdate)";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, loginName);
+				pstmt.setString(2, term);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					BuyList_a ba = new BuyList_a(
+							rset.getString("order_no"),
+							rset.getString("user_id"),
+							rset.getString("order_status"),
+							rset.getInt("paint_no"),
+							rset.getString("paint_price"),
+							rset.getString("artist_name"),
+							rset.getString("paint_name"));
+							
+							alist.add(ba);
+							
+							
+				}
+				System.out.println(alist);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+		}
+		else if(order_status == null && term == null) {
+			String query = "SELECT *"
+					+ "FROM BUY_LIST B "
+					+ "JOIN PAINT P ON (P.PAINT_NO = B.PAINT_NO) "
+					+ "JOIN MEMBER M ON (M.USER_NAME = P.ARTIST_NAME)"
+					+ "WHERE P.ARTIST_NAME = ? AND B.ORDER_STATUS LIKE '환불%' OR B.ORDER_STATUS LIKE '반품%'" +
+					"and order_date between ? and ?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, loginName);
+				pstmt.setString(2, calendar1);
+				pstmt.setString(3, calendar2);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					BuyList_a ba = new BuyList_a(
+							rset.getString("order_no"),
+							rset.getString("user_id"),
+							rset.getString("order_status"),
+							rset.getInt("paint_no"),
+							rset.getString("paint_price"),
+							rset.getString("artist_name"),
+							rset.getString("paint_name"));
+							
+							alist.add(ba);
+							
+							
+				}
+				System.out.println(alist);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+		}
+		else if(calendar1.isEmpty() || calendar2.isEmpty()) {
+			String query = "SELECT *"
+					+ "FROM BUY_LIST B "
+					+ "JOIN PAINT P ON (P.PAINT_NO = B.PAINT_NO) "
+					+ "JOIN MEMBER M ON (M.USER_NAME = P.ARTIST_NAME)"
+					+ "WHERE artist_name = ? and order_status = ? and order_date between (sysdate - ?) and (sysdate)";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, loginName);
+				pstmt.setString(2, order_status);
+				pstmt.setString(3, term);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					BuyList_a ba = new BuyList_a(
+							rset.getString("order_no"),
+							rset.getString("user_id"),
+							rset.getString("order_status"),
+							rset.getInt("paint_no"),
+							rset.getString("paint_price"),
+							rset.getString("artist_name"),
+							rset.getString("paint_name"));
+							
+							alist.add(ba);
+							
+							
+				}
+				System.out.println(alist);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}	
+			
+		}
+		else if(order_status == null) {
+			String query = "SELECT *"
+					+ "FROM BUY_LIST B "
+					+ "JOIN PAINT P ON (P.PAINT_NO = B.PAINT_NO) "
+					+ "JOIN MEMBER M ON (M.USER_NAME = P.ARTIST_NAME)"
+					+ "WHERE P.ARTIST_NAME = ? AND B.ORDER_STATUS LIKE '환불%' OR B.ORDER_STATUS LIKE '반품%'" +
+					"and order_date between ? and ?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, loginName);
+				pstmt.setString(2, calendar1);
+				pstmt.setString(3, calendar2);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					BuyList_a ba = new BuyList_a(
+							rset.getString("order_no"),
+							rset.getString("user_id"),
+							rset.getString("order_status"),
+							rset.getInt("paint_no"),
+							rset.getString("paint_price"),
+							rset.getString("artist_name"),
+							rset.getString("paint_name"));
+							
+							alist.add(ba);
+							
+							
+				}
+				System.out.println(alist);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}	
+			
+			
+		}else if(term == null) {
+			String query = "SELECT *"
+					+ "FROM BUY_LIST B "
+					+ "JOIN PAINT P ON (P.PAINT_NO = B.PAINT_NO) "
+					+ "JOIN MEMBER M ON (M.USER_NAME = P.ARTIST_NAME)"
+					+ "WHERE P.ARTIST_NAME = ? AND B.ORDER_STATUS =? and order_date between ? and ?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, loginName);
+				pstmt.setString(2, order_status);
+				pstmt.setString(3, calendar1);
+				pstmt.setString(4, calendar2);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					BuyList_a ba = new BuyList_a(
+							rset.getString("order_no"),
+							rset.getString("user_id"),
+							rset.getString("order_status"),
+							rset.getInt("paint_no"),
+							rset.getString("paint_price"),
+							rset.getString("artist_name"),
+							rset.getString("paint_name"));
+							
+							alist.add(ba);
+							
+							
+				}
+				System.out.println(alist);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+		}else {
+			String query = "SELECT *"
+					+ "FROM BUY_LIST B "
+					+ "JOIN PAINT P ON (P.PAINT_NO = B.PAINT_NO) "
+					+ "JOIN MEMBER M ON (M.USER_NAME = P.ARTIST_NAME)"+
+					"WHERE artist_name = ? and order_status=? and order_date between ? and ?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, loginName);
+				pstmt.setString(2, order_status);
+				pstmt.setString(3, calendar1);
+				pstmt.setString(4, calendar2);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					BuyList_a ba = new BuyList_a(
+							rset.getString("order_no"),
+							rset.getString("user_id"),
+							rset.getString("order_status"),
+							rset.getInt("paint_no"),
+							rset.getString("paint_price"),
+							rset.getString("artist_name"),
+							rset.getString("paint_name"));
+							
+							alist.add(ba);
+							
+							
+				}
+				System.out.println(alist);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}	
+		}
+		
+		System.out.println("alist"+alist);
+		
+	return alist;
 	}
 
 	

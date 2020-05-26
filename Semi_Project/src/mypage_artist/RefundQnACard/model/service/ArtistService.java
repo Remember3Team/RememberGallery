@@ -187,4 +187,12 @@ public class ArtistService {
 		return career;
 	}
 
+	public ArrayList<BuyList_a> alistSearch(String order_status, String term, String calendar1, String calendar2,
+			String loginName) {
+		Connection conn = getConnection();
+		
+		ArrayList<BuyList_a> alist = new ArtistDao().alistSearch(conn, order_status, term, calendar1, calendar2, loginName);
+		return alist;
+	}
+
 }
