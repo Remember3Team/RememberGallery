@@ -27,6 +27,16 @@ public class product {
 	}
 
 
+	public product(int paint_no, String paint_name, int patint_price,  int size_no,String artist_name, String auc_yn) {
+		this.paint_no = paint_no;
+		this.paint_name = paint_name;
+		this.patint_price = patint_price;
+		this.artist_name = artist_name;
+		this.size_no = size_no;
+		this.auc_yn = auc_yn;
+	}
+
+
 	public product(String paint_name, int patint_price) {
 		super();
 		this.paint_name = paint_name;

@@ -72,7 +72,8 @@ public class ProductDao {
 						rset.getString("PAINT_NAME"),
 				rset.getInt("PAINT_PRICE"),
 				rset.getInt("SIZE_NO"),
-				rset.getString("ARTIST_NAME"));
+				rset.getString("ARTIST_NAME"),
+				rset.getString("AUC_YN"));
 				list.add(p);
 			}
 

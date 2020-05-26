@@ -187,6 +187,22 @@ public class Mypage_ArtistService {
 		return deleteBResult;
 	}
 
+	public int updateOrder_status(int order_no) {
+		Connection conn = getConnection();
+		
+		int result = new Mypage_ArtistDao().updateOrder_status(conn,order_no);
+		
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		
+		return result;
+	}
+
 
 
 
