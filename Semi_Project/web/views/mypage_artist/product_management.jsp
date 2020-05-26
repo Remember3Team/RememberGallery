@@ -4,9 +4,8 @@
     <%
     	ArrayList<Mypage_artist> PM_list = (ArrayList<Mypage_artist>)request.getAttribute("PM_list");
     	ArrayList<Mypage_artist> search_list_PM = (ArrayList<Mypage_artist>)request.getAttribute("search_list_PM");
-    	ArrayList<Attachment> alist = (ArrayList<Attachment>)request.getAttribute("alist");
     	PageInfo pi = (PageInfo)request.getAttribute("pi");
-    	/* Apply aphoto = (Apply) request.getAttribute("aphoto"); */
+    	Apply aphoto = (Apply) request.getAttribute("aphoto"); 
     	
     	int listCount = pi.getListCount();
     	int currentPage = pi.getCurrentPage();
@@ -31,7 +30,7 @@
 
 <body>
 <%@include file="../common/menubar.jsp" %>
-<%-- <div class="headline">
+<div class="headline">
         <div class="headline-text">
             <hr>
             <h3 style="font-size: 20px;"> 작가 마이페이지</h3>
@@ -39,13 +38,13 @@
         <div class="headline-subbox">
             <div class="artist-img">
                 <!--Artist Image-->
-				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>" style= "width:150px; height=150px;">        </div>
+				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>" style= "width:150px; height:150px;">        </div>
             <div class="artist-button">
                 <button style="margin-bottom: 3px;">정보수정</button>
                 <button>감동카드 확인</button>
             </div>
         </div>
-    </div> --%>
+    </div> 
 <%@include file="../common/mypagehead.jsp" %>
     <div class="title">
         <h3>상품관리</h3>
@@ -56,8 +55,7 @@
         <form action="<%=request.getContextPath()%>/Search.PM" method="post">
             <div class="search-bar">
                 <div class="bar1">
-                    <input type="text" name="category" list="genre" placeholder="테마">
-                    <datalist name="genre" id="genre">
+                    <select name="category" class="form-control" style="margin-right:150px;">
                                 <option value="인물">인물</option>
                                 <option value="풍경">풍경</option>
                                 <option value="정물">정물</option>
@@ -65,7 +63,7 @@
                                 <option value="추상">추상</option>
                                 <option value="팝아트">팝아트</option>
                                 <option value="오브제">오브제</option>
-                            </datalist>  
+                      </select>
                 </div>
               
                 <button type="submit" class="btn btn-dark" style="width:70px">조회</button>
@@ -89,22 +87,31 @@
                     <th>이미지</th>
                     <th>상품 정보</th>
                     <th>금액</th>
-                    <th>수정</th>
+                    <th>삭제</th>
                 </tr>
                 <% for(Mypage_artist ma : PM_list){ %>
                 <tr>
-                    <td><%=ma.getPaint_no() %></td><% for(Attachment a : alist) {    if(ma.getPaint_no() == a.getPaint_no()){%>
-                    <td><img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>"></td><%}} %>
+                    <td><%=ma.getPaint_no() %></td>
+                    <td><img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= ma.getAfile() %>"></td>
                     <td>작품명 : <%=ma.getPaint_name() %><br>
                     	  작가명 : <%=ma.getArtist_name() %></td>
                     <td><%=ma.getPaint_price() %></td>
-                    <td><button class="btn btn-outline-dark" id="detail_order" style = "width:100px">내용수정</button>
+                    <td>
+                    <input class="paint_no" type="hidden" value="<%=ma.getPaint_no() %>">
+                    <button class="btn btn-outline-dark delete" id="detail_order" style = "width:100px" onclick="delete();">삭제</button>
                     </td>
                 </tr>
 				<%} %>
             </table>
         </div>
-        
+        <script>
+        	$(function(){
+        		$(".delete").click(function(){
+        			var paint_no = $(this).parent().children(".paint_no").val();
+        			location.href="<%=request.getContextPath()%>/delete.p?paint_no="+paint_no;
+        		})
+        	})
+        </script>
     </div>
  		<br clear="both"><br>
 		<!--  페이징 처리 시작! -->

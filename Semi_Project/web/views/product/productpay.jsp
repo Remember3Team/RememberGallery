@@ -74,9 +74,9 @@
       <img class="rimage" src="<%=request.getContextPath()%>/thumbnail_uploadFiles/<%=a.getSavefileName()%>" style="width: 126px; height: 115px;">
       <%}} %>
       </th>
-      <td ><a><%=po.getPaint_name() %></a></td>
+      <td ><a><%=po.getPaint_name()%></a></td>
       <td><a>1</a></td>
-      <td><a><%=po.getPatint_price() %></a></td>
+      <td><a><%=po.getPatint_price()%></a></td>
       <td><a>무료배송</a></td>
     </tr>
   </tbody>
@@ -251,7 +251,7 @@ function execDaumPostcode2() {
 <h3 align="left" style="margin-top: 30px; margin-left: 10px">결제 정보</h3>
 <br>
 <div style="background: white; margin-left:10px; width:300px">
-<a>총 주문 금액 : <%=po.getPatint_price() %>원</a>
+<a>총 주문 금액 : <%=po.getPatint_price()%>원</a>
 </div>
 
 <h3 align="left" style="margin-top: 30px; margin-left: 10px">결제 수단</h3>

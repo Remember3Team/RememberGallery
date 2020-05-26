@@ -97,8 +97,27 @@
 			<%} %><!-- if a.getEvent_no end -->
           <%}%><!-- list for loop end -->
        <%} %>
+       
+       
+  	  
                 
          </div> <!-- /.row -->
+		  <form action="<%=request.getContextPath() %>/search.am" method="post" class="form-row" style="margin-left:299px;">
+		    <div class="form-group col-md-2">
+		      	<select name="Category" class="form-control">
+		       	 	<option selected>선택</option>
+		        	<option value="title">제목</option>
+		        	<option value="content">내용</option>
+		        	<option value="writer">작성자</option>
+		      	  </select>
+		    </div>
+		    <div class="form-group col-md-4">
+		      <input type="text" class="form-control" id="search_title" name="search_title">
+		    </div>
+		    <div class="form-group col-md-1">
+		    	<button id="goSearch" type="button active" class="btn btn-secondary">검색</button>
+		    </div>
+  		</form>
 
 		<!-- Pagination -->
 	<div class = "p-parents" style="margin:0 auto">

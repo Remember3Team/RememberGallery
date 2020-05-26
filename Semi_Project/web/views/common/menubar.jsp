@@ -113,15 +113,15 @@ ul li ul li:hover{
 </head>
 <body>
 
-	<header id="menu">
 
+	<header id="menu">
 		<div id="logo">
 			<a href="<%= request.getContextPath() %>/amateur.master" class="logo">
 				<img src="<%= request.getContextPath() %>/views/img/logo-02.png">
 			</a>
 		</div>
 		<ul class="navi">
-			<li><a href="#">ABOUT</a></li>
+			<li><a href="<%= request.getContextPath() %>/views/about/about.jsp">ABOUT</a></li>
 			<!-- <li><a href="<%= request.getContextPath() %>/views/product/product.jsp">STORE</a></li> -->
 			<li><a href="<%= request.getContextPath() %>/list.po">STORE</a></li >
 			<li><a href="#">COMMUNITY</a>
@@ -162,15 +162,11 @@ ul li ul li:hover{
 			
 			<ul class="navi" style="margin-right:40px;">
 			 <%if(loginUser != null){ %> 
-			<li style="width: 80px;height:20px;"> <img
-				src="<%=request.getContextPath()%>/views/img/login1.png" style="width:30px; "></a>
+			<li style="width: 80px;height:20px; !important"> <img
+				src="<%=request.getContextPath()%>/views/img/login1.png" style="width:30px; margin-bottom:50px; margin-left:30px;"></a>
 				<ul style="width:150px; padding-right:30px;" >
 
 					<li><a href="<%=request.getContextPath() %>/Mo.li">마이페이지 소비자</a></li>
-					<li><a href="#">장바구니</a></li>
-					<li><a href="#">Chat</a></li>
-					<li><a href="#">1:1문의</a></li>
-
 					<li><a href="#">마이페이지 관리자</a></li>
 					<li><a href="<%= request.getContextPath() %>/PM.list">마이페이지 판매자</a></li>
 
@@ -181,7 +177,7 @@ ul li ul li:hover{
 			
 			<% }else{ %>
 			<a href="<%= request.getContextPath() %>/views/member/signIn.jsp" class="icon1" onclick="login_btn();"><img
-				src="<%=request.getContextPath()%>/views/img/login2.png"  style="width:30px; paading-bottom:10px;"></a>
+				src="<%=request.getContextPath()%>/views/img/login2.png"  style="width:30px; "></a>
 			<% } %> 
 			</ul>
 			<!--마이페이지로 넘어가는부분 잠시 수정 -->
@@ -209,7 +205,7 @@ ul li ul li:hover{
 				});
 			</script> -->
 	<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 3333333333333333-->
-	<%--<br clear="both">
+<%-- 	<br clear="both">
 	<div id="Login_pop">
 		<% 
 			if (loginUser == null) {
@@ -275,7 +271,7 @@ ul li ul li:hover{
 		</div><!-- #LoginArea 끝 -->
 	</div><!-- #Login_pop 끝 -->
 	<br clear="both">
-	<!-- 스크립트 부분 -->
+	<!-- 스크립트 부분 --> --%>
 
 	<script>
 		/*로그인 입력 안했을 시 => alter창 또는 팝업창 띄운 후, error 페이지로 연결*/
@@ -298,7 +294,6 @@ ul li ul li:hover{
 
 	</header>
 	<br clear="both">
- --%>
- 
+
 </body>
 </html>

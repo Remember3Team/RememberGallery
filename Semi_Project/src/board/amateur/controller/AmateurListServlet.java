@@ -87,8 +87,7 @@ public class AmateurListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage);
 		
 		ArrayList<Amateur> list = aService.selectList(currentPage, limit);
-		Amateur getEventNo = new Amateur();
-		ArrayList<FileManagement> fileList = aService.selectList(getEventNo);
+		ArrayList<FileManagement> fileList = aService.selectList();
 
 		//화면으로
 		RequestDispatcher view = null;

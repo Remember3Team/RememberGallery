@@ -103,6 +103,11 @@
 		<button id="updateContent" type="button active" class="btn btn-secondary" onclick="goUpdate();">수정</button>
 		<button id="deleteContent" type="button active" class="btn btn-secondary" onclick="goDelete();">삭제</button>
    	<%} %>
+   	
+   	<br><br><br><br><br><br><br><br><br>
+   	
+	<%@include file="../../common/footer.jsp" %>
+   	
    </body>
 
 	<script>
