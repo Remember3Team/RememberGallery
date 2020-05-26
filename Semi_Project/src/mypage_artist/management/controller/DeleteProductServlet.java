@@ -37,11 +37,13 @@ public class DeleteProductServlet extends HttpServlet {
 		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getUserName());
 		int paint_no = Integer.valueOf(request.getParameter("paint_no"));
 		
-		int result = ma.deleteProduct(bWriter, paint_no);
+		int deleteResult = ma.deleteProduct(bWriter, paint_no);
+		
+		int deleteBResult = ma.deleteBasket(bWriter, paint_no);
 		
 		RequestDispatcher view = null;
 		
-		if(result > 0) {
+		if(deleteResult > 0) {
 			view = request.getRequestDispatcher("views/mypage_artist/product_management.jsp");	
 		}else {
 			view = request.getRequestDispatcher("views/common/errorPage.jsp");

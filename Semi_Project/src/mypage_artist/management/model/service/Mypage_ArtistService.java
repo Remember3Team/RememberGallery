@@ -155,12 +155,12 @@ public class Mypage_ArtistService {
 		return DOV_slist;
 	}
 
-	public int deleteProduct(String bWriter, int paint_no) {
+	public int deleteProduct(String bWriter, int paint_no) {		
 		Connection conn = getConnection();
 		
-		int result = new Mypage_ArtistDao().deleteProduct(conn, bWriter, paint_no);
+		int deleteResult = new Mypage_ArtistDao().deleteProduct(conn, bWriter, paint_no);
 		
-		if(result > 0 ) {
+		if(deleteResult > 0 ) {
 			commit(conn);
 		}else {
 			rollback(conn);
@@ -168,7 +168,23 @@ public class Mypage_ArtistService {
 		close(conn);
 		
 		
-		return result;
+		return deleteResult;
+	}
+
+	public int deleteBasket(String bWriter, int paint_no) {
+		Connection conn = getConnection();
+		
+		int deleteBResult = new Mypage_ArtistDao().deleteBasket(conn, bWriter, paint_no);
+		
+		if(deleteBResult > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		
+		return deleteBResult;
 	}
 
 
