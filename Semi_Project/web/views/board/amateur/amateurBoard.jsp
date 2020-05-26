@@ -14,6 +14,10 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
+	
+	System.out.println("list:"+list);
+	System.out.println("flist:"+fileList);
+	
 		
 %>    
 
@@ -34,6 +38,16 @@
 	.container{ position : relative; margin-top:10px;}
 	.headLine{ /*float:left;*/ width:30%; margin-top:90px; margin-left:90px; margin-bottom:50px; display:block; box-sizing:border-box;}
 	.headLine hr{ background-color:red; width:25px; border:2px solid red; margin-bottom:10px;}
+	.p-parents { display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto; }
+    .pppp { display: flex; text-align: center; margin : 50px auto; background: rgb(255, 255, 255); height: 36px; border : 1px solid black; border-radius: 5px; justify-content: center; align-items: center; }
+    .pppp > ol > li:first-child { border-left : 1px solid black; }
+    .pppp > a { display: inline-flex; justify-content: center; align-items: center; padding: 7px 12px; font-size: 13px; font-weight: 500; color:#9c9c9c; text-decoration: none; }
+	.pppp > ol { display: inline-flex; list-style: none; justify-content: center; align-items: center; }
+    .pppp > ol > li { display: inline-flex; list-style: none; justify-content: center; align-items: center; margin-top: 16px; border-right: 1px solid; vertical-align: middle; list-style: none; width: 36px; height: 34px; text-decoration: none; }
+  	.page-list1 { background-color:#c82c1f; }
+    .page-cur { font-size : 14px; background:none; color: white; padding : 0; border-style : none; }
+    .page-nocur { font-size: 14px; background:none; color: #c82c1f; padding : 0; border-style : none; }
+    .page-a:hover { color: black; text-decoration:none; }
 	
 </style>
 </head>
@@ -71,35 +85,13 @@
 					        <%} %><!--fileList for loop end --> 			
 							<div class="card-body">		              		
 			              		<input id="event_no" type="hidden" value="<%=a.getEvent_no() %>">
-			              		<h4 class="card-title"><a href="#"><%=a.getEvent_title() %></a></h4>
+			              		<h4 class="card-title"><a href="#"><p style="color:black; font-style:bold"><%=a.getEvent_title() %></p></a></h4>
 			                	<h5><%=a.getUser_id() %></h5>
 			                	<p><%=a.getEvent_date() %></p>
 			                	<p><span>조회수</span><%=a.getHit() %>
 			                </div><!-- class card-body end -->	
 
-<!-- card footer -->
-					        <%--  <div class="card-footer">
-								<div style="float:right;" onclick="emptyheartCheck();" class="emptyheartCheck">			                				        	       		
-		      <%if(loginUser!=null){ %>		    	
-		      		<%for(int k = 0 ; k < likeList.size() ; k++ ){ %>
-			      		<% al = likeList.get(k);%>
-									<div style="float:right;">
-									<%if(a.getEvent_no()==totalLike.getEvent_no()){ %>
-										<div class="likeCount" style="float:left; margin-right:10px;">
-											<span class="countArea"><%totalLike.getEvent_count(); %></span>
-						     			</div>
-						     		<%} %>
-					 				</div>
-							<%if(a.getEvent_no()==al.getEvent_no()){ %>
-		        					<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/colorHeart.png">
-		 	 				 <%}%> <!--if a.getEvent_no == al.getEvent_no end -->
-     			    <%} %><!-- likeList for loop end -->		
-				
-				<%}else{%><!-- 로그인 데이터가 없을때 -->
-				    				<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/emptyHeart.png">
-    			<%} %>
-								</div>		              		    		
-			             		</div><!-- class card-footer end --> --%>
+
 				    	</div><!-- class card end -->
 				   	</div><!-- id goDetail end --> 
 			<%} %><!-- if a.getEvent_no end -->
@@ -108,18 +100,31 @@
                 
          </div> <!-- /.row -->
 
-<!-- Pagination -->
-		<div style="text-align:center; margin-bottom:100px;">
-			<div class="col-mid-12">
-				 <ul class="pagination justify-content-center" style="margin:20px 0">
-	    	    	     <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/list.am?currentPage=1">Previous</a></li>
-	  					<%for(int p = startPage; p<=endPage; p++){ %>
-	  					 	<li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/list.am?currentPage=<%=p%>"><%=p%></a></li>
-	  					<%} %>
-	                     <li class="page-item"><a class="page-link" href="<%=request.getContextPath() %>/list.am?currentPage=<%=maxPage%>">Next</a></li>
-	        	  </ul>
-			</div><!-- class col-mid-12 end --> 
-		</div><!-- Pagination end -->
+		<!-- Pagination -->
+	<div class = "p-parents" style="margin:0 auto">
+	<div class="pppp">
+			<%if (currentPage == 1) { %>
+            <a style = "color:#9c9c9c; "  disabled>Previous</a>
+            <%}else {%>
+            <a class = "page-a" href="<%=request.getContextPath() %>/list.ar?currentPage=<%=currentPage - 1 %>" >Previous</a>
+            <%} %>
+            <ol>
+            <%for(int p = startPage ; p<=endPage ; p++){ %>
+            <%if(currentPage == p){ %>
+              <li class = "page-list1"><button disabled class = "page-cur" ><%=p%></button></li>
+            <%} else { %>
+              <li class = "page-list2" onclick="location.href='<%=request.getContextPath() %>/list.ar?currentPage=<%=p%>'"><button class = "page-nocur"><%=p%></button></li>
+            <%} %>
+            <%} %>
+            </ol>
+            <%if (currentPage == maxPage) { %>
+            <a style = "color:#9c9c9c; "  disabled>Next</a>
+            <%} else { %>
+            <a class = "page-a" href="<%=request.getContextPath()%>/list.ar?currentPage=<%=currentPage + 1%>">Next</a>
+            <%} %>
+   </div>
+</div>
+	
 	
 	
 	</div><!-- contatiner end -->
@@ -134,37 +139,7 @@
 </body>
 <script>
 	$(function(){
-		<%-- $(".heartcheck").click(function(){
-		  	  var event_no = $(".card-body").children("<input>").val();
-		  	  var heart = $(".heartcheck").attr('src');
-		  	  var heartYN;
-
-		  	  if(heart=='<%=request.getContextPath()%>/views/img/colorHeart.png'){
-		  		  $(".heartcheck").attr('src','<%=request.getContextPath()%>/views/img/emptyHeart.png');
-		  		  heartYN = 'N';
-		  	  }else{
-		  		  $(".heartcheck").attr('src','<%=request.getContextPath()%>/views/img/colorHeart.png');
-		  		  heartYN = 'Y';
-		  	  }
-		  	  $.ajax({
-		  		url:"like.am",
-		  		type:"post",
-		  		data:{event_no:event_no,heartYN:heartYN},
-		 
-		  		success:function(data){
-		  			var $likeCount = $(".likeCount");
-		  			var $count = $("<span>").text(data);
-		  			
-		  			$likeCount.html($count);
-		  			
-		  		},
-		  		error:function(request,statur,error){
-		  			alert("로그인을 하셔야 합니다.");
-		  			 $(".heartcheck").attr('src','<%=request.getContextPath()%>/views/img/emptyHeart.png');
-		  		}
-		  		  
-		  	  })
-			})   --%>
+		
 		$(".card-title").click(function(){
 			var event_no = $(this).parent().children("input").val();
 			location.href="<%=request.getContextPath()%>/detail.am?event_no="+event_no;			
@@ -172,10 +147,9 @@
 		$("#insertAma").click(function(){
 			<% if(loginUser != null){ %>
 			    location.href="<%=request.getContextPath()%>/views/board/amateur/amateurInsert.jsp"		
-			<% }%>
-		<%-- 	<% else{ %>
+			<% }else{ %>
 				alert("로그인 해야만 게시글 상세보기가 가능합니다!");
-			<% } %> --%>
+			<% } %>
 		});
 	
 	})

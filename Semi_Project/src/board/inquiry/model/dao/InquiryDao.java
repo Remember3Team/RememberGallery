@@ -10,7 +10,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import board.inquiry.model.vo.Inquiry;
-import board.notice.model.vo.Notice;
 
 public class InquiryDao {
 
@@ -66,6 +65,7 @@ public class InquiryDao {
 									  rset.getString("qeustion"),
 									  rset.getString("q_yn"),
 									  rset.getString("question_title"));
+									 
 				list.add(in);
 			}
 			
@@ -102,6 +102,7 @@ public class InquiryDao {
 		
 		return result;
 	}
+
 
 
 }

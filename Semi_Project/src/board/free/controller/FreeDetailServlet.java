@@ -1,6 +1,7 @@
 package board.free.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import board.free.model.service.FreeService;
 import board.free.model.vo.Free;
+import board.free.model.vo.Reply;
 
 /**
  * Servlet implementation class FreeDetailServlet
@@ -37,8 +39,11 @@ public class FreeDetailServlet extends HttpServlet {
 		
 		Free free = fService.selectFreeBoard(free_no);
 		
+		ArrayList<Reply> reply = fService.selectReply(free_no);
+		
 		if(free!=null) {
 			request.setAttribute("free", free);
+			request.setAttribute("rList", reply);
 			request.getRequestDispatcher("views/board/free/freeDetail.jsp").forward(request, response);
 		}
 		
