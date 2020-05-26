@@ -7,17 +7,11 @@
 <title>Insert title here</title>
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/views/css/Style-signUp.css">
-<!-- <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
- --><script src="../js/jquery-3.4.1.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="../js/jquery-3.4.1.min.js"></script>
 
-<script>
-    new daum.Postcode({
-        oncomplete: function(data) {
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
-        }
-    }).open();
-</script>
+
+
 <style>
 #idCheck {
 	text-align: center;
@@ -75,8 +69,8 @@ td {
 					<div class="info-box1">
 						<label class="labelfirst" id="name">이름<a
 							style="color: red; font-size: 15px;">*</a></label><input
-							class="nomal-text" type="text" id="userName" name="userName" placeholder="NAME"
-							required>
+							class="nomal-text" type="text" id="userName" name="userName"
+							placeholder="NAME" required>
 					</div>
 					<br>
 
@@ -86,7 +80,7 @@ td {
 							class="nomal-text" type="text" id="userId" name="userId" required>
 					</div>
 					<div id="idresult" style="font-size: 13px; float: right;">영어,숫자
-						포함해서 4글자이상 입력하세요.</div>
+						상관없이 4글자이상 입력하세요.</div>
 					<br> <br>
 					<div id="idCheck"
 						style="float: right; width: 100px; height: 20px; background-color: gray; text-align: center; color: white;">중복확인</div>
@@ -129,24 +123,30 @@ td {
 					</div>
 
 					<div class="info-box7">
-					<!-- 	<div>
+						<div>
 							<label class="labelfirst">주소<a
 								style="color: red; font-size: 15px;">*</a></label>
-						</div> -->
-						<!-- <div>
-						<input type="text" id="sample6_postcode" placeholder="우편번호">
-						<input type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
-						<input type="text" id="sample6_address" placeholder="주소"><br>
-						<input type="text" id="sample6_detailAddress" placeholder="상세주소">
-						<input type="text" id="sample6_extraAddress" placeholder="참고항목">
-						</div> -->
-					</div>
-				
+								
+							<div style="float:right;">
+							<input type="text" id="sample6_postcode" name="sample6_postcode"  placeholder="우편번호" style="width:188px;height:30px;">
+							<input type="button" onclick="sample6_execDaumPostcode()"
+								value="우편번호 찾기" style="height:30px;"><br> <input type="text"
+								id="sample6_address"  name="sample6_address"  placeholder="주소" style="width:188px;height:30px;"><br> <input
+								type="text" id="sample6_detailAddress" name="sample6_detailAddress" placeholder="상세주소" style="width:188px;height:30px;">
+							<input type="text" id="sample6_extraAddress" name="sample6_extraAddress" placeholder="참고항목" style="width:85px;height:30px;">
 
+						
+</div>
+								
+						</div>
+						
+					</div>
+
+<br><br><br><br>
 					<div class="info-box7">
 						<label class="labelfirst">이메일<a
 							style="color: red; font-size: 15px;">*</a></label><input
-							class="nomal-text" type="email"  id="email" name="email"
+							class="nomal-text" type="email" id="email" name="email"
 							placeholder="@ 포함한 이메일 기재" required>
 					</div>
 					<br>
@@ -179,7 +179,8 @@ td {
 					<div id="goMain" onclick="goMain();">메인으로</div>
 					<!-- <div id="joinBtn" onclick="insertMember();"></div> -->
 					<input type="button" value="가입하기"
-						style="width: 280px; height: 30px; color: white; background: #cc0000" onclick="checkId()">
+						style="width: 280px; height: 30px; color: white; background: #cc0000"
+						onclick="checkId()">
 
 				</div>
 				<input type="hidden" id="checkTest" value="0">
@@ -190,8 +191,9 @@ td {
 	</div>
 	<!-- container 끝-->
 
-<script>
-	
+
+	<script>
+
 	//아이디 중복확인 버튼 check 때문에 서브밋 버튼을 버튼으로 만들고, function을 통해 서브밋을  하게됨.
 	//그렇게 되면 required 기능이 제공되지 않음
 	//required 기능을 하게 하기 위한 if~else문 적용
@@ -305,7 +307,7 @@ td {
 
 		//아이디 정규식
 		var idJ = /^[a-z0-9_]{4,20}$/;
-		var emailJ=/^[a-zA-Z0-9]+@[a-zA-Z0-9]+$/;
+		var emailJ = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+$/;
 		$(function() {
 			//idresult
 			$("#userId").change(
@@ -368,10 +370,15 @@ td {
 			});
 
 		}); // 아이디, 비번 체크
-		
 
-	/*주소 api*/
-  /*   function DaumPostcode()() {
+	
+	</script>
+	
+	<script
+		/*주소 api*/
+		src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+    function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -417,9 +424,8 @@ td {
                 document.getElementById("sample6_detailAddress").focus();
             }
         }).open();
-    } */
-
-	</script>
+    }
+</script>
 
 	<%@include file="../common/footer.jsp"%>
 

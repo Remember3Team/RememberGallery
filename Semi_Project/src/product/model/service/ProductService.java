@@ -325,6 +325,30 @@ public class ProductService {
 		return result2;
 	}
 
+	public product selectpaint(int paint_no) {
+		Connection conn = getConnection();
+
+		product p = new product();
+		p = new ProductDao().selectpaint(conn,paint_no);
+
+		close(conn);
+		return p;
+	}
+
+	public int updateBasket(int paint_no, String orderid) {
+		Connection conn = getConnection();
+		
+		int result = new ProductDao().updateBasket(conn,paint_no,orderid);
+		
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
 	
 
 
