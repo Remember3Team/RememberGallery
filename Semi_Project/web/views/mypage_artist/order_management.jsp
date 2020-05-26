@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "mypage_artist.management.model.vo.*, artistapply.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import = "mypage_artist.management.model.vo.*, artistapply.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList
+    , product.model.vo.*"%>
     <%
     	ArrayList<Mypage_artist> OM_list = (ArrayList<Mypage_artist>)request.getAttribute("OM_list");
     	ArrayList<Mypage_artist> search_list = (ArrayList<Mypage_artist>)request.getAttribute("search_list");
+    	ArrayList<Attachment> alist = (ArrayList<Attachment>)request.getAttribute("alist");
     	PageInfo pi = (PageInfo)request.getAttribute("pi");
     	/* Apply aphoto = (Apply) request.getAttribute("aphoto"); */
     	   
@@ -91,7 +93,6 @@
         <div class = "refund-table">
             <div class="table-headline">
                 <div><span>주문관리</span></div>
-                <div class="button"><button class="btn btn-outline-dark" style = "width:120px">입금확인</button></div>
             </div>
             <table style="width:100%" name="refund-list">
                 <tr>
@@ -101,11 +102,12 @@
                     <th>금액</th>
                     <th>처리 상태</th>
                     <th>주문 정보 확인</th>
+                    <th>입금 확인</th>
                 </tr>
                 <% for(Mypage_artist ma : OM_list){ %>
                 <tr>
                     <td class = "orderNo"><%=ma.getOrder_no() %></td>
-                    <td><%=ma.getAfile() %></td>
+                   <td><img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= ma.getAfile() %>"></td>
                     <td>작품명 : <%=ma.getPaint_name() %><br>
                     	  작가명 : <%=ma.getArtist_name() %></td>
                     <td><%=ma.getPaint_price() %></td>
@@ -113,6 +115,7 @@
                     <td>
                      <input class="order_no" type="hidden" value="<%=ma.getOrder_no() %>">
                     <button class="btn btn-outline-dark order" id="detail_order" style = "width:150px">주문 상세보기</button></td>
+                    <td> <button class="btn btn-outline-dark" id="deposit" style = "width:100px">입금 확인</button></td>
                 </tr>
 				<%} %>
 				

@@ -114,6 +114,16 @@ public class Mypage_ArtistService {
 		System.out.println(search_list_PM);
 		return search_list_PM;
 	}
+	public ArrayList<Mypage_artist> listSearch_SM(String shipping_status, String term, String calendar1, String calendar2,
+			String bWriter) {
+		Connection conn = getConnection();
+		
+		ArrayList<Mypage_artist> search_list_SM = new Mypage_ArtistDao().listSearch_SM(conn, shipping_status, term, calendar1, calendar2, bWriter);
+		
+		close(conn);
+		System.out.println(search_list_SM);
+		return search_list_SM;
+	}
 
 	public ArrayList<Mypage_artist> selectList_DOV_P(String bWriter, int order_no) {
 		Connection conn = getConnection();
@@ -148,10 +158,9 @@ public class Mypage_ArtistService {
 	public int deleteProduct(String bWriter, int paint_no) {
 		Connection conn = getConnection();
 		
-		int result1 = new Mypage_ArtistDao().deleteProduct(conn, bWriter, paint_no);
-		int result2 = new Mypage_ArtistDao().deleteProduct2(conn, bWriter, paint_no);
+		int result = new Mypage_ArtistDao().deleteProduct(conn, bWriter, paint_no);
 		
-		if(result1 > 0 && result2 > 0) {
+		if(result > 0 ) {
 			commit(conn);
 		}else {
 			rollback(conn);
@@ -159,8 +168,10 @@ public class Mypage_ArtistService {
 		close(conn);
 		
 		
-		return result2;
+		return result;
 	}
+
+
 
 
 

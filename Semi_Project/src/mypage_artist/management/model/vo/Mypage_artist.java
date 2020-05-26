@@ -57,6 +57,17 @@ public class Mypage_artist implements Serializable{
 	}
 
 	
+	public Mypage_artist(int order_no,String afile, String paint_name, String artist_name,  Date order_date,
+			Date ship_date) {
+		super();
+		this.paint_name = paint_name;
+		this.artist_name = artist_name;
+		this.afile = afile;
+		this.order_no = order_no;
+		this.order_date = order_date;
+		this.ship_date = ship_date;
+	}
+
 	public Mypage_artist(int order_no, String afile, String paint_name, String artist_name,   Date order_date,
 			Date ship_date, String order_status) {
 		super();
@@ -78,6 +89,17 @@ public class Mypage_artist implements Serializable{
 		this.afile = afile;
 	}
 
+	public Mypage_artist(int paint_no, int order_no, String afile, String paint_name, String artist_name, int paint_price, 
+			String order_status) {
+		super();
+		this.paint_no = paint_no;
+		this.paint_name = paint_name;
+		this.paint_price = paint_price;
+		this.artist_name = artist_name;
+		this.afile = afile;
+		this.order_no = order_no;
+		this.order_status = order_status;
+	}
 	public Mypage_artist(int order_no, String afile, String paint_name, String artist_name, int paint_price, 
 			String order_status) {
 		super();
