@@ -105,7 +105,7 @@ public class ArtistCardListServlet extends HttpServlet {
 					System.out.println(mlist.get(i));
 				}
 				
-				ArrayList<Attachment> alist = aService.selectCAList(name, currentPage, limit);
+				ArrayList<Attachment> alist = aService.selectCAList(name);
 				for(int i = 0 ; i <alist.size(); i++) {
 					System.out.println(alist.get(i));
 				}

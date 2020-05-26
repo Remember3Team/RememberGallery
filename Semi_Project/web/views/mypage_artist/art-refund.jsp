@@ -45,7 +45,7 @@
 		<div class="headline-subbox">
 			<div class="artist-img">
 				<!--Artist Image-->
-				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>" style="width: 83px; height: 83px;">
+				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>/" style="width: 83px; height: 83px;">
 			</div>
 			<div class="artist-btn"
 				style="display: inline-block; vertical-align: middle;">
@@ -80,14 +80,15 @@
 		<form action="<%=request.getContextPath()%>/alist.search" method="post">
 			<div class="search-bar">
 				<div class="bar1">
-					<input type="text" name="order-status" list="status-list"
-						placeholder="주문 처리 상태">
-					<datalist id="status-list" name = "order_status" readonly>
-						<option value="환불신청"></option>
-						<option value="환불완료"></option>
+					<input type="text" name="order_status" list="status-list"
+						placeholder="주문 상태">
+					<datalist id="status-list" name = "order_status">
+						<option value="환불 신청"></option>
+						<option value="환불 완료"></option>
+						<option value="반품 신청"></option>
 					</datalist>
 				</div>
-				<div class="btn-group" data-toggle="buttons" >
+				<div class="btn-group" data-toggle="buttons"  style = "vertical-align: baseline;" >
                     <label class="btn btn-outline-dark">
                          <input type="radio" name="term" value="0">오늘
                     </label>
@@ -146,6 +147,7 @@
 	
 			var checkboxList = $("input[name=check]:checked");
 			arrayList = '';
+			
 			for(var i=0; i<checkboxList.length; i++){
 		
 				// checkbox가 체크 되어있을 때만 실행

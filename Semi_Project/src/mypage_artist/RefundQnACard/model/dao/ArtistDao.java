@@ -1,12 +1,11 @@
 package mypage_artist.RefundQnACard.model.dao;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -16,7 +15,6 @@ import member.model.vo.Member;
 import mypage_artist.RefundQnACard.model.vo.BuyList_a;
 import mypage_artist.RefundQnACard.model.vo.Message;
 import mypage_artist.RefundQnACard.model.vo.QnA_Q;
-import mypage_artist.management.model.vo.Mypage_artist;
 import product.model.vo.Attachment;
 
 public class ArtistDao {
@@ -97,7 +95,7 @@ public class ArtistDao {
 		return list;
 	}
 
-	public ArrayList<Attachment> selectphoto(Connection conn, String artistName, int currentPage, int limit) {
+	public ArrayList<Attachment> selectphoto(Connection conn, String artistName) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -184,7 +182,7 @@ public class ArtistDao {
 	}
 
 	// 카드 메세지 사진
-	public ArrayList<Attachment> selectCAphoto(Connection conn, String artistName, int currentPage, int limit) {
+	public ArrayList<Attachment> selectCAphoto(Connection conn, String artistName) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -217,7 +215,7 @@ public class ArtistDao {
 
 		return list;
 	}
-// 확인,,
+	
 	public ArrayList<QnA_Q> selectQnAList(Connection conn, String artistName, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -272,7 +270,7 @@ public class ArtistDao {
 		return qnalist;
 	}
 
-	public ArrayList<Attachment> selectQpphoto(Connection conn, String artistName, int currentPage, int limit) {
+	public ArrayList<Attachment> selectQpphoto(Connection conn, String artistName) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -587,12 +585,13 @@ public class ArtistDao {
 		ArrayList<BuyList_a> alist = new ArrayList<>();
 		
 		
-		if(order_status == null && term == null && (calendar1.isEmpty() || calendar2.isEmpty())) {
+		if(order_status.isEmpty()&& term == null && (calendar1.isEmpty() || calendar2.isEmpty())) {
 			String query = "SELECT *"
 					+ "FROM BUY_LIST B "
 					+ "JOIN PAINT P ON (P.PAINT_NO = B.PAINT_NO) "
 					+ "JOIN MEMBER M ON (M.USER_NAME = P.ARTIST_NAME)"
-					+ "WHERE P.ARTIST_NAME = ? AND B.ORDER_STATUS LIKE '환불%' OR B.ORDER_STATUS LIKE '반품%'"; //쿼리문 변경
+					+ "WHERE P.ARTIST_NAME = ? AND B.ORDER_STATUS LIKE '환불%' OR B.ORDER_STATUS LIKE '반품%'"
+					; //쿼리문 변경
 			
 			try {
 				pstmt = conn.prepareStatement(query);
@@ -624,7 +623,7 @@ public class ArtistDao {
 				close(pstmt);
 			}
 		}
-		else if(term == null && (calendar1.isEmpty() || calendar2.isEmpty())) {
+		else if(term==null && (calendar1.isEmpty() || calendar2.isEmpty())) {
 			String query = "SELECT *"
 					+ "FROM BUY_LIST B "
 					+ "JOIN PAINT P ON (P.PAINT_NO = B.PAINT_NO) "
@@ -661,7 +660,7 @@ public class ArtistDao {
 				close(pstmt);
 			}
 		}
-		else if(order_status == null && (calendar1.isEmpty() || calendar2.isEmpty())) {
+		else if(order_status.isEmpty() && (calendar1.isEmpty() || calendar2.isEmpty())) {
 			String query = "SELECT *"
 					+ "FROM BUY_LIST B "
 					+ "JOIN PAINT P ON (P.PAINT_NO = B.PAINT_NO) "
@@ -700,7 +699,7 @@ public class ArtistDao {
 			}
 			
 		}
-		else if(order_status == null && term == null) {
+		else if(order_status.isEmpty() && term == null) {
 			String query = "SELECT *"
 					+ "FROM BUY_LIST B "
 					+ "JOIN PAINT P ON (P.PAINT_NO = B.PAINT_NO) "
@@ -779,7 +778,7 @@ public class ArtistDao {
 			}	
 			
 		}
-		else if(order_status == null) {
+		else if(order_status.isEmpty()) {
 			String query = "SELECT *"
 					+ "FROM BUY_LIST B "
 					+ "JOIN PAINT P ON (P.PAINT_NO = B.PAINT_NO) "
@@ -861,8 +860,8 @@ public class ArtistDao {
 			String query = "SELECT *"
 					+ "FROM BUY_LIST B "
 					+ "JOIN PAINT P ON (P.PAINT_NO = B.PAINT_NO) "
-					+ "JOIN MEMBER M ON (M.USER_NAME = P.ARTIST_NAME)"+
-					"WHERE artist_name = ? and order_status=? and order_date between ? and ?";
+					+ "JOIN MEMBER M ON (M.USER_NAME = P.ARTIST_NAME)"
+					+ "WHERE artist_name = ? and order_status=? and order_date between ? and ?";
 			
 			try {
 				pstmt = conn.prepareStatement(query);
@@ -900,6 +899,317 @@ public class ArtistDao {
 		System.out.println("alist"+alist);
 		
 	return alist;
+	}
+
+	public ArrayList<QnA_Q> qlistSearch(Connection conn, String order_status, String term, String calendar1,
+			String calendar2, String loginName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		
+		
+		System.out.println("order_status :" + order_status);
+		
+		ArrayList<QnA_Q> qlist = new ArrayList<>();
+		
+		if(order_status.isEmpty() && term == null && (calendar1.isEmpty() || calendar2.isEmpty())) {
+			String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, A.*  FROM (SELECT * FROM PAINT_Q Q JOIN PAINT P ON(Q.PAINT_NO = P.PAINT_NO) WHERE ARTIST_NAME =? ORDER BY PQ_DATE DESC) A)";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, loginName);
+				
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					QnA_Q q = new QnA_Q(
+							rset.getInt("pq_no"),
+							rset.getString("pquestion"),
+							rset.getString("pq_date"),
+							rset.getInt("paint_no"),
+							rset.getString("user_id"),
+							rset.getString("pq_yn"),
+							rset.getString("paint_name"));
+							
+							qlist.add(q);
+					
+				}
+				System.out.println("전체 목록 :"+ qlist);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+		}
+		else if(term == null && (calendar1.isEmpty() || calendar2.isEmpty())) {
+			String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, A.* "
+					+ "FROM (SELECT * FROM PAINT_Q Q JOIN PAINT P ON(Q.PAINT_NO = P.PAINT_NO)"
+					+ "WHERE ARTIST_NAME =? ORDER BY PQ_DATE DESC) A) WHERE PQ_YN = ?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, loginName);
+				pstmt.setString(2, order_status);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					
+					QnA_Q q = new QnA_Q(
+							rset.getInt("pq_no"),
+							rset.getString("pquestion"),
+							rset.getString("pq_date"),
+							rset.getInt("paint_no"),
+							rset.getString("user_id"),
+							rset.getString("pq_yn"),
+							rset.getString("paint_name"));
+							
+							qlist.add(q);
+							
+							
+				}
+				System.out.println(qlist);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+		}
+		else if(order_status.isEmpty() && (calendar1.isEmpty() || calendar2.isEmpty())) {
+			String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, A.* "
+					+ "FROM (SELECT * FROM PAINT_Q Q JOIN PAINT P ON(Q.PAINT_NO = P.PAINT_NO)"
+					+ "WHERE ARTIST_NAME =? ORDER BY PQ_DATE DESC) A)"+ 
+					"WHERE PQ_DATE BETWEEN (SYSDATE - ?) AND (SYSDATE)";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, loginName);
+				pstmt.setString(2, term);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					QnA_Q q = new QnA_Q(
+							rset.getInt("pq_no"),
+							rset.getString("pquestion"),
+							rset.getString("pq_date"),
+							rset.getInt("paint_no"),
+							rset.getString("user_id"),
+							rset.getString("pq_yn"),
+							rset.getString("paint_name"));
+							
+							qlist.add(q);
+							
+							
+				}
+				System.out.println(qlist);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+		}
+		else if(order_status.isEmpty() && term == null) {
+			String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, A.* "
+					+ "FROM (SELECT * FROM PAINT_Q Q JOIN PAINT P ON(Q.PAINT_NO = P.PAINT_NO)"
+					+ "WHERE ARTIST_NAME =? ORDER BY PQ_DATE DESC) A)"+ 
+					"WHERE PQ_DATE BETWEEN ? AND ?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, loginName);
+				pstmt.setString(2, calendar1);
+				pstmt.setString(3, calendar2);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					QnA_Q q = new QnA_Q(
+							rset.getInt("pq_no"),
+							rset.getString("pquestion"),
+							rset.getString("pq_date"),
+							rset.getInt("paint_no"),
+							rset.getString("user_id"),
+							rset.getString("pq_yn"),
+							rset.getString("paint_name"));
+							
+							qlist.add(q);
+							
+							
+				}
+				System.out.println(qlist);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+		}
+		else if(calendar1.isEmpty() || calendar2.isEmpty()) {
+			String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, A.* "
+					+ "FROM (SELECT * FROM PAINT_Q Q JOIN PAINT P ON(Q.PAINT_NO = P.PAINT_NO)"
+					+ "WHERE ARTIST_NAME =? ORDER BY PQ_DATE DESC) A)"
+					+ "WHERE PQ_YN = ? AND PQ_DATE BETWEEN (SYSDATE - ?) AND (SYSDATE)";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, loginName);
+				pstmt.setString(2, order_status);
+				pstmt.setString(3, term);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					QnA_Q q = new QnA_Q(
+							rset.getInt("pq_no"),
+							rset.getString("pquestion"),
+							rset.getString("pq_date"),
+							rset.getInt("paint_no"),
+							rset.getString("user_id"),
+							rset.getString("pq_yn"),
+							rset.getString("paint_name"));
+							
+							qlist.add(q);
+							
+							
+				}
+				System.out.println(qlist);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}	
+			
+		}
+		else if(order_status.isEmpty()) {
+			String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, A.* "
+					+ "FROM (SELECT * FROM PAINT_Q Q JOIN PAINT P ON(Q.PAINT_NO = P.PAINT_NO)"
+					+ "WHERE ARTIST_NAME =? ORDER BY PQ_DATE DESC) A)"
+					+ "WHERE PQ_DATE BETWEEN ? AND ?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, loginName);
+				pstmt.setString(2, calendar1);
+				pstmt.setString(3, calendar2);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					QnA_Q q = new QnA_Q(
+							rset.getInt("pq_no"),
+							rset.getString("pquestion"),
+							rset.getString("pq_date"),
+							rset.getInt("paint_no"),
+							rset.getString("user_id"),
+							rset.getString("pq_yn"),
+							rset.getString("paint_name"));
+							
+							qlist.add(q);
+							
+							
+				}
+				System.out.println(qlist);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}	
+			
+			
+		}else if(term == null) {
+			String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, A.* "
+					+ "FROM (SELECT * FROM PAINT_Q Q JOIN PAINT P ON(Q.PAINT_NO = P.PAINT_NO)"
+					+ "WHERE ARTIST_NAME =? ORDER BY PQ_DATE DESC) A)"
+					+ "WHERE PQ_YN = ? AND PQ_DATE BETWEEN ? AND ?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, loginName);
+				pstmt.setString(2, order_status);
+				pstmt.setString(3, calendar1);
+				pstmt.setString(4, calendar2);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					QnA_Q q = new QnA_Q(
+							rset.getInt("pq_no"),
+							rset.getString("pquestion"),
+							rset.getString("pq_date"),
+							rset.getInt("paint_no"),
+							rset.getString("user_id"),
+							rset.getString("pq_yn"),
+							rset.getString("paint_name"));
+							
+							qlist.add(q);
+							
+							
+				}
+				System.out.println(qlist);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+		}else {
+			String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, A.* "
+					+ "FROM (SELECT * FROM PAINT_Q Q JOIN PAINT P ON(Q.PAINT_NO = P.PAINT_NO)"
+					+ "WHERE ARTIST_NAME =? ORDER BY PQ_DATE DESC) A)"
+					+ "WHERE PQ_YN = ? AND PQ_DATE BETWEEN ? AND ?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, loginName);
+				pstmt.setString(2, order_status);
+				pstmt.setString(3, calendar1);
+				pstmt.setString(4, calendar2);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					QnA_Q q = new QnA_Q(
+							rset.getInt("pq_no"),
+							rset.getString("pquestion"),
+							rset.getString("pq_date"),
+							rset.getInt("paint_no"),
+							rset.getString("user_id"),
+							rset.getString("pq_yn"),
+							rset.getString("paint_name"));
+							
+							qlist.add(q);
+							
+							
+				}
+				System.out.println(qlist);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}	
+		}
+		
+		System.out.println("qlist"+qlist);
+		
+	return qlist;
 	}
 
 	

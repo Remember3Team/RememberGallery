@@ -97,7 +97,7 @@ public class ArtistQnAListServlet extends HttpServlet {
 					System.out.println(qnalist.get(i));
 				}
 				
-				ArrayList<Attachment> alist = aService.selectQpList(name, currentPage, limit);
+				ArrayList<Attachment> alist = aService.selectQpList(name);
 				
 				for(int i = 0 ; i <alist.size(); i++) {
 					System.out.println(alist.get(i));
