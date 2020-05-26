@@ -68,16 +68,10 @@ public class inquiryListServlet extends HttpServlet {
 		}
 		RequestDispatcher view = null;
 		
-		if(!list.isEmpty()) {
 			view = request.getRequestDispatcher("views/board/inquiry/inquiryBoard.jsp");
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 			
-		}else {
-			System.out.println("문의게시판 조회 실패");
-			view = request.getRequestDispatcher("views/board/inquiry/inquiryBoard.jsp");
-			
-		}
 		view.forward(request, response);
 		
 	}

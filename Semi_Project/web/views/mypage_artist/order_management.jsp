@@ -5,7 +5,7 @@
     	ArrayList<Mypage_artist> search_list = (ArrayList<Mypage_artist>)request.getAttribute("search_list");
     	PageInfo pi = (PageInfo)request.getAttribute("pi");
     	/* Apply aphoto = (Apply) request.getAttribute("aphoto"); */
-    	
+    	   
     	int listCount = pi.getListCount();
     	int currentPage = pi.getCurrentPage();
     	int maxPage = pi.getMaxPage();

@@ -86,7 +86,6 @@
             </div>
             <table style="width:100%" name="refund-list">
                 <tr>
-                    <th><input type="checkbox"></th>
                     <th>주문 번호</th>
                     <th>이미지</th>
                     <th>상품 정보</th>
@@ -97,7 +96,6 @@
                 <% for(Mypage_artist ma : search_list){ %>
                 <tr>
                
-                    <td><input type="checkbox"></td>
                     <td class = "orderNo"><%=ma.getOrder_no() %></td>
                     <td><%=ma.getAfile() %></td>
                     <td>작품명 : <%=ma.getPaint_name() %><br>

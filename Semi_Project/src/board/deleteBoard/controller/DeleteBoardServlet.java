@@ -1,11 +1,14 @@
-package board.deleteBoard;
+package board.deleteBoard.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import board.deleteBoard.model.service.deleteService;
 
 /**
  * Servlet implementation class DeleteBoardServlet
@@ -18,17 +21,24 @@ public class DeleteBoardServlet extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
     public DeleteBoardServlet() {
-        super();
-        // TODO Auto-generated constructor stub
+
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		deleteService dService = new deleteService();
 		
 		int deleteNo = Integer.valueOf(request.getParameter("deleteNo"));
+		int deleteAm = Integer.valueOf(request.getParameter("deleteAm"));
 		
+		int deleteResultN = dService.deleteBoard(deleteNo,1);
+		
+		if(deleteResultN>0) {
+			System.out.println("데이터가 성공적으로 삭제되었습니다.");
+			response.sendRedirect("list.no");
+		}
 		
 	}
 

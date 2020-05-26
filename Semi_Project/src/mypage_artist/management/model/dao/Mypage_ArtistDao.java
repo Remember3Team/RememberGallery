@@ -611,6 +611,77 @@ public class Mypage_ArtistDao {
 			
 		return search_list;
 	}
+	
+	public ArrayList<Mypage_artist> listSearch_PM(Connection conn, String category, String bWriter) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Mypage_artist> search_list_PM = new ArrayList<>();
+		Mypage_artist myart  =new Mypage_artist();
+		
+		if(category.isEmpty() ) {
+			String query = "SELECT PAINT.PAINT_NO, AFILE, PAINT_NAME, ARTIST_NAME, PAINT_PRICE FROM PAINT\r\n" + 
+					"JOIN PAINT_PHOTO PP ON (PAINT.PAINT_NO = PP.PAINT_NO)\r\n" + 
+					"WHERE FILELEVEL=0 AND ARTIST_NAME = ?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, bWriter);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					myart = new Mypage_artist(rset.getInt("paint_no"),
+																					   rset.getString("afile"),
+																					   rset.getString("paint_name"),
+																					   rset.getString("artist_name"),
+																					   rset.getInt("paint_price"));
+					search_list_PM.add(myart);
+				}
+				System.out.println(search_list_PM);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+		}
+		else{
+			String query = "SELECT PAINT.PAINT_NO, AFILE, PAINT_NAME, ARTIST_NAME, PAINT_PRICE FROM PAINT\r\n" + 
+					"JOIN PAINT_PHOTO PP ON (PAINT.PAINT_NO = PP.PAINT_NO)\r\n" + 
+					"WHERE FILELEVEL=0 AND ARTIST_NAME = ? AND CATEGORY = ?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, bWriter);
+				pstmt.setString(2, category);
+					
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					myart = new Mypage_artist(rset.getInt("paint_no"),
+																					   rset.getString("afile"),
+																					   rset.getString("paint_name"),
+																					   rset.getString("artist_name"),
+																					   rset.getInt("paint_price"));
+					search_list_PM.add(myart);
+				}
+				
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+		}
+		
+		System.out.println("dkdk"+search_list_PM);
+		
+		
+		return search_list_PM;
+	}
 
 
 
@@ -772,6 +843,8 @@ public class Mypage_ArtistDao {
 
 		return result2;
 	}
+
+
 
 
 

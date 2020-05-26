@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,9 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import board.amateur.model.vo.Reply;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import board.inquiry.model.service.InquiryService;
 import board.inquiry.model.vo.Inquiry;
+
 import board.notice.model.vo.PageInfo;
 
 /**
@@ -40,6 +44,7 @@ public class inquiryInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		InquiryService inService = new InquiryService();
+
 
 		String writer = request.getParameter("writer");
 		String q_cate = request.getParameter("q_cate");
@@ -77,9 +82,11 @@ public class inquiryInsertServlet extends HttpServlet {
 		}
 		PageInfo pi = new PageInfo(currentPage, listCount, limit, maxPage,startPage, endPage);
 
-	
+	////////////////////////
+		
 		
 		ArrayList<Inquiry> inList = new InquiryService().insertQuestion(in, currentPage, limit);
+		
 		
 		JSONArray inListArray = new JSONArray();
 		JSONObject inListObj = null;

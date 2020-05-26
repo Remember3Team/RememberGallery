@@ -40,6 +40,15 @@ public class product {
 		this.height = height;
 	}
 
+	
+
+	public product(int paint_no, String paint_name, String artist_name) {
+		super();
+		this.paint_no = paint_no;
+		this.paint_name = paint_name;
+		this.artist_name = artist_name;
+	}
+
 
 	public product(int paint_no, String paint_name, int patint_price, String category, String artist_name,
 			String paint_int, String paint_mdate, int size_no) {
