@@ -108,7 +108,7 @@ public class Mypage_ArtistDao {
 				" JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
 				"left JOIN BUY_LIST BL ON (P.PAINT_NO = BL.PAINT_NO)\r\n" + 
 				"left JOIN MEMBER ON (BL.USER_ID = MEMBER.USER_ID)\r\n" + 
-				"WHERE p.paint_no  BETWEEN ? AND ? AND   p.ARTIST_NAME=? AND FILELEVEL=0";
+				"WHERE p.paint_no  BETWEEN ? AND ? AND   p.ARTIST_NAME=? AND FILELEVEL=0 order by 1";
 		
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
@@ -151,7 +151,7 @@ public class Mypage_ArtistDao {
 		String query = "SELECT ORDER_NO, AFILE, PAINT_NAME, ARTIST_NAME, ORDER_DATE, SHIP_DATE, ORDER_STATUS FROM BUY_LIST BL\r\n" + 
 				"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
 				"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
-				"WHERE order_no between ? and ? and artist_name = ? and filelevel=0";
+				"WHERE order_no between ? and ? and artist_name = ? and filelevel=0 order by 1";
 		
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
@@ -194,10 +194,10 @@ public class Mypage_ArtistDao {
 		ResultSet rset = null;
 		ArrayList<Mypage_artist> OM_list = new ArrayList<>();
 		
-		String query = "SELECT ORDER_NO, AFILE, PAINT_NAME, ARTIST_NAME, PAINT_PRICE, ORDER_STATUS FROM BUY_LIST BL \r\n" + 
+		String query = "SELECT  ORDER_NO, AFILE, PAINT_NAME, ARTIST_NAME, PAINT_PRICE, ORDER_STATUS FROM BUY_LIST BL \r\n" + 
 				"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
 				"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
-				"where ORDER_NO BETWEEN ? AND ? AND  filelevel=0 and artist_name=?";
+				"where ORDER_NO BETWEEN ? AND ? AND  filelevel=0 and artist_name=? order by 1";
 		
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
@@ -211,7 +211,8 @@ public class Mypage_ArtistDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				Mypage_artist myart = new Mypage_artist(rset.getInt("order_no"),
+				Mypage_artist myart = new Mypage_artist(
+																				rset.getInt("order_no"),
 																				 rset.getString("afile"),
 																				 rset.getString("paint_name"),
 																				 rset.getString("artist_name"),

@@ -4,7 +4,6 @@
     <%
     	ArrayList<Mypage_artist> PM_list = (ArrayList<Mypage_artist>)request.getAttribute("PM_list");
     	ArrayList<Mypage_artist> search_list_PM = (ArrayList<Mypage_artist>)request.getAttribute("search_list_PM");
-    	ArrayList<Attachment> alist = (ArrayList<Attachment>)request.getAttribute("alist");
     	PageInfo pi = (PageInfo)request.getAttribute("pi");
     	/* Apply aphoto = (Apply) request.getAttribute("aphoto"); */
     	
@@ -93,8 +92,8 @@
                 </tr>
                 <% for(Mypage_artist ma : PM_list){ %>
                 <tr>
-                    <td><%=ma.getPaint_no() %></td><% for(Attachment a : alist) {    if(ma.getPaint_no() == a.getPaint_no()){%>
-                    <td><img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>"></td><%}} %>
+                    <td><%=ma.getPaint_no() %></td>
+                    <td><img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= ma.getAfile() %>"></td>
                     <td>작품명 : <%=ma.getPaint_name() %><br>
                     	  작가명 : <%=ma.getArtist_name() %></td>
                     <td><%=ma.getPaint_price() %></td>

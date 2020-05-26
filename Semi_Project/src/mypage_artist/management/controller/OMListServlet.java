@@ -14,6 +14,8 @@ import board.notice.model.vo.PageInfo;
 import member.model.vo.Member;
 import mypage_artist.management.model.service.Mypage_ArtistService;
 import mypage_artist.management.model.vo.Mypage_artist;
+import product.model.service.ProductService;
+import product.model.vo.Attachment;
 
 /**
  * Servlet implementation class OMListServlet
@@ -93,9 +95,11 @@ public class OMListServlet extends HttpServlet {
 				// 1_2. 게시판 리스트 조회해오기
 				ArrayList<Mypage_artist> OM_list = aService.selectList_OM(currentPage, limit, bWriter);
 				for(int i = 0 ; i < OM_list.size(); i++) {
-					System.out.println(OM_list.get(i));
+					System.out.println("dddd"+OM_list.get(i));
 				}
-				
+				System.out.println(OM_list);
+				ProductService pService = new ProductService();
+				//ArrayList<Attachment> alist = pService.selectAList(currentPage, limit);
 				// 프로필 사진 불러오기
 //				ArtistService aService1 = new ArtistService();
 //				
@@ -109,6 +113,7 @@ public class OMListServlet extends HttpServlet {
 					view = request.getRequestDispatcher("views/mypage_artist/order_management.jsp");
 					request.setAttribute("OM_list", OM_list);
 //					request.setAttribute("aphoto", aphoto);
+					//request.setAttribute("alist", alist);
 					request.setAttribute("pi", pi);
 				}else {
 //					view = request.getRequestDispatcher("views/common/errorPage.jsp");
