@@ -7,14 +7,14 @@
 
 #slider-wrap {
     width: 100%;
-    height: 400px;
-    position: relative;
+     height: 600px;
+   position: relative;
     overflow: hidden;
 }
 
 #slider-wrap ul#slider {
-    height: 100%;
-    position: absolute;
+/*     height: 100%;
+ */    position: absolute;
     top: 0;
     left: 0;
 }
@@ -23,8 +23,8 @@
     float: left;
     position: relative;
     width: 600px;
-    height: 400px;
-}
+/*     height: 400px;
+ */}
 
 #slider-wrap ul#slider li>div {
     position: absolute;
@@ -44,7 +44,8 @@
 #slider-wrap ul#slider li img {
     display: block;
     width: 100%;
-    height: 100%;
+    /* height: 600px; */
+    margin-top: -120px;
 }
 
 /*btns*/
@@ -75,13 +76,14 @@
 #next {
     right: -50px;
     border-radius: 7px 0px 0px 7px;
-    color: #eee;
+    /* color: #eee; */
+    color:black;
 }
 
 #previous {
     left: -50px;
     border-radius: 0px 7px 7px 7px;
-    color: #eee;
+   color:black;
 }
 
 #slider-wrap.active #next {

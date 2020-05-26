@@ -59,8 +59,9 @@ public class loginServlet extends HttpServlet {
 			 PrintWriter writer = response.getWriter();
 				
 				 writer.println("<script type = 'text/javascript'>");
-				 writer.println("history.go(-2);");
-				 
+				writer.println("history.go(-2);"); 
+				/* writer.println("window.location.reload(true);"); */
+					/* writer.println("history.go(0);"); */
 	
 			// 회원가입 페이지를 따로 안만들시
 //			writer.println(" ");

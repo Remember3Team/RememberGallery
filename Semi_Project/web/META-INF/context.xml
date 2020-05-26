@@ -21,6 +21,7 @@
 
 <Context workDir="/Users/samee/Desktop/kh_sammy/semi/workspace/RememberGallery/Semi_Project/web/WEB-INF/jspwork">
 
+
     <!-- Default set of monitored resources. If one of these changes, the    -->
     <!-- web application will be reloaded.                                   -->
     <WatchedResource>WEB-INF/web.xml</WatchedResource>
