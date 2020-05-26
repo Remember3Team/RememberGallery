@@ -1,7 +1,6 @@
-package board.free.controller;
+package board.updateBoard.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,21 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import board.free.model.service.FreeService;
-import board.free.model.vo.Free;
-import board.free.model.vo.Reply;
+import board.amateur.model.service.AmateurService;
+import board.amateur.model.vo.Amateur;
+import board.amateur.model.vo.FileManagement;
 
 /**
- * Servlet implementation class FreeDetailServlet
+ * Servlet implementation class SelectEventServlet
  */
-@WebServlet("/detail.ee")
-public class FreeDetailServlet extends HttpServlet {
+@WebServlet("/select.am")
+public class SelectEventServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FreeDetailServlet() {
+    public SelectEventServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,20 +31,20 @@ public class FreeDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		FreeService fService = new FreeService();
-		
-		int free_no = Integer.valueOf(request.getParameter("free_no"));
-		
-		Free free = fService.selectFreeBoard(free_no);
-		
-		ArrayList<Reply> reply = fService.selectReply(free_no);
-		
-			request.setAttribute("free", free);
-			request.setAttribute("rList", reply);
-			request.getRequestDispatcher("views/board/free/freeDetail.jsp").forward(request, response);
-		
-		
+	
+			request.setCharacterEncoding("UTF-8");
+			AmateurService aService = new AmateurService();
+			
+			int updateNo = Integer.valueOf(request.getParameter("updateNo"));
+			
+			Amateur amateur = aService.selectBoard(updateNo);
+			FileManagement fileList = aService.selectFile(updateNo);
+			
+			request.setAttribute("amateur", amateur);
+			request.setAttribute("fileList", fileList);
+			
+			request.getRequestDispatcher("views/board/amateur/amateurUpdate.jsp").forward(request, response);
+
 	}
 
 	/**
