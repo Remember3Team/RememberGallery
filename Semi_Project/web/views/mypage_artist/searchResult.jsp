@@ -97,7 +97,7 @@
                 <tr>
                
                     <td class = "orderNo"><%=ma.getOrder_no() %></td>
-                    <td><%=ma.getAfile() %></td>
+                    <td><img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= ma.getAfile() %>"></td>
                     <td>작품명 : <%=ma.getPaint_name() %><br>
                     	  작가명 : <%=ma.getArtist_name() %></td>
                     <td><%=ma.getPaint_price() %></td>

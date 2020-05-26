@@ -96,7 +96,7 @@
                     <th>상품 정보</th>
                     <th>주문날짜</th>
                     <th>배송 완료일</th>
-                    <th>주문정보</th>
+                    <th>주문 정보 확인</th>
                 </tr>
                 <% for(Mypage_artist ma : SM_list){ %>
                 <tr>

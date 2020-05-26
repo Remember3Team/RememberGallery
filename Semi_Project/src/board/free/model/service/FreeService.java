@@ -100,6 +100,19 @@ public class FreeService {
 		return rList;
 	}
 
+	public ArrayList<Reply> selectReply(int free_no) {
+		Connection conn = getConnection();
+		
+		FreeDao fDao = new FreeDao();
+		ArrayList<Reply> f = null;
+
+		f = fDao.selectReplyList(conn,free_no);
+		System.out.println("[service] 조회한 게시글 결과:"+f);
+				
+		close(conn);
+		return f;
+	}
+
 
 
 }

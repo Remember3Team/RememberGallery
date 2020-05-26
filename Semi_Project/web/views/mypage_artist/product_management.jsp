@@ -5,7 +5,7 @@
     	ArrayList<Mypage_artist> PM_list = (ArrayList<Mypage_artist>)request.getAttribute("PM_list");
     	ArrayList<Mypage_artist> search_list_PM = (ArrayList<Mypage_artist>)request.getAttribute("search_list_PM");
     	PageInfo pi = (PageInfo)request.getAttribute("pi");
-    	/* Apply aphoto = (Apply) request.getAttribute("aphoto"); */
+    	Apply aphoto = (Apply) request.getAttribute("aphoto"); 
     	
     	int listCount = pi.getListCount();
     	int currentPage = pi.getCurrentPage();
@@ -30,7 +30,7 @@
 
 <body>
 <%@include file="../common/menubar.jsp" %>
-<%-- <div class="headline">
+ <div class="headline">
         <div class="headline-text">
             <hr>
             <h3 style="font-size: 20px;"> 작가 마이페이지</h3>
@@ -44,7 +44,7 @@
                 <button>감동카드 확인</button>
             </div>
         </div>
-    </div> --%>
+    </div> 
 <%@include file="../common/mypagehead.jsp" %>
     <div class="title">
         <h3>상품관리</h3>
@@ -55,8 +55,7 @@
         <form action="<%=request.getContextPath()%>/Search.PM" method="post">
             <div class="search-bar">
                 <div class="bar1">
-                    <input type="text" name="category" list="genre" placeholder="테마">
-                    <datalist name="genre" id="genre">
+                    <select name="category" class="form-control" style="margin-right:150px;">
                                 <option value="인물">인물</option>
                                 <option value="풍경">풍경</option>
                                 <option value="정물">정물</option>
@@ -64,7 +63,7 @@
                                 <option value="추상">추상</option>
                                 <option value="팝아트">팝아트</option>
                                 <option value="오브제">오브제</option>
-                            </datalist>  
+                      </select>
                 </div>
               
                 <button type="submit" class="btn btn-dark" style="width:70px">조회</button>
