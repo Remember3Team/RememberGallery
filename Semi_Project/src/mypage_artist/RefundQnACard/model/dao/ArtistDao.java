@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import artistapply.model.vo.Apply;
+import artistapply.model.vo.Career;
 import member.model.vo.Member;
 import mypage_artist.RefundQnACard.model.vo.BuyList_a;
 import mypage_artist.RefundQnACard.model.vo.Message;
@@ -499,6 +500,81 @@ public class ArtistDao {
 		}
 		
 		return listCount;
+	}
+
+	public Apply selectApply(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "SELECT * FROM SELLER WHERE USER_ID = ?";
+		
+		Apply artist = null;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				artist = new Apply(
+						
+						rset.getString("user_id"),
+						rset.getString("apply_date"),
+						rset.getString("artist_int"),
+						rset.getString("artist_pro"),
+						rset.getString("car_etc"),
+						rset.getString("car_file")
+						
+						);
+				
+				}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+			
+		}
+		
+		return artist;
+	}
+
+	public ArrayList<Career> selectCareer(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Career> career = new ArrayList<>();
+		
+		
+		String query = "SELECT * FROM CAREER WHERE USER_ID = ? ";
+		
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				Career c = new Career(rset.getString("user_id"),
+									  rset.getString("career"),
+									  rset.getString("car_term")
+							);
+		
+				career.add(c);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return career;
 	}
 
 	

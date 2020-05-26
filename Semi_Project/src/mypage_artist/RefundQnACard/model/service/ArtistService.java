@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import artistapply.model.dao.ApplyDao;
 import artistapply.model.vo.Apply;
+import artistapply.model.vo.Career;
 import member.model.vo.Member;
 import mypage_artist.RefundQnACard.model.dao.ArtistDao;
 import mypage_artist.RefundQnACard.model.vo.BuyList_a;
@@ -164,6 +165,26 @@ public class ArtistService {
 		close(conn);
 
 		return listCount;
+	}
+
+	public Apply selectApply(String userId) {
+		Connection conn = getConnection();
+		
+		Apply artist = new ArtistDao().selectApply(conn, userId);
+		
+		close(conn);
+		
+		return artist;
+	}
+
+	public ArrayList<Career> selectCareer(String userId) {
+		Connection conn = getConnection();
+		
+
+		ArrayList<Career> career =new ArtistDao().selectCareer(conn, userId);
+		
+		close(conn);
+		return career;
 	}
 
 }

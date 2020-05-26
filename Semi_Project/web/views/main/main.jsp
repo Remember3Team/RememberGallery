@@ -29,8 +29,16 @@
         </div>
         
         <button class="btn btn-outline-dark" style=" width : 120px; height : 50px; margin-top: 10px;"
-			onclick= "location.href='<%=request.getContextPath()%>/view.ap'">sammy</button>
+			onclick="goView();">sammy</button>
+		<script>
 		
+			function goView() {
+				location.href='<%=request.getContextPath()%>/view.ap';
+				
+				
+			}
+		
+		</script>
 		
 			
 			

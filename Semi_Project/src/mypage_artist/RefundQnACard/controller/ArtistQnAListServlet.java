@@ -38,7 +38,7 @@ public class ArtistQnAListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//로그인세션
+				//로그인세션
 				HttpSession session = request.getSession();
 				Member loginMember = (Member) session.getAttribute("loginUser");
 				String artistId = loginMember.getUserId();
