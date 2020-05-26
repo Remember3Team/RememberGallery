@@ -59,28 +59,24 @@ public class InsertAServlet extends HttpServlet {
 		}
 		System.out.println(result);
 		System.out.println(result2);
-		ArrayList<Paint_QnA> qna = pService.selectP();
+		Paint_QnA qna2 = pService.selectP2(qna_no);
+	
 		
-		JSONArray rListArray = new JSONArray();
-		JSONObject rListObj = null;
+	
+			JSONObject rListObj = new JSONObject();
 		
-		for(Paint_QnA a : qna) {
-			rListObj = new JSONObject();
-			
-			
-			rListObj.put("pq_no", a.getPq_no());
-			rListObj.put("panswer", a.getPanswer());
-			rListObj.put("pa_date", a.getPq_date());
-			
-			rListArray.add(rListObj);
-		}
+			//rListObj.put("pq_no", qna2.getPq_no());
+			rListObj.put("panswer", qna2.getPanswer());
+			rListObj.put("pa_date", qna2.getPq_date());
 		
 		response.setContentType("application/json; charset=utf-8");
 		
 		PrintWriter out = response.getWriter();
-		out.print(rListArray);
+		out.print(rListObj);
 		out.flush();
 		out.close();
+		
+		
 	}
 
 	/**

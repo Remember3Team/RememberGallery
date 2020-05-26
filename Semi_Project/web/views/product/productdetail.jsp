@@ -707,8 +707,9 @@ border: solid 1px;
 								<div class="Acontents" style="display:none;">
 									<textArea rows="5" cols="100" class="AContent"></textArea>
 									<div class="Acontent_btn">
+									
 									<input id="paint_no" type="hidden" value="<%=plist.getPaint_no()%>"><br>
-									<button class="hideA"  type="button active"  style="width:100px;  margin-bottom : 10px; font-size : 14px;">답변접기</button>
+									<button class="hideA"  type="button active"  onclick="test(this)" style="width:100px;  margin-bottom : 10px; font-size : 14px;">답변접기</button>
 									<button class="insertA" type="button active" style="width:100px;  margin: 0; font-size : 14px;">작성완료</button>
 									</div>
 								</div>
@@ -721,10 +722,12 @@ border: solid 1px;
 						</tr>
 							<%for(int j=0; j <= qna2.size()-1; j++){ %>
 							<%if(qna.get(i).getPq_no() == qna2.get(j).getPq_no()){%>
-							<tr style="vertical-align : middle; text-align: center;">
+							<tr style="vertical-align : middle; text-align: center;" class="answertable">
+							
 								<td>답변:</td>
 								<td width = "350px" class = "question-box"><%= qna2.get(j).getPanswer()%></td>
 								<td><%= qna2.get(j).getPa_date() %></td>
+							
 							</tr>
 							<%}} %>
 					<% } %>
@@ -740,8 +743,9 @@ border: solid 1px;
 				
 			})
 		})
-		
-		
+		function test(a){
+			
+		}
 		$(function(){
 			$(".addA").click(function(){
 				$(this).parent().children(".Acontents").show();
@@ -749,7 +753,7 @@ border: solid 1px;
 				
 			})
 		})
-		
+		//대댓글
 		$(function(){
 			$(".insertA").click(function(){ 
 				var qna_no = $(this).parent().parent().parent().children(".qna_no").val();
@@ -761,27 +765,29 @@ border: solid 1px;
 					data:{qna_no:qna_no,content:content,paint_no:paint_no},
 					
 					success:function(data){
-						$replyTable = $("answertable");
+						$replyTable = $(".answertable");
 						$replyTable.html("");
-						for(var key in data){
-							var $tr = $("<tr>");
+					
+						//	var $tr = $("<tr>");
 							
-							var $contentTd =$("<td>").text(data[key].panswer).css("width","400px");
-							var $dateTd = $("<td>").text(data[key].pq_date).css("width","200px");
+							var $test1 = $("<td>답변 : ");
+							var $contentTd =$("<td>").text(data.panswer).css("width","350px");
+							var $dateTd = $("<td>").text(data.pq_date)
 							
+							$replyTable.append($test1);
+							$replyTable.append($contentTd);
+							$replyTable.append($dateTd);
+							//$replyTable.append($tr);
 						
-							$tr.append($contentTd);
-							$tr.append($dateTd);
-							$replyTable.append($tr);
-						}
 					},
 					error:function(request,statur,error){
-						alter("댓글은 한번만 등록할 수 있습니다.");
+						alert("댓글은 한번만 등록할 수 있습니다.");
 					}
 				})
 			})
 		})
 		
+		//댓글
 		$(function(){
 			$(".addQNA").click(function(){
 				var paint_no = "<%=plist.getPaint_no()%>";
@@ -807,12 +813,8 @@ border: solid 1px;
 							$tr.append($contentTd);
 							$tr.append($dateTd);
 							
-					
-						
-													
-							
 						}
-						$("#QnAContent").val("");
+						$(".QnAContent").val("");
 					},
 					error:function(request,statur,error){
 						alert("로그인을해야합니다.");

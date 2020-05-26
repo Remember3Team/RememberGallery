@@ -182,7 +182,7 @@ public class ProductDao {
 
 		ArrayList<Attachment> list = new ArrayList<>();
 
-		String query = "SELECT * FROM PAINT_PHOTO WHERE FILELEVEL=0 AND PAINT_NO BETWEEN ? AND ?";
+		String query = "SELECT * FROM PAINT_PHOTO WHERE FILELEVEL=0 AND PAINT_NO BETWEEN ? AND ? ORDER BY 1";
 
 		// 쿼리문 실행시 조건절에 넣을 변수를 (ROWNUM에 대한 조건 시 필요) 연산 처리
 		int startRow = (currentPage - 1) * limit + 1;
@@ -1045,6 +1045,34 @@ public class ProductDao {
 		}
 		
 		return result;
+	}
+
+	public Paint_QnA selectP(Connection conn, int qna_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Paint_QnA qna = new Paint_QnA();
+		
+		String query = "SELECT * FROM PAINT_A WHERE PQ_NO = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setInt(1, qna_no);
+			
+			rset = pstmt.executeQuery();
+			while (rset.next()) {
+				 qna = new Paint_QnA(rset.getInt("PQ_NO"), 
+						rset.getString("PANSWER"),
+						rset.getString("PA_DATE"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println(qna);
+		return qna;
 	}
 
 }
