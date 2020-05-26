@@ -43,6 +43,16 @@ public class MainOrderListservlet extends HttpServlet {
 		Member loginMember = (Member) session.getAttribute("loginUser");
 		
 
+		String searchStatus = request.getParameter("search_status");
+		String term = request.getParameter("term");
+		String calendar = request.getParameter("calendar");
+		String calendar2 = request.getParameter("calendar2");
+		
+
+		String statusSQL = "WHERE B.ORDER_NO="+searchStatus;
+		String termSQL = "WHERE B.ORDER_DATE<"+term;
+		String calSQL = "WHERE B.ORDER_DATE BETWEEN"+calendar+"AND"+calendar2;
+		
 
 		MorwService mService = new MorwService();
 		//페이지 네이션
@@ -50,6 +60,7 @@ public class MainOrderListservlet extends HttpServlet {
 		int listCount = mService.countSelectList(loginMember.getUserId());
 	
 		
+
 		System.out.println(listCount);
 		// 페이지 수 처리용 변수 선언
 		int currentPage;		// 현재 페이지를 저장할 변수
@@ -104,6 +115,11 @@ public class MainOrderListservlet extends HttpServlet {
 		
 		ArrayList<Morw> list = mService.selectList(loginMember.getUserId());
 //		ArrayList<Morw> list = mService.selectList(loginMember.getUserId(),searchStatus);
+
+//		ArrayList<Morw> list = mService.selectList(loginMember.getUserId());
+		//ArrayList<Morw> list = mService.selectList(loginMember.getUserId(),searchStatus,term,calendar,calendar2);
+
+
 		ArrayList<Attachment> plist = mService.selectPList(loginMember.getUserId());
 		
 		

@@ -146,8 +146,11 @@ public class AmateurService {
 	public int insertHeart(String user, int event_no) {
 		Connection conn = getConnection();
 		AmateurDao aDao = new AmateurDao();
-		
+		int check=1;
 		int result = aDao.insertHeart(conn,user,event_no);
+		if(result>0) {
+			int update = aDao.updateHeart(conn, event_no, check);
+		}
 		close(conn);
 		return result;
 	}
@@ -155,8 +158,11 @@ public class AmateurService {
 	public int deleteHeart(String user, int event_no) {
 		Connection conn = getConnection();
 		AmateurDao aDao = new AmateurDao();
-		
+		int check=0;
 		int result = aDao.deleteHeart(conn,user,event_no);
+		if(result>0) {
+			int update = aDao.updateHeart(conn, event_no, check);
+		}
 		close(conn);
 		return result;
 	}
@@ -168,7 +174,7 @@ public class AmateurService {
 		return count;
 	}
 
-	public AmateurLike selectLikeList(int event_no) {
+	public AmateurLike selectEventLikeO(int event_no) {
 		Connection conn = getConnection();
 		
 		AmateurLike list = new AmateurDao().selectLikeList(conn, event_no);
@@ -176,6 +182,16 @@ public class AmateurService {
 		close(conn);
 		
 		return list;
+	}
+
+	public AmateurLike showHeart(int event_no, String user) {
+		Connection conn = getConnection();
+		
+		AmateurLike show = new AmateurDao().selectLikeList(conn, event_no, user);
+		System.out.println("count출력:"+show);
+		close(conn);
+		
+		return show;
 	}
 
 	

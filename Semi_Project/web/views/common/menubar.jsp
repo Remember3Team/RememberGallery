@@ -116,7 +116,7 @@ ul li ul li:hover{
 	<header id="menu">
 
 		<div id="logo">
-			<a href="<%= request.getContextPath() %>/index.jsp" class="logo">
+			<a href="<%= request.getContextPath() %>/amateur.master" class="logo">
 				<img src="<%= request.getContextPath() %>/views/img/logo-02.png">
 			</a>
 		</div>
@@ -126,9 +126,7 @@ ul li ul li:hover{
 			<li><a href="<%= request.getContextPath() %>/list.po">STORE</a></li >
 			<li><a href="#">COMMUNITY</a>
 				<ul>
-					<li><a
-						href="<%= request.getContextPath() %>/list.am">아마추어
-							게시판</a></li>
+					<li><a href="<%= request.getContextPath() %>/list.am">아마추어 게시판</a></li>
 					<li><a href="<%= request.getContextPath() %>/list.ee">자유게시판</a></li>
 				</ul></li>
 			<li><a href="#">NOTICE</a>
@@ -301,5 +299,6 @@ ul li ul li:hover{
 	</header>
 	<br clear="both">
  --%>
+ 
 </body>
 </html>

@@ -18,15 +18,24 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/views/js/bootstrap.js"></script>    
 <style>
 	#detailArea div{ margin:0 auto; margin-top:100px; width:80%;}
+	.headLine{ float:left; width:30%; margin-top:90px; margin-left:90px; margin-bottom:50px; display:block; box-sizing:border-box;}
+	.headLine hr{ background-color:red; width:25px; border:2px solid red; margin-bottom:10px;}
+	
 </style>
 </head>
 <body>
 <!-- header -->
 <%@include file="../../common/menubar.jsp" %>
+
+			<div class="headLine">
+				<hr style="display:inline-block;">
+				<h3 style="font-size:20px;">자유게시판</h3>
+			</div><!-- class headLine end -->
+	 <br clear="both">
  	 <div class="container"> 
          <div class="row" id="detailArea">
             <div class="cols-sm-6">
-               <table align="center" class="table">
+               <table align="center" class="table" style="width:120%; margin-right:40px;" >
                   <tr>
                      <td>제목</td>
                      <td colspan="4"><span><%=f.getFree_title() %></span></td>
@@ -101,7 +110,7 @@
 					data:{content:content,bid:bid},
 					success:function(data){
 						$replyTable = $("#replySelectTable");
-						$replyTable.html("");
+ 						$replyTable.html(""); 
 						for(var key in data){
 							var $tr = $("<tr>");
 							var $writerTd = $("<td>").text(data[key].user_id).css("width","100px");

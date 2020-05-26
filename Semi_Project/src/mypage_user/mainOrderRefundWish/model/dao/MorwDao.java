@@ -47,7 +47,7 @@ public class MorwDao {
 		ResultSet rset = null;
 		
 		ArrayList<Morw> list = new ArrayList<>();
-		
+
 		String query ="SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS \r\n" + 
 				"FROM ORDER_TABLE O\r\n" + 
 				"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO)\r\n" + 
@@ -55,7 +55,7 @@ public class MorwDao {
 				"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO) \r\n" + 
 				"WHERE O.USER_ID=? AND PP.Filelevel='0' ORDER BY O.ORDER_NO DESC";
 		
-		
+
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, user_id);
@@ -88,62 +88,7 @@ public class MorwDao {
 	}
 
 
-//	public ArrayList<Morw> selectList(Connection conn, String userId, String searchStatus) {
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		
-//		ArrayList<Morw> list = new ArrayList<>();
-//
-//		String query ="SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS " + 
-//				"FROM ORDER_TABLE O " + 
-//				"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO) " + 
-//				"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO) " + 
-//				"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO) " + 
-//				"WHERE O.USER_ID=? AND PP.FILELEVEL = 0 ORDER BY O.ORDER_NO DESC";
-//
-//		
-//		String whereSql = "";
-//		if(whereSql.equals(searchStatus)){
-//		whereSql += " AND ORDER_STATUS='"+searchStatus+"' ";
-//		
-//		}
-//		
-//			// 조건없이 순수 조회일 떄
-//			String query ="SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS " + 
-//					"FROM ORDER_TABLE O " + 
-//					"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO) " + 
-//					"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO) " + 
-//					"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO) " + 
-//					"WHERE O.USER_ID=?"+whereSql+" ORDER BY O.ORDER_NO DESC";
-//			
-//			try {
-//				pstmt = conn.prepareStatement(query);
-//				pstmt.setString(1, userId);
-//				rset = pstmt.executeQuery();
-//				
-//				while(rset.next()) {
-//					Morw m = new Morw(rset.getString("order_no"),
-//							rset.getInt("paint_no"),
-//							rset.getString("afile"),
-//							rset.getString("paint_name"),
-//							rset.getString("ARTIST_NAME"),
-//							rset.getInt("paint_price"),
-//							rset.getDate("order_date"),
-//							rset.getString("order_status"));
-//					list.add(m);
-//				}
-//				
-//				
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			} finally {
-//				close(rset);
-//				close(pstmt);
-//			}
-//			
-//			return list;
-//			
-//	}
+
 
 
 	//환불

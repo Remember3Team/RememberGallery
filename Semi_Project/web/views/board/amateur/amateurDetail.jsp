@@ -4,8 +4,11 @@
 	Amateur a = (Amateur)request.getAttribute("amateur");
 	FileManagement fm = (FileManagement)request.getAttribute("fileList");
 	ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("rList");
-	AmateurLike al = (AmateurLike)request.getAttribute("likeList");
-	System.out.println("[jsp] 출력 결과 : "+rList);
+	AmateurLike al = (AmateurLike)request.getAttribute("count");
+	AmateurLike show = (AmateurLike)request.getAttribute("show");
+	
+	
+	System.out.println("AmateurLike:"+al);
 %>
 <!DOCTYPE html>
 <html>
@@ -18,7 +21,9 @@
 <script src="<%=request.getContextPath() %>/views/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/views/js/bootstrap.js"></script>    
 <style>
-	#detailArea div{ margin:0 auto; margin-top:100px; width:80%;}
+	#goAmateurBoard{ float:right; margin-right:100px; }
+	#deleteContent{ float:right; margin-right:3px;}
+
 </style>
 </head>
 
@@ -59,24 +64,25 @@
                   <tr>
                   	<td> 좋아요 </td>
                   	<td> 
-                  		<div style="float:right;" onclick="emptyheartCheck();" class="emptyheartCheck">
-      						<input id="paint_no" type="hidden" value="<%=a.getEvent_like()%>">
-							<div style="float:right;">
-				      		<div class="likeCount" style="float:left; margin-right:10px;">
-				      			<span class="countArea"><%=al.getEvent_count() %></span>
-				      		</div>
-			      			</div>
-      		
-				      		<%if(a.getUser_id() != null){ %>
-				      				<%if(a.getEvent_like().equals("Y")){ %>
-					      				<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/colorHeart.png">
-					      			<%}else{ %>
-					      				<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/emptyHeart.png">					      			
+                  		<div onclick="emptyheartCheck();" class="emptyheartCheck">
+      						<input id="paint_no" type="hidden" value="<%=a.getEvent_no()%>">
+      						
+      						<div style="float:left">
+				      			<div class="likeCount" style="float:right; margin-left:10px;">
+					      			<span class="countArea"><%=a.getEvent_like() %></span>
+					      		</div>
+					      		<div style="float:left">
+						      		<%if(a.getUser_id() != null){ %>
+						      				<%if(show.getEvent_count()==1){ %>
+							      				<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/colorHeart.png">
+							      			<%}else{ %>
+							      				<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/emptyHeart.png">					      			
+							      			<%} %>
+						      		<%}else{%>
+									      		<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/emptyHeart.png">
 					      			<%} %>
-				      		<%}else{%>
-				      		<img class="heartcheck" src="<%=request.getContextPath()%>/views/img/emptyHeart.png">
-				      		<%} %>
-			
+					      		</div>
+      						</div>
       					</div>
 					</td>
                   </tr>
@@ -111,10 +117,26 @@
          </div><!-- row div end -->
        </div><!-- container div end -->
  
-		<button id="goAmateurBoard" type="button active" class="btn btn-secondary" onclick="location.href='<%=request.getContextPath()%>/views/board/amateur/amateurBoard.jsp'">목록으로 가기</button>
-   </body>
+ 	<button id="goAmateurBoard" type="button active" class="btn btn-secondary" onclick="pageBack();">목록</button>
+	<button id="deleteContent" type="button active" class="btn btn-secondary" onclick="goDelete();">삭제</button>
+
+	</body>
 
 	<script>
+	
+	function pageBack(){
+		history.go(-1)();
+	}
+	function goDelete(){
+		var deleteNo = document.getElementById("paint_no").value;
+		var result = confirm("정말 삭제하시겠습니까?");
+		if(result){
+			location.href="<%=request.getContextPath()%>/delete.bo?deleteAm="+deleteNo;			
+		}else{
+			
+		}
+	}
+	
 		$(function(){
 			$(".heartcheck").click(function(){
 		    	  var event_no = "<%=a.getEvent_no()%>";

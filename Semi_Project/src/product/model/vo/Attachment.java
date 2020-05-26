@@ -10,7 +10,14 @@ public class Attachment {
 	private String filePath =" ";		//파일의 저장경로	
 	private int fileLevel =0;			//대표이미지(0)와 일반이미지(1)
 	
+	public Attachment() {
+	}
 	
+	public Attachment(int paint_no, String savefileName) {
+		this.paint_no = paint_no;
+		this.savefileName = savefileName;
+	}
+
 	public Attachment(int afile_no, int paint_no, String savefileName, String filePath, int fileLevel) {
 		this.afile_no = afile_no;
 		this.paint_no = paint_no;
@@ -28,8 +35,6 @@ public class Attachment {
 	}
 
 
-	public Attachment() {
-	}
 	
 	
 	public String getSavefileName() {
