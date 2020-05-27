@@ -108,7 +108,7 @@ public class Mypage_ArtistDao {
 				" JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
 				"left JOIN BUY_LIST BL ON (P.PAINT_NO = BL.PAINT_NO)\r\n" + 
 				"left JOIN MEMBER ON (BL.USER_ID = MEMBER.USER_ID)\r\n" + 
-				"WHERE p.paint_no  BETWEEN ? AND ? AND   p.ARTIST_NAME=? AND FILELEVEL=0";
+				"WHERE p.paint_no  BETWEEN ? AND ? AND   p.ARTIST_NAME=? AND FILELEVEL=0 order by 1";
 		
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
@@ -151,7 +151,7 @@ public class Mypage_ArtistDao {
 		String query = "SELECT ORDER_NO, AFILE, PAINT_NAME, ARTIST_NAME, ORDER_DATE, SHIP_DATE, ORDER_STATUS FROM BUY_LIST BL\r\n" + 
 				"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
 				"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
-				"WHERE order_no between ? and ? and artist_name = ? and filelevel=0";
+				"WHERE order_no between ? and ? and artist_name = ? and filelevel=0 order by 1";
 		
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
@@ -194,10 +194,10 @@ public class Mypage_ArtistDao {
 		ResultSet rset = null;
 		ArrayList<Mypage_artist> OM_list = new ArrayList<>();
 		
-		String query = "SELECT ORDER_NO, AFILE, PAINT_NAME, ARTIST_NAME, PAINT_PRICE, ORDER_STATUS FROM BUY_LIST BL \r\n" + 
+		String query = "SELECT  ORDER_NO, AFILE, PAINT_NAME, ARTIST_NAME, PAINT_PRICE, ORDER_STATUS FROM BUY_LIST BL \r\n" + 
 				"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
 				"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
-				"where ORDER_NO BETWEEN ? AND ? AND  filelevel=0 and artist_name=?";
+				"where ORDER_NO BETWEEN ? AND ? AND  filelevel=0 and artist_name=? order by 1";
 		
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
@@ -211,7 +211,8 @@ public class Mypage_ArtistDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				Mypage_artist myart = new Mypage_artist(rset.getInt("order_no"),
+				Mypage_artist myart = new Mypage_artist(
+																				rset.getInt("order_no"),
 																				 rset.getString("afile"),
 																				 rset.getString("paint_name"),
 																				 rset.getString("artist_name"),
@@ -337,8 +338,294 @@ public class Mypage_ArtistDao {
 		return DOV_SI;
 	}
 
+	public ArrayList<Mypage_artist> listSearch_SM(Connection conn, String shipping_status, String term, String calendar1,
+			String calendar2, String bWriter) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Mypage_artist> search_list_SM = new ArrayList<>();
+		Mypage_artist myart  =new Mypage_artist();
+		
+		if(shipping_status.isEmpty() && term == null && (calendar1.isEmpty() || calendar2.isEmpty())) {
+			String query = "SELECT order_no, afile, paint_name, artist_name, paint_price, order_status FROM BUY_LIST BL\r\n" + 
+					"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
+					"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
+					"WHERE artist_name = ? and filelevel = 0";	
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, bWriter);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					myart = new Mypage_artist(rset.getInt("order_no"),
+																					   rset.getString("afile"),
+																					   rset.getString("paint_name"),
+																					   rset.getString("artist_name"),
+																					   rset.getDate("order_date"),
+																					   rset.getDate("ship_date"));
+					search_list_SM.add(myart);
+				}
+				System.out.println(search_list_SM);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+		}
+		else if(term == null && (calendar1.isEmpty() || calendar2.isEmpty())) {
+			String query = "select order_no, afile, paint_name, artist_name, order_date, ship_date from buy_list bl\r\n" + 
+					"join paint p on (bl.paint_no = p.paint_no)\r\n" + 
+					"join paint_photo pp on (p.paint_no = pp.paint_no)\r\n" + 
+					"where artist_name = ? and filelevel=0 and order_status = ?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, bWriter);
+				pstmt.setString(2, shipping_status);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					myart = new Mypage_artist(rset.getInt("order_no"),
+																					   rset.getString("afile"),
+																					   rset.getString("paint_name"),
+																					   rset.getString("artist_name"),
+																					   rset.getDate("order_date"),
+																					   rset.getDate("ship_date"));
+					search_list_SM.add(myart);
+				}
+				
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+		}
+		else if(shipping_status.isEmpty() && (calendar1.isEmpty() || calendar2.isEmpty())) {
+			String query = "select order_no, afile, paint_name, artist_name, order_date, ship_date from buy_list bl\r\n" + 
+					"join paint p on (bl.paint_no = p.paint_no)\r\n" + 
+					"join paint_photo pp on (p.paint_no = pp.paint_no)\r\n" + 
+					"where artist_name = ? and filelevel=0 and order_date between (sysdate - ?) and (sysdate)";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, bWriter);
+				pstmt.setString(2, term);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					myart = new Mypage_artist(rset.getInt("order_no"),
+																					   rset.getString("afile"),
+																					   rset.getString("paint_name"),
+																					   rset.getString("artist_name"),
+																					   rset.getDate("order_date"),
+																					   rset.getDate("ship_date"));
+					search_list_SM.add(myart);
+				}
+				
+				System.out.println(search_list_SM);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+		}
+		else if(shipping_status.isEmpty() && term.isEmpty()) {
+			String query = "select order_no, afile, paint_name, artist_name, order_date, ship_date from buy_list bl\r\n" + 
+					"join paint p on (bl.paint_no = p.paint_no)\r\n" + 
+					"join paint_photo pp on (p.paint_no = pp.paint_no)\r\n" + 
+					"where artist_name = ? and filelevel=0 and order_date between ? and ?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, bWriter);
+				pstmt.setString(2, calendar1);
+				pstmt.setString(3, calendar2);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					myart = new Mypage_artist(rset.getInt("order_no"),
+																					   rset.getString("afile"),
+																					   rset.getString("paint_name"),
+																					   rset.getString("artist_name"),
+																					   rset.getDate("order_date"),
+																					   rset.getDate("ship_date"));
+					search_list_SM.add(myart);
+				}
+				
+				System.out.println(search_list_SM);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+		}
+		else if(calendar1.isEmpty() || calendar2.isEmpty()) {
+			String query = "select order_no, afile, paint_name, artist_name, order_date, ship_date from buy_list bl\r\n" + 
+					"join paint p on (bl.paint_no = p.paint_no)\r\n" + 
+					"join paint_photo pp on (p.paint_no = pp.paint_no)\r\n" + 
+					"where artist_name = ? and filelevel=0 and order_status = ? and order_date between (sysdate - ?) and (sysdate)";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, bWriter);
+				pstmt.setString(2, shipping_status);
+				pstmt.setString(3, term);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					myart = new Mypage_artist(rset.getInt("order_no"),
+																					   rset.getString("afile"),
+																					   rset.getString("paint_name"),
+																					   rset.getString("artist_name"),
+																					   rset.getDate("order_date"),
+																					   rset.getDate("ship_date"));
+					search_list_SM.add(myart);
+				}
+				
+				System.out.println(search_list_SM);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}	
+			
+		}
+		else if(shipping_status.isEmpty()) {
+			String query = "select order_no, afile, paint_name, artist_name, order_date, ship_date from buy_list bl\r\n" + 
+					"join paint p on (bl.paint_no = p.paint_no)\r\n" + 
+					"join paint_photo pp on (p.paint_no = pp.paint_no)\r\n" + 
+					"where artist_name = ? and filelevel=0 and order_date between ? and ?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, bWriter);
+				pstmt.setString(2, calendar1);
+				pstmt.setString(3, calendar2);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					myart = new Mypage_artist(rset.getInt("order_no"),
+																					   rset.getString("afile"),
+																					   rset.getString("paint_name"),
+																					   rset.getString("artist_name"),
+																					   rset.getDate("order_date"),
+																					   rset.getDate("ship_date"));
+					search_list_SM.add(myart);
+				}
+				
+				System.out.println(search_list_SM);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}	
+			
+			
+		}else if(term.isEmpty()) {
+			String query = "select order_no, afile, paint_name, artist_name, order_date, ship_date from buy_list bl\r\n" + 
+					"join paint p on (bl.paint_no = p.paint_no)\r\n" + 
+					"join paint_photo pp on (p.paint_no = pp.paint_no)\r\n" + 
+					"where artist_name = ? and filelevel=0 and order_status = ? and order_date between ? and ?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, bWriter);
+				pstmt.setString(2, shipping_status);
+				pstmt.setString(3, calendar1);
+				pstmt.setString(4, calendar2);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					myart = new Mypage_artist(rset.getInt("order_no"),
+																					   rset.getString("afile"),
+																					   rset.getString("paint_name"),
+																					   rset.getString("artist_name"),
+																					   rset.getDate("order_date"),
+																					   rset.getDate("ship_date"));
+					search_list_SM.add(myart);
+				}
+				System.out.println(search_list_SM);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}
+		}else {
+			String query = "select order_no, afile, paint_name, artist_name, order_date, ship_date from buy_list bl\r\n" + 
+					"join paint p on (bl.paint_no = p.paint_no)\r\n" + 
+					"join paint_photo pp on (p.paint_no = pp.paint_no)\r\n" + 
+					"where artist_name = ? and filelevel=0 and order_status = ? and order_date between ? and ?";
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, bWriter);
+				pstmt.setString(2, shipping_status);
+				pstmt.setString(3, calendar1);
+				pstmt.setString(4, calendar2);
+				
+				rset = pstmt.executeQuery();
+				
+				while(rset.next()) {
+					myart = new Mypage_artist(rset.getInt("order_no"),
+																					   rset.getString("afile"),
+																					   rset.getString("paint_name"),
+																					   rset.getString("artist_name"),
+																					   rset.getDate("order_date"),
+																					   rset.getDate("ship_date"));
+					search_list_SM.add(myart);
+				}
+				System.out.println(search_list_SM);
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
+			}	
+		}
+		
+		System.out.println("dkdk"+search_list_SM);
+		
+	return search_list_SM;
+	}
 
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public ArrayList<Mypage_artist> listSearch(Connection conn, String order_status, String term, String calendar1,
 			String calendar2, String bWriter) {
 		
@@ -793,61 +1080,78 @@ public class Mypage_ArtistDao {
 		return DOV_slist;
 	}
 
-
-
 	public int deleteProduct(Connection conn, String bWriter, int paint_no) {
 		PreparedStatement pstmt = null;
-		int result = 0;
+		int deleteResult = 0;
+		String query = "UPDATE PAINT SET AUC_YN = 'Y'\r\n" + 
+							   "WHERE ARTIST_NAME = ? AND PAINT_NO = ?";			
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, bWriter);
+			pstmt.setInt(2, paint_no);
+				
+			deleteResult = pstmt.executeUpdate();
+			System.out.println("dao");
+				if(deleteResult>0) {
+				System.out.println("delete가 성공적으로 이루어졌습니다.");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	
+		return deleteResult;
+	}
+
+	public int deleteBasket(Connection conn, String bWriter, int paint_no) {
+		PreparedStatement pstmt = null;
+		int deleteBResult = 0;
 		
-		String query = "DELETE FROM PAINT_PHOTO\r\n" + 
-								"WHERE PAINT_NO = ?";
+		String query = "DELETE FROM BASKET\r\n" + 
+				"JOIN PAINT ON (BASKET.PAINT_NO = PAINT.PAINT_NO)\r\n" + 
+				"WHERE AUC_YN = 'Y'";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			
-			pstmt.setInt(1, paint_no);
+			deleteBResult = pstmt.executeUpdate();
+			if(deleteBResult > 0) {
+				System.out.println("delete 성공");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return deleteBResult;
+	}
+
+	public int updateOrder_status(Connection conn, int order_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = "UPDATE BUY_LIST SET ORDER_STATUS ='배송중' WHERE ORDER_NO=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, order_no);
 			
 			result = pstmt.executeUpdate();
 			
+			
 		} catch (SQLException e) {
+			
 			e.printStackTrace();
-		}finally {
-			close(pstmt);
 		}
-
+		System.out.println("dao에서의 결과"+result);
 		return result;
 	}
 
 
 
-	public int deleteProduct2(Connection conn, String bWriter, int paint_no) {
-		PreparedStatement pstmt = null;
-		int result2 = 0;
-		
-		String query = "DELETE FROM PAINT\r\n" + 
-								"WHERE ARTIST_NAME = ? AND PAINT_NO = ?";
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			
-			pstmt.setString(1, bWriter);
-			pstmt.setInt(2, paint_no);
-			
-			result2 = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-		}
-
-		return result2;
-	}
+	
 
 
 
-
-
+	
 
 
 

@@ -77,8 +77,7 @@ public class insertbuyproduct extends HttpServlet {
 														receivename,receivephone,receiveaddress,orderrule,receivecontent);
 		
 		
-		// 자신의 장바구니를 조회 해봐. paint_no, user_id -> buy_yn -> y 변경 
-		
+		// 자신의 장바구니에서 . paint_no, user_id -> buy_yn -> y 변경 
 		int result2 = pService.updateBasket(paint_no,orderid);
 		
 		  if (result > 0){ 

@@ -20,7 +20,9 @@
 
 	<%@include file="views/common/menubar.jsp" %>
 
+
 <section> <!-- 메인 슬라이드 -->
+
 		<div id="contents">
 			<div class="part1">
 		<!-- 		<div class="slide">
@@ -29,50 +31,44 @@
             <a href="#"><img src=""></a>
             <a href="#"><img src=""></a>    -->
 
-					<div id="slider-wrap">
-						<ul id="slider">
-							<li>
-								<div>
-							<!--  	<h3>Slide #1</h3>-->	
-									<span>작가제휴 바로가기</span> 
-								</div> <a href="<%=request.getContextPath()%>/views/mypage_artist/art-apply.jsp">
-								<img src="<%=request.getContextPath()%>/views/img/2.jpg"></a>
-							</li>
-
+					<div id="slider-wrap" style = "position:relative; margin:-18px auto;">
+						<ul id="slider" >
+						
 							<li>
 								<div>
 									<!-- <h3>Slide #2</h3>-->
 									<span>Sammy1</span> 
 								</div> <a href="<%=request.getContextPath()%>/views/mypage_artist/art-apply.jsp">
-								<img src="<%=request.getContextPath()%>/views/img/slide1.jpg"></a>
+								<img src="<%=request.getContextPath()%>/views/img/slide6.jpg"></a>
+							</li>
+							
+							
+							
+							<li>
+								<div>
+							<!--  	<h3>Slide #1</h3>-->	
+									<!-- <span>작가제휴 바로가기</span>  -->
+								</div>
+								 <button class="btn btn-outline-dark" style=" position:absolute; width:120px; height : 50px; margin-top: 10px;"
+							onclick= "location.href='<%=request.getContextPath()%>/view.ap">sammy</button>
+								<img src="<%=request.getContextPath()%>/views/img/slide4.jpg">
 							</li>
 
+
+
+
 							<li>
+							
 								<div>
 								<!-- 	<h3>Slide #3</h3>-->
 									<span>Sammy2</span> 
 								</div> <a href="<%=request.getContextPath()%>/list.ar">
-								<img src="https://fakeimg.pl/350x200/FF607F/000?text=33333"></a>
+								<img src="<%=request.getContextPath()%>/views/img/slide5.jpg"></a>
 							</li>
 
-							<li>
-								<div>
-								<!-- 	<h3>Slide #4</h3>-->
-									<span>Sub-title #4</span> 
-								</div> <a href="#">
-								<img src="https://fakeimg.pl/350x200/0A6E0A/000?text=44444"></a>
-							</li>
+				</ul>
 
-							<li>
-								<div>
-									<!-- <h3>Slide #5</h3>-->
-									<span>Sub-title #5</span> 
-								</div> <a href="#">
-								<img src="https://fakeimg.pl/350x200/0064CD/000?text=55555"></a>
-							</li>
-						</ul>
-
-						<div class="slider-btns" id="next">
+						<div class="slider-btns" id="next" >
 							<span>▶</span>
 						</div>
 						<div class="slider-btns" id="previous">
@@ -80,7 +76,7 @@
 						</div>
 
 						<div id="slider-pagination-wrap">
-							<ul>
+							<ul style=" margin-top: 35%;">
 							</ul>
 						</div>
 					</div>
@@ -127,7 +123,7 @@
 					this.classList.remove('active');
 					autoSlider = setInterval(function() {
 						plusSlides(1);
-					}, 1500); //슬라이드 넘어가는 시간
+					}, 3000); 
 				});
 
 				function plusSlides(n) {
@@ -177,18 +173,22 @@
 		
 			<!--part3 end 마스터 피스 부분-->
 		</div>
+		
 		<!--content end-->
-	</section>
 
 
 <!-- 새미언니 버튼 ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ -->
 <%-- 	<input type="button" value="바로 구매하기"
 
+>>>>>>> refs/remotes/origin/master
 	 
 			style="background-color: rgb(224, 224, 224); margin-top: 10px;"
 			onclick="location.href='<%=request.getContextPath()%>/views/mypage_artist/art-registration.jsp'"> 
 
-	<input type="button" value="sammy"
+
+	<inp
+	
+	ut type="button" value="sammy"
 			style="background-color: rgb(224, 224, 224); margin-top: 10px;"
 			onclick="location.href='<%=request.getContextPath()%>/views/mypage_artist/art-apply.jsp'">
 			

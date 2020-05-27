@@ -105,7 +105,7 @@ public class ArtistCardListServlet extends HttpServlet {
 					System.out.println(mlist.get(i));
 				}
 				
-				ArrayList<Attachment> alist = aService.selectCAList(name, currentPage, limit);
+				ArrayList<Attachment> alist = aService.selectCAList(name);
 				for(int i = 0 ; i <alist.size(); i++) {
 					System.out.println(alist.get(i));
 				}
@@ -116,17 +116,17 @@ public class ArtistCardListServlet extends HttpServlet {
 				
 				// 화면단으로 넘겨주기
 				RequestDispatcher view = null;
-				if(!mlist.isEmpty()) {
+//				if(!mlist.isEmpty()) {
 					view = request.getRequestDispatcher("views/mypage_artist/art-cardlist.jsp");
 					request.setAttribute("mlist", mlist);
 					request.setAttribute("alist", alist);
 					request.setAttribute("pi", pi);
 					request.setAttribute("aphoto", aphoto);
-				}else {
-					view = request.getRequestDispatcher("views/common/errorPage.jsp");
-				    request.setAttribute("msg","받은 카드가 없습니다.");
-				}
-				
+//				}else {
+//					view = request.getRequestDispatcher("views/common/errorPage.jsp");
+//				    request.setAttribute("msg","받은 카드가 없습니다.");
+//				}
+//				
 				view.forward(request, response);
 				
 	}

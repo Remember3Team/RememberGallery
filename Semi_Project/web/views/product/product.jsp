@@ -134,7 +134,7 @@
              
              Attachment a = alist.get(i);%>
              
-				<% if(p.getPaint_no() == a.getPaint_no()) { %>
+				<% if(p.getPaint_no() == a.getPaint_no() && p.getAuc_yn().equals("N")) { %>
         	<div class="list">
 						<input id="paint_no" type="hidden" value="<%=p.getPaint_no()%>"><br>
 				<img class="rimage" src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" style="width: 300px; height: 300px;">		      

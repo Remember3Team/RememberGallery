@@ -55,7 +55,6 @@ public class MorwDao {
 				"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO) \r\n" + 
 				"WHERE O.USER_ID=? AND PP.Filelevel='0' ORDER BY O.ORDER_NO DESC";
 		
-		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, user_id);

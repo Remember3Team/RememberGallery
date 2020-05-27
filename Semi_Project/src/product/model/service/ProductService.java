@@ -349,6 +349,15 @@ public class ProductService {
 		return result;
 	}
 
+	public Paint_QnA selectP2(int qna_no) {
+		Connection conn = getConnection();
+		
+		Paint_QnA qna = new ProductDao().selectP(conn,qna_no);
+		
+		return qna;
+	}
+
+
 	
 
 

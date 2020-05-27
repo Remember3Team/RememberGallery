@@ -30,6 +30,23 @@ public class ApplyService {
 		return result2;
 	}
 
+	public int updateApply(Apply apply, ArrayList<Career> carlist) {
+		Connection conn = getConnection();
+		
+		ApplyDao ad = new ApplyDao();
+		
+		int result2 = ad.updateCareer(conn, carlist); // 경력 사항
+		int result1 = ad.updateApply(conn, apply); // 셀러
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		return result2;
+	}
+
 	
 
 }

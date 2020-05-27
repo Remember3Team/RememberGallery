@@ -48,8 +48,7 @@
         <form action="<%=request.getContextPath()%>/Search.PM" method="post">
             <div class="search-bar">
                 <div class="bar1">
-                    <input type="text" name="category" list="genre" placeholder="테마">
-                    <datalist  id="genre">
+                    <select name="category" class="form-control" style="margin-right:150px;">
                                 <option value="인물">인물</option>
                                 <option value="풍경">풍경</option>
                                 <option value="정물">정물</option>
@@ -57,7 +56,7 @@
                                 <option value="추상">추상</option>
                                 <option value="팝아트">팝아트</option>
                                 <option value="오브제">오브제</option>
-                            </datalist>  
+                      </select>
                 </div>
               
                 <button type="submit" class="btn btn-dark" style="width:70px">조회</button>
@@ -86,11 +85,7 @@
                 <% for(Mypage_artist ma : search_list_PM){ %>
                 <tr>
                     <td><%=ma.getPaint_no() %></td>
-                    <% for(Attachment a : alist) {    
-                    	if(ma.getPaint_no() == a.getPaint_no()){%>
-                    <td><img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>"></td>
-                    <%}
-                    	} %>
+                    <td><img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= ma.getAfile() %>"></td>
                     <td>작품명 : <%=ma.getPaint_name() %><br>
                     	  작가명 : <%=ma.getArtist_name() %></td>
                     <td><%=ma.getPaint_price() %></td>

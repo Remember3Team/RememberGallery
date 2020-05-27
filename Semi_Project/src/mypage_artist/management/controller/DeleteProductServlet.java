@@ -37,14 +37,17 @@ public class DeleteProductServlet extends HttpServlet {
 		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getUserName());
 		int paint_no = Integer.valueOf(request.getParameter("paint_no"));
 		
-		int result2 = ma.deleteProduct(bWriter, paint_no);
+		int deleteResult = ma.deleteProduct(bWriter, paint_no);
+		
+		int deleteBResult = ma.deleteBasket(bWriter, paint_no);
 		
 		RequestDispatcher view = null;
 		
-		if(result2 > 0) {
-			view = request.getRequestDispatcher("views/mypage_artist/product_management.jsp");	//삭제만 함
+		if(deleteResult > 0) {
+			view = request.getRequestDispatcher("views/mypage_artist/product_management.jsp");	
 		}else {
-			System.out.println("게시판 조회 실패");
+			view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			request.setAttribute("msg","작품 삭제 실패");
 		}
 		view.forward(request, response);
 	}

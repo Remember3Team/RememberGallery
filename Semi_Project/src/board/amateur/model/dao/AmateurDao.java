@@ -132,7 +132,7 @@ public class AmateurDao {
 	}
 
 	//사진 파일 리스트 전체 가져오기 : 화면단에서 게시글에 맞게 판별해줄 것이니 전체 불러오자
-	public ArrayList<FileManagement> selectList(Connection conn, Amateur getEventNo) {
+	public ArrayList<FileManagement> selectList(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -459,6 +459,48 @@ public class AmateurDao {
 		
 		}
 		return result;
+	}
+
+	public ArrayList<Amateur> select(Connection conn, String category, String keyword) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		ArrayList<Amateur> list = new ArrayList<>();
+		
+			try {
+				String query = null;
+				if(category.equals("title")) {
+					query = "SELECT * FROM EVENT WHERE EVENT_TITLE LIKE ? ORDER BY EVENT_NO DESC";
+					pstmt = conn.prepareStatement(query);
+					pstmt.setString(1, "%"+keyword+"%");
+				}else if(category.equals("content")) {
+					query = "SELECT * FROM EVENT WHERE EVENT LIKE ? ORDER BY EVENT_NO DESC";
+					pstmt = conn.prepareStatement(query);
+					pstmt.setString(1, "%"+keyword+"%");
+				
+				}else if(category.equals("writer")){
+					query = "SELECT * FROM EVENT WHERE USER_ID LIKE ? ORDER BY EVENT_NO DESC";
+					pstmt = conn.prepareStatement(query);
+					pstmt.setString(1, "%"+keyword+"%");
+				
+				}
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					Amateur a = new Amateur(rs.getInt("event_no"),
+											rs.getString("event_title"),
+											rs.getString("user_id"),
+											rs.getDate("event_date"),
+											rs.getString("event"),
+											rs.getInt("hit"),
+											rs.getInt("event_like"));
+					list.add(a);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		return list;
 	}
 
 
