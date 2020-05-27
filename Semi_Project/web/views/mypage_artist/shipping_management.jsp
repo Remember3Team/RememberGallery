@@ -106,7 +106,10 @@
                     <td>작품명 : <%=ma.getPaint_name() %><br>
                     	  작가명 : <%=ma.getArtist_name() %></td>
                     <td><%=ma.getOrder_date() %></td>
-                    <td><%=ma.getShip_date() %></td>
+                    <td> <%if(ma.getShip_date() == null){%>- -<%}else{ %>
+                    <%=ma.getShip_date() %>
+                    <%} %>
+                    </td>
                     <td>
                      <input class="order_no" type="hidden" value="<%=ma.getOrder_no() %>">
                     <button class="btn btn-outline-dark order" id="detail_order" style = "width:150px">주문 상세보기</button></td>

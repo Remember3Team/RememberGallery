@@ -43,12 +43,13 @@ public class DeleteProductServlet extends HttpServlet {
 		
 		RequestDispatcher view = null;
 		
-		if(deleteBResult > 0) {
-			view = request.getRequestDispatcher("views/mypage_user/mypage_wishlist.jsp");
+		if(deleteResult > 0) {
+			response.sendRedirect("PM.list");
 		}else {
 			view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			request.setAttribute("msg","장바구니 삭제 실패");
 		}
+		
 		
 		/*
 		 * if(deleteResult > 0) { view =

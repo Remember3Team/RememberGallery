@@ -149,7 +149,7 @@ td {
 							class="nomal-text" type="email" id="email" name="email"
 							placeholder="@ 포함한 이메일 기재" required>
 					</div>
-					<br>
+	
 					<!-- 
 					<div>
 						<div class="info-box8">
@@ -307,7 +307,10 @@ td {
 
 		//아이디 정규식
 		var idJ = /^[a-z0-9_]{4,20}$/;
-		var emailJ = /^[a-zA-Z0-9]+@[a-zA-Z0-9]$/; 
+		/* var emailJ = /^[a-zA-Z0-9]+@[a-zA-Z0-9]$/;  */
+		
+		var emailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		
 		$(function() {
 			//idresult
 			$("#userId").change(

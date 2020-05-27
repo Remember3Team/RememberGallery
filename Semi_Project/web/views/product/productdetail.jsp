@@ -668,7 +668,7 @@ border: solid 1px;
    <h3 align="center">작가 소개</h3>
    <div class = "writerint-box">
    <div id="writer">
-      <img src="<%=request.getContextPath()%>/views/interior/<%=apply.getArtist_pro() %>" style="width: 200px; height: 200px;">
+      <img src="<%=request.getContextPath()%>/apply_uploadFiles/<%=apply.getArtist_pro() %>" style="width: 200px; height: 200px;">
    </div>
    
    <div id="data2">

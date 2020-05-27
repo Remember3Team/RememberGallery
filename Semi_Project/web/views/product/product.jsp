@@ -130,14 +130,14 @@
         <br clear="both">
            <% for(int i=0; i<plist.size(); i++){ 
         	   
-             product p = plist.get(i);
-             
-             Attachment a = alist.get(i);%>
-             
-				<% if(p.getPaint_no() == a.getPaint_no() && p.getAuc_yn().equals("N")) { %>
+             product p = plist.get(i); %>			
         	<div class="list">
 						<input id="paint_no" type="hidden" value="<%=p.getPaint_no()%>"><br>
+						<%  for(int j=0; j<alist.size(); j++){
+                 			Attachment a = alist.get(j); %>
+				<% if(p.getPaint_no() == a.getPaint_no() && p.getAuc_yn().equals("N")) { %>
 				<img class="rimage" src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" style="width: 300px; height: 300px;">		      
+					<%}} %>
 					<div class="mname" align="center">
 						<!-- 이름 -->
 						<p><%=p.getPaint_name() %></p>
@@ -155,7 +155,7 @@
 					
 			</div>
 			<% } %>
-       <% } %>
+ 
                   
                   <script>
                   $(function(){

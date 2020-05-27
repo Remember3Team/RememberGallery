@@ -400,15 +400,15 @@ function submit(){
 	
 	<%@include file="../common/footer.jsp" %>
 	<div id="modal" style="position: fixed; display:none; width: 100%; height: 100%; top: 0; left: 0; background-color: rgba(0, 0, 0, 0.7); z-index: 9999;">
-      <div style="width: 400px; height: 400px; background-color: #fff; border-radius: 20px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
-      	<div style="position: absolute; top : 30px; left:40px;"><h5><b id="modal_title">작가님에게 메세지를 남겨 보세요!</b></h5></div>
+      <div style="width: 400px; height: 500px; background-color: #fff; border-radius: 20px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);">
+      	<div style="position: absolute; top : 20px; left:40px;"><h5><b id="modal_title">작가님에게 메세지를 남겨 보세요!</b></h5></div>
           <a href="javascript: $('#modal').fadeOut(500);" style="width: 15px; height: 15px; position: absolute; top: 15px; right: 20px; display: block;">
                    <img src="thumbnail_uploadFiles/modal.png" style="width: 100%;" /></a>
-          <div id="modal_img" style="width: 310px; margin: 0 auto; height: 160px; margin-top: 97px; background-size: cover; background-repeat: no-repeat; background-position: center center;">
+          <div id="modal_img" style="width: 310px; margin: 0 auto; height: 290px; margin-top: 85px; background-size: cover; background-repeat: no-repeat; background-position: center center;">
           	
           </div>
-          <textarea id="message" style="position:absolute; bottom :60px; width:310px; height:60px; left: 50%; transform: translateX(-50%);"></textarea>
-          <input type="hidden" id="modal_order_no"><button type="button" onclick="insertMessage()" style="position:absolute; left:170px; bottom:20px; border-radius:10px;"><b>전송</b></button>
+          <textarea id="message" style="position:absolute; margin-bottom :1px; width:310px; height:60px; left: 50%; transform: translateX(-50%);"></textarea>
+          <input type="hidden" id="modal_order_no"><button type="button" onclick="insertMessage()" style="position:absolute; left:170px; bottom:15px; border-radius:15px;"><b>전송</b></button>
 		  <input type="hidden" id="modal_paint_no">
 		  <input type="hidden" id="modal_paint_name">
 		  <input type="hidden" id="modal_artist_name">

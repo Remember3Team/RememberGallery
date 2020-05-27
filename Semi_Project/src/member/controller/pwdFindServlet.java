@@ -53,10 +53,10 @@ public class pwdFindServlet extends HttpServlet {
         int port=465;
          
    
-        String subject = "아트 갤러리에서 심혈을 기울여 비번을 생성해 발송합니다.";
+        String subject = "리멤버 아트에서 새로운 비번을  생성해 발송합니다.";
     
         String body = null;
-        body = "당신의 비번은 우리가 한땀한땀 이렇게 만들었으니 로그인 할 때 사용해 주세요 : ";
+        body = "이 비밀번호는 임시 비밀번호이며, 개인정보수정에서 변경해주세요. : ";
         
         // 비번 8자리로 자동생성 알고리즘
         String randomPwd = null;

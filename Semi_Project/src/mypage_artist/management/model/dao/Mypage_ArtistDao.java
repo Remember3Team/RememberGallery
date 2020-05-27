@@ -194,10 +194,10 @@ public class Mypage_ArtistDao {
 		ResultSet rset = null;
 		ArrayList<Mypage_artist> OM_list = new ArrayList<>();
 		
-		String query = "SELECT  ORDER_NO, AFILE, PAINT_NAME, ARTIST_NAME, PAINT_PRICE, ORDER_STATUS FROM BUY_LIST BL \r\n" + 
+		String query = "SELECT order_no, afile, paint_name, artist_name, paint_price, order_status FROM BUY_LIST BL\r\n" + 
 				"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
 				"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
-				"where ORDER_NO BETWEEN ? AND ? AND  filelevel=0 and artist_name=? order by 1";
+				"WHERE order_no between ? and ? and filelevel=0 and artist_name=? and order_status = '배송준비중' order by 1";
 		
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
@@ -227,7 +227,7 @@ public class Mypage_ArtistDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println(OM_list);
+		System.out.println("dao" +OM_list);
 		return OM_list;
 	}
 
@@ -1127,7 +1127,7 @@ public class Mypage_ArtistDao {
 		ResultSet rset = null;
 		int result = 0;
 		
-		String query = "UPDATE BUY_LIST SET ORDER_STATUS ='배송중' WHERE ORDER_NO=?";
+		String query = "UPDATE BUY_LIST SET ORDER_STATUS ='배송완료' WHERE ORDER_NO=?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
