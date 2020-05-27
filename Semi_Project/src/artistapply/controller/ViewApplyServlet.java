@@ -2,6 +2,7 @@ package artistapply.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
@@ -20,6 +21,7 @@ import artistapply.model.service.ApplyService;
 import artistapply.model.vo.Apply;
 import artistapply.model.vo.Career;
 import member.model.vo.Member;
+import mypage_artist.RefundQnACard.model.service.ArtistService;
 
 /**
  * Servlet implementation class ViewApplyServlet
@@ -40,25 +42,54 @@ public class ViewApplyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-request.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("utf-8");
 		
 		HttpSession session = request.getSession();
 		Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-		
+
 		System.out.println(loginUser);
-	
-	    RequestDispatcher view = null;
+
+		RequestDispatcher view = null;
 	    
 		if(loginUser == null) {
 			view = request.getRequestDispatcher("views/common/errorPage.jsp");
 		    request.setAttribute("msg","로그인을 해주세요.");
 		       
 		}else {
-			view = request.getRequestDispatcher("views/mypage_artist/art-apply.jsp");
+			
+			String userId = ((Member) request.getSession().getAttribute("loginUser")).getUserId();
+			
+			ArtistService aService = new ArtistService();
+			
+			// seller 테이블 가져오기
+			Apply artist = aService.selectApply(userId);
+			
+			// career 테이블 리스트 가져오기
+			ArrayList<Career> career = aService.selectCareer(userId);
+			for(int i = 0 ; i < career.size(); i++) {
+				System.out.println(career.get(i));
+			}
+			
+			System.out.println(artist);
+			
+			
+			if(artist == null) {
+				view = request.getRequestDispatcher("views/mypage_artist/art-apply.jsp");
+				
+			} else {
+			
+			view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			request.setAttribute("msg","이미 신청하셨습니다.");
+			
+			}
 		}
 		
 		view.forward(request, response);
-	}
+		}
+		
+	
+		
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

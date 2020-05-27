@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" %>
 <%
 	String message = (String)request.getAttribute("msg");
+	System.out.println("에러메세지 출력:"+message);
 %>
 <!DOCTYPE html>
 <html>

@@ -45,7 +45,7 @@
 		<div class="headline-subbox">
 			<div class="artist-img">
 				<!--Artist Image-->
-				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>" style="width: 83px; height: 83px;">
+				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>">
 			</div>
 			<div class="artist-btn"
 				style="display: inline-block; vertical-align: middle;">
@@ -77,34 +77,38 @@
 	</div>
 
 	<div class="container">
-		<form action="">
+		<form action="<%=request.getContextPath()%>/alist.search" method="post">
 			<div class="search-bar">
 				<div class="bar1">
-					<input type="text" name="order-status" list="status-list"
-						placeholder=" 주문 처리 상태">
-					<datalist id="status-list">
-						<option value="환불신청"></option>
-						<option value="환불완료"></option>
+					<input type="text" name="order_status" list="status-list"
+						placeholder="주문 상태">
+					<datalist id="status-list" name = "order_status">
+						<option value="환불 신청"></option>
+						<option value="환불 완료"></option>
+						<option value="반품 신청"></option>
 					</datalist>
 				</div>
-				<div class="btn-group" data-toggle="buttons"
-					style="vertical-align: inherit;">
-					<label class="btn btn-outline-dark"> <input type="radio"
-						name="term" value="today">오늘
-					</label> <label class="btn btn-outline-dark"> <input type="radio"
-						name="term" value="week">1주일
-					</label> <label class="btn btn-outline-dark"> <input type="radio"
-						name="term" value="month">1개월
-					</label> <label class="btn btn-outline-dark"> <input type="radio"
-						name="term" value="three_months">3개월
-					</label> <label class="btn btn-outline-dark"> <input type="radio"
-						name="term" value="six_months">6개월
-					</label>
-				</div>
+				<div class="btn-group" data-toggle="buttons"  style = "vertical-align: baseline;" >
+                    <label class="btn btn-outline-dark">
+                         <input type="radio" name="term" value="0">오늘
+                    </label>
+                    <label class="btn btn-outline-dark">
+                         <input type="radio" name="term" value="7">1주일            
+                    </label>
+                    <label class="btn btn-outline-dark">
+                         <input type="radio" name="term" value="30" >1개월
+                    </label>
+                    <label class="btn btn-outline-dark">
+                   		 <input type="radio" name="term" value="90" >3개월
+                    </label>
+                    <label class="btn btn-outline-dark">
+                          <input type="radio" name="term" value="180" >6개월
+                     </label>
+                 </div> 
 				&nbsp;&nbsp;&nbsp;
 				<div class="bar3">
-					<input type="date" name="refund-date1"> ~ <input
-						type="date" name="refund-date1">
+					<input type="date" name="calendar1"> ~ 
+					<input type="date" name="calendar2">
 				</div>
 				<button type="submit" class="btn btn-outline-dark"
 					style="margin: 10px 0; width: 100px">조회</button>
@@ -143,6 +147,7 @@
 	
 			var checkboxList = $("input[name=check]:checked");
 			arrayList = '';
+			
 			for(var i=0; i<checkboxList.length; i++){
 		
 				// checkbox가 체크 되어있을 때만 실행
@@ -198,8 +203,7 @@
 					<th style="text-align: center;">처리 상태</th>
 					<th style="text-align: center;">주문 정보 확인</th>
 				</tr>
-
-
+				
 				<% for(int i = 0 ; i < list.size(); i++){
                 	BuyList_a b = list.get(i);
                 %>

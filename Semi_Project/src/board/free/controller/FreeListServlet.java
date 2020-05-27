@@ -37,7 +37,6 @@ public class FreeListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		FreeService fService = new FreeService();
-		String user = ((Member) request.getSession().getAttribute("loginUser")).getUserId();
 
 		int listCount = fService.getListCount();
 		

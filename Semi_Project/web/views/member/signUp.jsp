@@ -307,7 +307,7 @@ td {
 
 		//아이디 정규식
 		var idJ = /^[a-z0-9_]{4,20}$/;
-		var emailJ = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+$/;
+		var emailJ = /^[a-zA-Z0-9]+@[a-zA-Z0-9]$/; 
 		$(function() {
 			//idresult
 			$("#userId").change(

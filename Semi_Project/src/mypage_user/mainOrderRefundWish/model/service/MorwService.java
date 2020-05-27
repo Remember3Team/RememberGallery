@@ -173,5 +173,16 @@ public class MorwService {
 		return search_list;
 	}
 
+	public ArrayList<Morw> searchRefundList(String order_status, String term, String calendar1, String calendar2,
+			String userId) {
+		Connection conn = getConnection();
+		
+		ArrayList<Morw> refund_search_list = new MorwDao().searchRefundList(conn, order_status, term, calendar1, calendar2, userId);
+		
+		close(conn);
+		System.out.println(refund_search_list);
+		return refund_search_list;
+	}
+
 	
 }

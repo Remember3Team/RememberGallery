@@ -57,6 +57,7 @@ public class SearchServlet extends HttpServlet {
 		
 		ArrayList<Morw> search_list = new ArrayList<>();
 		
+		
 		ArrayList<Attachment> plist = new ArrayList<Attachment>();
 	    ProductService pService = new ProductService();
 	      
@@ -72,7 +73,8 @@ public class SearchServlet extends HttpServlet {
 			request.setAttribute("plist",plist);
 			
 		}else {
-			System.out.println("게시판 조회 실패");
+			view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			request.setAttribute("msg","검색 결과가 없습니다");
 		}
 		
 		view.forward(request, response);

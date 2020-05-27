@@ -38,8 +38,7 @@ public class AmateurListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AmateurService aService = new AmateurService();
 		
-		String user = ((Member) request.getSession().getAttribute("loginUser")).getUserId();
-
+//		String user = ((Member) request.getSession().getAttribute("loginUser")).getUserId();
 		int listCount = aService.getListCount();
 		
 		int currentPage =0 ;		//현재 페이지를 저장할 변수
@@ -87,11 +86,11 @@ public class AmateurListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage,listCount,limit,maxPage,startPage,endPage);
 		
 		ArrayList<Amateur> list = aService.selectList(currentPage, limit);
-		Amateur getEventNo = new Amateur();
-		ArrayList<FileManagement> fileList = aService.selectList(getEventNo);
+		ArrayList<FileManagement> fileList = aService.selectList();
 
 		//화면으로
 		RequestDispatcher view = null;
+	
 			view = request.getRequestDispatcher("views/board/amateur/amateurBoard.jsp");
 			request.setAttribute("fileList", fileList);
 			request.setAttribute("list", list);

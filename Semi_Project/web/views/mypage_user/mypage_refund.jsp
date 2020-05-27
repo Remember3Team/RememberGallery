@@ -24,6 +24,18 @@
   
 <script src="../js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.js"></script>
+<style>
+.p-parents { display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto; }
+.pppp { display: flex; text-align: center; margin : 50px auto; background: rgb(255, 255, 255); height: 36px; border : 1px solid black; border-radius: 5px; justify-content: center; align-items: center; }
+.pppp > ol > li:first-child { border-left : 1px solid black; }
+.pppp > a { display: inline-flex; justify-content: center; align-items: center; padding: 7px 12px; font-size: 13px; font-weight: 500; color:#9c9c9c; text-decoration: none; }
+.pppp > ol { display: inline-flex; list-style: none; justify-content: center; align-items: center; }
+.pppp > ol > li { display: inline-flex; list-style: none; justify-content: center; align-items: center; margin-top: 16px; border-right: 1px solid; vertical-align: middle; list-style: none; width: 36px; height: 34px; text-decoration: none; }
+.page-list1 { background-color:#c82c1f; }
+.page-cur { font-size : 14px; background:none; color: white; padding : 0; border-style : none; }
+.page-nocur { font-size: 14px; background:none; color: #c82c1f; padding : 0; border-style : none; }
+.page-a:hover { color: black; text-decoration:none; }
+</style>
 </head>
 <body>
 	<%@include file="../common/menubar.jsp" %>
@@ -34,36 +46,36 @@
         <hr>
     </div>
 	<div class="container">
-      <form action="">
+     <form method="post" action="<%=request.getContextPath()%>/SearchRefundServlet">
             <div class="search-bar">
                 <div class="bar1">
-                    <input type="text" name="order-status" list="status-list" placeholder=" 주문 처리 상태">
-                    <datalist id="status-list">
-                        <option>환불신청</option>
-                        <option>환불완료</option>
+                    <input type="text"  name="searchStatus" list="order_list" placeholder="주문 처리 상태">
+                    <datalist id="order_list">   
+                        <option value="환불신청">환불신청</option>
+                        <option value="환불완료">환불완료</option>
                     </datalist>
                 </div>
                 <div class="btn-group" data-toggle="buttons">
                                 <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="today">오늘
+                                    <input type="radio" name="term" value="0">오늘
                                 </label>
                                 <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="week">1주일
+                                    <input type="radio" name="term" value="7">1주일
                                 </label>
                                 <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="month" >1개월
+                                    <input type="radio" name="term" value="30" >1개월
                                 </label>
                                 <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="three_months" >3개월
+                                    <input type="radio" name="term" value="90" >3개월
                                 </label>
                                 <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="six_months" >6개월
+                                    <input type="radio" name="term" value="180" >6개월
                                 </label>
                             </div> 
                 &nbsp;&nbsp;&nbsp;
                 <div class="bar3">
-                    <input type="date" name="refund-date1"> ~
-                    <input type="date" name="refund-date1">
+                    <input type="date" name="calendar1"> ~
+                    <input type="date" name="calendar2">
                 </div>
                 <button type="submit" class="btn btn-dark" style="width:70px">조회</button>
             </div>
@@ -110,41 +122,34 @@
    
       <br>
       <br>
+      <br>
+      <!-- Pagination -->
+	<div class = "p-parents" style="margin:0 auto">
+	<div class="pppp">
+			<%if (currentPage == 1) { %>
+            <a style = "color:#9c9c9c; "  disabled>Previous</a>
+            <%}else {%>
+            <a class = "page-a" href="<%=request.getContextPath() %>/list.ar?currentPage=<%=currentPage - 1 %>" >Previous</a>
+            <%} %>
+            <ol>
+            <%for(int p = startPage ; p<=endPage ; p++){ %>
+            <%if(currentPage == p){ %>
+              <li class = "page-list1"><button disabled class = "page-cur" ><%=p%></button></li>
+            <%} else { %>
+              <li class = "page-list2" onclick="location.href='<%=request.getContextPath() %>/list.ar?currentPage=<%=p%>'"><button class = "page-nocur"><%=p%></button></li>
+            <%} %>
+            <%} %>
+            </ol>
+            <%if (currentPage == maxPage) { %>
+            <a style = "color:#9c9c9c; "  disabled>Next</a>
+            <%} else { %>
+            <a class = "page-a" href="<%=request.getContextPath()%>/list.ar?currentPage=<%=currentPage + 1%>">Next</a>
+            <%} %>
+   </div>
+</div>
+      
     </div>
-    <br clear="both"><br>
-		<!--  페이징 처리 시작! -->
-      <div class="pageingArea" align="center">
-      <!-- 맨 처음으로 (<<) -->
-      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/Mo.li?currentPage=1'"> << </button>
-      
-      <!-- 이전 페이지로(<) -->
-      <%if(currentPage <= 1) {%>
-      <button class="btn btn-secondary" disabled> < </button>
-      <%}else{ %>
-      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/Mo.li?currentPage=<%=currentPage-1 %>'"> < </button>
-       <%} %>
-      <!-- 10개의 페이지 목록 -->
-      <%for(int p = startPage ; p<=endPage;p++){ %>
-     	 <%if(currentPage == p){ %>
-     	 	<button class="btn btn-secondary" disabled><%=p %></button>
-     	 <%}else{ %>
-     	 	<button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/Mo.li?currentPage=<%=p %>'"><%=p %></button>
-     	 <%} %>
-      <%} %>
-
-
-      
-      <!-- 다음 페이지로(>) -->
-        <%if(currentPage == maxPage) {%>
-      <button class="btn btn-secondary" disabled> > </button>
-      <%}else{ %>
-      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/PM.list?currentPage=<%=currentPage+1 %>'"> > </button>
-      <%} %>
-      
-      <!-- 맨 끝으로(>>) -->
-      <button class="btn btn-outline-dark" onclick="location.href='<%=request.getContextPath() %>/PM.list?currentPage=<%= maxPage%>'"> >> </button>
-      
-      </div>
+    
        
     </div>
     <br>

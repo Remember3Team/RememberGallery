@@ -23,6 +23,7 @@
 <style>
 	#goAmateurBoard{ float:right; margin-right:100px; }
 	#deleteContent{ float:right; margin-right:3px;}
+	#updateContent{float:right; margin-right:3px;}
 
 </style>
 </head>
@@ -118,8 +119,10 @@
        </div><!-- container div end -->
  
  	<button id="goAmateurBoard" type="button active" class="btn btn-secondary" onclick="pageBack();">목록</button>
-	<button id="deleteContent" type="button active" class="btn btn-secondary" onclick="goDelete();">삭제</button>
-
+ 	<%if(loginUser.getUserName().equals(a.getUser_id())){ %>
+		<button id="deleteContent" type="button active" class="btn btn-secondary" onclick="goDelete();">삭제</button>
+		<button id="updateContent" type="button active" class="btn btn-secondary" onclick="goUpdate();">수정</button>
+	<%} %>
 	</body>
 
 	<script>
@@ -131,10 +134,14 @@
 		var deleteNo = document.getElementById("paint_no").value;
 		var result = confirm("정말 삭제하시겠습니까?");
 		if(result){
-			location.href="<%=request.getContextPath()%>/delete.bo?deleteAm="+deleteNo;			
+			location.href="<%=request.getContextPath()%>/delete.am?deleteNo="+deleteNo;			
 		}else{
 			
 		}
+	}
+	function goUpdate(){
+		var updateNo = document.getElementById("paint_no").value;
+		location.href="<%=request.getContextPath()%>/select.am?updateNo="+updateNo;
 	}
 	
 		$(function(){
