@@ -91,22 +91,22 @@ h1 {
 }
 
 .inputinfo {
-	margin: 0 auto;
+	margin: 0 auto !important;
 }
 
 .navi > li > ul{
-	display:none;
+	display:none !important;
 }
 
 .navi > li:hover > ul{
-	display: block;
+	display: block !important;
 } 
 
 
 
 
 ul li ul li:hover{
-	background-color:red;
+	background-color:red !important;
 }
 
 </style>
@@ -160,11 +160,11 @@ ul li ul li:hover{
 		</ul>
 		<div id="loginWrap" >
 			
-			<ul class="navi" style="margin-right:40px;">
+			<ul class="navi">
 			 <%if(loginUser != null){ %> 
-			<li style="width: 80px;height:20px; !important"> <img
-				src="<%=request.getContextPath()%>/views/img/login1.png" style="width:30px; margin-bottom:50px; margin-left:30px;"></a>
-				<ul style="width:150px; padding-right:30px;" >
+			<li style="width: 150px !important; padding:12px !important;"> <img
+				src="<%=request.getContextPath()%>/views/img/login1.png" style="width:30px !important; "></a>
+				<ul style="width:150px !important; display:flex !important; justify-content:center !important; flex-direction:column !important; margin-left: -12px !important;" >
 
 					<li><a href="<%=request.getContextPath() %>/Mo.li">마이페이지 소비자</a></li>
 					<li><a href="#">마이페이지 관리자</a></li>
@@ -176,7 +176,7 @@ ul li ul li:hover{
 			</li>
 			
 			<% }else{ %>
-			<a href="<%= request.getContextPath() %>/views/member/signIn.jsp" class="icon1" onclick="login_btn();"><img
+			<a href="<%= request.getContextPath() %>/views/member/signIn.jsp" class="icon1"><img
 				src="<%=request.getContextPath()%>/views/img/login2.png"  style="width:30px; "></a>
 			<% } %> 
 			</ul>
