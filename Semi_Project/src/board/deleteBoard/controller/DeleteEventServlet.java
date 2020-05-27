@@ -1,29 +1,25 @@
-package board.free.controller;
+package board.deleteBoard.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import board.free.model.service.FreeService;
-import board.free.model.vo.Free;
-import board.free.model.vo.Reply;
+import board.deleteBoard.model.service.deleteService;
 
 /**
- * Servlet implementation class FreeDetailServlet
+ * Servlet implementation class DeleteEventServlet
  */
-@WebServlet("/detail.ee")
-public class FreeDetailServlet extends HttpServlet {
+@WebServlet("/delete.am")
+public class DeleteEventServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FreeDetailServlet() {
+    public DeleteEventServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,19 +28,18 @@ public class FreeDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		FreeService fService = new FreeService();
+		deleteService dService = new deleteService();
 		
-		int free_no = Integer.valueOf(request.getParameter("free_no"));
+		int deleteNo = Integer.valueOf(request.getParameter("deleteNo"));
+		System.out.println("삭제할 행 번호"+deleteNo);
 		
-		Free free = fService.selectFreeBoard(free_no);
+		int deleteResultN = dService.deleteAmateur(deleteNo);
 		
-		ArrayList<Reply> reply = fService.selectReply(free_no);
-		
-			request.setAttribute("free", free);
-			request.setAttribute("rList", reply);
-			request.getRequestDispatcher("views/board/free/freeDetail.jsp").forward(request, response);
-		
+		if(deleteResultN>0) {
+			System.out.println("데이터가 성공적으로 삭제되었습니다.");
+			response.sendRedirect("list.am");
+		}
+
 		
 	}
 

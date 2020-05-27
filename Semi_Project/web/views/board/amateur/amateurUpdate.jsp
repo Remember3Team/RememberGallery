@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="board.amateur.model.vo.*, java.util.ArrayList"%>
+<%
+	Amateur a = (Amateur)request.getAttribute("amateur");
+	FileManagement f = (FileManagement)request.getAttribute("fileList");%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,24 +38,26 @@
 
 	<div class="container" id="InsertArea">	
 	  
-       <form action="<%=request.getContextPath()%>/insert.am" method="post" encType="multipart/form-data">
+       <form action="<%=request.getContextPath()%>/update.am?updateNo=<%=a.getEvent_no() %>" method="post" encType="multipart/form-data">
            <div class="form-group">
             	<label for="noti_title">Title</label>
-            	<input type="text" class="form-control" name="event_title" id="event_title" placeholder="Enter Title">
+            	<input type="text" value="<%=a.getEvent_title() %>" class="form-control" name="event_title" id="event_title" placeholder="Enter Title">
        	 	</div>
         	<div class="form-group">
             	<label for="event">Comment</label>
-            	<textarea class="form-control" rows="10" name="event" id="event"></textarea>
+            	<textarea class="form-control" rows="10" name="event" id="event"><%=a.getEvent() %></textarea>
         	</div>
         	<div id="fileArea" class="form-group" style="display:block;">
         		<label for="event_file" style="font-size:17px;">작품 제출하기</label>
         		<input type="file" id="event_file" name="event_file" onchange="LoadImg(this)">
         	</div>
         	<div id="ImgArea" class="form-group" style="display:block;">
-        		<img id="imgArea" width="150" height="150">
+        		<img id="imgArea" width="150" height="150" 
+        			src="<%=request.getContextPath() %>/thumbnail_uploadFiles/amateur/<%=f.getEvent_file()%>">
         	</div>
+        	
         	<div class="form-group">
-            	<input type="submit" class="btn btn-secondary" value="등록하기">&nbsp;
+            	<input type="submit" class="btn btn-secondary" value="수정하기">&nbsp;
             	<input type="reset" class="btn btn-secondary" value="다시쓰기">
         	</div>
 		</form>

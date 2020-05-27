@@ -31,9 +31,9 @@ public class DeleteBoardServlet extends HttpServlet {
 		deleteService dService = new deleteService();
 		
 		int deleteNo = Integer.valueOf(request.getParameter("deleteNo"));
-		int deleteAm = Integer.valueOf(request.getParameter("deleteAm"));
+		System.out.println("삭제할 행 번호"+deleteNo);
 		
-		int deleteResultN = dService.deleteBoard(deleteNo,1);
+		int deleteResultN = dService.deleteBoard(deleteNo);
 		
 		if(deleteResultN>0) {
 			System.out.println("데이터가 성공적으로 삭제되었습니다.");
