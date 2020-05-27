@@ -53,6 +53,7 @@ public class InsertAServlet extends HttpServlet {
 		
 		product p = pService.selectpaint(paint_no);
 		Member m = (Member) request.getSession().getAttribute("loginUser");
+		
 		if(m.getUserName().equals(p.getArtist_name())) {
 			result = pService.insertAnwser(qna_no,content);
 			result2 = pService.updateQ(qna_no);
@@ -73,8 +74,11 @@ public class InsertAServlet extends HttpServlet {
 			out.print(rListObj);
 			out.flush();
 			out.close();
-		}else {
-		
+		}
+		else {
+			JSONObject rListObj2 = null;
+			response.setContentType("application/json; charset=utf-8");
+			
 		}
 		
 		

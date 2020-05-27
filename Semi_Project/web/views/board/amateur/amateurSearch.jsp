@@ -9,7 +9,9 @@
 	ArrayList<FileManagement> fileList = ((ArrayList<FileManagement>)request.getAttribute("fileList"));
 	ArrayList<AmateurLike> likeList = ((ArrayList<AmateurLike>)request.getAttribute("likeList"));
 	
-		
+	System.out.println("fileList:"+fileList);
+	System.out.println("list:"+list);
+	
 %>    
 
 <!DOCTYPE html>
@@ -116,6 +118,8 @@
 
 <!-- insert Btn -->	
 	<button id="insertAma" type="button active" class="btn btn-secondary" style="float:right; margin-bottom:100px; margin-right:100px">게시글 작성</button>
+	<button id="goback-btn" type="button active" class="btn btn-secondary" style="float:right; margin-bottom:100px; margin-right:100px" onclick="goBack();">목록</button>
+
 	<br clear="both">
 
 <!--footer -->
@@ -123,6 +127,11 @@
       
 </body>
 <script>
+
+function goBack(){
+	window.history.back();
+}
+
 	$(function(){
 		
 		$(".card-title").click(function(){

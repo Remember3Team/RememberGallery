@@ -61,7 +61,7 @@ public class OMListServlet extends HttpServlet {
 					// String -> int
 				}else {
 					currentPage = 1;
-				}		
+				}
 				
 				// * limit - 한 페이지에 보여질 목록 갯수
 				limit = 10;

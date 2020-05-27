@@ -793,9 +793,9 @@ border: solid 1px;
 							//$replyTable.append($tr);
 							$replyTable.css("display","table-row");
 					},
-				
 					error:function(request,statur,error){
-						alert("댓글은 한번만 등록할 수 있습니다.");
+						alert("판매자만 작성할 수 있습니다..");
+					
 					}
 				})
 			})

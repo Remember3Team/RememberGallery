@@ -22,6 +22,23 @@
   
 <script src="../js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../js/bootstrap.js"></script>
+
+<script>
+function p_qna(paintNo){
+	var paint_no = paintNo;
+	$("#p_qna_paint_no").val(paint_no);
+	var p_pna_paint_no=$("#p_qna_paint_no").val();
+	
+
+	location.href="<%=request.getContextPath()%>/detail.po?paint_no="+p_pna_paint_no;
+	
+
+	console.log(p_pna_paint_no);
+	
+}
+
+
+</script>
 </head>
 <body>
 	<%@include file="../common/menubar.jsp" %>
@@ -51,7 +68,7 @@
                     <th>문의</th>
                     <th>작성일</th>
                     <th>답변여부</th>
-                  
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -63,6 +80,8 @@
 			      			<td><%=qna.getpQuestion()%></td>
 			      			<td><%=qna.getpQdate()%></td>
 			      			<td><%=qna.getPqYN()%></td>
+			      			<td><a href="javascript:p_qna('<%=qna.getPaintNo() %>');" class="btn btn-outline-secondary btn-sm" role="button" aria-pressed="true" style="font-size:13px;">상세보기</a></td>
+			    			<input type="hidden" id="p_qna_paint_no">
 			    		</tr>
 			    		<%} %>
 			    	<%} else{%>
@@ -71,7 +90,7 @@
             </table>
         </div>
          <div class = "qna-table2" style="display:block;" >
-            <table style="width:100%" name="qna-list">
+            <table onclick="location.href='<%=request.getContextPath()%>/list.in'" style="width:100%" id="qna_table2" name="qna-list">
                 <thead>
                 <tr>
                     <th>카테고리</th>

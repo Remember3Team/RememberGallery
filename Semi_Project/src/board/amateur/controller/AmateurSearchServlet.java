@@ -37,8 +37,8 @@ public class AmateurSearchServlet extends HttpServlet {
 		AmateurService aService = new AmateurService();
 		request.setCharacterEncoding("UTF-8");
 
-		String category = request.getParameter("Category");
-		String keyword = request.getParameter("search_title");
+		String category = request.getParameter("Category")!=null?request.getParameter("Category"):null;
+		String keyword = request.getParameter("search_title")!=null?request.getParameter("Category"):null;
 		
 		System.out.println("검색카테고리:"+category);
 		System.out.println("검색어:"+keyword);

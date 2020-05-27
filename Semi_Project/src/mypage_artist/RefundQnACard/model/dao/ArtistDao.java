@@ -141,7 +141,9 @@ public class ArtistDao {
 		
 		ArrayList<Message> list = new ArrayList<>();
 		
-		String query = "SELECT * FROM MESSAGE M JOIN MEMBER ME ON(ME.USER_ID = M.USER_ID) WHERE ARTIST_NAME =? AND ORDER_NO BETWEEN ? AND ?";
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, A.* \n" + 
+				"FROM (SELECT * FROM MESSAGE ME JOIN MEMBER M ON(ME.USER_ID = M.USER_ID)\n" + 
+				"WHERE ARTIST_NAME =? ORDER BY ORDER_NO DESC) A) WHERE RNUM >=?  AND RNUM <=?";
 		
 		// 쿼리문 실행시 조건절에 넣을 변수를 (ROWNUM에 대한 조건 시 필요) 연산처리
 		int startRow = (currentPage - 1) * limit + 1;

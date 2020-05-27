@@ -79,6 +79,9 @@ int endPage = pi.getEndPage();
  <script>
  	window.onload = function(){
  		//로그인 유저에 따라 입력 창 display none block 여부 확인
+ 		if("<%=loginUser%>"=null){
+ 			alert("로그인 한 회원만 이용 가능합니다.");
+ 		}
  		if("<%=loginUser.getUserId()%>"=="admin"){
 	 		document.getElementById("addQuestionArea").style.display="none";		
  		}
@@ -137,7 +140,7 @@ int endPage = pi.getEndPage();
                     </div>
                     <form action="answer.in" method="get">
 	                    <div class="modal-body">
-	                        <textarea id="answerArea" name="answerArea" cols="80" row="30"></textarea>
+	                        <textarea id="answerArea" name="answerArea" cols="55" row="30"></textarea>
 	                    </div>
 	                    <div class="modal-footer">
 	                        <button type="submit" class="btn btn-default">전송</button>
