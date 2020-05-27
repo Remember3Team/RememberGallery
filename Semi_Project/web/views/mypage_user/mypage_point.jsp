@@ -34,32 +34,16 @@
             <li><a href="#" class="btn btn-outline-secondary btn-sm active" role="button" aria-pressed="true"><%=user.getGrade() %></a>
         </ul>
     </div>
-
-    
-    
-    <br>
-    <div class= "container">
-     <div class = "point-table">
-            <div class="table-headline">
-                <div><span><b>적립내용보기</b></span></div>
-            </div>
-            <table style="width:100%" name="order-list">
-                <tr>
-                    <th>관련주문</th>
-                    <th>주문일자</th>
-                    <th>적립 포인트</th>
-                    <th>적립 내용</th>
-                </tr>
-                <tr>
-                    <td>p0001</td>
-                    <td>2020-05-13</td>
-                    <td>120p</td>
-                    <td>10만원 이상 구매</td>
-                </tr>
-
-            </table>
-        </div>
-        </div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
     <br>
 	<br>
 	<br>

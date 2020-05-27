@@ -18,16 +18,16 @@ import product.model.service.ProductService;
 import product.model.vo.Attachment;
 
 /**
- * Servlet implementation class SearchServlet
+ * Servlet implementation class SearchRefundServlet
  */
-@WebServlet("/SearchServlet")
-public class SearchServlet extends HttpServlet {
+@WebServlet("/SearchRefundServlet")
+public class SearchRefundServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchServlet() {
+    public SearchRefundServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,8 +36,6 @@ public class SearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
 		request.setCharacterEncoding("utf-8");
 		
 		MorwService mService = new MorwService();
@@ -55,7 +53,7 @@ public class SearchServlet extends HttpServlet {
 		System.out.println(calendar1);
 		System.out.println(calendar2);
 		
-		ArrayList<Morw> search_list = new ArrayList<>();
+		ArrayList<Morw> refund_search_list = new ArrayList<>();
 		
 		
 		ArrayList<Attachment> plist = new ArrayList<Attachment>();
@@ -64,12 +62,12 @@ public class SearchServlet extends HttpServlet {
 	    plist = pService.selectAllalist();
 		
 		
-		search_list=mService.searchList(order_status, term, calendar1, calendar2,loginMember.getUserId());
+	    refund_search_list=mService.searchRefundList(order_status, term, calendar1, calendar2,loginMember.getUserId());
 		
 		RequestDispatcher view = null;
-		if(!search_list.isEmpty()) {
-			view = request.getRequestDispatcher("views/mypage_user/searchResult.jsp");
-			request.setAttribute("search_list", search_list);
+		if(!refund_search_list.isEmpty()) {
+			view = request.getRequestDispatcher("views/mypage_user/refundSearchResult.jsp");
+			request.setAttribute("refund_search_list", refund_search_list);
 			request.setAttribute("plist",plist);
 			
 		}else {
@@ -77,8 +75,6 @@ public class SearchServlet extends HttpServlet {
 		}
 		
 		view.forward(request, response);
-		
-		
 		
 	}
 

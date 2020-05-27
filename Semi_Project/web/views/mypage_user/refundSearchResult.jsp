@@ -2,15 +2,9 @@
     pageEncoding="UTF-8" import="mypage_user.mainOrderRefundWish.model.vo.*,product.model.vo.*,board.notice.model.vo.PageInfo, java.util.ArrayList"%>
     
 <%
-	ArrayList<Morw> list = ((ArrayList<Morw>)request.getAttribute("list"));
+	ArrayList<Morw> refund_search_list = ((ArrayList<Morw>)request.getAttribute("refund_search_list"));
 	ArrayList<Attachment> plist = (ArrayList<Attachment>) request.getAttribute("plist");
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
-	int listCount = pi.getListCount();
-    int currentPage = pi.getCurrentPage();
-    int maxPage = pi.getMaxPage();
-    int startPage = pi.getStartPage();
-    int endPage = pi.getEndPage();
  
 %>
 <!DOCTYPE html>
@@ -95,8 +89,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                 <%if(!list.isEmpty()){ %>
-			  			<%for(Morw m:list){ %>
+                 <%if(!refund_search_list.isEmpty()){ %>
+			  			<%for(Morw m:refund_search_list){ %>
 			    		<tr>
 			    			<td><%=m.getOrderNo() %></td>
 							<td><% for(int j=0; j<plist.size(); j++){ 
@@ -123,34 +117,8 @@
       <br>
       <br>
       <br>
-      <!-- Pagination -->
-	<div class = "p-parents" style="margin:0 auto">
-	<div class="pppp">
-			<%if (currentPage == 1) { %>
-            <a style = "color:#9c9c9c; "  disabled>Previous</a>
-            <%}else {%>
-            <a class = "page-a" href="<%=request.getContextPath() %>/list.ar?currentPage=<%=currentPage - 1 %>" >Previous</a>
-            <%} %>
-            <ol>
-            <%for(int p = startPage ; p<=endPage ; p++){ %>
-            <%if(currentPage == p){ %>
-              <li class = "page-list1"><button disabled class = "page-cur" ><%=p%></button></li>
-            <%} else { %>
-              <li class = "page-list2" onclick="location.href='<%=request.getContextPath() %>/list.ar?currentPage=<%=p%>'"><button class = "page-nocur"><%=p%></button></li>
-            <%} %>
-            <%} %>
-            </ol>
-            <%if (currentPage == maxPage) { %>
-            <a style = "color:#9c9c9c; "  disabled>Next</a>
-            <%} else { %>
-            <a class = "page-a" href="<%=request.getContextPath()%>/list.ar?currentPage=<%=currentPage + 1%>">Next</a>
-            <%} %>
-   </div>
-</div>
-      
-    </div>
     
-       
+    </div>
     </div>
     <br>
     <br>
