@@ -2,18 +2,10 @@
     pageEncoding="UTF-8" import = "mypage_artist.RefundQnACard.model.vo.*, artistapply.model.vo.*, product.model.vo.*, java.util.ArrayList"%>
     
 <%
-	ArrayList<QnA_Q> qnalist = (ArrayList<QnA_Q>) request.getAttribute("qnalist");
-	ArrayList<Attachment> alist = (ArrayList<Attachment>) request.getAttribute("alist");
-	Apply aphoto = (Apply) request.getAttribute("aphoto");
+ArrayList<QnA_Q> qnalist = (ArrayList<QnA_Q>) request.getAttribute("qnalist");
+ArrayList<Attachment> alist = (ArrayList<Attachment>) request.getAttribute("alist");
+Apply aphoto = (Apply) request.getAttribute("aphoto");
 	
-	
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	
-	int listCount = pi.getListCount();
-	int currentPage = pi.getCurrentPage();
-	int maxPage = pi.getMaxPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
 %>
 
 <!DOCTYPE html>
@@ -83,7 +75,7 @@
                                     <input type="radio" name="term" value="7">1주일
                                 </label>
                                 <label class="btn btn-outline-dark">
-                                    <input type="radio" name="term" value="30" >1개월
+                                    <input type="radio" name="term" value="39" >1개월
                                 </label>
                                 <label class="btn btn-outline-dark">
                                     <input type="radio" name="term" value="90" >3개월
@@ -101,7 +93,7 @@
             </div>
 
         </form>
-        <div class = "artq-table">
+        <div class = "artq-table" style = "margin-bottom : 100px;">
             <div class="table-headline">
                 <!-- <div><span>문의 내역</span></div> -->
 <!--                 <div class="button"><button class="btn btn-outline-dark" style = "width:120px">선택 삭제</button></div> -->
@@ -177,30 +169,6 @@
         </script>
         
     </div>
-
-		<div class = "p-parents">
-	<div class="pppp">
-			<%if (currentPage == 1) { %>
-            <a style = "color:#9c9c9c; "  disabled>Previous</a>
-            <%}else {%>
-            <a class = "page-a" href="<%=request.getContextPath() %>/list.qna?currentPage=<%=currentPage - 1 %>" >Previous</a>
-            <%} %>
-            <ol>
-            <%for(int p = startPage ; p<=endPage ; p++){ %>
-            <%if(currentPage == p){ %>
-              <li class = "page-list1"><button disabled class = "page-cur" ><%=p%></button></li>
-            <%} else { %>
-              <li class = "page-list2" onclick="location.href='<%=request.getContextPath() %>/list.qna?currentPage=<%=p%>'"><button class = "page-nocur"><%=p%></button></li>
-            <%} %>
-            <%} %>
-            </ol>
-            <%if (currentPage == maxPage) { %>
-            <a style = "color:#9c9c9c; "  disabled>Next</a>
-            <%} else { %>
-            <a class = "page-a" href="<%=request.getContextPath()%>/list.qna?currentPage=<%=currentPage + 1%>">Next</a>
-            <%} %>
-          </div>
-	</div>
 
 
 

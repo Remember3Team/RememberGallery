@@ -57,20 +57,9 @@
                     <div class="info-box5">
                         <label class="labelfirst">가격</label><input class="nomal-text" type="text" name="price">
                     </div>
-
-                    <div class="info-box6">
-                        <label class="labelfirst">태그</label>
-                        <div class = "check-area">
-                       <input type="checkbox" name = "tagname" value="우아한" checked>우아한
-                       <input type="checkbox" name = "tagname" value="생동감있는" checked>생동감 있는
-                       <input type="checkbox" name = "tagname" value="컬러풀한" checked>컬러풀한
-                       <input type="checkbox" name = "tagname" value="서정적인" checked>서정적인 <br>
-                       <input type="checkbox" name = "tagname" value="동적인">동적인
-                       <input type="checkbox" name = "tagname" value="무드있는">무드있는
-                       <input type="checkbox" name = "tagname" value="정교한">정교한
-                       <input type="checkbox" name = "tagname" value="따뜻한">따뜻한
-                       <input type="checkbox" name = "tagname" value="신선한">신선한
-                        </div>
+						
+                    <div class="info-box6" style = "margin-bottom : 10px;">
+                        <label class="labelfirst">사이즈</label><input class="nomal-text" type="text" name="size">
                     </div>
                     
                     <script>

@@ -3,17 +3,10 @@
 	import="mypage_artist.RefundQnACard.model.vo.*, artistapply.model.vo.*, product.model.vo.*, java.util.ArrayList"%>
 
 <%
-    	ArrayList<BuyList_a> list = (ArrayList<BuyList_a>) request.getAttribute("list");
+    	ArrayList<BuyList_a> list = (ArrayList<BuyList_a>) request.getAttribute("search_list");
     	ArrayList<Attachment> alist = (ArrayList<Attachment>) request.getAttribute("alist");
     	Apply aphoto = (Apply) request.getAttribute("aphoto");
-    	
-    	PageInfo pi = (PageInfo)request.getAttribute("pi");
-    	
-    	int listCount = pi.getListCount();
-    	int currentPage = pi.getCurrentPage();
-    	int maxPage = pi.getMaxPage();
-    	int startPage = pi.getStartPage();
-    	int endPage = pi.getEndPage();
+
     %>
 
 <!DOCTYPE html>
@@ -81,14 +74,14 @@
 			<div class="search-bar">
 				<div class="bar1">
 					<input type="text" name="order_status" list="status-list"
-						placeholder="주문 상태">
+						placeholder="주문 처리 상태">
 					<datalist id="status-list" name = "order_status">
 						<option value="환불 신청"></option>
 						<option value="환불 완료"></option>
 						<option value="반품 신청"></option>
 					</datalist>
 				</div>
-				<div class="btn-group" data-toggle="buttons"  style = "vertical-align: baseline;" >
+				<div class="btn-group" data-toggle="buttons" style = "vertical-align: baseline;" >
                     <label class="btn btn-outline-dark">
                          <input type="radio" name="term" value="0">오늘
                     </label>
@@ -147,7 +140,6 @@
 	
 			var checkboxList = $("input[name=check]:checked");
 			arrayList = '';
-			
 			for(var i=0; i<checkboxList.length; i++){
 		
 				// checkbox가 체크 되어있을 때만 실행
@@ -187,12 +179,11 @@
 					});
 				}
 			}
-
-
+		
 </script>
 
 
-			<table style="width: 100%" name="refund-list">
+			<table style="width: 100%; margin-bottom:100px;" name="refund-list">
 				<tr>
 					<th style="text-align: center;"><input type="checkbox" id="check_all"></th>
 					<th style="text-align: center;">주문 번호</th>
@@ -203,7 +194,8 @@
 					<th style="text-align: center;">처리 상태</th>
 					<th style="text-align: center;">주문 정보 확인</th>
 				</tr>
-				
+
+
 				<% for(int i = 0 ; i < list.size(); i++){
                 	BuyList_a b = list.get(i);
                 %>
@@ -236,7 +228,7 @@
 
 	<!-- 페이징 처리 시작 -->
 	
-<div class = "p-parents">
+<%-- <div class = "p-parents">
 	<div class="pppp">
 			<%if (currentPage == 1) { %>
             <a style = "color:#9c9c9c;" disabled>Previous</a>
@@ -258,7 +250,7 @@
             <a class = "page-a" href="<%=request.getContextPath()%>/list.ar?currentPage=<%=currentPage + 1%>">Next</a>
             <%} %>
    </div>
-</div>
+</div> --%>
 
 
 	<%@include file="../common/footer.jsp"%>
