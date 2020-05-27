@@ -1081,7 +1081,46 @@ public class Mypage_ArtistDao {
 	}
 
 	public int deleteProduct(Connection conn, String bWriter, int paint_no) {
-		return 0;
+		PreparedStatement pstmt = null;
+		int deleteResult = 0;
+		String query = "UPDATE PAINT SET AUC_YN = 'Y'\r\n" + 
+							   "WHERE ARTIST_NAME = ? AND PAINT_NO = ?";			
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, bWriter);
+			pstmt.setInt(2, paint_no);
+				
+			deleteResult = pstmt.executeUpdate();
+			System.out.println("dao");
+				if(deleteResult>0) {
+				System.out.println("delete가 성공적으로 이루어졌습니다.");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	
+		return deleteResult;
+	}
+
+	public int deleteBasket(Connection conn, String bWriter, int paint_no) {
+		PreparedStatement pstmt = null;
+		int deleteBResult = 0;
+		
+		String query = "DELETE FROM BASKET\r\n" + 
+				"JOIN PAINT ON (BASKET.PAINT_NO = PAINT.PAINT_NO)\r\n" + 
+				"WHERE AUC_YN = 'Y'";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			deleteBResult = pstmt.executeUpdate();
+			if(deleteBResult > 0) {
+				System.out.println("delete 성공");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return deleteBResult;
 	}
 
 	public int updateOrder_status(Connection conn, int order_no) {

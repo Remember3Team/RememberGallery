@@ -50,7 +50,6 @@ public class AmateurDetailServlet extends HttpServlet {
 		AmateurLike count= aService.selectEventLikeO(event_no);
 
 		
-		if(amateur!=null) {
 			request.setAttribute("amateur", amateur);
 			request.setAttribute("fileList", file);
 			request.setAttribute("rList", rList);
@@ -64,7 +63,7 @@ public class AmateurDetailServlet extends HttpServlet {
 
 			request.getRequestDispatcher("views/board/amateur/amateurDetail.jsp").forward(request, response);
 			
-		}
+		
 		
 	}
 

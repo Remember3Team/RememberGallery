@@ -98,7 +98,7 @@
                     <td><%=ma.getPaint_price() %></td>
                     <td>
                     <input class="paint_no" type="hidden" value="<%=ma.getPaint_no() %>">
-                    <button class="btn btn-outline-dark delete" id="detail_order" style = "width:100px" onclick="delete();">삭제</button>
+                    <button class="btn btn-outline-dark Pdelete" id="detail_order" style = "width:100px">삭제</button>
                     </td>
                 </tr>
 				<%} %>
@@ -106,7 +106,7 @@
         </div>
         <script>
         	$(function(){
-        		$(".delete").click(function(){
+        		$(".Pdelete").click(function(){
         			var paint_no = $(this).parent().children(".paint_no").val();
         			location.href="<%=request.getContextPath()%>/delete.p?paint_no="+paint_no;
         		})

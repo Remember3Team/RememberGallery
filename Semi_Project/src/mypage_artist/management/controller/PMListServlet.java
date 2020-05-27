@@ -111,18 +111,14 @@ public class PMListServlet extends HttpServlet {
 				// 출력이 잘 나오는걸 확인하면 이제 화면단으로 넘겨주자
 				
 				RequestDispatcher view = null;
-				if(!PM_list.isEmpty()) {
+				
 					view = request.getRequestDispatcher("views/mypage_artist/product_management.jsp");
 					request.setAttribute("PM_list", PM_list);
 					request.setAttribute("alist", alist);
 					request.setAttribute("pi", pi);
 					request.setAttribute("aphoto", aphoto);
-				}else {
-					view = request.getRequestDispatcher("views/common/errorPage.jsp");
-					request.setAttribute("msg","게시판 조회 실패");
-
-				}
 				
+			
 				view.forward(request, response);
 				
 				// boardListView.jsp 만들러 가자!
