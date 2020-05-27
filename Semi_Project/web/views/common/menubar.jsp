@@ -160,10 +160,10 @@ ul li ul li:hover{
 		</ul>
 		<div id="loginWrap" >
 			
-			<ul class="navi" style="margin-right:40px;">
+			<ul class="navi " style="margin-right:40px;">
 			 <%if(loginUser != null){ %> 
-			<li style="width: 80px;height:20px; !important"> <img
-				src="<%=request.getContextPath()%>/views/img/login1.png" style="width:30px; margin-bottom:50px; margin-left:30px;"></a>
+			<li style ="width: 80px;height:20px; "> <img
+				src="<%=request.getContextPath()%>/views/img/login1.png " style="width:30px; margin-bottom:50px; margin-left:30px; "></a>
 				<ul style="width:150px; padding-right:30px;" >
 
 					<li><a href="<%=request.getContextPath() %>/Mo.li">마이페이지 소비자</a></li>
