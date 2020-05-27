@@ -404,7 +404,7 @@ public class MorwDao {
 				"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO)\r\n" + 
 				"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO) \r\n" + 
 				"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO) \r\n" + 
-				"WHERE O.USER_ID=?";
+				"WHERE O.USER_ID=?  AND pp.filelevel='0'";
 		
 		int listCount = 0;
 		try {
@@ -435,9 +435,9 @@ public class MorwDao {
 		
 		String query = "SELECT count(B.ORDER_NO)\r\n" + 
 				"FROM BUY_LIST B \r\n" + 
-				"JOIN PAINT_PHOTO PP ON (B.PAINT_NO=PP.PAINT_NO) \r\n" + 
-				"JOIN PAINT P ON(B.PAINT_NO=P.PAINT_NO) \r\n" + 
-				"WHERE B.ORDER_STATUS LIKE '환불%' AND B.USER_ID='?";
+				"JOIN PAINT_PHOTO PP ON (B.PAINT_NO=PP.PAINT_NO)\r\n" + 
+				"JOIN PAINT P ON(B.PAINT_NO=P.PAINT_NO)\r\n" + 
+				"WHERE B.ORDER_STATUS LIKE '환불%' AND pp.filelevel='0' AND B.USER_ID=?";
 		
 		int listCount = 0;
 		try {
@@ -504,12 +504,12 @@ public class MorwDao {
 			
 		// status만 눌렀을 때 == term, cal은 null	== done
 		}else if(term == null && (calendar1.isEmpty() || calendar2.isEmpty())) {
-			String query = "SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS \r\n" + 
+			String query = "SELECT O.ORDER_NO, P.PAINT_NO,PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_DATE,B.ORDER_STATUS\r\n" + 
 					"FROM ORDER_TABLE O\r\n" + 
 					"JOIN BUY_LIST B ON (O.ORDER_NO=B.ORDER_NO)\r\n" + 
 					"JOIN PAINT_PHOTO PP ON (O.PAINT_NO=PP.PAINT_NO)\r\n" + 
 					"JOIN PAINT P ON (O.PAINT_NO=P.PAINT_NO)\r\n" + 
-					"WHERE O.USER_ID=? AND ORDER_STATUS=? AND PP.Filelevel='0'";
+					"WHERE O.USER_ID=? AND B.ORDER_STATUS=? AND PP.Filelevel='0'";
 			
 			
 			try {
@@ -530,6 +530,7 @@ public class MorwDao {
 							rset.getString("order_status"));
 						search_list.add(m);
 				}
+				System.out.println("리펀 텀만 눌렀을때" +search_list);
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -781,6 +782,306 @@ public class MorwDao {
 		return search_list;
 	}
 
-	
+	public ArrayList<Morw> searchRefundList(Connection conn, String order_status, String term, String calendar1,
+			String calendar2, String userId) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Morw> refund_search_list = new ArrayList<>();
+		
+		
+		//세가지 모두 null
+		if(order_status.isEmpty() && term == null && (calendar1.isEmpty()||calendar2.isEmpty())) {
+			
+			String query = "SELECT B.ORDER_NO,P.PAINT_NO, PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_STATUS\r\n" + 
+					"FROM BUY_LIST B \r\n" + 
+					"JOIN PAINT_PHOTO PP ON (B.PAINT_NO=PP.PAINT_NO) \r\n" + 
+					"JOIN PAINT P ON(B.PAINT_NO=P.PAINT_NO) \r\n" + 
+					"WHERE B.ORDER_STATUS LIKE '환불%' AND PP.Filelevel='0'AND B.USER_ID='user1'";
+			
+			
+			try {
+				pstmt=conn.prepareStatement(query);
+				pstmt.setString(1, userId);
+				rset=pstmt.executeQuery();
+				
+				while(rset.next()) {
+					Morw m = new Morw(rset.getString("ORDER_NO"),
+							rset.getInt("PAINT_NO"),
+							rset.getString("AFILE"),
+							rset.getString("PAINT_NAME"),
+							rset.getString("ARTIST_NAME"),
+							rset.getInt("PAINT_PRICE"),
+							rset.getString("ORDER_STATUS"));
+					refund_search_list.add(m);
+					System.out.println("dao단 refund list 출력"+refund_search_list);
+				}
+				
+				
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rset);
+			}
+			
+		//order status 만 눌렀을 때
+		}else if(term == null && (calendar1.isEmpty() || calendar2.isEmpty())){
+			String query = "SELECT B.ORDER_NO,P.PAINT_NO, PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_STATUS  \r\n" + 
+					"FROM BUY_LIST B \r\n" + 
+					"JOIN PAINT_PHOTO PP ON (B.PAINT_NO=PP.PAINT_NO) \r\n" + 
+					"JOIN PAINT P ON(B.PAINT_NO=P.PAINT_NO)\r\n" + 
+					"WHERE B.ORDER_STATUS =? AND PP.Filelevel='0'AND B.USER_ID=?";
+			
+			
+			try {
+				pstmt=conn.prepareStatement(query);
+				pstmt.setString(1, order_status);
+				pstmt.setString(2, userId);
+				rset=pstmt.executeQuery();
+				
+				while(rset.next()) {
+					Morw m = new Morw(rset.getString("ORDER_NO"),
+							rset.getInt("PAINT_NO"),
+							rset.getString("AFILE"),
+							rset.getString("PAINT_NAME"),
+							rset.getString("ARTIST_NAME"),
+							rset.getInt("PAINT_PRICE"),
+							rset.getString("ORDER_STATUS"));
+					refund_search_list.add(m);
+					System.out.println("dao단 refund list 출력"+refund_search_list);
+				}
+				
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rset);
+			}
+		
+			
+		//term만 눌렀을 때
+		}else if(order_status.isEmpty() && (calendar1.isEmpty() || calendar2.isEmpty())) {
+			
+			String query ="SELECT B.ORDER_NO,P.PAINT_NO, PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_STATUS \r\n" + 
+					"FROM BUY_LIST B \r\n" + 
+					"JOIN PAINT_PHOTO PP ON (B.PAINT_NO=PP.PAINT_NO)  \r\n" + 
+					"JOIN PAINT P ON(B.PAINT_NO=P.PAINT_NO) \r\n" + 
+					"WHERE B.ORDER_STATUS LIKE '환불%' AND ORDER_DATE BETWEEN (SYSDATE - ?) AND SYSDATE  AND PP.Filelevel='0' AND B.USER_ID=?";
+			
+			try {
+				pstmt=conn.prepareStatement(query);
+				pstmt.setString(1, term);
+				pstmt.setString(2, userId);
+				rset=pstmt.executeQuery();
 
+				while(rset.next()) {
+					Morw m = new Morw(rset.getString("ORDER_NO"),
+							rset.getInt("PAINT_NO"),
+							rset.getString("AFILE"),
+							rset.getString("PAINT_NAME"),
+							rset.getString("ARTIST_NAME"),
+							rset.getInt("PAINT_PRICE"),
+							rset.getString("ORDER_STATUS"));
+					refund_search_list.add(m);
+					System.out.println("dao단 refund list 출력"+refund_search_list);
+				}		
+				
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rset);
+			}			
+		}
+		//cal만 눌렀을 때	
+		else if(order_status.isEmpty() && term==null) {
+			String query ="SELECT B.ORDER_NO,P.PAINT_NO, PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_STATUS \r\n" + 
+					"FROM BUY_LIST B \r\n" + 
+					"JOIN PAINT_PHOTO PP ON (B.PAINT_NO=PP.PAINT_NO)  \r\n" + 
+					"JOIN PAINT P ON(B.PAINT_NO=P.PAINT_NO) \r\n" + 
+					"WHERE B.ORDER_STATUS LIKE '환불%' And ORDER_DATE BETWEEN ? And ? AND PP.Filelevel='0' AND B.USER_ID=?";
+		
+			try {
+				pstmt=conn.prepareStatement(query);
+				pstmt.setString(1, calendar1);
+				pstmt.setString(2, calendar2);
+				pstmt.setString(3, userId);
+				rset=pstmt.executeQuery();
+				
+				while(rset.next()) {
+					Morw m = new Morw(rset.getString("ORDER_NO"),
+							rset.getInt("PAINT_NO"),
+							rset.getString("AFILE"),
+							rset.getString("PAINT_NAME"),
+							rset.getString("ARTIST_NAME"),
+							rset.getInt("PAINT_PRICE"),
+							rset.getString("ORDER_STATUS"));
+					refund_search_list.add(m);
+					System.out.println("dao단 refund list 출력"+refund_search_list);
+				}		
+				
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rset);
+			}
+			
+		//status, term만 클릭시
+		}else if(calendar1.isEmpty() || calendar2.isEmpty()) {
+			String query = "SELECT B.ORDER_NO,P.PAINT_NO, PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_STATUS \r\n" + 
+					"FROM BUY_LIST B\r\n" + 
+					"JOIN PAINT_PHOTO PP ON (B.PAINT_NO=PP.PAINT_NO) \r\n" + 
+					"JOIN PAINT P ON(B.PAINT_NO=P.PAINT_NO)\r\n" + 
+					"WHERE B.ORDER_STATUS =? AND ORDER_DATE BETWEEN (SYSDATE - ?) AND SYSDATE AND PP.Filelevel='0'AND B.USER_ID=?";
+			
+			try {
+				pstmt=conn.prepareStatement(query);
+				pstmt.setString(1, order_status);
+				pstmt.setString(2, term);
+				pstmt.setString(3, userId);
+				
+				rset=pstmt.executeQuery();
+				
+				while(rset.next()) {
+					Morw m = new Morw(rset.getString("ORDER_NO"),
+							rset.getInt("PAINT_NO"),
+							rset.getString("AFILE"),
+							rset.getString("PAINT_NAME"),
+							rset.getString("ARTIST_NAME"),
+							rset.getInt("PAINT_PRICE"),
+							rset.getString("ORDER_STATUS"));
+					refund_search_list.add(m);
+					System.out.println("dao단 refund list 출력"+refund_search_list);
+				}		
+				
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rset);
+			}
+			
+			//term, cal만 클릭시
+		}else if(order_status.isEmpty()) {
+			String query ="SELECT B.ORDER_NO,P.PAINT_NO, PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_STATUS \r\n" + 
+					"FROM BUY_LIST B \r\n" + 
+					"JOIN PAINT_PHOTO PP ON (B.PAINT_NO=PP.PAINT_NO) \r\n" + 
+					"JOIN PAINT P ON(B.PAINT_NO=P.PAINT_NO) \r\n" + 
+					"WHERE B.ORDER_STATUS LIKE '환불%' And ORDER_DATE BETWEEN ? And ? AND B.USER_ID=?";
+		
+			try {
+				pstmt=conn.prepareStatement(query);
+				pstmt.setString(1, calendar1);
+				pstmt.setString(2, calendar2);
+				pstmt.setString(3, userId);
+				
+				rset=pstmt.executeQuery();
+				
+				while(rset.next()) {
+					Morw m = new Morw(rset.getString("ORDER_NO"),
+							rset.getInt("PAINT_NO"),
+							rset.getString("AFILE"),
+							rset.getString("PAINT_NAME"),
+							rset.getString("ARTIST_NAME"),
+							rset.getInt("PAINT_PRICE"),
+							rset.getString("ORDER_STATUS"));
+					refund_search_list.add(m);
+					System.out.println("dao단 refund list 출력"+refund_search_list);
+				}		
+				
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rset);
+			}
+		
+			//status, cal 클릭시 
+		}else if(term==null) {
+			String query = "SELECT B.ORDER_NO,P.PAINT_NO, PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_STATUS \r\n" + 
+					"FROM BUY_LIST B \r\n" + 
+					"JOIN PAINT_PHOTO PP ON (B.PAINT_NO=PP.PAINT_NO)  \r\n" + 
+					"JOIN PAINT P ON(B.PAINT_NO=P.PAINT_NO) \r\n" + 
+					"WHERE B.ORDER_STATUS LIKE '환불%' And ORDER_DATE BETWEEN ? And ? AND B.USER_ID=?";
+			
+			try {
+				pstmt=conn.prepareStatement(query);
+				pstmt.setString(1, calendar1);
+				pstmt.setString(2, calendar2);
+				pstmt.setString(3, userId);
+				rset=pstmt.executeQuery();
+				
+				while(rset.next()) {
+					Morw m = new Morw(rset.getString("ORDER_NO"),
+							rset.getInt("PAINT_NO"),
+							rset.getString("AFILE"),
+							rset.getString("PAINT_NAME"),
+							rset.getString("ARTIST_NAME"),
+							rset.getInt("PAINT_PRICE"),
+							rset.getString("ORDER_STATUS"));
+					refund_search_list.add(m);
+					System.out.println("dao단 refund list 출력"+refund_search_list);
+				}		
+				
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rset);
+			}
+			
+		//모두 클릭시	
+		}else {
+			String query ="SELECT B.ORDER_NO,P.PAINT_NO, PP.AFILE,PAINT_NAME,P.ARTIST_NAME,PAINT_PRICE,B.ORDER_STATUS \r\n" + 
+					"FROM BUY_LIST B\r\n" + 
+					"JOIN PAINT_PHOTO PP ON (B.PAINT_NO=PP.PAINT_NO) \r\n" + 
+					"JOIN PAINT P ON(B.PAINT_NO=P.PAINT_NO)\r\n" + 
+					"WHERE B.ORDER_STATUS =? AND ORDER_DATE  BETWEEN ? And ? AND PP.Filelevel='0'AND B.USER_ID=?";
+			
+			try {
+				pstmt=conn.prepareStatement(query);
+				pstmt.setString(1, order_status);
+				pstmt.setString(2, calendar1);
+				pstmt.setString(3, calendar2);
+				pstmt.setString(4, userId);
+				rset=pstmt.executeQuery();
+				
+				while(rset.next()) {
+					Morw m = new Morw(rset.getString("ORDER_NO"),
+							rset.getInt("PAINT_NO"),
+							rset.getString("AFILE"),
+							rset.getString("PAINT_NAME"),
+							rset.getString("ARTIST_NAME"),
+							rset.getInt("PAINT_PRICE"),
+							rset.getString("ORDER_STATUS"));
+					refund_search_list.add(m);
+					System.out.println("dao단 refund list 출력"+refund_search_list);
+				}		
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rset);
+			}
+			
+		}
+		System.out.println("!!!!!!!!!!!!!!!!!!!!리펀써치결과"+refund_search_list);
+		
+		return refund_search_list;
+		
+		
+	}
+
+	
 }
