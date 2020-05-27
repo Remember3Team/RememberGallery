@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "mypage_artist.management.model.vo.*, artistapply.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import = "mypage_artist.management.model.vo.*, artistapply.model.vo.*, board.notice.model.vo.PageInfo, java.util.ArrayList
+    , product.model.vo.*"%>
     <%
     	ArrayList<Mypage_artist> SM_list = (ArrayList<Mypage_artist>)request.getAttribute("SM_list");
     	ArrayList<Mypage_artist> search_list_SM = (ArrayList<Mypage_artist>)request.getAttribute("search_list_SM");
     	PageInfo pi = (PageInfo)request.getAttribute("pi");
-    	/* Apply aphoto = (Apply) request.getAttribute("aphoto"); */
+    	 Apply aphoto = (Apply) request.getAttribute("aphoto"); 
     	
     	int listCount = pi.getListCount();
     	int currentPage = pi.getCurrentPage();
@@ -28,7 +29,7 @@
 
 <body>
 <%@include file="../common/menubar.jsp" %>
-<%-- <div class="headline">
+<div class="headline">
         <div class="headline-text">
             <hr>
             <h3 style="font-size: 20px;"> 작가 마이페이지</h3>
@@ -36,13 +37,25 @@
         <div class="headline-subbox">
             <div class="artist-img">
                 <!--Artist Image-->
-				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>" style= "width:150px; height=150px;">        </div>
-            <div class="artist-button">
-                <button style="margin-bottom: 3px;">정보수정</button>
-                <button>감동카드 확인</button>
+				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>">
+				<%-- <%= request.getContextPath() %>/detail.po/<%= mlist.getPaint_no() %> --%>
+           </div>
+            <div class="artist-btn" style = "display: inline-block; vertical-align: middle;
+            ">
+                <button class="btn btn-outline-dark" style = "width:120px; display:block; margin-bottom:5px;" onclick="updateInfo();">정보 수정</button>
+                <button class="btn btn-outline-dark" style = "width:120px; display:block;margin-top:5px;" onclick="checkCard();">감동 카드</button>
+                <script>
+                	function checkCard() {
+                		location.href = "<%= request.getContextPath() %>/list.ac"		
+                	}
+                	
+                	function updateInfo() {
+                		location.href = "<%=request.getContextPath()%>/mypage.me?userId=<%=loginUser.getUserId() %>"
+                	}
+                </script>
             </div>
         </div>
-    </div> --%>
+    </div>
 <%@include file="../common/mypagehead.jsp" %>
     <div class="title">
         <h3>배송관리</h3>

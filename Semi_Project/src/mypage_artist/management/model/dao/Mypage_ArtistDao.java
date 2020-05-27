@@ -104,20 +104,23 @@ public class Mypage_ArtistDao {
 		ResultSet rset = null;
 		ArrayList<Mypage_artist> PM_list = new ArrayList<>();
 		
-		String query = "SELECT P.PAINT_NO, AFILE, P.PAINT_NAME, ARTIST_NAME, p.PAINT_PRICE, FILELEVEL FROM PAINT P\r\n" + 
-				" JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, A.* \r\n" + 
+				"FROM (SELECT  P.PAINT_NO, AFILE, P.PAINT_NAME, ARTIST_NAME, p.PAINT_PRICE, FILELEVEL FROM PAINT P\r\n" + 
+				"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
 				"left JOIN BUY_LIST BL ON (P.PAINT_NO = BL.PAINT_NO)\r\n" + 
 				"left JOIN MEMBER ON (BL.USER_ID = MEMBER.USER_ID)\r\n" + 
-				"WHERE p.paint_no  BETWEEN ? AND ? AND   p.ARTIST_NAME=? AND FILELEVEL=0 AND AUC_YN='N' order by 1 ";
+				"WHERE  p.ARTIST_NAME=? AND FILELEVEL=0 AND AUC_YN='N' order by 1)A)\r\n" + 
+				"WHERE RNUM >=? AND RNUM <=?";
 		
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			pstmt.setString(3, bWriter);
+			pstmt.setString(1, bWriter);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
 			
 			rset = pstmt.executeQuery();
 			
@@ -148,19 +151,22 @@ public class Mypage_ArtistDao {
 		ResultSet rset = null;
 		ArrayList<Mypage_artist> SM_list = new ArrayList<>();
 		
-		String query = "SELECT ORDER_NO, AFILE, PAINT_NAME, ARTIST_NAME, ORDER_DATE, SHIP_DATE, ORDER_STATUS FROM BUY_LIST BL\r\n" + 
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, A.* \r\n" + 
+				"FROM (SELECT ORDER_NO, AFILE, PAINT_NAME, ARTIST_NAME, ORDER_DATE, SHIP_DATE, ORDER_STATUS FROM BUY_LIST BL\r\n" + 
 				"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
 				"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
-				"WHERE order_no between ? and ? and artist_name = ? and filelevel=0 order by 1";
+				"WHERE artist_name = ? and filelevel=0 order by 1)A)\r\n" + 
+				"WHERE RNUM >=? AND RNUM <=?";
 		
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			pstmt.setString(3, bWriter);
+			pstmt.setString(1, bWriter);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
 			
 			rset = pstmt.executeQuery();
 			
@@ -194,19 +200,22 @@ public class Mypage_ArtistDao {
 		ResultSet rset = null;
 		ArrayList<Mypage_artist> OM_list = new ArrayList<>();
 		
-		String query = "SELECT order_no, afile, paint_name, artist_name, paint_price, order_status FROM BUY_LIST BL\r\n" + 
+		String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, A.* \r\n" + 
+				"FROM (SELECT order_no, afile, paint_name, artist_name, paint_price, order_status FROM BUY_LIST BL\r\n" + 
 				"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
 				"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
-				"WHERE order_no between ? and ? and filelevel=0 and artist_name=? and order_status = '배송준비중' order by 1";
+				"WHERE  filelevel=0 and artist_name=? and order_status = '배송준비중' order by 1)A)\r\n" + 
+				"WHERE RNUM >=? AND RNUM <=?";
 		
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
 		 
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			pstmt.setString(3, bWriter);
+			pstmt.setString(1, bWriter);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
 			
 			rset = pstmt.executeQuery();
 			
@@ -347,7 +356,7 @@ public class Mypage_ArtistDao {
 		ArrayList<Mypage_artist> search_list_SM = new ArrayList<>();
 		Mypage_artist myart  =new Mypage_artist();
 		
-		if(shipping_status.isEmpty() && term == null && (calendar1.isEmpty() || calendar2.isEmpty())) {
+		if(shipping_status.isEmpty() && term == null && (calendar1.isEmpty() || calendar2.isEmpty())) {  //검색 옵션의 값이 null 일때
 			String query = "SELECT order_no, afile, paint_name, artist_name, paint_price, order_status FROM BUY_LIST BL\r\n" + 
 					"JOIN PAINT P ON (BL.PAINT_NO = P.PAINT_NO)\r\n" + 
 					"JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
@@ -377,7 +386,7 @@ public class Mypage_ArtistDao {
 				close(pstmt);
 			}
 		}
-		else if(term == null && (calendar1.isEmpty() || calendar2.isEmpty())) {
+		else if(term == null && (calendar1.isEmpty() || calendar2.isEmpty())) {		//배송처리상태의 값만 있을 때
 			String query = "select order_no, afile, paint_name, artist_name, order_date, ship_date from buy_list bl\r\n" + 
 					"join paint p on (bl.paint_no = p.paint_no)\r\n" + 
 					"join paint_photo pp on (p.paint_no = pp.paint_no)\r\n" + 
@@ -408,7 +417,7 @@ public class Mypage_ArtistDao {
 				close(pstmt);
 			}
 		}
-		else if(shipping_status.isEmpty() && (calendar1.isEmpty() || calendar2.isEmpty())) {
+		else if(shipping_status.isEmpty() && (calendar1.isEmpty() || calendar2.isEmpty())) {		//기간만 가지고 검색 할 때
 			String query = "select order_no, afile, paint_name, artist_name, order_date, ship_date from buy_list bl\r\n" + 
 					"join paint p on (bl.paint_no = p.paint_no)\r\n" + 
 					"join paint_photo pp on (p.paint_no = pp.paint_no)\r\n" + 
@@ -440,7 +449,7 @@ public class Mypage_ArtistDao {
 			}
 			
 		}
-		else if(shipping_status.isEmpty() && term.isEmpty()) {
+		else if(shipping_status.isEmpty() && term.isEmpty()) {		//달력 날짜만 가지고 검색할 때
 			String query = "select order_no, afile, paint_name, artist_name, order_date, ship_date from buy_list bl\r\n" + 
 					"join paint p on (bl.paint_no = p.paint_no)\r\n" + 
 					"join paint_photo pp on (p.paint_no = pp.paint_no)\r\n" + 
@@ -473,7 +482,7 @@ public class Mypage_ArtistDao {
 			}
 			
 		}
-		else if(calendar1.isEmpty() || calendar2.isEmpty()) {
+		else if(calendar1.isEmpty() || calendar2.isEmpty()) {		// 배송처리상태와 기간을 가지고 검색 할 때
 			String query = "select order_no, afile, paint_name, artist_name, order_date, ship_date from buy_list bl\r\n" + 
 					"join paint p on (bl.paint_no = p.paint_no)\r\n" + 
 					"join paint_photo pp on (p.paint_no = pp.paint_no)\r\n" + 
@@ -506,7 +515,7 @@ public class Mypage_ArtistDao {
 			}	
 			
 		}
-		else if(shipping_status.isEmpty()) {
+		else if(shipping_status.isEmpty()) {		//  기간과 달력을 입력했을 때 (달력 기준으로 검색)
 			String query = "select order_no, afile, paint_name, artist_name, order_date, ship_date from buy_list bl\r\n" + 
 					"join paint p on (bl.paint_no = p.paint_no)\r\n" + 
 					"join paint_photo pp on (p.paint_no = pp.paint_no)\r\n" + 
@@ -539,7 +548,7 @@ public class Mypage_ArtistDao {
 			}	
 			
 			
-		}else if(term.isEmpty()) {
+		}else if(term.isEmpty()) {			// 배송 처리 상태와 달력의 값을 가지고 검색
 			String query = "select order_no, afile, paint_name, artist_name, order_date, ship_date from buy_list bl\r\n" + 
 					"join paint p on (bl.paint_no = p.paint_no)\r\n" + 
 					"join paint_photo pp on (p.paint_no = pp.paint_no)\r\n" + 
@@ -571,7 +580,7 @@ public class Mypage_ArtistDao {
 				close(rset);
 				close(pstmt);
 			}
-		}else {
+		}else {				// 모든 값을 입력했을 때 (기간과 달력이 동시입력이면 달력을 기준으로)
 			String query = "select order_no, afile, paint_name, artist_name, order_date, ship_date from buy_list bl\r\n" + 
 					"join paint p on (bl.paint_no = p.paint_no)\r\n" + 
 					"join paint_photo pp on (p.paint_no = pp.paint_no)\r\n" + 

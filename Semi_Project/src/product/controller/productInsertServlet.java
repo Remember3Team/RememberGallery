@@ -117,10 +117,9 @@ public class productInsertServlet extends HttpServlet {
 		int result = new ProductService().insertProduct(p, fileList);
 
 		if (result > 0) {
-			response.sendRedirect("PM.list");
+			response.sendRedirect("PM.list");		//상품목록 서블릿으로 이동
 		} else {
 			for (int i = 0; i < saveFiles.size(); i++) {
-				// 서버에 저장된 이름 (rename된 이름) 파일 객체 생성함
 				File failedFile = new File(savePath + saveFiles.get(i));
 				failedFile.delete();
 			}

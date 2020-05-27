@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import = "artistapply.model.vo.*"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="views/css/style.css">
-<link
-	href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 <!-- <link rel="stylesheet" href="../css/bootstrap.css"> -->
 <link rel="stylesheet" href="views/css/MainSlide.css">
 
@@ -38,11 +36,11 @@
 						<ul id="slider" >
 						
 							<li>
-								<div>
-									<!-- <h3>Slide #2</h3>-->
-									<span>Sammy1</span> 
-								</div> <a href="<%=request.getContextPath()%>/views/mypage_artist/art-apply.jsp">
-								<img src="<%=request.getContextPath()%>/views/img/slide6.jpg"></a>
+			
+							 <a href="<%=request.getContextPath()%>/view.ap">
+							 	<img src="<%=request.getContextPath()%>/views/img/background-1.png">
+							 </a>
+							
 							</li>
 							
 							
@@ -52,7 +50,7 @@
 							<!--  	<h3>Slide #1</h3>-->	
 									<!-- <span>작가제휴 바로가기</span>  -->
 								</div>
-								 <button class="btn btn-outline-dark" style=" position:absolute; width:120px; height : 50px; margin-top: 10px;"
+								 <button class="btn btn-outline-dark" style=" position:absolute; width:120px; height:50px; margin-top: 10px;"
 							onclick= "location.href='<%=request.getContextPath()%>/view.ap">sammy</button>
 								<img src="<%=request.getContextPath()%>/views/img/slide4.jpg">
 							</li>
@@ -79,7 +77,7 @@
 						</div>
 
 						<div id="slider-pagination-wrap">
-							<ul style=" margin-top: 35%;">
+							<ul style=" margin-top:38%">
 							</ul>
 						</div>
 					</div>
@@ -126,7 +124,7 @@
 					this.classList.remove('active');
 					autoSlider = setInterval(function() {
 						plusSlides(1);
-					}, 3000); 
+					}, 300000); 
 				});
 
 				function plusSlides(n) {
@@ -180,24 +178,7 @@
 		<!--content end-->
 
 
-<!-- 새미언니 버튼 ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ -->
-<%-- 	<input type="button" value="바로 구매하기"
 
->>>>>>> refs/remotes/origin/master
-	 
-			style="background-color: rgb(224, 224, 224); margin-top: 10px;"
-			onclick="location.href='<%=request.getContextPath()%>/views/mypage_artist/art-registration.jsp'"> 
-
-
-	<inp
-	
-	ut type="button" value="sammy"
-			style="background-color: rgb(224, 224, 224); margin-top: 10px;"
-			onclick="location.href='<%=request.getContextPath()%>/views/mypage_artist/art-apply.jsp'">
-			
-				<input type="button" value="sammy2"
-			style="background-color: rgb(224, 224, 224); margin-top: 10px;"
-			onclick="location.href='<%=request.getContextPath()%>/list.ar'"> --%>
 
 	<%@include file="views/main/main.jsp" %>
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

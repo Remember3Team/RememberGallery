@@ -137,7 +137,7 @@
                  			Attachment a = alist.get(j); %>
 				<% if(p.getPaint_no() == a.getPaint_no() && p.getAuc_yn().equals("N")) { %>
 				<img class="rimage" src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= a.getSavefileName() %>" style="width: 300px; height: 300px;">		      
-					<%}} %>
+					
 					<div class="mname" align="center">
 						<!-- 이름 -->
 						<p><%=p.getPaint_name() %></p>
@@ -154,7 +154,7 @@
 						<button class="btn btn-outline-secondary buy_product" style="width:303px; heighht:20px;">구매하기</button>
 					
 			</div>
-			<% } %>
+			<% }}} %>
  
                   
                   <script>
@@ -213,8 +213,9 @@
       </div>
 
 
-   <br><br>
-
+   <br ><br>
+<div>
 <%@include file="../common/footer.jsp" %>
+</div>
 </body>
 </html>

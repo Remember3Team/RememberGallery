@@ -107,7 +107,7 @@
                 <% for(Mypage_artist ma : DOV_plist){ %>
                 <tr>
                     <td><%=ma.getOrder_no() %></td>
-                    <td><%=ma.getAfile() %></td>
+                    <td><img src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= ma.getAfile() %>" style="width:100px; height:100px;"></td>
                     <td>작품명 : <%=ma.getPaint_name() %><br> 작가명 : <%=ma.getArtist_name() %></td>
                     <td><%=ma.getPaint_price() %></td>
                     <td><%=ma.getOrder_status() %></td>

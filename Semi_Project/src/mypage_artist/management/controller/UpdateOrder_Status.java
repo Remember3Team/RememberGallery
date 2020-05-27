@@ -42,7 +42,7 @@ public class UpdateOrder_Status extends HttpServlet {
 		int result = aService.updateOrder_status(order_no);
 		
 		if(result >0) {
-			response.sendRedirect("OM.list");
+			response.sendRedirect("SM.list");
 		}else {
 			System.out.println("입금확인 실패");
 		}

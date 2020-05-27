@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import artistapply.model.vo.Apply;
 import board.notice.model.vo.PageInfo;
 import member.model.vo.Member;
+import mypage_artist.RefundQnACard.model.service.ArtistService;
 import mypage_artist.management.model.service.Mypage_ArtistService;
 import mypage_artist.management.model.vo.Mypage_artist;
 
@@ -38,7 +40,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		Mypage_ArtistService aService = new Mypage_ArtistService();
 		
 		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getUserName());
-		
+		String Writer = (((Member) request.getSession().getAttribute("loginUser")).getUserId());
 		
 		// 1_1. 게시판 리스트 갯수 구하기
 				int listCount_SM = aService.getListCount_SM(bWriter);
@@ -97,10 +99,10 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 //				}
 				
 				// 프로필 사진 불러오기
-//				ArtistService aService1 = new ArtistService();
-//				
-//				Apply aphoto = aService1.selectPhoto(bWriter);
-//				System.out.println(aphoto);
+				ArtistService aService1 = new ArtistService();
+				
+				Apply aphoto = aService1.selectPhoto(Writer);
+				System.out.println(aphoto);
 				
 				// 출력이 잘 나오는걸 확인하면 이제 화면단으로 넘겨주자
 				
@@ -108,7 +110,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 				if(!SM_list.isEmpty()) {
 					view = request.getRequestDispatcher("views/mypage_artist/shipping_management.jsp");
 					request.setAttribute("SM_list", SM_list);
-//					request.setAttribute("aphoto", aphoto);
+					request.setAttribute("aphoto", aphoto);
 					request.setAttribute("pi", pi);
 				}else {
 					view = request.getRequestDispatcher("views/common/errorPage.jsp");

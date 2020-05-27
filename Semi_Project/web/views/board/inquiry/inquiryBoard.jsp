@@ -24,6 +24,10 @@ int endPage = pi.getEndPage();
 <script type="text/javascript" src="<%=request.getContextPath() %>/views/js/bootstrap.js"></script>    
 </head>
 <style>
+	td{
+		margin-left : 10px;
+		margin-right : 10px;
+	}
 	#centerDiv{margin-top:70px;}
 	.headLine{ float:left; width:30%; margin-top:90px; margin-left:90px; margin-bottom:50px; display:block; box-sizing:border-box;}
 	.headLine hr{ background-color:red; width:25px; border:2px solid red; margin-bottom:10px;}
@@ -110,11 +114,8 @@ int endPage = pi.getEndPage();
       <th scope="row" class="text-center"><%=in.getQ_cate() %></th>
       <td class="text-center"><%=in.getQuestion_title() %></td>
       <td class="text-center"><%=in.getUser_id() %></td>
-      <%if(loginUser.getUserId().equals("admin") && in.getQ_yn().equals("N")){ %>
-      	<td class="text-center"><button id="inputAnswer" class="btn btn-danger" data-toggle="modal" data-target="#intro">답변하기</button>
-      <%}else{ %>
-      	<td class="text-center"><%=in.getQ_yn() %></td>
-      <%} %>
+      <td class="text-center"><%=in.getQ_yn() %></td>
+      
     </tr>
     <%if(loginUser.getUserId().equals("admin") || loginUser.getUserId().equals(in.getUser_id())){ %>
 	<tr style="height:100px;">
@@ -200,7 +201,8 @@ int endPage = pi.getEndPage();
  					$inquiryTable.html("");
  					
  					for(var key in data){
-						 						
+
+ 						
  						var $tr = $("<tr>");
  						
  						var $writerTd=$("<td>").text(data[key].user_id).addClass('text-center');
@@ -208,16 +210,14 @@ int endPage = pi.getEndPage();
  						var $question_titleTd=$("<td>").text(data[key].question_title).addClass('text-center');
  						var $questionTd=$("<td>").text(data[key].question).addClass('text-center');
  						var $questionYnTd=$("<td>").text(data[key].q_yn).addClass('text-center');
- 						var $questionFileTd=$("<td>").text(data[key].q_file).addClass('text-center');
- 						
+						 						
  						
  						$tr.append($categoryTd);
  						$tr.append($question_titleTd);
  						$tr.append($writerTd);
  						$tr.append($questionYnTd);
-
+						$tr.append($tr);
  						$tr.append($questionTd);
- 						$tr.append($questionFileTd);
 
  						
  						$inquiryTable.append($tr);

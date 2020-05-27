@@ -122,8 +122,8 @@
 	
 		
 	<!-- 게시글 작성  -->	
-	<button id="insertNotice" type="button active" class="btn btn-secondary" 
-			onclick="location.href='<%=request.getContextPath()%>/views/board/notice/noticeInsert.jsp'">게시글 작성</button>
+	<%-- <button id="insertNotice" type="button active" class="btn btn-secondary" 
+			onclick="location.href='<%=request.getContextPath()%>/views/board/notice/noticeInsert.jsp'">게시글 작성</button> --%>
 </div>
 <br><br><br>
 	<%@include file="../../common/footer.jsp" %>

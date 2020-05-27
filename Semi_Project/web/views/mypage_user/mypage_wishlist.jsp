@@ -207,7 +207,7 @@ function productBuy(paintNo,buyYN){
       <br>
       <br>
       <button type="submit" class="btn btn-dark" style="width:100px;"onclick="javascript: deleteBasket();">선택상품 삭제</button>
-      <button type="submit" class="btn btn-dark" style="width:100px; float:right;"><a href="<%= request.getContextPath() %>/views/product/product.jsp">쇼핑 계속하기</a></button>
+      <button type="submit" class="btn btn-dark" style="width:100px; float:right;"><a href="<%= request.getContextPath() %>/list.po">쇼핑 계속하기</a></button>
       
 <!--       <button type="submit" class="btn btn-dark" style="width:100px; float:right;">선택상품 주문</button> -->
 <!--       <button type="submit" class="btn btn-dark" style="width:100px; float:right; margin-right: 4px;">전체상품 주문</button> -->
