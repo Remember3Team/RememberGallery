@@ -38,13 +38,25 @@
         <div class="headline-subbox">
             <div class="artist-img">
                 <!--Artist Image-->
-				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>" style= "width:150px; height:150px;">        </div>
-            <div class="artist-button">
-                <button style="margin-bottom: 3px;">정보수정</button>
-                <button>감동카드 확인</button>
+				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>" style="width:83px; height :83px;">
+				<%-- <%= request.getContextPath() %>/detail.po/<%= mlist.getPaint_no() %> --%>
+           </div>
+            <div class="artist-btn" style = "display: inline-block; vertical-align: middle;
+            ">
+                <button class="btn btn-outline-dark" style = "width:120px; display:block; margin-bottom:5px;" onclick="updateInfo();">정보 수정</button>
+                <button class="btn btn-outline-dark" style = "width:120px; display:block;margin-top:5px;" onclick="checkCard();">감동 카드</button>
+                <script>
+                	function checkCard() {
+                		location.href = "<%= request.getContextPath() %>/list.ac"		
+                	}
+                	
+                	function updateInfo() {
+                		location.href = "<%=request.getContextPath()%>/mypage.me?userId=<%=loginUser.getUserId() %>"
+                	}
+                </script>
             </div>
         </div>
-    </div> 
+    </div>
 <%@include file="../common/mypagehead.jsp" %>
     <div class="title">
         <h3>상품관리</h3>

@@ -15,7 +15,7 @@ import mypage_artist.management.model.service.Mypage_ArtistService;
 /**
  * Servlet implementation class DeleteProductServlet
  */
-@WebServlet("/delete.p")
+@WebServlet("/delete.p")////////////////////////////////////////////////////////////////////////////////////확인해줭
 public class DeleteProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -43,13 +43,19 @@ public class DeleteProductServlet extends HttpServlet {
 		
 		RequestDispatcher view = null;
 		
-		if(deleteResult > 0) {
-			view = request.getRequestDispatcher("views/mypage_artist/product_management.jsp");	
+		if(deleteBResult > 0) {
+			view = request.getRequestDispatcher("views/mypage_user/mypage_wishlist.jsp");
 		}else {
 			view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			request.setAttribute("msg","작품 삭제 실패");
+			request.setAttribute("msg","장바구니 삭제 실패");
 		}
-		view.forward(request, response);
+		
+		/*
+		 * if(deleteResult > 0) { view =
+		 * request.getRequestDispatcher("views/mypage_artist/product_management.jsp");
+		 * }else { view = request.getRequestDispatcher("views/common/errorPage.jsp");
+		 * request.setAttribute("msg","작품 삭제 실패"); } view.forward(request, response);
+		 */
 	}
 
 	/**

@@ -102,7 +102,7 @@ public class ArtistCardListServlet extends HttpServlet {
 				// 감동 메세지 게시판 리스트 조회해오기
 				ArrayList<Message> mlist = aService.selectCardList(name, currentPage, limit);
 				for(int i = 0 ; i < mlist.size(); i++) {
-					System.out.println(mlist.get(i));
+					System.out.println("섭,ㄹㄹ;ㅅ"+mlist.get(i));
 				}
 				
 				ArrayList<Attachment> alist = aService.selectCAList(name, currentPage, limit);

@@ -108,7 +108,7 @@ public class Mypage_ArtistDao {
 				" JOIN PAINT_PHOTO PP ON (P.PAINT_NO = PP.PAINT_NO)\r\n" + 
 				"left JOIN BUY_LIST BL ON (P.PAINT_NO = BL.PAINT_NO)\r\n" + 
 				"left JOIN MEMBER ON (BL.USER_ID = MEMBER.USER_ID)\r\n" + 
-				"WHERE p.paint_no  BETWEEN ? AND ? AND   p.ARTIST_NAME=? AND FILELEVEL=0 order by 1";
+				"WHERE p.paint_no  BETWEEN ? AND ? AND   p.ARTIST_NAME=? AND FILELEVEL=0 AND AUC_YN='N' order by 1 ";
 		
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = startRow + limit - 1;
@@ -1106,12 +1106,11 @@ public class Mypage_ArtistDao {
 		PreparedStatement pstmt = null;
 		int deleteBResult = 0;
 		
-		String query = "DELETE FROM BASKET\r\n" + 
-				"JOIN PAINT ON (BASKET.PAINT_NO = PAINT.PAINT_NO)\r\n" + 
-				"WHERE AUC_YN = 'Y'";
+		String query = "DELETE FROM BASKET WHERE PAINT_NO =?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, paint_no);
 			
 			deleteBResult = pstmt.executeUpdate();
 			if(deleteBResult > 0) {
