@@ -110,16 +110,16 @@ public class ArtistQnAListServlet extends HttpServlet {
 				// 출력이 잘 나오는걸 확인하면 이제 화면단으로 넘겨주자
 				
 				RequestDispatcher view = null;
-				if(!qnalist.isEmpty()) {
+//				if(!qnalist.isEmpty()) {
 					view = request.getRequestDispatcher("views/mypage_artist/art-qna.jsp");
 					request.setAttribute("qnalist", qnalist);
 					request.setAttribute("alist", alist);
 					request.setAttribute("pi", pi);
 					request.setAttribute("aphoto", aphoto);
-				}else {
-					view = request.getRequestDispatcher("views/common/errorPage.jsp");
-				    request.setAttribute("msg","문의 받은 내역이 없습니다.");
-				}
+//				}else {
+//					view = request.getRequestDispatcher("views/common/errorPage.jsp");
+//				    request.setAttribute("msg","문의 받은 내역이 없습니다.");
+//				}
 				
 				view.forward(request, response);
 				

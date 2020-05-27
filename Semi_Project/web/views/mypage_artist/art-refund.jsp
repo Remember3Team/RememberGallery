@@ -45,7 +45,7 @@
 		<div class="headline-subbox">
 			<div class="artist-img">
 				<!--Artist Image-->
-				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>/" style="width: 83px; height: 83px;">
+				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>">
 			</div>
 			<div class="artist-btn"
 				style="display: inline-block; vertical-align: middle;">
@@ -203,8 +203,7 @@
 					<th style="text-align: center;">처리 상태</th>
 					<th style="text-align: center;">주문 정보 확인</th>
 				</tr>
-
-
+				
 				<% for(int i = 0 ; i < list.size(); i++){
                 	BuyList_a b = list.get(i);
                 %>

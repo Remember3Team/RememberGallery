@@ -113,17 +113,17 @@ public class ArtistRefundListServlet extends HttpServlet {
 		
 		
 		RequestDispatcher view = null;
-		if(!list.isEmpty()) {
+//		if(!list.isEmpty()) {
 			view = request.getRequestDispatcher("views/mypage_artist/art-refund.jsp");
+			request.setAttribute("aphoto", aphoto);
 			request.setAttribute("list", list);
 			request.setAttribute("alist", alist);
 			request.setAttribute("pi", pi);
-			request.setAttribute("aphoto", aphoto);
-		}else {
-			view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			       request.setAttribute("msg","환불 목록이 없습니다.");
+//		}else {
+//			view = request.getRequestDispatcher("views/common/errorPage.jsp");
+//			       request.setAttribute("msg","환불 목록이 없습니다.");
 			
-		}
+//		}
 		
 		view.forward(request, response);
 		

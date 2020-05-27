@@ -99,11 +99,15 @@ public class InsertApplyServlet extends HttpServlet {
 		// result는 조건처리를 위하여 int로 받음
 		int result = new ApplyService().insertApply(apply, carlist);
 		
+		RequestDispatcher view = null;
 		
 	    if(result>0) {
-	    	System.out.println("성공~");
+	    	view = request.getRequestDispatcher("/views/common/successPage.jsp");
+	    	request.setAttribute("msg", "제출이 완료 되었습니다.");
+	    	
 	    }else {
-	    	System.out.println("실패~");
+	    	view = request.getRequestDispatcher("/views/common/errorPage.jsp");
+	    	request.setAttribute("msg", "제출에 실패하였습니다. 다시 시도하세요.");
 	    
 	    	File failedFile1 = new File(savePath + carfile);
 	    	failedFile1.delete();
@@ -114,6 +118,7 @@ public class InsertApplyServlet extends HttpServlet {
 	    	
 	    }
 	    
+	    view.forward(request, response);
 	    
 	   
 	    

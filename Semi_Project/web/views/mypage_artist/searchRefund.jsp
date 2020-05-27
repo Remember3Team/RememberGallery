@@ -38,7 +38,7 @@
 		<div class="headline-subbox">
 			<div class="artist-img">
 				<!--Artist Image-->
-				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>" style="width: 83px; height: 83px;">
+				<img src="<%= request.getContextPath() %>/apply_uploadFiles/<%= aphoto.getArtist_pro() %>">
 			</div>
 			<div class="artist-btn"
 				style="display: inline-block; vertical-align: middle;">

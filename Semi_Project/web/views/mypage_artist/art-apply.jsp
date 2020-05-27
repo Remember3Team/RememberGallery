@@ -35,7 +35,7 @@
                     </div>
                     <div class="image-box">
                         <a style="font-size: 80%; margin-bottom: 10px; display: inline-block; margin: 10px 0;">사진 업로드</a>
-                        <div class = "imgPreview"><img class= "artistImg" width ="135px"><span class = "x-box" onclick="deletePhoto();"></span></div>
+                        <div class = "imgPreview"><img class= "artistImg" width ="120%"><span class = "x-box" onclick="deletePhoto();"></span></div>
                         <label for="file1" id ="uploadPhoto1" onchange="uploadPhoto(this);"> 사진 업로드</label>
                         <input type="file" name="file1" id="file1" onchange="uploadPhoto(this);">
                         <!-- <input class="upload-name" value="파일선택"> -->
