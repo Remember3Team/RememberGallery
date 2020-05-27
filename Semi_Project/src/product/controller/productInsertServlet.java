@@ -80,7 +80,7 @@ public class productInsertServlet extends HttpServlet {
 		String year = multiRequest.getParameter("year");
 		int price = Integer.valueOf(multiRequest.getParameter("price"));
 		String paintInt = multiRequest.getParameter("paint_int");
-		// 사이즈 번호 빠져있음..
+		int size = Integer.valueOf(multiRequest.getParameter("size")); //사이즈 (호수)
 //		String bWriter = String.valueOf(((Member) request.getSession().getAttribute("loginUser")).getUserNo());
 		String bWriter = (((Member) request.getSession().getAttribute("loginUser")).getUserId());
 		System.out.println(bWriter);
@@ -96,7 +96,7 @@ public class productInsertServlet extends HttpServlet {
 		 * 다시한번 보내서 저장 System.out.println(tagname);
 		 */
 
-		product p = new product(pname, aname, thema, year, price, paintInt, bWriter);
+		product p = new product(pname, aname, thema, year, price, paintInt, bWriter,size);
 
 		ArrayList<Attachment> fileList = new ArrayList<>();
 

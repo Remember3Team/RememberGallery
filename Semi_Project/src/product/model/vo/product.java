@@ -92,7 +92,7 @@ public class product {
 
 
 	public product(String paint_name, String artist_name, String category, String paint_mdate, int patint_price,String paint_int,
-					String bWriter) {
+					String bWriter,int size) {
 		this.paint_name = paint_name;
 		this.patint_price = patint_price;
 		this.category = category;
@@ -100,6 +100,7 @@ public class product {
 		this.paint_mdate = paint_mdate;
 		this.paint_int = paint_int;
 		this.pId = bWriter;
+		this.size_no = size;
 	}
 
 
