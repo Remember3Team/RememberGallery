@@ -14,6 +14,9 @@
 
 <script src="views/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="views/js/bootstrap.js"></script>
+<style>
+
+</style>
 </head>
 
 <body>

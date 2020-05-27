@@ -29,9 +29,9 @@ public class inquiryAnswerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-//		InquiryService inService = new InquiryService();
+		InquiryService inService = new InquiryService();
 
-//		String 
+ 
 		
 	}
 

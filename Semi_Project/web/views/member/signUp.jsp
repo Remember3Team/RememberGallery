@@ -150,6 +150,19 @@ td {
 							placeholder="@ 포함한 이메일 기재" required>
 					</div>
 					<br>
+					
+					<div class="info-box7">
+						<label class="labelfirst">사용자</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+						 <input type = "checkbox" id ="ACCOUNT_GRADE1" value="buyer">소비자
+						 <input type = "checkbox" id ="ACCOUNT_GRADE2" value="seller" >판매자
+						 <input type = "checkbox" id ="ACCOUNT_GRADE3" value="admin" >관리자
+
+
+
+
+
+					</div>
 					<!-- 
 					<div>
 						<div class="info-box8">
