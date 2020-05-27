@@ -93,7 +93,7 @@ public class ProductDao {
 
 		int result = 0;
 
-		String query = "INSERT INTO PAINT VALUES(SEQ_PID.NEXTVAL, ?, ?, ?, ?, ?, ?, 1, 'N')";
+		String query = "INSERT INTO PAINT VALUES(SEQ_PID.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, 'N')";
 
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -104,6 +104,7 @@ public class ProductDao {
 			pstmt.setString(4, p.getArtist_name());
 			pstmt.setString(5, p.getPaint_int());
 			pstmt.setString(6, p.getPaint_mdate());
+			pstmt.setInt(7, p.getSize_no());
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
