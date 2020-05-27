@@ -116,9 +116,8 @@ public class SearchListServlet extends HttpServlet {
 			view = request.getRequestDispatcher("views/mypage_artist/searchResult.jsp");
 			request.setAttribute("search_list", search_list);
 		}else {
-//			view = request.getRequestDispatcher("views/common/errorPage.jsp");
-//			request.setAttribute("msg","게시판 리스트 조회 실패!");
-			System.out.println("게시판 조회 실패");
+			view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			request.setAttribute("msg","검색 결과가 없습니다");
 		}
 		
 		view.forward(request, response);

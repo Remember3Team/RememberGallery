@@ -19,7 +19,10 @@
 <body>
 
 	<%@include file="views/common/menubar.jsp" %>
- <!-- 메인 슬라이드 -->
+
+
+<section> <!-- 메인 슬라이드 -->
+
 		<div id="contents">
 			<div class="part1">
 		<!-- 		<div class="slide">
@@ -170,17 +173,22 @@
 		
 			<!--part3 end 마스터 피스 부분-->
 		</div>
+		
 		<!--content end-->
 
 
 <!-- 새미언니 버튼 ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ -->
 <%-- 	<input type="button" value="바로 구매하기"
 
+>>>>>>> refs/remotes/origin/master
 	 
 			style="background-color: rgb(224, 224, 224); margin-top: 10px;"
 			onclick="location.href='<%=request.getContextPath()%>/views/mypage_artist/art-registration.jsp'"> 
 
-	<input type="button" value="sammy"
+
+	<inp
+	
+	ut type="button" value="sammy"
 			style="background-color: rgb(224, 224, 224); margin-top: 10px;"
 			onclick="location.href='<%=request.getContextPath()%>/views/mypage_artist/art-apply.jsp'">
 			

@@ -345,6 +345,7 @@ border: solid 1px;
     width: 100%;
     vertical-align: middle;
     display: flex;
+    justify-content: center;
     background-color: rgb(241, 241, 241);
     border-radius: 5px;
     padding: 9px;
@@ -690,6 +691,7 @@ border: solid 1px;
 		</td>
 		</tr>
    </table>
+   
    <div id="replySelectArea">
 			<table id="replySelectTable" class="table" align="center">
 				<% if(qna.isEmpty()) { %>
@@ -698,7 +700,7 @@ border: solid 1px;
 					<% for(int i= qna.size()-1; i>=0; i--){ %>
 						<tr class = "answerlist-box">
 							<td><%= qna.get(i).getUser_id() %></td>
-							<td width = "350px" class = "question-box"><%= qna.get(i).getPqusetion() %></td>
+							<td><span  class = "question-box"><%= qna.get(i).getPqusetion() %></span></td>
 							<td><%= qna.get(i).getPq_date() %></td>
 							<%if(qna.get(i).getPq_yn().equals("N")) {%>
 							<td>
@@ -707,14 +709,17 @@ border: solid 1px;
 								<div class="Acontents" style="display:none;">
 									<textArea rows="5" cols="100" class="AContent"></textArea>
 									<div class="Acontent_btn">
-									<input id="paint_no" type="hidden" value="<%=plist.getPaint_no()%>"><br>
-									<button class="hideA"  type="button active"  style="width:100px;  margin-bottom : 10px; font-size : 14px;">답변접기</button>
-									<button class="insertA" type="button active" style="width:100px;  margin: 0; font-size : 14px;">작성완료</button>
+									
+										<input id="paint_no" type="hidden" value="<%=plist.getPaint_no()%>"><br>
+										<button class="hideA"  type="button active"  onclick="test(this)" style="width:100px;  margin-bottom : 10px; font-size : 14px;">답변접기</button>
+										<button class="insertA" type="button active" style="width:100px;  margin: 0; font-size : 14px;">작성완료</button>
 									</div>
-								</div>
+							</div>
 							</td>
+							<tr class="answertable<%=qna.get(i).getPq_no() %>" style="display:none; vertical-align : middle; text-align: center;">
+							</tr>
 							<%}else if(qna.get(i).getPq_yn().equals("Y")){%>
-							<td>
+							<td rowspan='2'>
 							<b>답변완료</b>
 							</td>
 							<%} %>
@@ -722,8 +727,8 @@ border: solid 1px;
 							<%for(int j=0; j <= qna2.size()-1; j++){ %>
 							<%if(qna.get(i).getPq_no() == qna2.get(j).getPq_no()){%>
 							<tr style="vertical-align : middle; text-align: center;">
-								<td>답변:</td>
-								<td width = "350px" class = "question-box"><%= qna2.get(j).getPanswer()%></td>
+								<td style="vertical-align: middle;" >답변:</td>
+								<td><span  class = "question-box" ><%= qna2.get(j).getPanswer()%></span></td>
 								<td><%= qna2.get(j).getPa_date() %></td>
 							</tr>
 							<%}} %>
@@ -740,8 +745,9 @@ border: solid 1px;
 				
 			})
 		})
-		
-		
+		function test(a){
+			
+		}
 		$(function(){
 			$(".addA").click(function(){
 				$(this).parent().children(".Acontents").show();
@@ -749,39 +755,53 @@ border: solid 1px;
 				
 			})
 		})
-		
+		//대댓글
 		$(function(){
 			$(".insertA").click(function(){ 
 				var qna_no = $(this).parent().parent().parent().children(".qna_no").val();
 				var content = $(this).parent().parent().children(".AContent").val();
 				var paint_no = $(this).parent().children("input").val();
+				$(this).parent().parent(".Acontents").hide();
+				$(this).parent().parent().parent().children(".addA").hide();
+				$(this).parent().parent().parent("td").attr("rowspan","2");
+				$(this).parent().parent().parent("td").css('font-weight','700').text("답변완료");
+				
 				$.ajax({
 					url:"insertA.po",
 					type:"post",
 					data:{qna_no:qna_no,content:content,paint_no:paint_no},
 					
 					success:function(data){
-						$replyTable = $("answertable");
+						$replyTable = $(".answertable"+qna_no);
 						$replyTable.html("");
-						for(var key in data){
-							var $tr = $("<tr>");
+					
+						//	var $tr = $("<tr>");
 							
-							var $contentTd =$("<td>").text(data[key].panswer).css("width","400px");
-							var $dateTd = $("<td>").text(data[key].pq_date).css("width","200px");
-							
+							var $test1 = $("<td>").text("답변 :").css("vertical-align","middle");
+							var $contentTd =$("<td>");
+							var $contentTd2 =$("<span>").text(data.panswer).addClass("question-box");
+							var $dateTd = $("<td>").text(data.pa_date);
+							var $td =$("<td>").text(" ");
+							var $td2 =$("<td>").text(" ");
 						
-							$tr.append($contentTd);
-							$tr.append($dateTd);
-							$replyTable.append($tr);
-						}
+	
+							$replyTable.append($test1);
+							$replyTable.append($contentTd);
+							$contentTd.append($contentTd2);
+							$replyTable.append($dateTd);
+							//$replyTable.append($td);
+							//$replyTable.append($tr);
+							$replyTable.css("display","table-row");
 					},
+				
 					error:function(request,statur,error){
-						alter("댓글은 한번만 등록할 수 있습니다.");
+						alert("댓글은 한번만 등록할 수 있습니다.");
 					}
 				})
 			})
 		})
 		
+		//댓글
 		$(function(){
 			$(".addQNA").click(function(){
 				var paint_no = "<%=plist.getPaint_no()%>";
@@ -807,12 +827,8 @@ border: solid 1px;
 							$tr.append($contentTd);
 							$tr.append($dateTd);
 							
-					
-						
-													
-							
 						}
-						$("#QnAContent").val("");
+						$(".QnAContent").val("");
 					},
 					error:function(request,statur,error){
 						alert("로그인을해야합니다.");

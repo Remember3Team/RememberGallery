@@ -64,9 +64,8 @@ public class DetailOrderViewServlet extends HttpServlet {
 			request.setAttribute("DOV_dlist", DOV_dlist);
 			request.setAttribute("DOV_slist", DOV_slist);
 		}else {
-//			view = request.getRequestDispatcher("views/common/errorPage.jsp");
-//			request.setAttribute("msg","게시판 리스트 조회 실패!");
-			System.out.println("게시판 조회 실패");
+			view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			request.setAttribute("msg","상세정보 조회 실패");
 		}
 		
 		view.forward(request, response);

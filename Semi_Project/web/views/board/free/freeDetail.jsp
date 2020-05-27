@@ -20,6 +20,10 @@
 	#detailArea div{ margin:0 auto; margin-top:100px; width:80%;}
 	.headLine{ float:left; width:30%; margin-top:90px; margin-left:90px; margin-bottom:50px; display:block; box-sizing:border-box;}
 	.headLine hr{ background-color:red; width:25px; border:2px solid red; margin-bottom:10px;}
+	#goFreeBoard{ float:right; margin-right:100px; }
+	#deleteContent{ float:right; margin-right:3px;}
+	#updateContent{float:right; margin-right:3px;}
+	
 	
 </style>
 </head>
@@ -37,6 +41,7 @@
             <div class="cols-sm-6">
                <table align="center" class="table" style="width:120%; margin-right:40px;" >
                   <tr>
+                  	<input id="deleteNo" type="hidden" value="<%=f.getFree_no()%>">
                      <td>제목</td>
                      <td colspan="4"><span><%=f.getFree_title() %></span></td>
                   </tr>
@@ -93,10 +98,35 @@
          </div><!-- row div end -->
        </div><!-- container div end -->
  
-		<button id="goFreeBoard" type="button active" class="btn btn-secondary" onclick="location.href='<%=request.getContextPath()%>/views/board/free/freeBoard.jsp'">목록으로 가기</button>
+	<button id="goFreeBoard" type="button active" class="btn btn-secondary" onclick="pageBack();">목록</button>
+	<%if(loginUser.getUserName().equals(f.getUser_id())){ %>
+		<button id="updateContent" type="button active" class="btn btn-secondary" onclick="goUpdate();">수정</button>
+		<button id="deleteContent" type="button active" class="btn btn-secondary" onclick="goDelete();">삭제</button>
+   	<%} %>
+   	
+   	<br><br><br><br><br><br><br><br><br>
+   	
+	<%@include file="../../common/footer.jsp" %>
+   	
    </body>
 
 	<script>
+	function pageBack(){
+		history.go(-1)();
+	}
+	function goDelete(){
+		var deleteNo = document.getElementById("deleteNo").value;
+		var result = confirm("정말 삭제하시겠습니까?");
+		if(result){
+			location.href="<%=request.getContextPath()%>/delete.ee?deleteNo="+deleteNo;			
+		}else{
+			
+		}
+	}
+	function goUpdate(){
+		var updateNo = document.getElementById("deleteNo").value;
+		location.href="<%=request.getContextPath()%>/select.ee?updateNo="+updateNo;
+	}
 		$(function(){
 			
 			$("#addReply").click(function(){

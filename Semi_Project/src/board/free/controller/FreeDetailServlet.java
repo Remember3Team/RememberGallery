@@ -41,11 +41,10 @@ public class FreeDetailServlet extends HttpServlet {
 		
 		ArrayList<Reply> reply = fService.selectReply(free_no);
 		
-		if(free!=null) {
 			request.setAttribute("free", free);
 			request.setAttribute("rList", reply);
 			request.getRequestDispatcher("views/board/free/freeDetail.jsp").forward(request, response);
-		}
+		
 		
 	}
 

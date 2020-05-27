@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import artistapply.model.dao.ApplyDao;
 import artistapply.model.vo.Apply;
+import artistapply.model.vo.Career;
 import member.model.vo.Member;
 import mypage_artist.RefundQnACard.model.dao.ArtistDao;
 import mypage_artist.RefundQnACard.model.vo.BuyList_a;
@@ -41,11 +42,11 @@ public class ArtistService {
 		return list;
 	}
 	
-	// 작가 아이디로 이미지 받아오기
-	public ArrayList<Attachment> selectAList(String name, int currentPage, int limit) {
+	// 작가 이름로 이미지 받아오기
+	public ArrayList<Attachment> selectAList(String name) {
 		Connection conn = getConnection();
 		
-		ArrayList<Attachment> list2 =new ArtistDao().selectphoto(conn, name, currentPage,limit);
+		ArrayList<Attachment> list2 =new ArtistDao().selectphoto(conn, name);
 		
 		System.out.println("list2 출력 : " + list2);
 		
@@ -70,9 +71,9 @@ public class ArtistService {
 	}
 
 	// 감동카드 이미지 받아오기
-	public ArrayList<Attachment> selectCAList(String artistName, int currentPage, int limit) {
+	public ArrayList<Attachment> selectCAList(String artistName) {
 		Connection conn = getConnection();
-		ArrayList<Attachment> list2 =new ArtistDao().selectCAphoto(conn, artistName, currentPage,limit);
+		ArrayList<Attachment> list2 =new ArtistDao().selectCAphoto(conn, artistName);
 		
 		System.out.println("list2 출력 : " + list2);
 		
@@ -92,9 +93,9 @@ public class ArtistService {
 	}
 
 	// qna 사진 받아오기
-	public ArrayList<Attachment> selectQpList(String artistName, int currentPage, int limit) {
+	public ArrayList<Attachment> selectQpList(String artistName) {
 		Connection conn = getConnection();
-		ArrayList<Attachment> list2 =new ArtistDao().selectQpphoto(conn, artistName, currentPage,limit);
+		ArrayList<Attachment> list2 =new ArtistDao().selectQpphoto(conn, artistName);
 		
 		System.out.println("list2 출력 : " + list2);
 		
@@ -164,6 +165,46 @@ public class ArtistService {
 		close(conn);
 
 		return listCount;
+	}
+
+	public Apply selectApply(String userId) {
+		Connection conn = getConnection();
+		
+		Apply artist = new ArtistDao().selectApply(conn, userId);
+		
+		close(conn);
+		
+		return artist;
+	}
+
+	public ArrayList<Career> selectCareer(String userId) {
+		Connection conn = getConnection();
+		
+
+		ArrayList<Career> career =new ArtistDao().selectCareer(conn, userId);
+		
+		close(conn);
+		return career;
+	}
+
+	public ArrayList<BuyList_a> alistSearch(String order_status, String term, String calendar1, String calendar2,
+			String loginName) {
+		Connection conn = getConnection();
+		
+		ArrayList<BuyList_a> alist = new ArtistDao().alistSearch(conn, order_status, term, calendar1, calendar2, loginName);
+		
+		close(conn);
+		return alist;
+	}
+
+	public ArrayList<QnA_Q> qlistSearch(String order_status, String term, String calendar1, String calendar2,
+			String loginName) {
+		Connection conn = getConnection();
+		ArrayList<QnA_Q> qlist= new ArtistDao().qlistSearch(conn, order_status, term, calendar1, calendar2,loginName);
+		
+		
+		close(conn);
+		return qlist;
 	}
 
 }

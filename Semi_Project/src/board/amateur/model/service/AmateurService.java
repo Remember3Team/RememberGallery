@@ -59,10 +59,10 @@ public class AmateurService {
 		return list;
 	}
 
-	public ArrayList<FileManagement> selectList(Amateur getEventNo) {
+	public ArrayList<FileManagement> selectList() {
 		Connection conn = getConnection();
 		
-		ArrayList<FileManagement> list = new AmateurDao().selectList(conn, getEventNo);
+		ArrayList<FileManagement> list = new AmateurDao().selectList(conn);
 		System.out.println("[service]파일 리스트 출력:"+list);
 		close(conn);
 		
@@ -192,6 +192,16 @@ public class AmateurService {
 		close(conn);
 		
 		return show;
+	}
+
+	public ArrayList<Amateur> select(String category, String keyword) {
+		ArrayList<Amateur> list = new ArrayList<>();
+		Connection conn = getConnection();
+		
+		list = new AmateurDao().select(conn, category, keyword);
+		
+		commit(conn);
+		return list;
 	}
 
 	
